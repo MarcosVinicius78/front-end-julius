@@ -2,19 +2,20 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Loja } from '../../models/loja';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class LojaService {
 
-  URL_BASE: string = "http://localhost:8080";
+  URL_BASE = environment.apiUrl;;
 
   constructor(private http: HttpClient) { }
 
   salvarLoja(loja: any){
 
-    return this.http.post("http://localhost:8080/loja", loja);
+    return this.http.post(`${this.URL_BASE}/loja`, loja);
   }
 
   listarLojas(): Observable<any>{

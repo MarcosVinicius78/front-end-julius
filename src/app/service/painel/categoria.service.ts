@@ -15,7 +15,7 @@ export class CategoriaService {
   constructor(private http: HttpClient) { }
 
   salvarCategoria(categoria: Categoria){
-    return this.http.post<Categoria>('http://localhost:8080/categoria', categoria);
+    return this.http.post<Categoria>(`${this.URL_BASE}/categoria`, categoria);
   }
 
   listarCategoria(){

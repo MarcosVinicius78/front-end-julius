@@ -27,7 +27,7 @@ export class ProdutoService {
   }
 
   pegarProduto(id: any) {
-    return this.http.get<ProdutoLoja>(`http://localhost:8080/produto/${id}`);
+    return this.http.get<ProdutoLoja>(`${this.apiUrl}/produto/${id}`);
   }
 
   atualizarProduto(produto: any) {
