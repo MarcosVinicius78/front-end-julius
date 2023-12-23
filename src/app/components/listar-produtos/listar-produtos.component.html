@@ -1,0 +1,75 @@
+<div class="section">
+
+
+  <section>
+    <div class="banner1">
+      <a routerLink="/grupos" target="_blank">
+        <div class="banner">
+          <img class="banner-desktop" src="../../../assets/photo_2023-12-22_12-11-51.jpg" alt="banner">
+          <img class="banner-mobile" src="../../../assets/ACOMPANHE AS PROMOÇÕES E DESCONTOS EM TEMPO REAL.png" alt="">
+        </div>
+      </a>
+    </div>
+
+    <div class="titulo">
+      <div class="pesquisa">
+        <input type="search" name="" id="" placeholder="Procurar Produtos">
+      </div>
+      <div>
+        <p class="radar">
+          Radar de Ofertas
+        </p>
+      </div>
+    </div>
+
+    <div class="container">
+
+      <div class="lista-de-produtos" *ngFor="let item of produtos">
+
+
+        <div class="card">
+          <div class="img">
+            <a routerLink="/oferta/{{ item.id }}">
+              <img [src]="'data:image/jpeg;base64,' + item.imagem" alt="{{ item.titulo }}">
+            </a>
+          </div>
+
+          <div class="loja">
+            <img [src]="'data:image/jpeg;base64,'+ item.loja.imagem" alt="" />
+          </div>
+
+          <div class="info">
+            <p class="data">1</p>
+            <a routerLink="/oferta/{{ item.id }}">
+              <p class="nome-produto">{{ item.titulo }}</p>
+            </a>
+            <p class="cupom">{{ item.cupom }}</p>
+            <a routerLink="/oferta/{{ item.id }}">
+              <p id="preco">{{ item.preco }}</p>
+            </a>
+          </div>
+          <div class="ir-loja">
+            <a href="{{ item.link }}"  target="_blank">Pegar Promoção</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </section>
+
+  <div class="publicidade">
+    <div class="texto-publi">
+      <a routerLink="grupos" target="_blank">
+        Junte-se aos nossos grupos e aproveite incríveis descontos ao fazer suas compras!
+      </a>
+    </div>
+    <div class="grupos">
+      <a href="">Telegram</a>
+      <a href="">WhatsApp</a>
+      <a href="">INSTAGRAM</a>
+      <a href="">FALE CONOSCO</a>
+    </div>
+
+  </div>
+
+</div>

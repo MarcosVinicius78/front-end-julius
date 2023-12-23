@@ -1,0 +1,53 @@
+.section-painel{
+  display: flex;
+  justify-content: space-between;
+}
+
+.inicio{
+  width: 80%;
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 15px 0px;
+}
+
+a{
+  color: black;
+  text-decoration: none;
+}
+
+header h1{
+  margin: 0;
+  display: flex;
+  align-items: center;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  font-size: xx-large;
+  margin-left: 30px;
+  height: 70px;
+}
+
+/* section{
+  height: 100vh;
+} */
+
+/* .inicio{
+  width: 100%;
+  display: flex;
+  justify-content: center;
+} */
+
+/* .inicio section{
+  margin-top: 20px;
+  display: flex;
+  justify-content: space-around;
+} */
+
+/* .inicio section div{
+  width: 300px;
+  height: 100px;
+  background-color: rgb(211, 211, 211);
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+} */
+

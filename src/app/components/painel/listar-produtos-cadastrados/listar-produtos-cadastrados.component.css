@@ -1,0 +1,70 @@
+section{
+  /* background-color: aqua; */
+  height: calc(100% - 10px);
+}
+
+header{
+  display: flex;
+  justify-content: space-around;
+}
+
+header input{
+  width: 100px;
+  padding: 10px;
+  margin-top: 5px;
+  border-radius: 5px;
+}
+
+header div:first-child{
+  width: 90%;
+}
+
+header h1{
+  margin: 0;
+  margin-top: 10px;
+  margin-left: 10px;
+}
+
+.separar{
+  height: calc(100% - 90px);
+  margin-top: 10px;
+  display: flex;
+  justify-content: center;
+  /* background-color: aqua; */
+}
+
+
+table{
+  width: 95%;
+  height: 100px;
+  /* border-collapse: 10px; */
+}
+
+
+td{
+  border-bottom: 1px solid rgb(126, 126, 126);
+  padding: 9px;
+}
+
+tbody tr{
+  background-color: white;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  margin: 10px;
+
+}
+
+.opcoes button{
+  border: none;
+  background-color: red;
+  padding: 10px;
+  margin-right: 5px;
+  color: white;
+}
+
+.opcoes a:last-child{
+  text-decoration: none;
+  color: white;
+  background-color: blue;
+  padding: 10px;
+  margin-right: 5px;
+}

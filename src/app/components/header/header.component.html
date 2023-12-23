@@ -1,0 +1,16 @@
+<header class="header">
+  <a><h1 routerLink="">JULIOS DA PROMO</h1></a>
+  <div class="menu-icon" onclick="toggleMenu()">&#9776;</div>
+  <nav id="menu">
+    <a routerLink="">RECENTES</a>
+    <a routerLink="/sobre">QUEM SOMOS</a>
+
+    <div>
+      <a (click)="toggleCategoria()" class="dropbtn">CATEGORIAS</a>
+      <div id="categ" class="dropdown-content">
+        <a id="cat" *ngFor="let item of categorias" href="produtos-categoria/{{item.categoria_id}}">{{
+          item.nome_categoria }}</a>
+      </div>
+    </div>
+  </nav>
+</header>

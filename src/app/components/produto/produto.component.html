@@ -1,0 +1,46 @@
+<section>
+  <div class="produto">
+
+    <div class="info">
+      <p class="mob">Promoção da loja: {{ produto.lojaResponseDto.nome_loja }}</p>
+      <div class="imagem-produto">
+        <img [src]="'data:image/jpeg;base64,'+ produto.imagem" alt="">
+      </div>
+
+      <div class="informaçoes">
+        <div class="teste">
+          <h2 class="titulo">{{ produto.titulo }}</h2>
+          <p class="preco">{{ produto.preco }}</p>
+          <p>{{produto.cupom}}</p>
+
+          <div class="ir-loja">
+            <a href="{{ produto.link }}" target="_blank">Ir a Loja</a>
+          </div>
+        </div>
+
+        <div class="outras-info">
+          <button class="report">Reportar</button>
+          <button (click)="compartilhar()" class="comp">Compartilhar</button>
+          <div class="loja">
+            <img [src]="'data:image/jpeg;base64,'+ produto.lojaResponseDto.imagem!" alt="{{ produto.lojaResponseDto.nome_loja }}">
+            <div>
+              <p>Promoção da loja:</p>
+              <p>{{ produto.lojaResponseDto.nome_loja }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+  </div>
+
+  <div class="descricao">
+    <h2>Descrição</h2>
+    <p>{{ produto.descricao }}</p>
+  </div>
+
+  <div class="produtos-categorias">
+    <app-carrossel></app-carrossel>
+  </div>
+</section>

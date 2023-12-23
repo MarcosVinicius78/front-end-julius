@@ -1,0 +1,37 @@
+
+.menu-lateral{
+  background-color: #225A76;
+  width: 300px;
+  height: 100vh;
+  border-top-right-radius: 100px;
+  margin-right: 10px;
+}
+
+.opcoes{
+  margin: 0;
+  height: 100%;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+
+.opcoes a {
+  text-decoration: none;
+  color: white;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+.opcoes li a{
+  display: flex;
+  align-items: center;
+  height: 70px;
+}
+
+.opcoes li a:hover{
+  background-color: rgba(190, 190, 190, 0.623);
+  color: black;
+  transition: 50ms;
+  border-radius: 10px;
+  width: 100%;
+}

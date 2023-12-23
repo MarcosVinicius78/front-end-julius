@@ -1,0 +1,41 @@
+<section class="car-categorias">
+
+  <div class="categorias-cadastradas">
+    <div>
+      <h2>Categorias</h2>
+    </div>
+
+    <table>
+      <thead>
+        <th>id</th>
+        <th>Nome</th>
+        <th>Opções</th>
+      </thead>
+      <tbody *ngFor="let item of categorias">
+        <tr>
+          <td>{{ item.categoria_id }}</td>
+          <td class="nome">{{ item.nome_categoria }}</td>
+          <td class="opcoes">
+            <a (click)="editarCategoria(item.categoria_id)">Editar</a>
+            <a (click)="apagarCategoria(item.categoria_id)">Apagar</a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="cadastrar">
+    <h2>Cadastrar Categoria</h2>
+    <form [formGroup]="categoriaFormGroup" (ngSubmit)="salvarCategoria()">
+      <div>
+        <label for="nome_categoria">Nome da Categoria</label>
+        <input class="nome" formControlName="nome_categoria" name="nome_categoria" type="text">
+      </div>
+
+      <div class="botao">
+        <input type="submit" value="Cadastrar">
+      </div>
+    </form>
+  </div>
+
+</section>

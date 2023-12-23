@@ -1,0 +1,53 @@
+/* Seu estilo CSS */
+.horizontal-list-container {
+  display: flex;
+  height: 100%;
+  align-items: center;
+  /* background-color: aqua; */
+  overflow-x: auto;
+  white-space: nowrap;
+}
+
+.nome-produto {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  max-width: 150px; /* Ajuste conforme necessário */
+}
+
+a{
+  text-decoration: none;
+  color: black;
+}
+
+.card{
+  margin-left: 10px;
+  background-color: rgb(255, 255, 255);
+  border-radius: 10px;
+  margin-bottom: 10px;
+  width: 185px;
+  height: 270px;
+  padding: 5PX;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.img{
+  margin-top: 5px;
+  display: flex;
+  justify-content: center;
+}
+
+.img img{
+  width: 160px;
+  height: 110px;
+  object-fit: contain;
+}
+
+.loja img{
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+}

@@ -1,0 +1,111 @@
+<form [formGroup]="produtoFormGroup" (ngSubmit)="salvarProduto()">
+  <input type="hidden" value="{{ id }}">
+  <section class="cadastrar-produtos">
+    <header>
+      <h1>Cadastrar Produtos</h1>
+      <input class="botao-cadastrar" type="submit">
+    </header>
+
+    <div class="formulario">
+
+      <div class="titulo">
+        <h2>Titulo</h2>
+        <input formControlName="titulo" class="titulo" type="text">
+        <div *ngIf="produtoFormGroup.get('titulo')?.errors?.['required']">
+          Titulo obrigatório
+        </div>
+      </div>
+
+      <div class=" grupo">
+        <div>
+          <h2>Titulo Pequeno</h2>
+          <input formControlName="tituloPequeno" type="text">
+        </div>
+        <div>
+          <h2>Preço</h2>
+          <input class="preco" formControlName="preco" type="text">
+          <div *ngIf="produtoFormGroup.get('preco')?.errors?.['required']">
+            Preço obrigatório
+          </div>
+        </div>
+      </div>
+
+      <div class="link">
+        <div class="">
+          <h2>Link</h2>
+          <input formControlName="link" type="text" name="link">
+          <div *ngIf="produtoFormGroup.get('link')?.errors?.['required']">
+            Link obrigatório
+          </div>
+        </div>
+      </div>
+
+      <div class="grupo">
+        <div>
+          <h2>Imagem</h2>
+          <div id="imagens">
+            <input formControlName="imgem" (change)="onFileChange($event)" id="fileInput" type="file" #fileInput>
+            <label for="fileInput">
+              <div id="file-input-label">
+                <div *ngIf="imagemBase64">
+                  <img [src]="'data:image/jpeg;base64,' + imagemBase64" alt="Selected Image">
+                </div>
+                <div *ngIf="!imagemBase64">Selecionar Site</div>
+              </div>
+            </label>
+
+            <input (change)="onFileChange($event)" id="fileInput" type="file" #fileInput>
+            <label for="fileInput">
+              <div id="file-input-label">
+                <div *ngIf="imagemBase64">
+                  <img [src]="imagemBase64" alt="Selected Image">
+                </div>
+                <div *ngIf="!imagemBase64">Imagem Social</div>
+              </div>
+            </label>
+          </div>
+        </div>
+
+        <div>
+          <h2>Lojas</h2>
+
+          <select formControlName="loja" name="loja">
+            <option *ngFor="let item of lojas" [value]=" produto == undefined ? item.id : produto.lojaResponseDto.id">
+              {{
+              item.nome_loja }}</option>
+          </select>
+          <div *ngIf="produtoFormGroup.get('loja')?.errors?.['required']">
+            Loja obrigatório
+          </div>
+        </div>
+
+      </div>
+
+      <div class="descricao">
+        <h2>Descrição</h2>
+        <input formControlName="descricao" class="input-grande" type="text">
+      </div>
+
+      <div class="grupo">
+
+        <div>
+          <h2>Cupom</h2>
+          <input formControlName="cupom" type="text">
+        </div>
+
+        <div>
+          <h2>Categoria</h2>
+          <select formControlName="id_categoria" name="categoria">
+            <option *ngFor="let item of categorias"
+              [value]=" produto == undefined ? item.categoria_id : produto.categoriaDto.categoria_id">
+              {{ item.nome_categoria }}</option>
+          </select>
+          <div *ngIf="produtoFormGroup.get('id_categoria')?.errors?.['required']">
+            Categoria obrigatório
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+</form>

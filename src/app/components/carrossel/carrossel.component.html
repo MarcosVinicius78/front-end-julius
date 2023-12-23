@@ -1,0 +1,23 @@
+<!-- Seu componente template -->
+<div class="horizontal-list-container">
+  <div class="item" *ngFor="let item of produtos">
+    <a href="/oferta/{{ item.id }}">
+      <div class="card">
+        <div class="img">
+          <img [src]="'data:image/jpeg;base64,' + item.imagem" alt="{{ item.titulo }}">
+        </div>
+
+        <div class="info">
+          <div class="loja">
+            <img [src]="'data:image/jpeg;base64,'+ item.loja.imagem" alt="" />
+          </div>
+          <p class="nome-produto">{{ item.titulo }}</p>
+          <p class="cupom">{{ item.cupom }}</p>
+          <p>{{ item.preco }}</p>
+        </div>
+      </div>
+    </a>
+    <!-- Substitua 'nome' pelo nome do campo que você deseja exibir -->
+  </div>
+
+</div>

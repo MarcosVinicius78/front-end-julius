@@ -1,0 +1,74 @@
+<!-- <section>
+  <header>
+    <div>
+      <h1>Produtos Cadastrados</h1>
+    </div>
+    <input (click)="apagarVariosProdutos()" type="submit" value="Apagar">
+  </header>
+
+  <div class="separar">
+    <table>
+      <thead>
+        <tr>
+          <th><input (change)="selectAll($event)" [checked]="isAllSelected()" type="checkbox" name="marcar"></th>
+          <th>Titulo</th>
+          <th>Opção</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of produtos">
+          <td><input (change)="toggleProductSelection(item.id)" [checked]="isSelected(item.id)" type="checkbox" name="marcar"></td>
+          <td>{{ item.titulo }}</td>
+          <td class="opcoes">
+            <button (click)="apagarProduto(item.id)">Apagar</button>
+            <a routerLink="/painel/atualizar-produtos/{{item.id}}">Editar</a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+  </div>
+  <div class="paginacao">
+    <app-paginator [currentPage]="page" [totalPages]="totalPage" (pageChange)="changePage($event)">
+    </app-paginator>
+  </div>
+</section>
+
+ -->
+
+
+ <section>
+  <header>
+    <div>
+      <h1>Produtos Cadastrados</h1>
+    </div>
+    <input (click)="apagarVariosProdutos()" type="submit" value="Apagar">
+  </header>
+
+  <div class="separar">
+    <table>
+      <thead>
+        <tr>
+          <th><input (change)="selectAll($event)" [checked]="isAllSelected()" type="checkbox" name="marcar"></th>
+          <th>Titulo</th>
+          <th>Opção</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of produtos">
+          <td><input (change)="toggleProductSelection(item.id)" [checked]="isSelected(item.id)" type="checkbox" name="marcar"></td>
+          <td>{{ item.titulo }}</td>
+          <td class="opcoes">
+            <button (click)="apagarProduto(item.id)">Apagar</button>
+            <a routerLink="/painel/atualizar-produtos/{{item.id}}">Editar</a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+  </div>
+  <div class="paginacao">
+    <app-paginator [currentPage]="page" [totalPages]="totalPage" (pageChange)="changePage($event)">
+    </app-paginator>
+  </div>
+</section>

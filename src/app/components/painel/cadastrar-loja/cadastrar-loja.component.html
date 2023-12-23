@@ -1,0 +1,48 @@
+<section class="car-lojas">
+
+  <div class="lojas-cadastradas">
+    <div>
+      <h2>Lojas</h2>
+    </div>
+
+    <table>
+      <thead>
+        <th>id</th>
+        <th>Imagem</th>
+        <th>Nome</th>
+        <th>Opções</th>
+      </thead>
+      <tbody *ngFor="let item of lojas">
+        <tr>
+          <td>{{ item.id }}</td>
+          <td><img [src]="'data:image/jpeg;base64,' + item.imagem" alt="{{ item.nome_loja }}"></td>
+          <td class="nome">{{ item.nome_loja }}</td>
+          <td class="opcoes">
+            <a>Editar</a>
+            <a>Apagar</a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="cadastrar">
+    <h2>Cadastrar loja</h2>
+    <form [formGroup]="lojaFormGroup" (ngSubmit)="salvarLoja()">
+      <div>
+        <label for="nome_loja">Nome da Loja</label>
+        <input class="nome" formControlName="nome_loja" name="nome_loja" type="text">
+      </div>
+
+      <div>
+        <label for="imagem">Imagem da Loja</label>
+        <input (change)="onFileChange($event)" name="imagem" type="file">
+      </div>
+
+      <div class="botao">
+        <input type="submit" value="Cadastrar">
+      </div>
+    </form>
+  </div>
+
+</section>
