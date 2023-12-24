@@ -70,6 +70,15 @@
 @media screen and (max-width: 600px){
   .header{
     flex-direction: column;
+    height: calc(100vh - 106px);
+    justify-content: initial;
+  }
+
+  .mobile-des{
+    display: none;
+  }
+
+  .links{
     height: auto;
   }
 
@@ -82,6 +91,8 @@
   }
 
   .frase{
+    display: none;
+    /* background-color: #cf0013; */
     height: auto;
   }
 
@@ -96,5 +107,38 @@
     font-size: 20px;
     text-align: center;
     color: rgb(58, 58, 58);
+  }
+
+  .links-mob div a{
+    padding: 10px;
+    text-align: center;
+    text-decoration: none;
+    border-radius: 10px;
+    color: white;
+  }
+
+  .links-mob div a{
+    background-color: #0088cc;
+  }
+
+  .links-mob div{
+    display: flex;
+    flex-direction: column;
+    width: 300px;
+    /* height: 240px; */
+  }
+
+  .img-mobile{
+    margin-top: 10px;
+    width: 200px;
+    height: 200px;
+    background-color: white;
+    border-radius: 50%;
+  }
+
+  .img-mobile img{
+    /* width: 100%; */
+    /* height: 100%; */
+    object-fit: contain;
   }
 }

@@ -46,15 +46,15 @@ export class ProdutoComponent implements OnInit{
 
   private setProductMetaTags(productName: string, productDescription: string, productImageUrl: string): void {
     // Limpa todas as tags meta existentes
-    this.meta.removeTag('name="description"');
-    this.meta.removeTag('name="og:title"');
-    this.meta.removeTag('name="og:description"');
-    this.meta.removeTag('name="og:image"');
+    // this.meta.removeTag('name="description"');
+    this.meta.removeTag('property="og:title"');
+    this.meta.removeTag('property="og:description"');
+    // this.meta.removeTag('property="og:image"');
 
     // Adiciona as novas tags meta
-    this.meta.addTag({ name: 'description', content: productDescription });
+    // this.meta.addTag({ name: 'description', content: productDescription });
     this.meta.addTag({ property: 'og:title', content: productName });
     this.meta.addTag({ property: 'og:description', content: productDescription });
-    this.meta.addTag({ property: 'og:image', content: this.produto.imagem });
+    // this.meta.addTag({ property: 'og:image', content: this.produto.imagem });
   }
 }
