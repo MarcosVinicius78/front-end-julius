@@ -2,6 +2,7 @@ import { Component, HostListener, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Produtos } from 'src/app/models/produtos';
 import { ProdutoService } from 'src/app/service/painel/produto.service';
+import * as dateFns from 'date-fns';
 
 @Component({
   selector: 'app-listar-produtos',
@@ -23,10 +24,9 @@ export class ListarProdutosComponent implements OnInit {
 
     this.idCategoria = Number.parseInt(this.route.snapshot.paramMap.get('id')!);
 
-    console.log(this.idCategoria)
-
-    if (!this.idCategoria) {
+    if (Number.isNaN(this.idCategoria)) {
       this.listarProdutos();
+      return;
     }
 
     this.listarPorCategoria();
@@ -64,23 +64,32 @@ export class ListarProdutosComponent implements OnInit {
     }
   }
 
-  calcularTempoDecorrido(dataCriacao: string): string {
-    const dataCriacaoDate = new Date(dataCriacao);
-    const agora = new Date();
+  calculateElapsedTime(createdDate: string): string {
+    const currentDate = new Date();
+    const differenceInSeconds = dateFns.differenceInSeconds(
+      currentDate,
+      new Date(createdDate)
+    );
 
-    dataCriacaoDate.setTime(parseInt(dataCriacao[6]))
+    const secondsInMinute = 60;
+    const secondsInHour = secondsInMinute * 60;
+    const secondsInDay = secondsInHour * 24;
+    const secondsInMonth = secondsInDay * 30; // Aproximadamente 30 dias por mês
 
-    const diferencaEmMilliseconds = agora.getTime() - dataCriacaoDate.getTime();
-    const segundos = Math.floor(diferencaEmMilliseconds / 1000);
-    const minutos = Math.floor(segundos / 60);
-    const horas = Math.floor(minutos / 60);
-
-    if (horas > 0) {
-      return `Postado há ${horas} ${horas === 1 ? 'hora' : 'horas'}`;
-    } else if (minutos > 0) {
-      return `Postado há ${minutos} ${minutos === 1 ? 'minuto' : 'minutos'}`;
+    if (differenceInSeconds < secondsInMinute) {
+      return 'Agora';
+    } else if (differenceInSeconds < secondsInHour) {
+      const elapsedMinutes = Math.floor(differenceInSeconds / secondsInMinute);
+      return `${elapsedMinutes} min atrás`;
+    } else if (differenceInSeconds < secondsInDay) {
+      const elapsedHours = Math.floor(differenceInSeconds / secondsInHour);
+      return `${elapsedHours} horas atrás`;
+    } else if (differenceInSeconds < secondsInMonth) {
+      const elapsedDays = Math.floor(differenceInSeconds / secondsInDay);
+      return `${elapsedDays} dias atrás`;
     } else {
-      return 'Postado agora mesmo';
+      const elapsedMonths = Math.floor(differenceInSeconds / secondsInMonth);
+      return `${elapsedMonths} meses atrás`;
     }
   }
 

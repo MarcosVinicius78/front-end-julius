@@ -39,17 +39,19 @@
           </div>
 
           <div class="info">
-            <p class="data">1</p>
+            <p class="data">{{calculateElapsedTime(item.dataCriacao)}}</p>
             <a routerLink="/oferta/{{ item.id }}">
               <p class="nome-produto">{{ item.titulo }}</p>
             </a>
-            <p class="cupom">{{ item.cupom }}</p>
+            <div class="cupom">
+              <p >{{ item.cupom }}</p>
+            </div>
             <a routerLink="/oferta/{{ item.id }}">
               <p id="preco">{{ item.preco }}</p>
             </a>
-          </div>
-          <div class="ir-loja">
-            <a href="{{ item.link }}"  target="_blank">Pegar Promoção</a>
+            <div class="ir-loja">
+              <a href="{{ item.link }}"  target="_blank">Pegar Promoção</a>
+            </div>
           </div>
         </div>
       </div>
