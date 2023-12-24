@@ -67,17 +67,6 @@
   background-color: #0088cc;
 }
 
-.links div a:nth-child(4){
-  background-color: black;
-}
-
-.links div a:nth-child(3){
-  background: #f09433;
-  background: -moz-linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
-  background: -webkit-linear-gradient(45deg, #f09433 0%,#e6683c 25%,#dc2743 50%,#cc2366 75%,#bc1888 100%);
-  background: linear-gradient(45deg, #f09433 0%,#e6683c 25%,#dc2743 50%,#cc2366 75%,#bc1888 100%);
-}
-
 @media screen and (max-width: 600px){
   .header{
     flex-direction: column;
