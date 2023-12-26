@@ -1,8 +1,12 @@
 .header{
-  background-color: #cf0013;
+  background-color: #F0A11F;
   display: flex;
   align-items: center;
-  height: 130px;
+  height: 120px;
+}
+
+.header a{
+  text-decoration: none;
 }
 
 .header a h1{
@@ -10,7 +14,6 @@
   font-size: 35px;
   /* font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif; */
   margin-left: 200px;
-  text-decoration: none;
 }
 
 /* Estilização básica para o dropdown */
@@ -21,8 +24,8 @@
 nav{
   margin-left: 50px;
   display: flex;
+  width: 35%;
   align-items: center;
-  width: 25%;
   justify-content: space-around;
 }
 
@@ -105,6 +108,9 @@ header nav li:nth-child(4) a{
   }
 
   .header a h1{
+    height: 100%;
+    display: flex;
+    align-items: center;
     font-size: 30px;
   }
 
@@ -116,7 +122,7 @@ header nav li:nth-child(4) a{
   }
 
   .header a h1{
-    margin: 10px;
+    margin: 0;
   }
 
   .header nav a {

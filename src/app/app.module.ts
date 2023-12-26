@@ -18,6 +18,7 @@ import { ProdutoComponent } from './components/produto/produto.component';
 import { PaginatorComponentComponent } from './components/painel/paginator-component/paginator-component.component';
 import { CarrosselComponent } from './components/carrossel/carrossel.component';
 import { GruposComponent } from './components/grupos/grupos.component';
+import { ReportComponent } from './components/painel/report/report.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,8 @@ import { GruposComponent } from './components/grupos/grupos.component';
     ProdutoComponent,
     PaginatorComponentComponent,
     CarrosselComponent,
-    GruposComponent
+    GruposComponent,
+    ReportComponent
   ],
   imports: [
     BrowserModule,

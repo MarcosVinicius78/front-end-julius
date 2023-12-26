@@ -19,7 +19,7 @@
         </div>
 
         <div class="outras-info">
-          <button class="report">Reportar</button>
+          <button class="report" (click)="abrirModal()">Reportar</button>
           <button (click)="compartilhar()" class="comp">Compartilhar</button>
           <div class="loja">
             <img [src]="'data:image/jpeg;base64,'+ produto.lojaResponseDto.imagem!" alt="{{ produto.lojaResponseDto.nome_loja }}">
@@ -42,5 +42,17 @@
 
   <div class="produtos-categorias">
     <app-carrossel></app-carrossel>
+  </div>
+
+  <div class="reportar" *ngIf="modal" (click)="fecharModal()">
+    <div class="opcoes-reportar" (click)="impedirFechar($event)">
+      <!-- Adicione aqui as opções do seu modal -->
+      <button class="close-modal" (click)="fecharModal()">&times;</button>
+      <h2>Opções de Report</h2>
+      <div class="opcoes-botoes">
+        <button (click)="reportar(produto.id,'oferta')">Reportar Oferta</button>
+        <button (click)="reportar(produto.id,'cupom')">Reportar Cupom</button>
+      </div>
+    </div>
   </div>
 </section>

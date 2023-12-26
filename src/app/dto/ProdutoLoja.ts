@@ -3,6 +3,7 @@ import { Loja } from "../models/loja"
 
 export class ProdutoLoja{
 
+  id!: number
   titulo!: string;
   preco!: string
   descricao!: string
@@ -11,5 +12,5 @@ export class ProdutoLoja{
   tituloPequeno!: string
   lojaResponseDto!: Loja
   categoriaDto!: Categoria
-  imagem: any 
+  imagem: any
 }

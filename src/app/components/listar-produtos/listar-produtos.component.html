@@ -13,7 +13,8 @@
 
     <div class="titulo">
       <div class="pesquisa">
-        <input type="search" name="" id="" placeholder="Procurar Produtos">
+        <i class="fa fa-search" (click)="pesquisar()" role="button"></i>
+        <input type="search" [(ngModel)]="termoPesquisa" (keyup.enter)="pesquisar()" placeholder="Procurar Ofertas">
       </div>
       <div>
         <p class="radar">

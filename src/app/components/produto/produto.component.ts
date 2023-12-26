@@ -4,6 +4,7 @@ import { ProdutoLoja } from 'src/app/dto/ProdutoLoja';
 import { Produtos } from 'src/app/models/produtos';
 import { ProdutoService } from 'src/app/service/painel/produto.service';
 import { Meta } from '@angular/platform-browser';
+import { ReportService } from 'src/app/service/painel/report.service';
 
 @Component({
   selector: 'app-produto',
@@ -12,13 +13,15 @@ import { Meta } from '@angular/platform-browser';
 })
 export class ProdutoComponent implements OnInit{
 
+  modal = false;
+
   id!: string;
 
-  produtos: Produtos[] = [];
+  // produtos: Produtos[] = [];
 
   produto = new ProdutoLoja;
 
-  constructor(private route: ActivatedRoute, private produtoService: ProdutoService, private meta: Meta){}
+  constructor(private route: ActivatedRoute, private produtoService: ProdutoService, private meta: Meta, private reportService: ReportService){}
 
   ngOnInit(): void {
     this.id = this.route.snapshot.paramMap.get('id')!;
@@ -56,5 +59,24 @@ export class ProdutoComponent implements OnInit{
     this.meta.addTag({ property: 'og:title', content: productName });
     this.meta.addTag({ property: 'og:description', content: productDescription });
     // this.meta.addTag({ property: 'og:image', content: this.produto.imagem });
+  }
+
+  fecharModal(){
+    this.modal = false;
+  }
+
+  abrirModal(){
+    console.log("Teste")
+    this.modal = true;
+  }
+
+  impedirFechar(event: Event) {
+    event.stopPropagation();
+  }
+
+  reportar(productId: number, reportType: string) {
+    this.reportService.reportar(productId, reportType).subscribe(response => {
+      this.fecharModal()
+    });
   }
 }

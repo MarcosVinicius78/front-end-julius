@@ -15,10 +15,6 @@ header input{
   border-radius: 5px;
 }
 
-thead tr th{
-  text-align: start;
-}
-
 header div:first-child{
   width: 90%;
 }
@@ -27,6 +23,10 @@ header h1{
   margin: 0;
   margin-top: 10px;
   margin-left: 10px;
+}
+
+thead tr th{
+  text-align: start;
 }
 
 .separar{
@@ -41,7 +41,7 @@ header h1{
 table{
   width: 95%;
   height: 100px;
-  /* border-collapse: 10px; */
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }
 
 
@@ -62,13 +62,10 @@ tbody tr{
   background-color: red;
   padding: 10px;
   margin-right: 5px;
+  border-radius: 5px;
   color: white;
 }
 
-.opcoes a:last-child{
-  text-decoration: none;
-  color: white;
-  background-color: blue;
-  padding: 10px;
-  margin-right: 5px;
+tbody tr td:nth-child(4){
+  text-transform: uppercase;
 }

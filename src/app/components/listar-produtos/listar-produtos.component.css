@@ -41,6 +41,7 @@
   grid-template-columns: repeat(4, calc(25% - 12px));
   gap: 15px;
   width: 100%;
+  margin-bottom: 10px;
 }
 
 .lista-de-produtos{
@@ -108,6 +109,18 @@ a{
   height: 30px;
 }
 
+/* seu-componente.component.css */
+.pesquisa {
+  position: relative;
+}
+
+.fa-search {
+  position: absolute;
+  top: 46%;
+  right: 120px;
+  cursor: pointer;
+}
+
 .info a:nth-child(2) p{
   min-height: 28px;
   width: 100%;
@@ -159,6 +172,11 @@ a{
 }
 
 #preco{
+  color: white;
+  background-color: #321710e3;
+  padding: 5px;
+  display: inline-block;
+  border-radius: 5px;
   font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif
 }
 
@@ -238,7 +256,7 @@ a{
   display: block;
   padding: 7px;
   color: white;
-  background-color: #cf0013;
+  background-color: #F0A11F;
   border-radius: 5px;
   text-align: center;
 }
@@ -255,9 +273,6 @@ a{
     flex-wrap: wrap;
     justify-content: center;
     width: 100%;
-    /* gap: 10px; */
-    /* gap: 2px; */
-    /* background-color: aqua; */
   }
 
   .lista-de-produtos{
@@ -265,17 +280,21 @@ a{
     width: 47%;
     /* max-width: 150px; */
     /* flex-wrap: wra;p; */
-
   }
 
+  .fa-search {
+    position: absolute;
+    top: 46%;
+    right: 60px;
+    cursor: pointer;
+  }
 
   .titulo{
     width: 100%;
   }
 
   .card{
-    width: 100%;
-    /* height: 290px; */
+    width: 95%;
     padding: 5px;
     box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
     position: relative;
@@ -288,7 +307,7 @@ a{
 
   .loja {
     position: absolute;
-    bottom: 150px;
+    bottom: 180px;
     right: 10px;
   }
 
@@ -314,10 +333,9 @@ a{
 
   .ir-loja a{
     display: block;
-    padding: 3px;
+    padding: 7px;
     font-size: 15px;
     color: white;
-    background-color: #cf0013;
     border-radius: 5px;
     width: 90%;
     text-align: center;
@@ -337,7 +355,7 @@ a{
   }
 
   input{
-    display: none;
+    display: block;
   }
 
   .publicidade{

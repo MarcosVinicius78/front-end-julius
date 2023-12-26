@@ -1,23 +1,21 @@
 .header{
   height: 300px;
-  background-color: #cf0013;
+  background-color: #F0A11F;
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
+section{
+  height: calc(100vh - 176px);
+}
+
 .frase{
   background-color: white;
-  /* height: 400px; */
+  /* height: 100%; */
   display: flex;
   flex-direction: column;
   align-items: center;
-}
-
-.frase div:first-child{
-  font-size: 35px;
-  width: 50%;
-  text-align: center;
 }
 
 .frase div:last-child{
@@ -57,6 +55,10 @@
   text-decoration: none;
   border-radius: 10px;
   color: white;
+}
+
+.links-mob{
+  display: none;
 }
 
 .links div a:first-child{

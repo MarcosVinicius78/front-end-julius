@@ -57,6 +57,10 @@ export class ProdutoService {
   apagarVariosProdutos(produtosSelecionados: number[]){
     return this.http.post<number>(`${this.apiUrl}/produto/apagar-varios`, produtosSelecionados)
   }
+
+  pesquisarProdutos(termoPesquisa: string): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}/produto/pesquisar?termoPesquisa=${termoPesquisa}`);
+  }
 }
 
 interface PordutosPage{

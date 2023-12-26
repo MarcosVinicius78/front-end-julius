@@ -15,6 +15,8 @@ export class ListarProdutosComponent implements OnInit {
 
   idCategoria: number | undefined;
 
+  termoPesquisa: string = '';
+
   page = 0;
   size = 10;
 
@@ -33,6 +35,7 @@ export class ListarProdutosComponent implements OnInit {
   }
 
   listarPorCategoria(){
+    console.log(this.idCategoria);
     this.produtoService.ProdutoPorCategoria(this.idCategoria, this.page, this.size).subscribe(response => {
       this.produtos = this.produtos.concat(response);
     });
@@ -62,6 +65,19 @@ export class ListarProdutosComponent implements OnInit {
 
       return;
     }
+  }
+
+  pesquisar(): void {
+
+    this.produtoService.pesquisarProdutos(this.termoPesquisa).subscribe(
+      data => {
+        this.produtos = data;
+        console.log(data);
+      },
+      error => {
+        console.error('Erro ao pesquisar produtos:', error);
+      }
+    );
   }
 
   calculateElapsedTime(createdDate: string): string {

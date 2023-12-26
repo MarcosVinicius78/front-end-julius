@@ -8,6 +8,7 @@ import { ListarProdutosCadastradosComponent } from './components/painel/listar-p
 import { CadastrarCategoriaComponent } from './components/painel/cadastrar-categoria/cadastrar-categoria.component';
 import { CadastrarLojaComponent } from './components/painel/cadastrar-loja/cadastrar-loja.component';
 import { GruposComponent } from './components/grupos/grupos.component';
+import { ReportComponent } from './components/painel/report/report.component';
 
 const routes: Routes = [
   { path: 'painel', component: InicioPainelComponent, children: [
@@ -17,6 +18,7 @@ const routes: Routes = [
     { path: 'listar-produtos', component: ListarProdutosCadastradosComponent},
     { path: 'cadastrar-categoria', component: CadastrarCategoriaComponent},
     { path: 'cadastrar-loja', component: CadastrarLojaComponent},
+    { path: 'report', component: ReportComponent},
   ], data: { hideHeader: false, hideFooter: false }},
   { path: '', component: ListarProdutosComponent, data: { hideHeader: true, hideFooter: true }},
   { path:  'oferta/:id', component: ProdutoComponent, data: { hideHeader: true, hideFooter: true }},

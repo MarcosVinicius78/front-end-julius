@@ -1,0 +1,40 @@
+ <section>
+  <header>
+    <div>
+      <h1>Produtos Reportados</h1>
+    </div>
+    <input (click)="apagarVariosReports()" type="submit" value="Apagar">
+  </header>
+
+  <div class="separar">
+    <table>
+      <thead>
+        <tr>
+          <th><input (change)="selectAll($event)" [checked]="isAllSelected()" type="checkbox" name="marcar"></th>
+          <th>Titulo</th>
+          <th>Quantidade</th>
+          <th>Tipo</th>
+          <th>Data</th>
+          <th>Opção</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of reports">
+          <td><input (change)="toggleReportSelection(item.id)" [checked]="isSelected(item.id)" type="checkbox" name="marcar"></td>
+          <td>{{ item.tituloProduto }}</td>
+          <td>{{ item.total }}</td>
+          <td>{{ item.tipo }}</td>
+          <td>{{ dataCorreta(item.dataCriacao) | date: 'dd/MM/yyyy hh:mm a'}}</td>
+          <td class="opcoes">
+            <button (click)="apagarProduto(item.id)">Apagar</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+  </div>
+  <div class="paginacao">
+    <app-paginator [currentPage]="page" [totalPages]="totalPage" (pageChange)="changePage($event)">
+    </app-paginator>
+  </div>
+</section>
