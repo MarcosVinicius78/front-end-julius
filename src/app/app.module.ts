@@ -19,6 +19,7 @@ import { PaginatorComponentComponent } from './components/painel/paginator-compo
 import { CarrosselComponent } from './components/carrossel/carrossel.component';
 import { GruposComponent } from './components/grupos/grupos.component';
 import { ReportComponent } from './components/painel/report/report.component';
+import { LinksBannersComponent } from './components/painel/links-banners/links-banners.component';
 
 @NgModule({
   declarations: [
@@ -36,7 +37,8 @@ import { ReportComponent } from './components/painel/report/report.component';
     PaginatorComponentComponent,
     CarrosselComponent,
     GruposComponent,
-    ReportComponent
+    ReportComponent,
+    LinksBannersComponent
   ],
   imports: [
     BrowserModule,

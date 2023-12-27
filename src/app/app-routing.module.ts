@@ -1,3 +1,4 @@
+import { LinksBannersComponent } from './components/painel/links-banners/links-banners.component';
 import { ProdutoComponent } from './components/produto/produto.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
@@ -19,6 +20,7 @@ const routes: Routes = [
     { path: 'cadastrar-categoria', component: CadastrarCategoriaComponent},
     { path: 'cadastrar-loja', component: CadastrarLojaComponent},
     { path: 'report', component: ReportComponent},
+    { path: 'links-banners', component: LinksBannersComponent},
   ], data: { hideHeader: false, hideFooter: false }},
   { path: '', component: ListarProdutosComponent, data: { hideHeader: true, hideFooter: true }},
   { path:  'oferta/:id', component: ProdutoComponent, data: { hideHeader: true, hideFooter: true }},

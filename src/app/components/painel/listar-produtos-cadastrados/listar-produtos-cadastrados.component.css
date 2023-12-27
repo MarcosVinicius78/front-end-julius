@@ -40,20 +40,21 @@ header h1{
 
 table{
   width: 95%;
-  height: 100px;
+  height: 30px;
   /* border-collapse: 10px; */
 }
 
 
 td{
   border-bottom: 1px solid rgb(126, 126, 126);
-  padding: 9px;
+  padding: 5px;
 }
 
 tbody tr{
   background-color: white;
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
   margin: 10px;
+  /* height: 90%; */
 
 }
 

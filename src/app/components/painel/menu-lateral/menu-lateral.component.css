@@ -2,7 +2,7 @@
 .menu-lateral{
   background-color: #225A76;
   width: 300px;
-  height: 100vh;
+  height: calc(100vh - 70px);
   border-top-right-radius: 100px;
   margin-right: 10px;
 }

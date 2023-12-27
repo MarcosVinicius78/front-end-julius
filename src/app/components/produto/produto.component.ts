@@ -37,15 +37,37 @@ export class ProdutoComponent implements OnInit{
 
   compartilhar() {
 
-    const mensagem = `*${this.produto.titulo}*\n\n*Por: R$ ${this.produto.preco}*\nConfira aqui: ${window.location.href}`;
+    // const mensagem = `*${this.produto.titulo}*\n\n*Por: R$ ${this.produto.preco}*\nConfira aqui: ${window.location.href}`;
 
-    navigator.share({
-      title: this.produto.titulo,
-      text: mensagem,
-      url: window.location.href
-    }).then(() => console.log('Compartilhado com sucesso'))
-    .catch((error) => console.error('Erro ao compartilhar:', error));
+    // navigator.share({
+    //   title: this.produto.titulo,
+    //   text: mensagem,
+    //   url: window.location.href
+    // }).then(() => console.log('Compartilhado com sucesso'))
+    // .catch((error) => console.error('Erro ao compartilhar:', error));
+
+
   }
+
+  // montarEstruturaCompartilhamento() {
+  //   let estruturaCompartilhamento = `Título: ${this.produto.titulo}\n`;
+  //   estruturaCompartilhamento += `Preço: ${this.produto.preco}\n`;
+  //   estruturaCompartilhamento += `Link: ${this.produto.link}\n`;
+
+  //   if (this.produto.cupom) {
+  //     estruturaCompartilhamento += `Cupom: ${this.produto.cupom}\n`;
+  //   }
+
+  //   if (this.produto.freteVariacoes) {
+  //     estruturaCompartilhamento += `Frete: ${this.produto.freteVariacoes}\n`;
+  //   }
+
+  //   if (this.produto.mensagemAdicional) {
+  //     estruturaCompartilhamento += `${this.produto.mensagemAdicional}\n`;
+  //   }
+
+  //   console.log(estruturaCompartilhamento);
+  // }
 
   private setProductMetaTags(productName: string, productDescription: string, productImageUrl: string): void {
     // Limpa todas as tags meta existentes
@@ -66,7 +88,6 @@ export class ProdutoComponent implements OnInit{
   }
 
   abrirModal(){
-    console.log("Teste")
     this.modal = true;
   }
 

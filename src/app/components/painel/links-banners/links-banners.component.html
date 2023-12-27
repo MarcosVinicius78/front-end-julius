@@ -1,0 +1,71 @@
+<header>
+  <h1>Links e Banners</h1>
+</header>
+<section>
+
+  <div class="banners">
+    <div>
+      <h2>Banners</h2>
+      <input type="submit" (click)="abrirModal()" value="Adicionar Publicidade">
+    </div>
+    <div>
+      <table>
+        <thead>
+          <th>id</th>
+          <th>Imagem</th>
+          <th>Nome</th>
+          <th>Opções</th>
+        </thead>
+        <tbody *ngFor="let item of banners">
+          <tr>
+            <td>{{ item.id }}</td>
+            <td><img [src]="urlApi+'/banners/'+item.urlImagem" alt=""></td>
+            <td class="nome">{{ item.nome }}</td>
+            <td class="opcoes">
+              <a (click)="apagarBanner(item.id)">Apagar</a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <form class="links" [formGroup]="linksFormGrupo" (ngSubmit)="salvarLinks()">
+    <div>
+      <label for="whatsApp">WhatsApp</label>
+      <input type="text" formControlName="whatsapp" name="whatsApp">
+    </div>
+
+    <div>
+      <label for="telegram">Telegram</label>
+      <input type="text" formControlName="telegram" name="telegram">
+    </div>
+
+    <div>
+      <label for="instagram">instgram</label>
+      <input type="text" formControlName="instagram" name="instagram">
+    </div>
+
+    <div>
+      <label for="email">E-mail</label>
+      <input type="text" formControlName="email" name="email">
+    </div>
+
+    <input type="submit" value="Salvar">
+  </form>
+
+  <form [formGroup]="bannerFomrGrupo">
+    <div class="modal" *ngIf="modal" (click)="fecharModal()">
+      <div class="opcoes-reportar" (click)="impedirFechar($event)">
+        <div>
+          <label for="nome"></label>
+          <input type="text" name="nome" formControlName="nome">
+        </div>
+        <div>
+          <input type="file" (change)="onFileSelected($event)">
+        </div>
+        <input type="submit" (click)="uploadImage()">
+      </div>
+    </div>
+  </form>
+</section>
