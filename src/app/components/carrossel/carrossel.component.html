@@ -4,12 +4,12 @@
     <a href="/oferta/{{ item.id }}">
       <div class="card">
         <div class="img">
-          <img [src]="'data:image/jpeg;base64,' + item.imagem" alt="{{ item.titulo }}">
+          <!-- <img [src]="'data:image/jpeg;base64,' + item.imagem" alt="{{ item.titulo }}"> -->
         </div>
 
         <div class="info">
           <div class="loja">
-            <img [src]="'data:image/jpeg;base64,'+ item.loja.imagem" alt="" />
+            <img [src]="'data:image/jpeg;base64,'+ item.loja.urlImagem" alt="" />
           </div>
           <p class="nome-produto">{{ item.titulo }}</p>
           <p class="cupom">{{ item.cupom }}</p>

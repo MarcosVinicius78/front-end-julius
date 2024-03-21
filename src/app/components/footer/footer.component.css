@@ -1,7 +1,11 @@
 footer{
+  position: fixed;
+  bottom: 0;
+  width: 100%;
   background-color:#F0A11F;
   display: flex;
   justify-content: center;
+  padding: 10px;
   justify-content: space-around;
 }
 

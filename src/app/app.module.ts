@@ -11,15 +11,26 @@ import { MenuLateralComponent } from './components/painel/menu-lateral/menu-late
 import { CadastrarProdutoComponent } from './components/painel/cadastrar-produto/cadastrar-produto.component';
 import { ListarProdutosCadastradosComponent } from './components/painel/listar-produtos-cadastrados/listar-produtos-cadastrados.component';
 import { CadastrarCategoriaComponent } from './components/painel/cadastrar-categoria/cadastrar-categoria.component';
-import { HttpClientModule, HttpClient } from '@angular/common/http';
+import { HttpClientModule, HttpClient, HttpClientXsrfModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CadastrarLojaComponent } from './components/painel/cadastrar-loja/cadastrar-loja.component';
 import { ProdutoComponent } from './components/produto/produto.component';
-import { PaginatorComponentComponent } from './components/painel/paginator-component/paginator-component.component';
 import { CarrosselComponent } from './components/carrossel/carrossel.component';
 import { GruposComponent } from './components/grupos/grupos.component';
 import { ReportComponent } from './components/painel/report/report.component';
 import { LinksBannersComponent } from './components/painel/links-banners/links-banners.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
+
+import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { LoginComponent } from './components/painel/login/login.component';
+import { RequireService } from './interceptors/require.service';
+import { AuthRouteguard } from './routeguard/auth-routeguard.service';
+import {MatPaginatorModule} from '@angular/material/paginator';
+
 
 @NgModule({
   declarations: [
@@ -34,20 +45,36 @@ import { LinksBannersComponent } from './components/painel/links-banners/links-b
     CadastrarCategoriaComponent,
     CadastrarLojaComponent,
     ProdutoComponent,
-    PaginatorComponentComponent,
     CarrosselComponent,
     GruposComponent,
     ReportComponent,
-    LinksBannersComponent
+    LinksBannersComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    BrowserAnimationsModule,
+    MatIconModule,
+    MatButtonModule,
+    MatDialogModule,
+    MatSnackBarModule,
+    MatPaginatorModule,
+    HttpClientXsrfModule.withOptions({
+      cookieName: 'XSRF-TOKEN',
+      headerName: 'X-XSRF-TOKEN'
+    })
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: RequireService,
+      multi: true
+    },
+    AuthRouteguard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

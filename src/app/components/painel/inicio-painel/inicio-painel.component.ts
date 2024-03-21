@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-inicio-painel',
@@ -7,13 +8,18 @@ import { Component, OnInit } from '@angular/core';
 })
 export class InicioPainelComponent implements OnInit {
 
-  diario: string = "10.000"
-  mensal: string = "100.000"
-  total: string = "1.000.000"
-
-  constructor() { }
+  constructor(
+    private route: Router
+  ){ }
 
   ngOnInit() {
+  }
+
+  sair(){
+    window.sessionStorage.removeItem("userdetails");
+    window.sessionStorage.removeItem("Authorization");
+    window.sessionStorage.removeItem("XSRF-TOKEN");
+    this.route.navigate(["login"])
   }
 
 }

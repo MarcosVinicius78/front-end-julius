@@ -1,6 +1,5 @@
 <div class="section">
 
-
   <section>
     <div class="banner1">
       <a routerLink="/grupos" target="_blank">
@@ -29,14 +28,14 @@
 
 
         <div class="card">
-          <div class="img">
+          <div *ngIf="item.imagem != undefined" class="img">
             <a routerLink="/oferta/{{ item.id }}">
-              <img [src]="'data:image/jpeg;base64,' + item.imagem" alt="{{ item.titulo }}">
+              <img [src]="apiUrl+'/produto/download/'+item.imagem" alt="{{ item.titulo }}">
             </a>
           </div>
 
           <div class="loja">
-            <img [src]="'data:image/jpeg;base64,'+ item.loja.imagem" alt="" />
+            <img [src]="apiUrl+'/loja/mostar-imagem/'+item.loja.urlImagem" alt="" />
           </div>
 
           <div class="info">
@@ -67,12 +66,11 @@
       </a>
     </div>
     <div class="grupos">
-      <a href="">Telegram</a>
-      <a href="">WhatsApp</a>
-      <a href="">INSTAGRAM</a>
-      <a href="">FALE CONOSCO</a>
+      <!-- <a href="{{ links.links[0].telegram }}">Telegram</a>
+      <a href="{{ links.links[0].whatsapp }}">WhatsApp</a>
+      <a href="{{ links.links[0].instagram }}">Instagram</a>
+      <a href="{{ links.links[0].email }}">FALE CONOSCO</a> -->
     </div>
-
   </div>
 
 </div>

@@ -3,6 +3,8 @@
   <section class="cadastrar-produtos">
     <header>
       <h1>Cadastrar Produtos</h1>
+      <input class="scrape" formControlName="url" type="text" placeholder="Link do produto">
+      <!-- <button (click)="rasparProduto()">PESQUISAR</button> -->
       <input class="botao-cadastrar" type="submit">
     </header>
 
@@ -18,8 +20,8 @@
 
       <div class=" grupo">
         <div>
-          <h2>Titulo Pequeno</h2>
-          <input formControlName="tituloPequeno" type="text">
+          <h2>Preço Parcelado</h2>
+          <input formControlName="precoParcelado" type="text">
         </div>
         <div>
           <h2>Preço</h2>
@@ -27,6 +29,25 @@
           <div *ngIf="produtoFormGroup.get('preco')?.errors?.['required']">
             Preço obrigatório
           </div>
+        </div>
+      </div>
+
+      <div class=" grupo">
+        <div>
+          <h2>Frete Variacões</h2>
+          <select formControlName="freteVariacoes" name="freteVariacoes">
+            <option value="Frete Grátis">Frete Grátis</option>
+            <option value="Frete Grátis Prime">Frete Grátis Prime</option>
+            <option value="Frete Econômico">Frete Econômico</option>
+            <option value="Frete Grátis Retirando na Loja">Frete Grátis Retirando na Loja</option>
+          </select>
+        </div>
+        <div>
+          <h2>Mensagem Adicional</h2>
+          <select class="preco" formControlName="mensagemAdicional" name="mensagemAdicional">
+            <option value="Promoção sujeita a alteração a qualquer momento" selected>Promoção sujeita a alteração a qualquer momento</option>
+            <option value="Convide seus amigos: http://google.com.br">Convide seus amigos: http://google.com.br</option>
+          </select>
         </div>
       </div>
 
@@ -47,20 +68,21 @@
             <input formControlName="imgem" (change)="onFileChange($event)" id="fileInput" type="file" #fileInput>
             <label for="fileInput">
               <div id="file-input-label">
-                <div *ngIf="imagemBase64">
-                  <img [src]="'data:image/jpeg;base64,' + imagemBase64" alt="Selected Image">
+                <div *ngIf="true">
+                  <img *ngIf="produto == undefined" [src]="imagemView ==  ''? scraperProduto.urlImagem : imagemView!" alt="Selected Image">
+                  <img *ngIf="produto != undefined" [src]="apiUrl+'/produto/download/'+imagemView" alt="Selected Image">
                 </div>
-                <div *ngIf="!imagemBase64">Selecionar Site</div>
+                <div *ngIf="false">Selecionar Site</div>
               </div>
             </label>
 
             <input (change)="onFileChange($event)" id="fileInput" type="file" #fileInput>
             <label for="fileInput">
               <div id="file-input-label">
-                <div *ngIf="imagemBase64">
-                  <img [src]="imagemBase64" alt="Selected Image">
+                <div *ngIf="true">
+                  <img [src]="" alt="Selected Image">
                 </div>
-                <div *ngIf="!imagemBase64">Imagem Social</div>
+                <div *ngIf="">Imagem Social</div>
               </div>
             </label>
           </div>
@@ -70,9 +92,9 @@
           <h2>Lojas</h2>
 
           <select formControlName="loja" name="loja">
-            <option *ngFor="let item of lojas" [value]=" produto == undefined ? item.id : produto.lojaResponseDto.id">
-              {{
-              item.nome_loja }}</option>
+            <option *ngFor="let item of lojas" [value]="produto == undefined ? item.id : produto.lojaResponseDto.id">
+              {{item.nome_loja }}
+            </option>
           </select>
           <div *ngIf="produtoFormGroup.get('loja')?.errors?.['required']">
             Loja obrigatório

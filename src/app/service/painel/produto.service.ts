@@ -2,6 +2,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ProdutoLoja } from 'src/app/dto/ProdutoLoja';
+import { ScraperProduto } from 'src/app/dto/ScraperProduto';
 import { Produtos } from 'src/app/models/produtos';
 import { environment } from 'src/environments/environment';
 
@@ -14,9 +15,13 @@ export class ProdutoService {
 
   constructor(private http: HttpClient) { }
 
-  salvarLoja(produto: any){
+  salvarProduto(produto: any){
 
-    return this.http.post<Produtos>(`${this.apiUrl}/produto`, produto);
+    return this.http.post<Produtos>(`${this.apiUrl}/produto/salvar`, produto);
+  }
+
+  salvarImagem(formData: FormData){
+    return this.http.post(`${this.apiUrl}/produto/upload`, formData);
   }
 
   listarProduto(page: number, size: number): Observable<any>{
@@ -34,8 +39,9 @@ export class ProdutoService {
     return this.http.put(`${this.apiUrl}/produto`, produto);
   }
 
-  apagarProduto(id: number) {
-    return this.http.delete(`${this.apiUrl}/produto/${id}`);
+  apagarProduto(id: number, urlImagem: string) {
+    const params = new HttpParams().set('id', id.toString()).set('urlImagem', urlImagem)
+    return this.http.delete(`${this.apiUrl}/produto`, { params });
   }
 
   obeterProdutoPorCategoria(categoriaId: number){
@@ -60,6 +66,10 @@ export class ProdutoService {
 
   pesquisarProdutos(termoPesquisa: string): Observable<any> {
     return this.http.get<any>(`${this.apiUrl}/produto/pesquisar?termoPesquisa=${termoPesquisa}`);
+  }
+
+  rasparProduto(link: string){
+    return this.http.get<ScraperProduto>(`${this.apiUrl}/scraper?url=${link}`);
   }
 }
 

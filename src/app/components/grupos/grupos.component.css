@@ -7,15 +7,20 @@
 }
 
 section{
-  height: calc(100vh - 176px);
+  height: calc(100vh - 172px);
 }
 
 .frase{
   background-color: white;
   /* height: 100%; */
   display: flex;
-  flex-direction: column;
+  justify-content: center;
+  /* flex-direction: column; */
   align-items: center;
+}
+
+.mobile{
+  display: none;
 }
 
 .frase div:last-child{
@@ -80,6 +85,14 @@ section{
     display: none;
   }
 
+  .mobile{
+    display: block;
+  }
+
+  .desktop{
+    display: none;
+  }
+
   .links{
     height: auto;
   }
@@ -128,6 +141,10 @@ section{
     flex-direction: column;
     width: 300px;
     /* height: 240px; */
+  }
+
+  .links-mob{
+    display: block;
   }
 
   .img-mobile{

@@ -27,13 +27,11 @@ export class AppComponent implements OnInit{
   // }
 
   ngOnInit(): void {
-  console.log('showHeader:', this.showHeader);
   // Adiciona um ouvinte para as alterações de rota
   this.router.events.pipe(filter(event => event instanceof NavigationEnd)).subscribe(() => {
     // Verifica a rota ativa
     const route = this.activatedRoute.firstChild;
     if (route) {
-        console.log('showFooter:', this.showFooter);
         this.showHeader = (route.snapshot.data['hideHeader'] as boolean);
         this.showFooter = (route.snapshot.data['hideFooter'] as boolean);
       }

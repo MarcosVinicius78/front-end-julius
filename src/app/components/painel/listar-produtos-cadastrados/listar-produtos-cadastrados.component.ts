@@ -34,16 +34,18 @@ export class ListarProdutosCadastradosComponent implements OnInit{
     });
   }
 
-  changePage(page: number) {
-    this.page = page
+  changePage(page: any) {
+    this.page = page.pageIndex
     this.produtoService.listarProduto(this.page, this.size).subscribe( (response: any) => {
       this.produtos = response.content
     });
   }
 
-  apagarProduto(id: number) {
-    this.produtoService.apagarProduto(id).subscribe(response => {
-      this.changePage(this.page)
+  apagarProduto(id: number, urlImagem: string) {
+    this.produtoService.apagarProduto(id,urlImagem).subscribe(response => {
+      this.route.navigate(["painel"])
+    }, err => {
+      console.log(err);
     });
   }
 

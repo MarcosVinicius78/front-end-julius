@@ -2,7 +2,6 @@ section{
   display: flex;
   flex-direction: column;
   align-items: center;
-  /* height: calc(100vh - 130.87px); */
 }
 
 h2{
@@ -49,14 +48,14 @@ h2{
 .informaçoes{
   width: 100%;
   display: flex;
+  height: 100%;
   flex-direction: column;
   justify-content: space-between;
 }
 
 .imagem-produto img{
   width: 270px;
-  height: 270px;
-  /* object-fit: contain; */
+  height: 240px;
 }
 
 .info{
@@ -67,6 +66,10 @@ h2{
 
 .teste{
   width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 .loja{
@@ -86,7 +89,6 @@ h2{
   width: 50px;
   height: 40px;
   border-radius: 50%;
-  /* object-fit: contain; */
 }
 
 .outras-info{
@@ -104,6 +106,8 @@ h2{
 }
 
 .comp{
+  display: flex;
+  align-items: center;
   color: white;
   background-color: rgb(29, 160, 24);
   height: 40px;
@@ -115,7 +119,7 @@ h2{
 
 .ir-loja{
   display: flex;
-  justify-content: end;
+  justify-content: flex-end;
 }
 
 .mob{
@@ -130,16 +134,60 @@ h2{
   color: white;
   text-decoration: none;
   font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
 
+.ver-promocao{
+  display: flex;
+  justify-content: center;
+  padding: 10px 20px;
+  border-radius: 5px;
+  background-color: #F0A11F;
+  text-decoration: none;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+.ver-promocao a{
+  color: white;
+  text-decoration: none;
+}
+
+.nome-produto{
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.nome-produto a{
+  text-decoration: none;
+  color: black;
+}
+
+.preco2{
+  color: #cf0013;
+  font-size: 20px;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }
 
 .produtos-categorias{
   width: 65%;
-  height: 300px;
-  background-color: rgb(255, 255, 255);
+  height: auto;
+  display: grid;
+  grid-template-columns: repeat(4, 200px);
+  grid-gap: 16px;
+  margin-bottom: 50px;
+}
+
+.produtos-categorias img{
+  width: 100%;
+  height: 200px;
+}
+
+.grid-item{
+ background-color: rgb(255, 255, 255);
   margin-bottom: 10px;
   box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
   border-radius: 5px;
+  padding: 5px;
 }
 
 .reportar {
@@ -171,24 +219,66 @@ h2{
   cursor: pointer;
 }
 
+.dialogo{
+  position: absolute;
+  background-color: rgba(0, 0, 0, 0.286);
+  width: 100%;
+  height: 100%;
+  top: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+button img{
+  width: 30px;
+}
+
+.opcoes-compartilhamento{
+  background-color: white;
+  width: 30%;
+  border-radius: 5px;
+}
+
+.opcoes-compartilhamento div:first-child{
+  display: flex;
+  justify-content:flex-end;
+  margin-right: 10px;
+  margin-top: 5px;
+}
+
+.botoes{
+  display: flex;
+  justify-content: center;
+  padding: 10px;
+}
+
+.botoes button:last-child{
+  background-color: rgba(134, 134, 134, 0.233);
+  border-radius: 100%;
+  border: none;
+}
 
 @media screen and (max-width: 600px){
   .produto{
-    box-shadow: none;
-    justify-content: space-around;
     width: 100%;
-    height: 500px;
+    height: 550px;
     margin-top: 0;
-    box-shadow: 0;
+  }
+
+  .opcoes-compartilhamento{
+    width: 90%;
   }
 
   .info{
     padding: 0;
-    display: block;
+    width: 100%;
+    height: 100%;
+    flex-direction: column;
+    justify-content: initial;
   }
 
   section{
-    /* height: 100vh; */
     display: block;
   }
 
@@ -214,8 +304,9 @@ h2{
   }
 
   .produtos-categorias{
-    margin: 0;
-    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(2, 190px);
+    gap: 10px;
   }
 
   .loja p{
@@ -227,10 +318,6 @@ h2{
     margin-top: 10px;
   }
 
-  .outras-info button{
-    height: 20px;
-  }
-
   .loja img{
     position: relative;
     bottom: 210px;
@@ -240,11 +327,11 @@ h2{
   }
 
   .titulo{
-    min-height: 28px;
+    min-height: 21px;
     width: 100%;
-    /* max-width: 100%; */
+    max-width: 90%;
     overflow: hidden;
-    font-size: 20px;
+    font-size: 17px;
     color: rgb(53, 58, 61);
     overflow-wrap: break-word;
     line-break: strict;
@@ -260,7 +347,12 @@ h2{
   .imagem-produto img{
     width: 100%;
     height: 270px;
+    padding: 0;
     object-fit: contain;
+  }
+
+  .informaçoes{
+    width: 100%;
   }
 
 }

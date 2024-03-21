@@ -2,7 +2,7 @@
   background-color: #F0A11F;
   display: flex;
   align-items: center;
-  height: 120px;
+  height: 100px;
 }
 
 .header a{
@@ -10,8 +10,10 @@
 }
 
 .header a h1{
-  color: black;
+  color: rgb(255, 255, 255);
   font-size: 35px;
+  font-weight: bold;
+  margin: 0;
   /* font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif; */
   margin-left: 200px;
 }

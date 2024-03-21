@@ -34,7 +34,7 @@
 
   </div>
   <div class="paginacao">
-    <app-paginator [currentPage]="page" [totalPages]="totalPage" (pageChange)="changePage($event)">
-    </app-paginator>
+    <mat-paginator [pageIndex]="page" [pageSize]="1" (page)="changePage($event)" [length]="totalPage" aria-label="Select page">
+    </mat-paginator>
   </div>
 </section>

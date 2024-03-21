@@ -1,5 +1,5 @@
 /* You can add global styles to this file, and also import other style files */
-@import '~font-awesome/css/font-awesome.min.css';
+/* @import '~font-awesome/css/font-awesome.min.css'; */
 
 body{
   padding: 0;
@@ -41,20 +41,15 @@ body{
 }
 
 a{
-  font-size: 14px;
+  /* font-size: 14px; */
   text-transform: uppercase;
 }
 
 h1{
-  font-size: 20px;
-  font-family: 'Poppins', sans-serif;
+  /* font-size: 20px; */
+  /* font-family: 'Poppins', sans-serif; */
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }
 
-a, h1, h2, p{
-
-  /* font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif; */
-  /* font-family: 'DM Sans', sans-serif; */
-/* font-family: 'Montserrat', sans-serif; */
-font-family: 'Poppins', sans-serif;
-/* font-family: 'Roboto', sans-serif; */
-}
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

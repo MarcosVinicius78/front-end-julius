@@ -1,0 +1,70 @@
+section{
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+header{
+  display: flex;
+  justify-content: center;
+  border-bottom: 2px solid #225A76;
+}
+
+.card-login{
+  width: 27%;
+  height: 40%;
+  background-color: rgb(255, 255, 255);
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  border-radius: 10px;
+  padding: 15px;
+}
+
+.inputs{
+  height: 90%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+
+.senha{
+  display: flex;
+  flex-direction: column;
+}
+
+.senha input{
+  padding: 10px;
+  border-radius: 5px;
+}
+
+.email{
+  display: flex;
+  flex-direction: column;
+}
+
+.email input{
+  padding: 10px;
+  border-radius: 5px;
+}
+
+.btn{
+  margin-top: 50px;
+  display: flex;
+  justify-content: center;
+}
+
+.btn input{
+  width: 120px;
+  height: 40px;
+  background-color: #225A76;
+  border: none;
+  color: white;
+  border-radius: 5px;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+.senha-errada {
+  display: flex;
+  justify-content: center;
+  color: red;
+}

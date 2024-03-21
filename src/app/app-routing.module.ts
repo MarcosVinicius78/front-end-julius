@@ -10,6 +10,8 @@ import { CadastrarCategoriaComponent } from './components/painel/cadastrar-categ
 import { CadastrarLojaComponent } from './components/painel/cadastrar-loja/cadastrar-loja.component';
 import { GruposComponent } from './components/grupos/grupos.component';
 import { ReportComponent } from './components/painel/report/report.component';
+import { LoginComponent } from './components/painel/login/login.component';
+import { AuthRouteguard } from './routeguard/auth-routeguard.service';
 
 const routes: Routes = [
   { path: 'painel', component: InicioPainelComponent, children: [
@@ -21,7 +23,8 @@ const routes: Routes = [
     { path: 'cadastrar-loja', component: CadastrarLojaComponent},
     { path: 'report', component: ReportComponent},
     { path: 'links-banners', component: LinksBannersComponent},
-  ], data: { hideHeader: false, hideFooter: false }},
+  ], data: { hideHeader: false, hideFooter: false }, canActivate: [AuthRouteguard]},
+  { path: 'login', component: LoginComponent},
   { path: '', component: ListarProdutosComponent, data: { hideHeader: true, hideFooter: true }},
   { path:  'oferta/:id', component: ProdutoComponent, data: { hideHeader: true, hideFooter: true }},
   { path:  'produtos-categoria/:id', component: ListarProdutosComponent, data: { hideHeader: true, hideFooter: true }},

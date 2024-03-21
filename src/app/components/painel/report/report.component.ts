@@ -83,7 +83,7 @@ export class ReportComponent implements OnInit {
     });
   }
 
-  changePage($event: number) {
+  changePage($event: any) {
   }
 
   dataCorreta(data: Date){

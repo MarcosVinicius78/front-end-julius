@@ -13,7 +13,7 @@ export class LojaService {
 
   constructor(private http: HttpClient) { }
 
-  salvarLoja(loja: any){
+  salvarLoja(loja: FormData){
 
     return this.http.post(`${this.URL_BASE}/loja`, loja);
   }

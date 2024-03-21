@@ -15,7 +15,7 @@
       <tbody *ngFor="let item of lojas">
         <tr>
           <td>{{ item.id }}</td>
-          <td><img [src]="'data:image/jpeg;base64,' + item.imagem" alt="{{ item.nome_loja }}"></td>
+          <td><img [src]="apiurl+'/loja/mostar-imagem/'+item.urlImagem" alt="{{ item.nome_loja }}"></td>
           <td class="nome">{{ item.nome_loja }}</td>
           <td class="opcoes">
             <a>Editar</a>
@@ -30,8 +30,8 @@
     <h2>Cadastrar loja</h2>
     <form [formGroup]="lojaFormGroup" (ngSubmit)="salvarLoja()">
       <div>
-        <label for="nome_loja">Nome da Loja</label>
-        <input class="nome" formControlName="nome_loja" name="nome_loja" type="text">
+        <label for="nomeLoja">Nome da Loja</label>
+        <input class="nome" formControlName="nomeLoja" name="nome_loja" type="text">
       </div>
 
       <div>

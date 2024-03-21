@@ -3,6 +3,9 @@ import { ActivatedRoute } from '@angular/router';
 import { Produtos } from 'src/app/models/produtos';
 import { ProdutoService } from 'src/app/service/painel/produto.service';
 import * as dateFns from 'date-fns';
+import { LinkBannerService } from 'src/app/service/painel/link-banner.service';
+import { LinksBanner } from 'src/app/dto/LinksBanner';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-listar-produtos',
@@ -11,18 +14,28 @@ import * as dateFns from 'date-fns';
 })
 export class ListarProdutosComponent implements OnInit {
 
+  apiUrl: string = environment.apiUrl
+
   produtos: Produtos[] = [];
 
   idCategoria: number | undefined;
+
+  links!: LinksBanner;
 
   termoPesquisa: string = '';
 
   page = 0;
   size = 10;
 
-  constructor(private produtoService: ProdutoService, private route: ActivatedRoute) { }
+  constructor(
+    private produtoService: ProdutoService,
+    private linkBannerService: LinkBannerService,
+    private route: ActivatedRoute
+  ) { }
 
   ngOnInit() {
+
+    // this.pegarLinks()
 
     this.idCategoria = Number.parseInt(this.route.snapshot.paramMap.get('id')!);
 
@@ -107,6 +120,13 @@ export class ListarProdutosComponent implements OnInit {
       const elapsedMonths = Math.floor(differenceInSeconds / secondsInMonth);
       return `${elapsedMonths} meses atrás`;
     }
+  }
+
+  pegarLinks(){
+    this.linkBannerService.listarLinksEBanners().subscribe(response => {
+      this.links = response;
+
+    });
   }
 
 }

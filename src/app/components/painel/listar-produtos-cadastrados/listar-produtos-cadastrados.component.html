@@ -51,6 +51,7 @@
         <tr>
           <th><input (change)="selectAll($event)" [checked]="isAllSelected()" type="checkbox" name="marcar"></th>
           <th>Titulo</th>
+          <th>Preço</th>
           <th>Opção</th>
         </tr>
       </thead>
@@ -58,9 +59,10 @@
         <tr *ngFor="let item of produtos">
           <td><input (change)="toggleProductSelection(item.id)" [checked]="isSelected(item.id)" type="checkbox" name="marcar"></td>
           <td>{{ item.titulo }}</td>
+          <td>{{ item.preco }}</td>
           <td class="opcoes">
-            <button (click)="apagarProduto(item.id)">Apagar</button>
-            <a routerLink="/painel/atualizar-produtos/{{item.id}}">Editar</a>
+            <button mat-raised-button (click)="apagarProduto(item.id,item.imagem)">APAGAR</button>
+            <a mat-raised-button routerLink="/painel/atualizar-produtos/{{item.id}}">EDITAR</a>
           </td>
         </tr>
       </tbody>
@@ -68,7 +70,7 @@
 
   </div>
   <div class="paginacao">
-    <app-paginator [currentPage]="page" [totalPages]="totalPage" (pageChange)="changePage($event)">
-    </app-paginator>
+    <mat-paginator [pageIndex]="page" [pageSize]="1" (page)="changePage($event)" [length]="totalPage" aria-label="Select page">
+    </mat-paginator>
   </div>
 </section>

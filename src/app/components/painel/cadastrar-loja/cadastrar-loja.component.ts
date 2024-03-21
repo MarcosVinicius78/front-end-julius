@@ -2,6 +2,7 @@ import { LojaService } from '../../../service/painel/loja.service';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Loja } from 'src/app/models/loja';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-cadastrar-loja',
@@ -12,6 +13,8 @@ export class CadastrarLojaComponent implements OnInit{
 
   lojaFormGroup!: FormGroup;
 
+  apiurl: string = environment.apiUrl
+
   imagemFile!: File;
   imagemBase64!: string;
 
@@ -21,7 +24,7 @@ export class CadastrarLojaComponent implements OnInit{
 
   ngOnInit(): void {
     this.lojaFormGroup = this.formBuilder.group({
-      nome_loja: ['', Validators.required],
+      nomeLoja: ['', Validators.required],
       imagem: [null]
     })
 
@@ -42,12 +45,14 @@ export class CadastrarLojaComponent implements OnInit{
   salvarLoja() {
 
     if (!this.lojaFormGroup.invalid) {
-      const loja = {
-        nome_loja: this.lojaFormGroup.get('nome_loja')?.value,
-        url_imagem: this.imagemBase64.split(',')[1]
-      }
 
-      this.lojaService.salvarLoja(loja).subscribe( response => {
+      const formData = new FormData();
+
+      formData.append('file', this.imagemFile);
+      formData.append('nomeLoja', this.lojaFormGroup.get('nomeLoja')?.value)
+      console.log(formData)
+
+      this.lojaService.salvarLoja(formData).subscribe( response => {
         this.listarLojas();
         this.lojaFormGroup.reset()
       });

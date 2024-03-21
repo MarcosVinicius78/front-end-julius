@@ -3,14 +3,18 @@ import { Loja } from "../models/loja"
 
 export class ProdutoLoja{
 
-  id!: number
-  titulo!: string;
-  preco!: string
-  descricao!: string
-  link!: string
-  cupom!: string
-  tituloPequeno!: string
-  lojaResponseDto!: Loja
+  id: number = 0
+  titulo: string = ""
+  preco: string = ""
+  parcelado: string = ""
+  descricao: string = ""
+  link: string = ""
+  cupom: string = ""
+  tituloPequeno: string = ""
+  mensagemAdicional: string = ""
+  freteVariacoes: string = ""
+  lojaResponseDto = new  Loja()
   categoriaDto!: Categoria
   imagem: any
+  
 }
