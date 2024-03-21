@@ -2,4 +2,4 @@
 FROM nginx:latest
 
 # Copie os arquivos da aplicação Angular para o diretório de trabalho do Nginx
-COPY ./dist/my-angular-app /usr/share/nginx/html
+COPY ./dist/julius-da-promo-front-end /usr/share/nginx/html
