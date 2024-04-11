@@ -69,7 +69,7 @@ export class ProdutoComponent implements OnInit {
     this.produtoService.pegarProduto(this.id).subscribe(response => {
       this.produto = response;
       this.produtosPorCategoria()
-      // this.setProductMetaTags(this.produto.titulo, this.produto.descricao, window.location.href);
+      this.setProductMetaTags(this.produto.titulo, this.produto.descricao, window.location.href);
     });
   }
 
