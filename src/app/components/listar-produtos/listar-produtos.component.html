@@ -15,8 +15,8 @@
         <i class="fa fa-search" (click)="pesquisar()" role="button"></i>
         <input type="search" [(ngModel)]="termoPesquisa" (keyup.enter)="pesquisar()" placeholder="Procurar Ofertas">
       </div>
-      <div>
-        <p class="radar">
+      <div class="radar">
+        <p>
           Radar de Ofertas
         </p>
       </div>
@@ -44,7 +44,10 @@
               <p class="nome-produto">{{ item.titulo }}</p>
             </a>
             <div class="cupom">
-              <p >{{ item.cupom }}</p>
+              <div>
+                <p *ngIf="item.cupom">{{ item.cupom }}</p>
+                <mat-icon *ngIf="item.cupom">local_offer</mat-icon>
+              </div>
             </div>
             <a routerLink="/oferta/{{ item.id }}">
               <p id="preco">{{ item.preco }}</p>

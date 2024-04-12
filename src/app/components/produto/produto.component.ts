@@ -11,8 +11,6 @@ import { Clipboard } from '@angular/cdk/clipboard';
 import { environment } from 'src/environments/environment';
 import { Produtos } from 'src/app/models/produtos';
 
-
-
 @Component({
   selector: 'app-produto',
   templateUrl: './produto.component.html',
@@ -63,6 +61,12 @@ export class ProdutoComponent implements OnInit {
         return ""
     }
 
+  }
+
+  cool = false;
+
+  toggleCool() {
+    this.cool = !this.cool;
   }
 
   pegarProduto() {

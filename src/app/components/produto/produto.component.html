@@ -63,93 +63,128 @@
 <!-- Certifique-se de ter a importação correta para MatDialogRef, MAT_DIALOG_DATA e Clipboard no seu componente -->
 
 <section>
-  <div class="produto">
+  <div class="flex">
 
-    <div class="info">
+    <div class="produto">
+
+      <div class="info">
         <p class="mob">Promoção da loja: {{ produto.lojaResponseDto.nome_loja }}</p>
         <div *ngIf="produto.imagem != undefined" class="imagem-produto">
           <img [src]="apiUrl+'/produto/download/'+produto.imagem" alt="">
         </div>
 
-      <div class="informaçoes">
-        <div class="teste">
+        <div class="informaçoes">
           <h2 class="titulo">{{ produto.titulo }}</h2>
           <p class="preco">{{ produto.preco }}</p>
-          <p>{{ produto.cupom }}</p>
+
+          <div *ngIf="produto.cupom" class="cupom">
+            <div>
+              <p>{{ produto.cupom }}</p>
+              <div class="copiar">
+                <mat-icon class="icon-copy">content_copy</mat-icon>
+                <p>COPIAR</p>
+              </div>
+            </div>
+          </div>
 
           <div class="ir-loja">
             <a href="{{ produto.link }}" target="_blank">Ir a Loja</a>
           </div>
-          <div class="outras-info">
-            <button class="report" (click)="abrirModal()">Reportar</button>
-            <button (click)="compartilhar()" class="comp">
-              <mat-icon>share</mat-icon>
-              Compartilhar
-            </button>
-            <div class="loja">
-              <img [src]="apiUrl+'/loja/mostar-imagem/'+produto.lojaResponseDto.urlImagem" alt="{{ produto.lojaResponseDto.nome_loja }}">
-              <div>
-                <p>Promoção da loja:</p>
-                <p>{{ produto.lojaResponseDto.nome_loja }}</p>
-              </div>
-            </div>
+        </div>
+      </div>
+
+      <hr class="linha-estilizada">
+
+      <div class="outras-info">
+        <button mat-icon-button [class.fill]="cool" (click)="toggleCool()">
+          <mat-icon>{{ cool ? 'thumb_up' : 'thumb_up_alt' }}</mat-icon>
+        </button>
+        <!-- <button class="report" (click)="abrirModal()">Reportar</button> -->
+        <button (click)="compartilhar()" class="comp">
+          <mat-icon>share</mat-icon>
+          Compartilhar
+        </button>
+        <div class="loja">
+          <img *ngIf="produto.lojaResponseDto.urlImagem" [src]="apiUrl+'/loja/mostar-imagem/'+produto.lojaResponseDto.urlImagem"
+            alt="{{ produto.lojaResponseDto.nome_loja }}">
+          <div>
+            <p>Promoção da loja:</p>
+            <p>{{ produto.lojaResponseDto.nome_loja }}</p>
           </div>
         </div>
-
       </div>
     </div>
-  </div>
 
-  <div class="descricao">
-    <h2>Descrição</h2>
-    <p>{{ produto.descricao }}</p>
-  </div>
+    <div class="info-preco">
+      O preço dos produtos podem variar de acordo com a disponibilidade da loja. As ofertas são por tempo limitado e
+      determinado pelas lojas.
+    </div>
 
-  <div class="produtos-categorias">
-    <div *ngFor="let item of produtos" class="grid-item">
-      <div>
-        <img [src]="apiUrl+'/produto/download/'+item.imagem" alt="">
+    <div class="descricao">
+      <h2>Descrição</h2>
+      <p>{{ produto.descricao }}</p>
+    </div>
+
+    <!-- <div class="produtos-categorias">
+      <div *ngFor="let item of produtos" class="grid-item">
+        <div>
+          <img [src]="apiUrl+'/produto/download/'+item.imagem" alt="">
+        </div>
+        <div class="">
+          <p class="nome-produto">
+            <a href="/oferta/{{item.id}}">
+              {{ item.titulo }}
+            </a>
+          </p>
+          <p class="preco2">{{ item.preco }}</p>
+          <div class="ver-promocao">
+            <a href="{{ item.link }}" target="_blank">Pegar Promoção</a>
+          </div>
+        </div>
       </div>
-      <div class="">
-        <p class="nome-produto">
-          <a href="/oferta/{{item.id}}">
-            {{ item.titulo }}
-          </a>
-        </p>
-        <p class="preco2">{{ item.preco }}</p>
-        <div class="ver-promocao">
-          <a href="{{ item.link }}"  target="_blank">Pegar Promoção</a>
+    </div> -->
+
+    <!-- Adicione esta div para a caixa de diálogo -->
+    <div class="dialogo" (click)="fecharDialogCompartilhar()" *ngIf="mostrarDialogCompartilhar">
+      <div class="opcoes-compartilhamento" (click)="impedirFechar($event)">
+        <div>
+          <mat-icon (click)="fecharDialogCompartilhar()" class="close-dialog">close</mat-icon>
+        </div>
+        <h2>Compartilhar em:</h2>
+        <div class="botoes">
+          <button mat-button *ngFor="let redeSocial of redesSociais" (click)="compartilharRedeSocial(redeSocial)">
+            <img [src]="redeSocialIcon(redeSocial)">
+          </button>
+          <button (click)="copiarParaAreaTransferencia()">
+            <img src="../../../assets/copy_paste_icon-icons.com_72426.png" alt="">
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="reportar" *ngIf="modal" (click)="fecharModal()">
+      <div class="opcoes-reportar" (click)="impedirFechar($event)">
+        <button class="close-modal" (click)="fecharModal()">&times;</button>
+        <h2>Opções de Report</h2>
+        <div class="opcoes-botoes">
+          <button (click)="reportar(produto.id, 'oferta')">Reportar Oferta</button>
+          <button (click)="reportar(produto.id, 'cupom')">Reportar Cupom</button>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- Adicione esta div para a caixa de diálogo -->
-  <div class="dialogo" (click)="fecharDialogCompartilhar()" *ngIf="mostrarDialogCompartilhar">
-    <div class="opcoes-compartilhamento" (click)="impedirFechar($event)">
-      <div>
-        <mat-icon (click)="fecharDialogCompartilhar()" class="close-dialog">close</mat-icon>
-      </div>
-      <h2>Compartilhar em:</h2>
-      <div class="botoes">
-        <button mat-button *ngFor="let redeSocial of redesSociais" (click)="compartilharRedeSocial(redeSocial)">
-          <img [src]="redeSocialIcon(redeSocial)">
-        </button>
-        <button (click)="copiarParaAreaTransferencia()">
-          <img src="../../../assets/copy_paste_icon-icons.com_72426.png" alt="">
-        </button>
-      </div>
+  <div>
+    <div class="convite">
+      <h2>Gostou dessa promoção?</h2>
+      <p>Entre no WhatsApp do Pechinchou e receba promoções imperdíveis de whatsapp</p>
+      <a href="">WhatsApp</a>
+    </div>
+
+    <div class="convite">
+
     </div>
   </div>
 
-  <div class="reportar" *ngIf="modal" (click)="fecharModal()">
-    <div class="opcoes-reportar" (click)="impedirFechar($event)">
-      <button class="close-modal" (click)="fecharModal()">&times;</button>
-      <h2>Opções de Report</h2>
-      <div class="opcoes-botoes">
-        <button (click)="reportar(produto.id, 'oferta')">Reportar Oferta</button>
-        <button (click)="reportar(produto.id, 'cupom')">Reportar Cupom</button>
-      </div>
-    </div>
-  </div>
+
 </section>

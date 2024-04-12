@@ -26,3 +26,10 @@ li a{
   /* font-family: 'Cutive'; */
   font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }
+
+@media screen and (max-width: 600px){
+  footer{
+    position: relative;
+    width: auto;
+  }
+}

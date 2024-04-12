@@ -31,7 +31,6 @@ import { RequireService } from './interceptors/require.service';
 import { AuthRouteguard } from './routeguard/auth-routeguard.service';
 import {MatPaginatorModule} from '@angular/material/paginator';
 
-
 @NgModule({
   declarations: [
     AppComponent,
