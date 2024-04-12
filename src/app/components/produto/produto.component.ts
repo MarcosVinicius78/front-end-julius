@@ -88,7 +88,7 @@ export class ProdutoComponent implements OnInit {
     // this.meta.addTag({ name: 'description', content: productDescription });
     this.meta.addTag({ property: 'og:title', content: productName });
     this.meta.addTag({ property: 'og:description', content: productDescription });
-    this.meta.addTag({ property: 'og:image', content: `${this.apiUrl}/loja/mostar-imagem/${this.produto.lojaResponseDto.urlImagem}` });
+    this.meta.addTag({ property: 'og:image', content: `${this.apiUrl}/produto/download/${this.produto.imagem}` });
   }
 
   fecharModal() {
