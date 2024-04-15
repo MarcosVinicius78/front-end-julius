@@ -10,6 +10,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { Clipboard } from '@angular/cdk/clipboard';
 import { environment } from 'src/environments/environment';
 import { Produtos } from 'src/app/models/produtos';
+import * as dateFns from 'date-fns';
 
 @Component({
   selector: 'app-produto',
@@ -27,6 +28,10 @@ export class ProdutoComponent implements OnInit {
   mostrarDialogCompartilhar = false;
   redesSociais = ['Facebook', 'Twitter', 'Instagram', 'WhatsApp'];
 
+  like: number = 0;
+
+  convite!: boolean;
+
   produtos: Produtos[] = [];
 
   produto = new ProdutoLoja;
@@ -42,6 +47,11 @@ export class ProdutoComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+
+    if (window.localStorage.getItem("convite") == 'true' || window.localStorage.getItem("convite") == undefined) {
+      this.convite = true;
+    }
+
     this.id = this.route.snapshot.paramMap.get('id')!;
     this.pegarProduto();
   }
@@ -63,10 +73,15 @@ export class ProdutoComponent implements OnInit {
 
   }
 
-  cool = false;
+  likeFuncao() {
+    this.like += 1;
+  }
 
-  toggleCool() {
-    this.cool = !this.cool;
+  deslikeFuncao(){
+    if (this.like <= 0) {
+      return
+    }
+      this.like -= 1;
   }
 
   pegarProduto() {
@@ -142,6 +157,21 @@ export class ProdutoComponent implements OnInit {
     this.mostrarDialogCompartilhar = false;
   }
 
+  abrirConviteMobile(){
+
+  }
+
+  fecharConviteMobile(){
+    console.log("Teste")
+    window.localStorage.getItem('convite');
+    if (window.localStorage.getItem('convite') == 'true') {
+      window.localStorage.setItem('convite', 'false');
+      this.convite = false;
+    }else{
+      window.localStorage.setItem("convite", "true");
+    }
+  }
+
   compartilharRedeSocial(redeSocial: string) {
     this.fecharDialogCompartilhar();
     // Lógica para compartilhar na rede social escolhida
@@ -161,5 +191,34 @@ export class ProdutoComponent implements OnInit {
     this.produtoService.obeterProdutoPorCategoria(this.produto.categoriaDto.categoria_id).subscribe(response => {
       this.produtos = response
     });
+  }
+
+  calculateElapsedTime(createdDate: string): string {
+    const currentDate = new Date();
+    const differenceInSeconds = dateFns.differenceInSeconds(
+      currentDate,
+      new Date(createdDate)
+    );
+
+    const secondsInMinute = 60;
+    const secondsInHour = secondsInMinute * 60;
+    const secondsInDay = secondsInHour * 24;
+    const secondsInMonth = secondsInDay * 30; // Aproximadamente 30 dias por mês
+
+    if (differenceInSeconds < secondsInMinute) {
+      return 'Agora';
+    } else if (differenceInSeconds < secondsInHour) {
+      const elapsedMinutes = Math.floor(differenceInSeconds / secondsInMinute);
+      return `${elapsedMinutes} min atrás`;
+    } else if (differenceInSeconds < secondsInDay) {
+      const elapsedHours = Math.floor(differenceInSeconds / secondsInHour);
+      return `${elapsedHours} horas atrás`;
+    } else if (differenceInSeconds < secondsInMonth) {
+      const elapsedDays = Math.floor(differenceInSeconds / secondsInDay);
+      return `${elapsedDays} dias atrás`;
+    } else {
+      const elapsedMonths = Math.floor(differenceInSeconds / secondsInMonth);
+      return `${elapsedMonths} meses atrás`;
+    }
   }
 }

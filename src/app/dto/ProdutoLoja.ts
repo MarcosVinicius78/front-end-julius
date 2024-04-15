@@ -16,5 +16,6 @@ export class ProdutoLoja{
   lojaResponseDto = new  Loja()
   categoriaDto!: Categoria
   imagem: any
-  
+  dataCriacao!: string
+
 }
