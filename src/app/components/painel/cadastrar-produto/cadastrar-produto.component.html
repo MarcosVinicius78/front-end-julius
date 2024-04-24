@@ -36,6 +36,7 @@
         <div>
           <h2>Frete Variacões</h2>
           <select formControlName="freteVariacoes" name="freteVariacoes">
+            <option value="">Selecione</option>
             <option value="Frete Grátis">Frete Grátis</option>
             <option value="Frete Grátis Prime">Frete Grátis Prime</option>
             <option value="Frete Econômico">Frete Econômico</option>
@@ -45,7 +46,8 @@
         <div>
           <h2>Mensagem Adicional</h2>
           <select class="preco" formControlName="mensagemAdicional" name="mensagemAdicional">
-            <option value="Promoção sujeita a alteração a qualquer momento" selected>Promoção sujeita a alteração a qualquer momento</option>
+            <option value="">Selecione</option>
+            <option value="Promoção sujeita a alteração a qualquer momento">Promoção sujeita a alteração a qualquer momento</option>
             <option value="Convide seus amigos: http://google.com.br">Convide seus amigos: http://google.com.br</option>
           </select>
         </div>
@@ -103,10 +105,10 @@
 
       </div>
 
-      <div class="descricao">
+      <!-- <div class="descricao">
         <h2>Descrição</h2>
         <input formControlName="descricao" class="input-grande" type="text">
-      </div>
+      </div> -->
 
       <div class="grupo">
 
@@ -131,3 +133,7 @@
     </div>
   </section>
 </form>
+
+<div class="produto-salvo" *ngIf="produtoSalvo" [@fadeInOut]>
+  <p>{{ mensagem }}</p>
+</div>

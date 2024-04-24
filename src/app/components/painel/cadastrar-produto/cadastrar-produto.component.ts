@@ -1,5 +1,6 @@
+import { trigger, state, style, animate, transition } from '@angular/animations';
 import { ScraperProduto } from './../../../dto/ScraperProduto';
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, Renderer2 } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { parse } from 'date-fns';
@@ -15,9 +16,24 @@ import { environment } from 'src/environments/environment';
 @Component({
   selector: 'app-cadastrar-produto',
   templateUrl: './cadastrar-produto.component.html',
-  styleUrls: ['./cadastrar-produto.component.css']
+  styleUrls: ['./cadastrar-produto.component.css'],
+  animations: [
+    trigger('fadeInOut', [
+      state('in', style({ opacity: 1, transform: 'scale(1)' })),
+      transition(':enter', [
+        style({ opacity: 0, transform: 'scale(0.8)' }),
+        animate('0.3s ease-out')
+      ]),
+      transition(':leave', [
+        animate('0.3s ease-in', style({ opacity: 0, transform: 'scale(0.8)' }))
+      ])
+    ])
+  ]
 })
 export class CadastrarProdutoComponent implements OnInit {
+
+  produtoSalvo: boolean = false;
+  mensagem!: string;
 
   produtoFormGroup!: FormGroup;
   apiUrl: string = environment.apiUrl;
@@ -46,16 +62,14 @@ export class CadastrarProdutoComponent implements OnInit {
     private produtoSevice: ProdutoService,
     private lojaService: LojaService,
     private categoriaService: CategoriaService,
-    private router: ActivatedRoute
+    private router: ActivatedRoute,
+    private elementref: ElementRef,
+    private renderer: Renderer2
   ) { }
 
   ngOnInit(): void {
 
-
     this.idEditar = this.router.snapshot.paramMap.get('id')!;
-
-
-    // this.scraperProduto.urlImagem = "";
 
     this.produtoFormGroup = this.formBuilder.group({
       titulo: ['', [Validators.required]],
@@ -72,8 +86,6 @@ export class CadastrarProdutoComponent implements OnInit {
       imgem: ['']
     })
 
-    console.log(this.scraperProduto.urlImagem)
-
     if (this.idEditar != undefined) {
       this.pegarProduto();
     }
@@ -82,18 +94,9 @@ export class CadastrarProdutoComponent implements OnInit {
     this.listarCategoria()
   }
 
-  // onFileSelectedSite(event: any) {
-  //   this.selectedFileSite = event.target.files[0];
-  // }
-
-  // onFileSelectedWhatasapp(event: any) {
-  //   this.selectedFileWhatsapp = event.target.files[0];
-  // }
-
   onFileChange(event: any) {
     this.imagemFile = event.target.files[0]
 
-    // this.scraperProduto.urlImagem = "";
 
     const reader = new FileReader();
 
@@ -110,8 +113,6 @@ export class CadastrarProdutoComponent implements OnInit {
 
     if (this.idEditar == null && !this.produtoFormGroup.invalid) {
 
-      console.log("aqui")
-
       const produto: any = {
         titulo: this.produtoFormGroup.get('titulo')?.value,
         preco: this.produtoFormGroup.get('preco')?.value,
@@ -126,8 +127,6 @@ export class CadastrarProdutoComponent implements OnInit {
         id_categoria: this.produtoFormGroup.get('id_categoria')?.value,
         id_loja: this.produtoFormGroup.get('loja')?.value
       }
-
-      console.log(produto);
 
       this.produtoSevice.salvarProduto(produto).subscribe(response => {
 
@@ -145,7 +144,13 @@ export class CadastrarProdutoComponent implements OnInit {
             console.log(err);
           });
         }
-        alert("Salvo");
+        this.produtoSalvo = true;
+
+        this.mensagem = "Salvo Com Sucesso";
+        // Após algum tempo, ocultar o elemento novamente
+        setTimeout(() => {
+          this.produtoSalvo = false;
+        }, 4000);
       }, err => {
         console.log(err.status);
       });
@@ -163,8 +168,7 @@ export class CadastrarProdutoComponent implements OnInit {
     }
     console.log(this.produtoFormGroup.get('url')?.value);
 
-    if(this.produtoFormGroup.get('url')?.value != ""){
-      // console.log(this.produtoFormGroup.get('url')?.value);
+    if (this.produtoFormGroup.get('url')?.value != "") {
       this.rasparProduto(this.produtoFormGroup.get('url')?.value)
       return
     }
@@ -229,7 +233,7 @@ export class CadastrarProdutoComponent implements OnInit {
     });
   }
 
-  rasparProduto(url: string){
+  rasparProduto(url: string) {
 
     let loja: String = "";
     this.lojas.forEach(element => {
@@ -253,7 +257,7 @@ export class CadastrarProdutoComponent implements OnInit {
         link: [url, Validators.required],
         cupom: [''],
         id_categoria: ['', [Validators.required]],
-        loja: [ loja, [Validators.required]],
+        loja: [loja, [Validators.required]],
         imgem: ['']
       })
 

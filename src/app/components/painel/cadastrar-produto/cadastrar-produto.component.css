@@ -19,6 +19,23 @@ h2{
   width: 45px;
 }
 
+p{
+  margin: 0;
+}
+
+.produto-salvo{
+  background-color: rgb(14, 205, 14);
+  width: fit-content;
+  padding: 20px 80px;
+  position: absolute;
+  right: 30px;
+  top: 30px;
+  border-radius: 5px;
+  color: white;
+  font-weight: 600;
+  /* display: none; */
+}
+
 #imagens{
   width: 95%;
   display: flex;

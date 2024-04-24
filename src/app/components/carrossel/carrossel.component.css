@@ -1,53 +1,133 @@
 /* Seu estilo CSS */
 .horizontal-list-container {
   display: flex;
-  height: 100%;
-  align-items: center;
+  /* height: 100%; */
+  /* align-items: center; */
   /* background-color: aqua; */
-  overflow-x: auto;
-  white-space: nowrap;
+  /* overflow-x: auto; */
+  /* white-space: nowrap; */
+  /* padding: 10px; */
+  /* background-color: red; */
+  height: 85%;
+}
+
+.item {
+  padding: 10px;
+  display: flex;
+  /* overflow-x: hidden; */
+  /* gap: 10px; */
+  align-items: center;
+  /* width: 100%; */
+}
+
+.container {
+  overflow-x: hidden;
+  width: 100%;
+  display: flex;
+}
+
+.info p:nth-child(2) {
+  font-size: 10px;
+}
+
+.info {
+  height: 70px;
+}
+
+.btn {
+  padding: 10px;
+  display: flex;
+  align-items: center;
+}
+
+.scroll-button {
+  height: 40px;
+  width: 40px;
+  border-radius: 50%;
+  border: none;
+  cursor: pointer;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 }
 
 .nome-produto {
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
-  max-width: 150px; /* Ajuste conforme necessário */
+  /* min-width: 50px; */
+  font-size: 11px;
+  margin: 0;
+  font-weight: 700;
 }
 
-a{
+.card {
+  border-radius: 10px;
+  width: 130px;
+  height: 170px;
+  background-color: white;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  box-shadow: rgba(100, 100, 100, 0.3) 0px 2px 8px 0px;
+}
+
+p {
+  margin: 0;
+}
+
+a {
   text-decoration: none;
   color: black;
 }
 
-.card{
-  margin-left: 10px;
-  background-color: rgb(255, 255, 255);
-  border-radius: 10px;
-  margin-bottom: 10px;
-  width: 185px;
-  height: 270px;
-  padding: 5PX;
-  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-}
-
-.img{
-  margin-top: 5px;
+.img {
   display: flex;
   justify-content: center;
 }
 
-.img img{
-  width: 160px;
-  height: 110px;
+.info {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 50%;
+}
+
+.info p:nth-child(3) {
+  font-weight: 700;
+  font-size: 17px;
+  color: white;
+  background-color: #321710e3;
+  width: fit-content;
+  padding: 3px;
+  border-radius: 5px;
+}
+
+.img img {
+  width: 60px;
+  height: 60px;
   object-fit: contain;
 }
 
-.loja img{
-  border-radius: 50%;
-  width: 30px;
-  height: 30px;
+@media screen and (max-width: 600px) {
+  .nome-produto {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: initial;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+  }
+
+  .info p:nth-child(3) {
+    font-size: 20px;
+  }
+
+  .card {
+    width: 120px;
+    height: 190px;
+  }
+
+  .scroll-button{
+    display: none;
+  }
 }
