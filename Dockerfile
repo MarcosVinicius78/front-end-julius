@@ -12,11 +12,11 @@ COPY . .
 
 # RUN npm run build
 
-RUN mkdir -p /var/www/html
+RUN mkdir -p /var/www/html/julius-da-promo-front-end
 
-RUN mv dist/* /var/www/html
+RUN mv dist/* /var/www/html/julius-da-promo-front-end/
 
-VOLUME /var/www/html
+VOLUME /var/www/html/julius-da-promo-front-end
 
 WORKDIR /
 
