@@ -2,9 +2,9 @@
 # FROM nginx:latest
 FROM node:latest
 
-# WORKDIR /tmp/angular
+WORKDIR /tmp/angular
 
-# COPY . .
+COPY . .
 
 # RUN rm -rf node_modules
 
