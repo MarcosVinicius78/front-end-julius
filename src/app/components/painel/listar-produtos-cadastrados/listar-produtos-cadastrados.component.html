@@ -1,4 +1,4 @@
-<!-- <section>
+<section>
   <header>
     <div>
       <h1>Produtos Cadastrados</h1>
@@ -7,70 +7,57 @@
   </header>
 
   <div class="separar">
-    <table>
-      <thead>
+    <p-table styleClass="table-custom" [value]="produtos" [(selection)]="selectedProducts" dataKey="id">
+      <ng-template pTemplate="header">
         <tr>
-          <th><input (change)="selectAll($event)" [checked]="isAllSelected()" type="checkbox" name="marcar"></th>
-          <th>Titulo</th>
-          <th>Opção</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let item of produtos">
-          <td><input (change)="toggleProductSelection(item.id)" [checked]="isSelected(item.id)" type="checkbox" name="marcar"></td>
-          <td>{{ item.titulo }}</td>
-          <td class="opcoes">
-            <button (click)="apagarProduto(item.id)">Apagar</button>
-            <a routerLink="/painel/atualizar-produtos/{{item.id}}">Editar</a>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-
-  </div>
-  <div class="paginacao">
-    <app-paginator [currentPage]="page" [totalPages]="totalPage" (pageChange)="changePage($event)">
-    </app-paginator>
-  </div>
-</section>
-
- -->
-
-
- <section>
-  <header>
-    <div>
-      <h1>Produtos Cadastrados</h1>
-    </div>
-    <input (click)="apagarVariosProdutos()" type="submit" value="Apagar">
-  </header>
-
-  <div class="separar">
-    <table>
-      <thead>
-        <tr>
-          <th><input (change)="selectAll($event)" [checked]="isAllSelected()" type="checkbox" name="marcar"></th>
+          <th style="width: 4rem">
+            <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+          </th>
           <th>Titulo</th>
           <th>Preço</th>
-          <th>Opção</th>
+          <th>Loja</th>
+          <th>Story</th>
+          <th>Opções</th>
         </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let item of produtos">
-          <td><input (change)="toggleProductSelection(item.id)" [checked]="isSelected(item.id)" type="checkbox" name="marcar"></td>
-          <td>{{ item.titulo }}</td>
-          <td>{{ item.preco }}</td>
-          <td class="opcoes">
-            <button mat-raised-button (click)="apagarProduto(item.id,item.imagem)">APAGAR</button>
-            <a mat-raised-button routerLink="/painel/atualizar-produtos/{{item.id}}">EDITAR</a>
+      </ng-template>
+      <ng-template pTemplate="body" let-item>
+        <tr>
+          <td>
+            <p-tableCheckbox [value]="item"></p-tableCheckbox>
+          </td>
+          <td>
+            <a href="/painel/atualizar-produtos/{{item.id}}">
+              {{item.titulo}}
+            </a>
+          </td>
+          <td>{{item.preco}}</td>
+          <td>
+            <span *ngIf="item.loja != null">
+              {{item.loja.nome_loja}}
+            </span>
+          </td>
+          <td>
+            <i (click)="gerarStory(item.preco, item.titulo, item.imagem, item.freteVariacoes, item.cupom)"
+              class="story pi pi-image"></i>
+          </td>
+          <td>
+            <div class="opcoes">
+              <i (click)="apagarProduto(item.id, item.imagem)" class="pi pi-trash"></i>
+              <a href="/painel/atualizar-produtos/{{item.id}}">
+                <i class="pi pi-pencil"></i>
+              </a>
+            </div>
           </td>
         </tr>
-      </tbody>
-    </table>
-
+      </ng-template>
+    </p-table>
   </div>
   <div class="paginacao">
-    <mat-paginator [pageIndex]="page" [pageSize]="1" (page)="changePage($event)" [length]="totalPage" aria-label="Select page">
-    </mat-paginator>
+    <p-paginator [first]="0" [rows]="1" [totalRecords]="totalPage" (onPageChange)="changePage($event)"
+      [showCurrentPageReport]="true" currentPageReportTemplate="{first} de {totalRecords}" [showPageLinks]="false"
+      [showFirstLastIcon]="false"></p-paginator>
+
   </div>
 </section>
+
+<p-toast></p-toast>

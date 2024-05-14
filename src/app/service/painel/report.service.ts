@@ -26,7 +26,7 @@ export class ReportService {
     return this.http.get(`${this.apiUrl}/report`, { params })
   }
 
-  apagarVariosReports(reportsSelecionados: number[]){
+  apagarVariosReports(reportsSelecionados: ReportsDto){
     return this.http.post<number>(`${this.apiUrl}/report/apagar-varios`, reportsSelecionados)
   }
 }

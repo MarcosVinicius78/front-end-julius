@@ -1,0 +1,80 @@
+:host ::ng-deep {
+  section {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .p-card {
+    width: 250px;
+    height: 350px;
+  }
+
+  .conteudo {
+    height: 100px;
+  }
+
+  header {
+    width: 90%;
+  }
+
+  .p-card-title {
+    white-space: nowrap;
+    width: 100%;
+    overflow: hidden;
+    font-size: 20px;
+    max-width: 200px;
+    text-overflow: ellipsis;
+    font-weight: 700;
+  }
+
+  .p-card-content {
+    height: 100px;
+  }
+
+  .p-card-header {
+    width: 100%;
+  }
+
+  .p-card-content p {
+    display: -webkit-box;
+    -webkit-line-clamp: 3; /* Altere o número para a quantidade desejada de linhas */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    max-width: 200px;
+    text-overflow: ellipsis;
+  }
+
+  .conteudo-grid {
+    width: 90%;
+    margin-top: 20px;
+  }
+
+  .p-card-header img {
+    height: 160px;
+  }
+
+  a {
+    text-transform: none;
+  }
+
+  .icon-editar {
+    position: absolute;
+    bottom: 5px;
+    background-color: #163a4d;
+    padding: 13px;
+    border-radius: 50%;
+    color: white;
+  }
+
+  .icon-apagar {
+    position: absolute;
+    bottom: 5px;
+    left: 60px;
+    background-color: red;
+    padding: 13px;
+    border-radius: 50%;
+    color: white;
+  }
+}

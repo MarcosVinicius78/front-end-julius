@@ -1,102 +1,157 @@
-.car-categorias{
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  height: 100%;
-}
+:host ::ng-deep {
+  .car-categorias {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    height: 100%;
+  }
 
-.categorias-cadastradas{
-  width: 500px;
-  height: 600px;
-  border-radius: 10px;
-  background-color: rgb(245, 245, 245);
-  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-  overflow-y: auto;
-}
+  .cadastrar {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 500px;
+    height: 200px;
+    background-color: rgb(245, 245, 245);
+    border-radius: 10px;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  }
 
-.categorias-cadastradas div{
-  display: flex;
-  justify-content: center;
-}
+  form div {
+    display: flex;
+    flex-direction: column;
+    width: 300px;
+  }
 
-.cadastrar{
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 500px;
-  height: 200px;
-  background-color: rgb(245, 245, 245);
-  border-radius: 10px;
-  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-}
+  h2{
+    color: white;
+  }
 
-.nome{
-  border-radius: 5px;
-}
+  form div input {
+    padding: 10px;
+    margin-top: 10px;
+  }
 
-input.ng-invalid {
-  border: 1px solid red;
-}
+  .botao {
+    width: 100%;
+    display: flex;
+    align-items: center;
+  }
 
-form div{
-  display: flex;
-  flex-direction: column;
-  width: 300px;
-}
+  .botao input {
+    border-radius: 5px;
+    border: none;
+    width: 100px;
+    background-color: blue;
+    color: white;
+    font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+  }
 
-form div input{
-  padding: 10px;
-  margin-top: 10px;
-}
+  .opcoes{
+    margin: 0 auto;
+    width: 70%;
+    display: flex;
+    justify-content: space-between;
+  }
 
-.botao{
-  width: 100%;
-  display: flex;
-  align-items: center;
-}
+  .opcoes i {
+    cursor: pointer;
+    padding: 10px;
+    border-radius: 10px;
+  }
 
-.botao input{
-  border-radius: 5px;
-  border: none;
-  width: 100px;
-  background-color: blue;
-  color: white;
-  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-}
+  .opcoes i:first-child{
+    background-color: red;
+  }
 
-table {
-  width: 100%;
-  overflow-y: auto;
-}
+  .opcoes i:last-child{
+    background-color: blue;
+  }
 
-tr{
-  height: 50px;
-}
+  .opcoes a:first-child {
+    background-color: #183b59;
+    padding: 8px;
+    border-radius: 8px;
+    color: white;
+    text-decoration: none;
+    cursor: pointer;
+  }
 
-.nome{
-  width: 300px;
-}
+  .p-paginator {
+    background-color: #163a4d;
+    border: none;
+  }
 
-table tbody{
-  background-color: #f0f0f0;
-  text-align: center;
-}
+  .p-paginator-next {
+    color: white;
+  }
 
-.opcoes a:last-child{
-  margin-left: 5px;
-  background-color: rgb(187, 12, 12);
-  padding: 8px;
-  border-radius: 8px;
-  color: white;
-  text-decoration: none;
-  cursor: pointer;
-}
+  .p-paginator-prev {
+    color: white;
+  }
 
-.opcoes a:first-child{
-  background-color: #183B59;
-  padding: 8px;
-  border-radius: 8px;
-  color: white;
-  text-decoration: none;
-  cursor: pointer;
+  .p-paginator-current {
+    color: white;
+  }
+
+  .p-datatable .p-datatable-thead > tr > th {
+    background-color: #163a4d;
+    color: white;
+  }
+
+  .p-datatable .p-datatable-tbody > tr > td {
+    background-color: #163a4d;
+    color: white;
+    border: 1px solid #464646;
+    border-width: 0 0 1px 0;
+  }
+
+  .p-datatable {
+    height: 540px;
+  }
+
+  .p-datatable-wrapper{
+    height: 74%;
+  }
+
+  .p-datatable-header{
+    color: white;
+    border-top: none;
+    background-color: #102d3d;
+    border-radius: 20px 20px 0 0;
+  }
+
+  .cadastrar {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 500px;
+    background-color: #163a4d;
+    border-radius: 10px;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  }
+
+  form{
+    width: 80%;
+    height: 60%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  form label:first-child{
+    margin-bottom: 10px;
+  }
+
+  form input{
+    width: 100%;
+    height: 40px;
+    background-color: #184c78;
+    border-color: #225a76;
+    color: white;
+  }
+
+  label {
+    color: white;
+  }
 }

@@ -1,5 +1,5 @@
-<div class="menu-lateral">
-
+<div class="menu-icon" (click)="ativarMenu()">&#9776;</div>
+<div class="menu-lateral" [class.open]="menuAtivado">
   <ul class="opcoes">
     <li><a routerLink="/painel/listar-produtos">Listar Produtos</a></li>
     <li><a routerLink="/painel/cadastrar-produtos">Cadastrar Produto</a></li>
@@ -7,5 +7,18 @@
     <li><a routerLink="/painel/cadastrar-loja">Cadastrar Lojas</a></li>
     <li><a routerLink="/painel/report">Reports</a></li>
     <li><a routerLink="/painel/links-banners">Links e Banners</a></li>
+    <li><a routerLink="/painel/cadastrar-posts">Blog</a></li>
   </ul>
 </div>
+<div *ngIf="menuAtivado" class="menu-lateral-mobile" [class.open]="menuAtivado">
+  <ul class="opcoes">
+    <li><a routerLink="/painel/listar-produtos">Listar Produtos</a></li>
+    <li><a routerLink="/painel/cadastrar-produtos">Cadastrar Produto</a></li>
+    <li><a routerLink="/painel/cadastrar-categoria">Cadastrar Categoria</a></li>
+    <li><a routerLink="/painel/cadastrar-loja">Cadastrar Lojas</a></li>
+    <li><a routerLink="/painel/report">Reports</a></li>
+    <li><a routerLink="/painel/links-banners">Links e Banners</a></li>
+    <li><a routerLink="/painel/cadastrar-posts">Blog</a></li>
+  </ul>
+</div>
+<i *ngIf="menuAtivado" class="pi pi-times"></i>

@@ -1,0 +1,45 @@
+<section>
+  <header *ngIf="id === null">
+    <h1>Artigos e Resenhas / Reviews de produtos</h1>
+  </header>
+
+  <div class="flex justify-content-between">
+    <!-- a div abaixo serve para listar todos os posts -->
+    <div *ngIf="id === null" class="w-9">
+      <div class="mt-3 mb-3" *ngFor="let post of posts">
+        <a class="no-underline" href="/blog/{{post.id}}">
+          <p-card styleClass="w-full" header="{{ post.titulo }}">
+            <ng-template pTemplate="header">
+              <img alt="Card" [src]="apiUrl+'/post/download/'+post.urlImagem" />
+            </ng-template>
+            <p>
+              {{ getTextWithoutTags(post.conteudo) }}
+            </p>
+          </p-card>
+        </a>
+      </div>
+    </div>
+
+    <div class="w-9" *ngIf="id !== null">
+      <div class="container">
+        <img [src]="apiUrl+'/post/download/'+post.urlImagem" alt="Imagem" class="background-image">
+        <div class="text-overlay">
+          <h2>{{ post.titulo }}</h2>
+          <p>{{ post.dataCriacao | date: "dd - MM - yyyy"}}</p>
+          <p> Atualizado em {{ post.dataAtualizacao | date: "dd - MM - yyyy"}}</p>
+        </div>
+      </div>
+      <div>
+        <p [innerHTML]="post.conteudo" class="text-justify"></p>
+      </div>
+    </div>
+
+    <aside class="flex-convite">
+      <div class="convite">
+        <h2>Gostou dessa promoção?</h2>
+        <p>Entre no WhatsApp do Sergipe Ofertas e receba promoções imperdíveis no whatsapp</p>
+        <a href="">WhatsApp</a>
+      </div>
+    </aside>
+  </div>
+</section>

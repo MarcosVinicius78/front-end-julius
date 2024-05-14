@@ -5,12 +5,13 @@ import { ProdutoLoja } from 'src/app/dto/ProdutoLoja';
 import { ProdutoService } from 'src/app/service/painel/produto.service';
 import { ReportService } from 'src/app/service/painel/report.service';
 
-import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
-import { MatSnackBar } from '@angular/material/snack-bar';
+// import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
+// import { MatSnackBar } from '@angular/material/snack-bar';
 import { Clipboard } from '@angular/cdk/clipboard';
 import { environment } from 'src/environments/environment';
 import { Produtos } from 'src/app/models/produtos';
 import * as dateFns from 'date-fns';
+import { Message } from 'primeng/api';
 
 @Component({
   selector: 'app-produto',
@@ -28,22 +29,22 @@ export class ProdutoComponent implements OnInit {
   mostrarDialogCompartilhar = false;
   redesSociais = ['Facebook', 'Twitter', 'Instagram', 'WhatsApp'];
 
-  like: number = 0;
-
   convite!: boolean;
 
   produtos: Produtos[] = [];
 
   produto = new ProdutoLoja;
 
+  msg!: Message[];
+
   constructor(
     private route: ActivatedRoute,
     private produtoService: ProdutoService,
     private meta: Meta,
     private reportService: ReportService,
-    private dialog: MatDialog,
+    // private dialog: MatDialog,
     private clipboard: Clipboard,
-    private snackBar: MatSnackBar
+    // private snackBar: MatSnackBar
   ) { }
 
   ngOnInit(): void {
@@ -54,34 +55,6 @@ export class ProdutoComponent implements OnInit {
 
     this.id = this.route.snapshot.paramMap.get('id')!;
     this.pegarProduto();
-  }
-
-  redeSocialIcon(rede: string){
-
-    switch (rede) {
-      case "Facebook":
-        return "../../../assets/facebook.png"
-      case "Twitter":
-        return "../../../assets/twitter.png"
-      case "Instagram":
-        return "../../../assets/pngtree-three-dimensional-instagram-icon-png-image_9015419.png"
-      case "WhatsApp":
-        return "../../../assets/WhatsApp_icon.png.webp"
-      default:
-        return ""
-    }
-
-  }
-
-  likeFuncao() {
-    this.like += 1;
-  }
-
-  deslikeFuncao(){
-    if (this.like <= 0) {
-      return
-    }
-      this.like -= 1;
   }
 
   pegarProduto() {
@@ -112,10 +85,8 @@ export class ProdutoComponent implements OnInit {
     this.meta.addTag({ name: 'description', content: "as melhores promoções" });
     this.meta.addTag({ property: 'og:title', content: productName });
     this.meta.addTag({ property: 'og:description', content: productDescription });
-    this.meta.addTag({ property: 'og:image', content: `${this.apiUrl}/produto/download/${this.produto.imagem}` });
-
-
-
+    this.meta.addTag({ property: 'og:image', content: "https://pechinchous3.s3.sa-east-1.amazonaws.com/media/img/products/social/WhatsApp_Image_2023-11-23_at_19_PoLNjFC_pc079UL_Ui41CXC_QytOhr8_tJIDI50_LDIOSkz_Kqwg0Qq_koWFuh0_lZYzOGD_a2X00FV_KA0ATUM_Fs0t6Up_r9zQDYQ_gOUm6LQ_g5wqsEQ_7rmiu8b_hguz0Od_gEwaY9t_03KmAHq_Yt8lCTX_9ZCFIP4_yqjAIaB_U4Sv7hz_dFoYSqf_EwdG29J.jpg" });
+    // this.meta.addTag({ property: 'og:image', content: `${this.apiUrl}/produto/download/${this.produto.imagem}` });
   }
 
   fecharModal() {
@@ -165,43 +136,19 @@ export class ProdutoComponent implements OnInit {
     this.mostrarDialogCompartilhar = true;
   }
 
-  fecharDialogCompartilhar() {
-    this.mostrarDialogCompartilhar = false;
-  }
-
-  abrirConviteMobile(){
-
-  }
-
-  fecharConviteMobile(){
-    console.log("Teste")
-    window.localStorage.getItem('convite');
-    if (window.localStorage.getItem('convite') == 'true') {
-      window.localStorage.setItem('convite', 'false');
-      this.convite = false;
-    }else{
-      window.localStorage.setItem("convite", "true");
-    }
-  }
-
-  compartilharRedeSocial(redeSocial: string) {
-    this.fecharDialogCompartilhar();
-    // Lógica para compartilhar na rede social escolhida
-    console.log(`Compartilhando no ${redeSocial}`);
-  }
-
   copiarParaAreaTransferencia() {
-    this.fecharDialogCompartilhar();
-    const textoParaCopiar = this.montarEstruturaCompartilhamento();
-    this.clipboard.copy(textoParaCopiar);
-    this.snackBar.open('Texto copiado para a Área de Transferência', 'Fechar', {
-      duration: 2000,
-    });
+    this.clipboard.copy(this.produto.cupom);
+    this.msg = [
+      { severity: 'success',detail: "CUPOM COPIADO"}
+    ]
+    setTimeout(() => {
+      this.msg = [];
+    }, 3000);
   }
 
   produtosPorCategoria(){
-    this.produtoService.obeterProdutoPorCategoria(this.produto.categoriaDto.categoria_id).subscribe(response => {
-      this.produtos = response
+    this.produtoService.obeterProdutoPorCategoria().subscribe(response => {
+      this.produtos = response.content
     });
   }
 
@@ -231,6 +178,23 @@ export class ProdutoComponent implements OnInit {
     } else {
       const elapsedMonths = Math.floor(differenceInSeconds / secondsInMonth);
       return `${elapsedMonths} meses atrás`;
+    }
+  }
+
+  shares() {
+
+    if (navigator.share) {
+      navigator.share({
+        title: this.produto.titulo,
+        text: this.montarEstruturaCompartilhamento()
+      }).then(() => {
+        console.log('Conteúdo compartilhado com sucesso.');
+      })
+      .catch((error) => {
+        console.error('Erro ao compartilhar:', error);
+      });
+    } else {
+      console.log('A funcionalidade de compartilhamento não é suportada neste navegador.');
     }
   }
 }

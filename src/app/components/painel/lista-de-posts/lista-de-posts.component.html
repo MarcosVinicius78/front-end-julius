@@ -1,0 +1,25 @@
+<section>
+  <header class="flex justify-content-between">
+    <h1 class="text-white-alpha-90 text-2xl">Lista de Posts</h1>
+    <a routerLink="/painel/cadastrar-posts">
+      <p-button label="Cadastrar Post"></p-button>
+    </a>
+  </header>
+
+  <div class="grid conteudo-grid">
+    <div class="relative col-3" *ngFor="let post of posts">
+      <a class="no-underline" routerLink="/blog/{{post.id}}">
+        <p-card header="{{ post.titulo }}">
+          <ng-template pTemplate="header">
+            <img alt="Card" [src]="apiUrl+'/post/download/'+post.urlImagem" />
+          </ng-template>
+          <p>
+            {{ getTextWithoutTags(post.conteudo) }}
+          </p>
+        </p-card>
+      </a>
+      <i routerLink="/painel/cadastrar-posts/{{post.id}}" class="pi pi-pencil icon-editar"></i>
+      <i (click)="apagarPost(post.id, post.urlImagem)" class="pi pi-trash icon-apagar"></i>
+    </div>
+  </div>
+</section>

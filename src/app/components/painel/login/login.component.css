@@ -68,3 +68,18 @@ header{
   justify-content: center;
   color: red;
 }
+
+@media screen and (max-width: 720px){
+ .card-login{
+  width: 90%;
+  height: 35%;
+ }
+
+ .btn{
+  margin-top: 0px;
+ }
+
+ form{
+  height: 90%;
+ }
+}

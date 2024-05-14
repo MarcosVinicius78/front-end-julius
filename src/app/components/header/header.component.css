@@ -113,6 +113,7 @@ header nav li:nth-child(4) a{
     height: 100%;
     display: flex;
     align-items: center;
+    margin: 0;
     font-size: 30px;
   }
 
@@ -121,10 +122,6 @@ header nav li:nth-child(4) a{
     justify-content: space-around;
     width: 100%;
     height: 50px;
-  }
-
-  .header a h1{
-    margin: 0;
   }
 
   .header nav a {
@@ -156,13 +153,15 @@ header nav li:nth-child(4) a{
     background-color: white;
     position: fixed;
     top: 0;
-    right: 0;
-    z-index: 1;
-    transition: width 0.3s;
+    left: 0;
+    z-index: 1000;
+    transition: width 0.3s ease, transform 0.3s ease;
   }
 
-  .header a h1{
-    margin-left: 0;
-
+  .menu-aberto {
+    width: 60%;
+    transform: translateX(-27%);
   }
+
+
 }

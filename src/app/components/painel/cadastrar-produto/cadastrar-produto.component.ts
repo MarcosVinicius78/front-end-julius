@@ -1,38 +1,24 @@
-import { trigger, state, style, animate, transition } from '@angular/animations';
-import { ScraperProduto } from './../../../dto/ScraperProduto';
-import { Component, ElementRef, OnInit, Renderer2 } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
-import { parse } from 'date-fns';
+import { ActivatedRoute } from '@angular/router';
+import { MessageService } from 'primeng/api';
 import { ProdutoLoja } from 'src/app/dto/ProdutoLoja';
 import { Categoria } from 'src/app/models/categoria';
 import { Loja } from 'src/app/models/loja';
-import { Produtos } from 'src/app/models/produtos';
 import { CategoriaService } from 'src/app/service/painel/categoria.service';
 import { LojaService } from 'src/app/service/painel/loja.service';
 import { ProdutoService } from 'src/app/service/painel/produto.service';
 import { environment } from 'src/environments/environment';
+import { ScraperProduto } from './../../../dto/ScraperProduto';
 
 @Component({
   selector: 'app-cadastrar-produto',
   templateUrl: './cadastrar-produto.component.html',
   styleUrls: ['./cadastrar-produto.component.css'],
-  animations: [
-    trigger('fadeInOut', [
-      state('in', style({ opacity: 1, transform: 'scale(1)' })),
-      transition(':enter', [
-        style({ opacity: 0, transform: 'scale(0.8)' }),
-        animate('0.3s ease-out')
-      ]),
-      transition(':leave', [
-        animate('0.3s ease-in', style({ opacity: 0, transform: 'scale(0.8)' }))
-      ])
-    ])
-  ]
+  providers: [MessageService]
 })
 export class CadastrarProdutoComponent implements OnInit {
 
-  produtoSalvo: boolean = false;
   mensagem!: string;
 
   produtoFormGroup!: FormGroup;
@@ -57,14 +43,26 @@ export class CadastrarProdutoComponent implements OnInit {
 
   scraperProduto = new ScraperProduto();
 
+  frete: any[] = [
+    { name: "Frete Grátis" },
+    { name: "Frete Grátis Algumas Regiões" },
+    { name: "Frete Grátis Prime" },
+    { name: "Frete Econômico" },
+    { name: "Frete Grátis Retirando na Loja" }
+  ];
+
+  msg: any[] = [
+    { name: "Promoção sujeita a alteração a qualquer momento" },
+    { name: "Convide seus amigos: http://google.com.br" }
+  ];
+
   constructor(
     private formBuilder: FormBuilder,
     private produtoSevice: ProdutoService,
     private lojaService: LojaService,
     private categoriaService: CategoriaService,
     private router: ActivatedRoute,
-    private elementref: ElementRef,
-    private renderer: Renderer2
+    private messageService: MessageService
   ) { }
 
   ngOnInit(): void {
@@ -111,48 +109,38 @@ export class CadastrarProdutoComponent implements OnInit {
 
     this.id = parseInt(this.idEditar)
 
+    console.log(this.scraperProduto)
+
     if (this.idEditar == null && !this.produtoFormGroup.invalid) {
 
       const produto: any = {
         titulo: this.produtoFormGroup.get('titulo')?.value,
         preco: this.produtoFormGroup.get('preco')?.value,
         precoParcelado: this.produtoFormGroup.get('precoParcelado')?.value,
-        freteVariacoes: this.produtoFormGroup.get('freteVariacoes')?.value,
-        mensagemAdicional: this.produtoFormGroup.get('mensagemAdicional')?.value,
+        freteVariacoes: this.produtoFormGroup.get('freteVariacoes')?.value.name,
+        mensagemAdicional: this.produtoFormGroup.get('mensagemAdicional')?.value.name,
         descricao: this.produtoFormGroup.get('descricao')?.value,
         link: this.produtoFormGroup.get('link')?.value,
-        tituloPequeno: this.produtoFormGroup.get('tituloPequeno')?.value,
         cupom: this.produtoFormGroup.get('cupom')?.value,
         urlImagem: this.scraperProduto.urlImagem,
-        id_categoria: this.produtoFormGroup.get('id_categoria')?.value,
-        id_loja: this.produtoFormGroup.get('loja')?.value
+        id_categoria: this.produtoFormGroup.get('id_categoria')?.value.categoria_id,
+        id_loja: this.produtoFormGroup.get('loja')?.value.id,
+        imagem: ['']
       }
 
       this.produtoSevice.salvarProduto(produto).subscribe(response => {
 
         this.id = response.id;
 
-        if (this.scraperProduto.urlImagem == "") {
-          const formData = new FormData();
-
-          formData.append("file", this.imagemFile)
-          formData.append("id", `${this.id}`);
-          this.produtoSevice.salvarImagem(formData).subscribe(response => {
-            alert("Salvo");
-            return
-          }, err => {
-            console.log(err);
-          });
+        if (this.scraperProduto.urlImagem === '' && this.imagemFile != undefined) {
+          this.salvarImagem();
         }
-        this.produtoSalvo = true;
 
-        this.mensagem = "Salvo Com Sucesso";
-        // Após algum tempo, ocultar o elemento novamente
-        setTimeout(() => {
-          this.produtoSalvo = false;
-        }, 4000);
+        this.messageService.add({ severity: 'success', detail: 'Produto Salvo' });
+
       }, err => {
         console.log(err.status);
+        this.messageService.add({ severity: 'error', detail: 'Erro ao salvar' });
       });
 
       this.imagemView = "";
@@ -166,15 +154,27 @@ export class CadastrarProdutoComponent implements OnInit {
       this.atualizarProduto();
       return
     }
-    console.log(this.produtoFormGroup.get('url')?.value);
 
     if (this.produtoFormGroup.get('url')?.value != "") {
       this.rasparProduto(this.produtoFormGroup.get('url')?.value)
       return
     }
 
-    this.produtoFormGroup.markAllAsTouched()
+    this.messageService.add({ severity: 'warn', summary: 'Warn', detail: 'Informe os Campos' });
     return;
+  }
+
+  salvarImagem() {
+    const formData = new FormData();
+
+    formData.append("file", this.imagemFile)
+    formData.append("id", `${this.id}`);
+    this.produtoSevice.salvarImagem(formData).subscribe(response => {
+      return
+    }, err => {
+      console.log(err);
+      this.messageService.add({ severity: 'error', detail: 'Erro ao Salvar Imagem' });
+    });
   }
 
   atualizarProduto() {
@@ -183,19 +183,21 @@ export class CadastrarProdutoComponent implements OnInit {
       id: this.idEditar,
       titulo: this.produtoFormGroup.get('titulo')?.value,
       preco: this.produtoFormGroup.get('preco')?.value,
-      freteVariacoes: this.produtoFormGroup.get('freteVariacoes')?.value,
-      mensagemAdicional: this.produtoFormGroup.get('mensagemAdicional')?.value,
+      freteVariacoes: this.produtoFormGroup.get('freteVariacoes')?.value.name,
+      mensagemAdicional: this.produtoFormGroup.get('mensagemAdicional')?.value.name,
       descricao: this.produtoFormGroup.get('descricao')?.value,
       link: this.produtoFormGroup.get('link')?.value,
       tituloPequeno: this.produtoFormGroup.get('tituloPequeno')?.value,
       cupom: this.produtoFormGroup.get('cupom')?.value,
       imagemUrl: this.produto.imagem,
-      id_categoria: this.produtoFormGroup.get('id_categoria')?.value,
+      id_categoria: this.produtoFormGroup.get('id_categoria')?.value.categoria_id,
       id_loja: this.produtoFormGroup.get('loja')?.value
     }
 
+    this.salvarImagem()
+
     this.produtoSevice.atualizarProduto(produto).subscribe(response => {
-      alert("Atualizado")
+      this.messageService.add({ severity: 'success', detail: 'Produto Atualizado!' });
     });
 
   }
@@ -230,31 +232,53 @@ export class CadastrarProdutoComponent implements OnInit {
         id_categoria: [this.produto.categoriaDto.categoria_id],
         loja: [this.produto.lojaResponseDto.id]
       })
+    }, err => {
+      console.log(err);
+      this.messageService.add({ severity: 'error', detail: 'Erro ao Recuperar Dados' });
     });
   }
 
   rasparProduto(url: string) {
 
     let loja: String = "";
+
     this.lojas.forEach(element => {
       if (url.includes(element.nome_loja.toLowerCase())) {
         loja = element.id;
       }
     });
 
+    if (loja == "" && url.includes("amz")) {
+      this.lojas.forEach(element => {
+        if (element.nome_loja.toLowerCase().includes("amazon")) {
+          loja = element.id;
+        }
+      });
+    }
+
+    if (loja === "") {
+      this.lojas.forEach(element => {
+        if (element.nome_loja.toLowerCase().includes("magazine")) {
+          loja = element.id;
+        }
+      });
+    }
+
+
     this.produtoSevice.rasparProduto(url).subscribe(response => {
 
       this.scraperProduto = response;
 
+
       this.produtoFormGroup = this.formBuilder.group({
         url: [''],
         titulo: [this.scraperProduto.nomeProduto, [Validators.required]],
-        precoParcelado: [''],
+        precoParcelado: [this.scraperProduto.precoParcelado],
         preco: [this.scraperProduto.precoProduto, [Validators.required]],
         mensagemAdicional: [''],
         freteVariacoes: [''],
         descricao: [''],
-        link: [url, Validators.required],
+        link: [this.scraperProduto.urlProduto, Validators.required],
         cupom: [''],
         id_categoria: ['', [Validators.required]],
         loja: [loja, [Validators.required]],
@@ -264,6 +288,7 @@ export class CadastrarProdutoComponent implements OnInit {
       this.imagemView = "";
     }, err => {
       console.log(err)
+      this.messageService.add({ severity: 'error', detail: 'Erro no Link' });
     });
   }
 

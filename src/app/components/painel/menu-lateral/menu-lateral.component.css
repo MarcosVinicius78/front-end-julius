@@ -1,13 +1,12 @@
-
-.menu-lateral{
-  background-color: #225A76;
+.menu-lateral {
+  background-color: #163a4d;
   width: 300px;
-  height: calc(100vh - 70px);
+  height: calc(98vh - 70px);
   border-top-right-radius: 100px;
   margin-right: 10px;
 }
 
-.opcoes{
+.opcoes {
   margin: 0;
   height: 100%;
   list-style: none;
@@ -19,19 +18,60 @@
 .opcoes a {
   text-decoration: none;
   color: white;
-  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
 }
 
-.opcoes li a{
+.opcoes li a {
   display: flex;
   align-items: center;
   height: 70px;
 }
 
-.opcoes li a:hover{
+.opcoes li a:hover {
   background-color: rgba(190, 190, 190, 0.623);
   color: black;
   transition: 50ms;
   border-radius: 10px;
   width: 100%;
+}
+
+.menu-icon {
+  display: none;
+}
+
+@media screen and (max-width: 720px) {
+  .menu-lateral {
+    display: none;
+  }
+  .menu-icon {
+    display: block;
+    font-size: 30px;
+    color: white;
+    position: absolute;
+    top: 12px;
+    left: 20px;
+  }
+
+  .menu-lateral-mobile {
+    width: 60%;
+    background-color: #163a4d;
+    color: white;
+    transition: margin-left 1s ease;
+    /* transform: translateX(-10px); */
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    z-index: 1000;
+  }
+
+  i {
+    font-size: 20px;
+    position: fixed;
+    top: 23px;
+    left: 60%;
+    color: white;
+    background-color: #163a4d;
+    padding: 10px;
+  }
 }

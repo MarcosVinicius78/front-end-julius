@@ -3,15 +3,19 @@
   justify-content: space-between;
 }
 
+section{
+  background-color: #1c475e;
+}
+
 .inicio{
   display: block;
   width: 80%;
   margin-right: 20px;
   height: calc(98vh - 70px);
-  background-color: white;
+  background-color: #1c475e;
   border-radius: 10px;
   overflow-y: auto;
-  box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 15px 0px;
+  /* box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 15px 0px; */
 }
 
 .sair{
@@ -27,6 +31,8 @@ header{
   display: flex;
   justify-content: space-between;
   align-items: center;
+  background-color: #163a4d;
+  margin-bottom: 13px;
 }
 
 header div{
@@ -50,6 +56,11 @@ header h1{
   font-weight: bold;
   margin-left: 30px;
   height: 70px;
+}
+
+header h1 a{
+  margin-left: 30px;
+  color: white;
 }
 
 /* section{
@@ -78,3 +89,13 @@ header h1{
   align-items: center;
 } */
 
+
+@media screen and (max-width: 720px) {
+  .section-painel{
+    display: block;
+  }
+
+  .inicio{
+    width: 100%;
+  }
+}

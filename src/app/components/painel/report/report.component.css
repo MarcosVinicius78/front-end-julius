@@ -1,70 +1,79 @@
-section{
-  /* background-color: aqua; */
-  height: calc(100% - 10px);
-}
+:host ::ng-deep {
+  section {
+    /* background-color: aqua; */
+    height: calc(100% - 10px);
+  }
 
-header{
-  display: flex;
-  justify-content: space-around;
-}
+  header {
+    display: flex;
+    justify-content: space-around;
+  }
 
-header input{
-  width: 100px;
-  padding: 10px;
-  margin-top: 5px;
-  border-radius: 5px;
-}
+  header input {
+    width: 100px;
+    padding: 10px;
+    margin-top: 5px;
+    border-radius: 5px;
+  }
 
-header div:first-child{
-  width: 90%;
-}
+  header div:first-child {
+    width: 90%;
+  }
 
-header h1{
-  margin: 0;
-  margin-top: 10px;
-  margin-left: 10px;
-}
+  header h1 {
+    color: white;
+    margin: 0;
+    margin-top: 10px;
+    margin-left: 10px;
+    font-size: 24px;
+  }
 
-thead tr th{
-  text-align: start;
-}
+  .paginacao {
+    display: flex;
+    justify-content: flex-end;
+  }
 
-.separar{
-  height: calc(100% - 90px);
-  margin-top: 10px;
-  display: flex;
-  justify-content: center;
-  /* background-color: aqua; */
-}
+  .opcoes {
+    display: flex;
+    justify-content: space-around;
+    width: 70px;
+  }
 
+  .opcoes a i {
+    color: blue;
+    cursor: pointer;
+  }
 
-table{
-  width: 95%;
-  height: 100px;
-  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-}
+  .opcoes i {
+    color: red;
+    cursor: pointer;
+  }
 
+  .p-paginator {
+    background-color: #154666;
+  }
 
-td{
-  border-bottom: 1px solid rgb(126, 126, 126);
-  padding: 9px;
-}
+  .p-paginator-next {
+    color: white;
+  }
 
-tbody tr{
-  background-color: white;
-  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
-  margin: 10px;
-}
+  .p-paginator-prev {
+    color: white;
+  }
 
-.opcoes button{
-  border: none;
-  background-color: red;
-  padding: 10px;
-  margin-right: 5px;
-  border-radius: 5px;
-  color: white;
-}
+  .p-paginator-current {
+    color: white;
+  }
 
-tbody tr td:nth-child(4){
-  text-transform: uppercase;
+  .p-datatable .p-datatable-thead > tr > th {
+    background-color: #163a4d;
+    color: white;
+  }
+
+  .p-datatable .p-datatable-tbody > tr > td {
+    background-color: #163a4d;
+    color: white;
+    border: 1px solid #464646;
+    border-width: 0 0 1px 0;
+  }
 }

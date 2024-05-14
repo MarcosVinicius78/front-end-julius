@@ -21,15 +21,25 @@ import { ReportComponent } from './components/painel/report/report.component';
 import { LinksBannersComponent } from './components/painel/links-banners/links-banners.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-
-import { MatIconModule } from '@angular/material/icon';
-import { MatButtonModule } from '@angular/material/button';
-import { MatDialogModule } from '@angular/material/dialog';
-import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { ButtonModule } from 'primeng/button';
+// import { MatDialogModule } from '@angular/material/dialog';
+// import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { EditorModule } from 'primeng/editor';
 import { LoginComponent } from './components/painel/login/login.component';
 import { RequireService } from './interceptors/require.service';
 import { AuthRouteguard } from './routeguard/auth-routeguard.service';
-import {MatPaginatorModule} from '@angular/material/paginator';
+import { PaginatorModule } from 'primeng/paginator';
+import { TableModule } from 'primeng/table';
+import { ToastModule } from 'primeng/toast';
+import { BlogComponent } from './components/blog/blog.component';
+import { CadastrarPostsComponent } from './components/painel/cadastrar-posts/cadastrar-posts.component';
+import { InputTextModule } from 'primeng/inputtext';
+import { DropdownModule } from 'primeng/dropdown';
+import { FileUploadModule } from 'primeng/fileupload';
+import { ToolbarModule } from 'primeng/toolbar';
+import { MessagesModule } from 'primeng/messages';
+import { ListaDePostsComponent } from './components/painel/lista-de-posts/lista-de-posts.component';
+import { CardModule } from 'primeng/card';
 
 @NgModule({
   declarations: [
@@ -48,7 +58,10 @@ import {MatPaginatorModule} from '@angular/material/paginator';
     GruposComponent,
     ReportComponent,
     LinksBannersComponent,
-    LoginComponent
+    LoginComponent,
+    BlogComponent,
+    CadastrarPostsComponent,
+    ListaDePostsComponent
   ],
   imports: [
     BrowserModule,
@@ -57,11 +70,20 @@ import {MatPaginatorModule} from '@angular/material/paginator';
     FormsModule,
     ReactiveFormsModule,
     BrowserAnimationsModule,
-    MatIconModule,
-    MatButtonModule,
-    MatDialogModule,
-    MatSnackBarModule,
-    MatPaginatorModule,
+    // MatIconModule,
+    ButtonModule,
+    TableModule,
+    ToastModule,
+    EditorModule,
+    FileUploadModule,
+    ToolbarModule,
+    // MatDialogModule,
+    // MatSnackBarModule,
+    PaginatorModule,
+    InputTextModule,
+    DropdownModule,
+    MessagesModule,
+    CardModule,
     HttpClientXsrfModule.withOptions({
       cookieName: 'XSRF-TOKEN',
       headerName: 'X-XSRF-TOKEN'

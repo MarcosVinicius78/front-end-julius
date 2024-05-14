@@ -34,9 +34,9 @@ export class CarrosselComponent {
   }
 
   obeterProdutoPorCategoria(){
-    this.produtoService.obeterProdutoPorCategoria(this.categoriaId).subscribe((response: any) => {
-      this.produtos = response;
-    })
+    // this.produtoService.obeterProdutoPorCategoria(this.categoriaId).subscribe((response: any) => {
+    //   this.produtos = response;
+    // })
   }
 
   ngAfterViewInit() {
@@ -65,7 +65,7 @@ export class CarrosselComponent {
         left: 200,
         behavior: 'smooth'
       });
-  
+
     }
   }
 

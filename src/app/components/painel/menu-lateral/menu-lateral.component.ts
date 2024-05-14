@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, HostListener,ElementRef } from '@angular/core';
 
 @Component({
   selector: 'app-menu-lateral',
@@ -7,4 +7,18 @@ import { Component } from '@angular/core';
 })
 export class MenuLateralComponent {
 
+  menuAtivado: boolean = false;
+
+  constructor(private elementRef: ElementRef) { }
+
+  ativarMenu() {
+    this.menuAtivado = true;
+  }
+
+  @HostListener('document:click', ['$event'])
+  onClick(event: MouseEvent) {
+    if (!this.elementRef.nativeElement.contains(event.target)) {
+      this.menuAtivado = false;
+    }
+  }
 }

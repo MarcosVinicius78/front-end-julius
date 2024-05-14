@@ -3,11 +3,13 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { Observable } from 'rxjs';
 import { Categoria } from 'src/app/models/categoria';
 import { CategoriaService } from 'src/app/service/painel/categoria.service';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-cadastrar-categoria',
   templateUrl: './cadastrar-categoria.component.html',
-  styleUrls: ['./cadastrar-categoria.component.css']
+  styleUrls: ['./cadastrar-categoria.component.css'],
+  providers: [MessageService]
 })
 export class CadastrarCategoriaComponent implements OnInit {
 
@@ -16,7 +18,11 @@ export class CadastrarCategoriaComponent implements OnInit {
   categorias!: Categoria[];
   id!: number | undefined;
 
-  constructor(private formBuilder: FormBuilder, private categoriaService: CategoriaService) { }
+  constructor(
+    private formBuilder: FormBuilder,
+    private categoriaService: CategoriaService,
+    private messageService: MessageService
+  ) { }
 
 
   ngOnInit(): void {
@@ -37,17 +43,22 @@ export class CadastrarCategoriaComponent implements OnInit {
 
         this.categorias.push(response);
         this.categoriaFormGroup.reset()
+        this.messageService.add({ severity: 'success', detail: 'Categoria Salva' });
       },
         err => {
-          console.log(err);
+          this.messageService.add({ severity: 'error', detail: 'Erro ao Salvar' });
         }
       );
+
+      return
     }
 
     if (this.id !== undefined) {
-      this.atualizar()
+      this.atualizarCategoria()
+      return;
     }
 
+    this.messageService.add({ severity: 'warn', summary: 'Warn', detail: 'Informe o Nome da Categoria' });
   }
 
   listarCategoria() {
@@ -60,10 +71,11 @@ export class CadastrarCategoriaComponent implements OnInit {
 
     this.categoriaService.apagarCategoria(id).subscribe(response => {
       this.listarCategoria();
+      this.messageService.add({ severity: 'success', detail: 'Categoria Apagada' });
     });
   }
 
-  editarCategoria(id: number) {
+  pegarCategoria(id: number) {
 
     this.id = id;
 
@@ -75,19 +87,19 @@ export class CadastrarCategoriaComponent implements OnInit {
     })
   }
 
-  atualizar() {
+  atualizarCategoria() {
     const categoria: any = {
       categoria_id: this.id,
       nome_categoria: this.categoriaFormGroup.get('nome_categoria')?.value,
       }
 
       this.categoriaService.atualizarCategoria(categoria).subscribe(response => {
-        alert("Categoria Atualizada")
         this.categoriaFormGroup.reset();
         this.id = undefined;
         this.listarCategoria();
+        this.messageService.add({ severity: 'success', detail: 'Categoria Atualizada' });
       }, err => {
-        alert("Erro ao atualizar")
+        this.messageService.add({ severity: 'error', detail: 'Erro ao Atualizar' });
       });
   }
 }

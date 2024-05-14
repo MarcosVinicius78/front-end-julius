@@ -1,0 +1,37 @@
+<div class="card">
+  <header class="flex justify-content-between">
+    <h1 class="text-white-alpha-90">Criar Post para Blog</h1>
+
+    <a routerLink="/painel/lista-posts">
+      <p-button label="Ver Posts"></p-button>
+    </a>
+  </header>
+  <div class="w-full mt-5">
+    <span class="p-float-label">
+      <input [(ngModel)]="titulo" class="w-8" pInputText id="precoParcelado" />
+      <label htmlFor="precoParcelado">Preço Parcelado</label>
+    </span>
+  </div>
+
+  <div class="mt-5 flex justify-content-between w-full">
+    <p-editor [(ngModel)]="text"></p-editor>
+    <article class="w-4 mt-3 flex flex-column align-items-center">
+      <div class="w-9 flex justify-content-center">
+        <button pButton pRipple label="Publicar" (click)="salvarPost()" class="p-button-success w-9 "></button>
+      </div>
+      <div class="mt-7 flex justify-content-center">
+        <label for="fileInput">
+          <div class="file-upload-container">
+            <input type="file" id="fileInput" (change)="onFileSelected($event)" accept="image/*" #fileInput>
+            <div class="image-preview" *ngIf="imageUrl">
+              <img [src]="imageUrl" alt="Imagem Selecionada">
+            </div>
+          </div>
+        </label>
+
+
+      </div>
+    </article>
+  </div>
+</div>
+<p-toast></p-toast>

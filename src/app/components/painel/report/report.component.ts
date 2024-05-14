@@ -1,16 +1,20 @@
 import { Component, OnInit } from '@angular/core';
 import { ReportsDto } from 'src/app/dto/ReportsResponseDto';
 import { ReportService } from 'src/app/service/painel/report.service';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-report',
   templateUrl: './report.component.html',
-  styleUrls: ['./report.component.css']
+  styleUrls: ['./report.component.css'],
+  providers: [MessageService]
 })
 export class ReportComponent implements OnInit {
 
   page = 0;
   size = 10;
+
+  text: string = 'Hello World!';
 
   selectedProducts: number[] = [];
   selectAllCheckbox = false;
@@ -19,7 +23,12 @@ export class ReportComponent implements OnInit {
 
   reports: ReportsDto[] = [];
 
-  constructor(private reportService: ReportService) {}
+  reportSelecionado!: ReportsDto;
+
+  constructor(
+    private reportService: ReportService,
+    private messageService: MessageService
+  ) {}
 
   ngOnInit(): void {
     this.listarReports();
@@ -34,61 +43,30 @@ export class ReportComponent implements OnInit {
 
   apagarProduto(id: number) {
     this.reportService.apagarReport(id).subscribe(response => {
+      this.messageService.add({ severity: 'success', detail: 'Report Apagado' });
       this.listarReports();
-    })
-  }
-
-  toggleReportSelection(productId: number) {
-    if (this.selectedProducts.includes(productId)) {
-      // Desmarcar um produto individual
-      this.selectedProducts = this.selectedProducts.filter(id => id !== productId);
-      // Desmarcar o checkbox "Selecionar Todos"
-      this.selectAllCheckbox = false;
-    } else {
-      // Marcar um produto individual
-      this.selectedProducts.push(productId);
-    }
-  }
-
-  selectAll(event: any) {
-    this.selectAllCheckbox = event.target.checked;
-    console.log(this.selectAllCheckbox)
-
-    if (this.selectAllCheckbox) {
-      // Se o checkbox "Selecionar Todos" estiver marcado, marque todos os outros checkboxes
-      this.selectedProducts = this.reports.map(product => product.id);
-    } else {
-      // Se o checkbox "Selecionar Todos" estiver desmarcado, desmarque todos os outros checkboxes
-      this.selectedProducts = [];
-    }
-  }
-
-  isAllSelected() {
-    // Verifica se todos os produtos estão selecionados
-    return this.selectedProducts.length === this.reports.length;
-  }
-
-  isSelected(productId: number): boolean {
-    // Verificar se um produto está selecionado
-    return this.selectedProducts.includes(productId);
-  }
-
-  apagarVariosReports(){
-    console.log(this.selectedProducts)
-    this.reportService.apagarVariosReports(this.selectedProducts).subscribe(response => {
-      alert(`${response}: produtos apagados`);
-      this.selectedProducts = [];
-      this.reports = [];
-      this.listarReports()
+    }, err => {
+      console.log(err)
+      this.messageService.add({ severity: 'error', detail: 'Erro ao Apagar Report' });
     });
   }
 
-  changePage($event: any) {
+  apagarVariosReports(){
+    console.log(this.reportSelecionado)
+    this.reportService.apagarVariosReports(this.reportSelecionado).subscribe(response => {
+      this.messageService.add({ severity: 'success', detail: 'Reports Apagados' });
+      this.selectedProducts = [];
+      this.reports = [];
+      this.listarReports()
+    }, err => {
+      this.messageService.add({ severity: 'error', detail: 'Erro ao Apagar' });
+    });
   }
 
-  dataCorreta(data: Date){
-    const dataCerta = new Date(data);
-    return dataCerta;
+  changePage(page: any) {
+    this.page = page.page
+    this.reportService.listarReports(this.page, this.size).subscribe( (response: any) => {
+      this.reports = response.content
+    });
   }
-
 }

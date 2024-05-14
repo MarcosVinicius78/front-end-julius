@@ -15,16 +15,16 @@ export class ProdutoService {
 
   constructor(private http: HttpClient) { }
 
-  salvarProduto(produto: any){
+  salvarProduto(produto: any) {
 
     return this.http.post<Produtos>(`${this.apiUrl}/produto/salvar`, produto);
   }
 
-  salvarImagem(formData: FormData){
+  salvarImagem(formData: FormData) {
     return this.http.post(`${this.apiUrl}/produto/upload`, formData);
   }
 
-  listarProduto(page: number, size: number): Observable<any>{
+  listarProduto(page: number, size: number): Observable<any> {
 
     const params = new HttpParams().set('page', page.toString()).set('size', size.toString());
 
@@ -44,23 +44,19 @@ export class ProdutoService {
     return this.http.delete(`${this.apiUrl}/produto`, { params });
   }
 
-  obeterProdutoPorCategoria(categoriaId: number){
+  obeterProdutoPorCategoria() {
 
-    console.log(categoriaId)
-
-    const params = new HttpParams().set('categoriaId', categoriaId.toString());
-
-    return this.http.get<any>(`${this.apiUrl}/produto/por-categoria`, { params })
+    return this.http.get<any>(`${this.apiUrl}/produto`)
   }
 
-  ProdutoPorCategoria(categoriaId: any, page: number, size: number){
+  ProdutoPorCategoria(categoriaId: any, page: number, size: number) {
 
     const params = new HttpParams().set('categoriaId', categoriaId.toString()).set('page', page.toString()).set('size', size.toString());
 
     return this.http.get<any>(`${this.apiUrl}/produto/por-categoria`, { params })
   }
 
-  apagarVariosProdutos(produtosSelecionados: number[]){
+  apagarVariosProdutos(produtosSelecionados: Produtos) {
     return this.http.post<number>(`${this.apiUrl}/produto/apagar-varios`, produtosSelecionados)
   }
 
@@ -68,12 +64,19 @@ export class ProdutoService {
     return this.http.get<any>(`${this.apiUrl}/produto/pesquisar?termoPesquisa=${termoPesquisa}`);
   }
 
-  rasparProduto(link: string){
+  rasparProduto(link: string) {
     return this.http.get<ScraperProduto>(`${this.apiUrl}/scraper?url=${link}`);
+  }
+
+  gerarStory(preco: string, titulo: string, urlImagem: string, frete: string, cupom: string) {
+
+    const params = new HttpParams().set('preco', preco.toString()).set('titulo', titulo.toString()).set('urlImagem', urlImagem).set('frete', frete).set('cupom', cupom);
+
+    return this.http.get(`${this.apiUrl}/produto/generate-image`, { params, responseType: 'blob', observe: 'response' });
   }
 }
 
-interface PordutosPage{
+interface PordutosPage {
   content: Produtos[],
   totalElements: number,
   totalPages: number

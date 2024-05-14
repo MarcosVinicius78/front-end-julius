@@ -1,92 +1,156 @@
-section{
-  /* background-color: aqua; */
-  height: calc(100% - 10px);
-}
+:host ::ng-deep {
+  section {
+    height: calc(100% - 10px);
+  }
 
-header{
-  display: flex;
-  justify-content: space-around;
-}
+  header {
+    display: flex;
+    justify-content: space-around;
+  }
 
-header input{
-  width: 100px;
-  padding: 10px;
-  margin-top: 5px;
-  border-radius: 5px;
-}
+  header input {
+    width: 100px;
+    padding: 10px;
+    margin-top: 5px;
+    border-radius: 5px;
+  }
 
-thead tr th{
-  text-align: start;
-}
+  header div:first-child {
+    width: 90%;
+  }
 
-header div:first-child{
-  width: 90%;
-}
+  header h1 {
+    margin: 0;
+    margin-top: 10px;
+    margin-left: 10px;
+    color: white;
+    font-size: 24px;
+  }
 
-header h1{
-  margin: 0;
-  margin-top: 10px;
-  margin-left: 10px;
-}
+  .story {
+    cursor: pointer;
+  }
 
-.separar{
-  height: calc(100% - 110px);
-  margin-top: 10px;
-  display: flex;
-  justify-content: center;
-  /* background-color: aqua; */
-}
+  .separar {
+    margin-top: 10px;
+  }
 
+  .opcoes {
+    display: flex;
+    justify-content: space-around;
+    width: 70px;
+  }
 
-table{
-  width: 100%;
-  height: 30px;
-  border-collapse: collapse;
-}
+  .opcoes a i {
+    color: rgb(255, 255, 255);
+    cursor: pointer;
+  }
 
+  .opcoes i {
+    color: red;
+    cursor: pointer;
+  }
 
-td{
-  border-bottom: 1px solid rgb(173, 173, 173);
-  padding: 5px;
-}
+  .paginacao {
+    display: flex;
+    justify-content: flex-end;
+  }
 
-tbody:hover{
-  background-color: aliceblue;
-}
+  .p-paginator {
+    background-color: #154666;
+  }
 
-tr td:first-child{
-  width: 10px;
-}
+  .p-paginator-next {
+    color: white;
+  }
 
-tr td:nth-child(2){
-  width: 85%;
-}
+  .p-paginator-prev {
+    color: white;
+  }
 
-tr td:nth-child(3){
-  width: 65%;
-}
+  .p-paginator-current {
+    color: white;
+  }
 
-tbody tr{
-  background-color: white;
-  margin: 10px;
-}
+  .p-datatable .p-datatable-thead > tr > th {
+    background-color: #163a4d;
+    color: white;
+  }
 
-.opcoes{
-  display: flex;
-  justify-content: space-around;
-}
+  .p-datatable .p-datatable-tbody > tr > td {
+    background-color: #163a4d;
+    color: white;
+    border: 1px solid #464646;
+    border-width: 0 0 1px 0;
+  }
 
-.opcoes button{
-  width: 45%;
-  background-color: red;
-  color: white;
-  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-}
+  .p-datatable {
+    height: 530px;
+  }
 
-.opcoes a:last-child{
-  width: 45%;
-  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-  text-decoration: none;
-  color: white;
-  background-color: blue;
+  .p-datatable-wrapper {
+    height: 100%;
+  }
+
+  .p-datatable-tbody tr td:nth-child(5){
+    text-align: center;
+  }
+
+  .p-datatable-tbody tr td:nth-child(2) a{
+    text-decoration: none;
+    color: white;
+  }
+
+  @media screen and (max-width: 720px) {
+    .p-datatable-thead th:nth-child(4) {
+      display: none;
+    }
+
+    .p-datatable{
+      width: 98%;
+      margin: 0 auto;
+    }
+
+    .p-datatable-tbody tr td:nth-child(4){
+      display: none;
+    }
+
+    .p-datatable-thead th:nth-child(1) {
+      display: none;
+    }
+
+    .p-datatable-thead th:nth-child(6) {
+      display: none;
+    }
+
+    .p-datatable-thead th:nth-child(5) {
+      width: 5px !important;
+    }
+
+    .p-datatable-tbody tr td:nth-child(1){
+      display: none;
+    }
+
+    .p-datatable-tbody tr td:nth-child(6){
+      display: none;
+    }
+
+    .p-datatable-tbody tr td {
+      white-space: nowrap;
+      width: 100%;
+      overflow: hidden;
+      font-size: 14px;
+      max-width: 120px;
+      text-overflow: ellipsis;
+    }
+
+    header input{
+      display: none;
+    }
+
+    header div{
+      width: 100%;
+      text-align: center;
+    }
+  }
 }

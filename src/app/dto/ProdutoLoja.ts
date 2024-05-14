@@ -14,8 +14,8 @@ export class ProdutoLoja{
   mensagemAdicional: string = ""
   freteVariacoes: string = ""
   lojaResponseDto = new  Loja()
-  categoriaDto!: Categoria
-  imagem: any
+  categoriaDto = new Categoria("");
+  imagem!: any
   dataCriacao!: string
 
 }

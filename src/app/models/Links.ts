@@ -1,11 +1,11 @@
 export class Links {
   id!: number
+  whatsapp: string = ""
+  telegram: string = ""
+  instagram: string = ""
+  email: string = ""
 
   constructor(
-    public whatsapp: string = "",
-    public telegram: string = "",
-    public instagram: string = "",
-    public email: string = ""
   ) {
   }
 }

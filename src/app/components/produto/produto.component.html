@@ -1,7 +1,9 @@
+<div class="categoria">
+  <a href="produtos-categoria/{{produto.categoriaDto.categoria_id}}">{{ produto.categoriaDto.nome_categoria }}</a>
+</div>
 <section>
   <div class="container">
     <div class="flex">
-
       <div class="produto">
 
         <div class="info">
@@ -16,22 +18,24 @@
           <div class="informaçoes">
             <div>
               <h2 class="titulo">{{ produto.titulo }}</h2>
-              <p class="data data-none">há {{calculateElapsedTime(produto.dataCriacao)}}</p>
+              <p class="data-none">há {{calculateElapsedTime(produto.dataCriacao)}}</p>
             </div>
             <p class="preco">{{ produto.preco }}</p>
 
-            <div *ngIf="produto.cupom" class="cupom">
+            <div (click)="copiarParaAreaTransferencia()" *ngIf="produto.cupom" class="cupom">
               <div>
-                <p>{{ produto.cupom }}</p>
+                <div class="">
+                  <p class="text-base">{{ produto.cupom }}</p>
+                </div>
                 <div class="copiar">
-                  <mat-icon class="icon-copy">content_copy</mat-icon>
-                  <p>COPIAR</p>
+                  <i class="pi pi-copy text-base"></i>
+                  <p class="text-base">COPIAR</p>
                 </div>
               </div>
             </div>
 
-            <div class="frete">
-              <mat-icon>local_shipping</mat-icon>
+            <div class="frete mt-3 mb-2">
+              <i class="pi pi-truck"></i>
               <p>{{ produto.freteVariacoes }}</p>
             </div>
 
@@ -44,18 +48,9 @@
         <hr class="linha-estilizada">
 
         <div class="outras-info">
-          <div>
-            <button mat-icon-button (click)="likeFuncao()">
-              <mat-icon>thumb_up</mat-icon>
-            </button>
-            <button mat-icon-button (click)="deslikeFuncao()">
-              <mat-icon>thumb_down</mat-icon>
-            </button>
-            <p>{{ like }}</p>
-          </div>
           <button class="report" (click)="abrirModal()">Reportar</button>
-          <button (click)="compartilhar()" class="comp">
-            <mat-icon>share</mat-icon>
+          <button (click)="shares()" class="comp">
+            <i class="pi pi-share-alt mr-2"></i>
             Compartilhar
           </button>
           <div class="loja">
@@ -76,55 +71,44 @@
           <a href="">ENTRAR NO GRUPO</a>
       </div>
 
-      <div class="outras-promocoes">
-          <h2>Outras Promoções</h2>
-          <app-carrossel [categoriaId]="produto.categoriaDto.categoria_id"></app-carrossel>
+      <div class="msg">
+        <p>Veja mais promoções do dia</p>
+      </div>
+
+      <div class="produtos-categorias">
+        <div *ngFor="let item of produtos" class="grid-item">
+          <div class="card">
+            <div>
+              <img [src]="apiUrl+'/produto/download/'+item.imagem" alt="">
+            </div>
+            <div class="info-cat">
+              <p class="data">{{calculateElapsedTime(item.dataCriacao)}}</p>
+              <p class="nome-produto">
+                <a href="/oferta/{{item.id}}">
+                  {{ item.titulo }}
+                </a>
+              </p>
+              <div class="cupom-categoria">
+                <div>
+                  <p *ngIf="item.cupom">{{ item.cupom }}</p>
+                  <i *ngIf="item.cupom" class="pi pi-copy text-base"></i>
+                </div>
+              </div>
+              <div class="frete">
+                <i class="pi pi-truck"></i>
+                <p>{{ item.freteVariacoes }}</p>
+              </div>
+              <p class="preco2">{{ item.preco }}</p>
+              <div class="ver-promocao">
+                <a href="{{ item.link }}" target="_blank">Pegar Promoção</a>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
 
       <div class="ver-promocoes">
         <a routerLink="">Ver Todas as promoções do Dia</a>
-      </div>
-
-      <!-- <div class="descricao">
-        <h2>Descrição</h2>
-        <p>{{ produto.descricao }}</p>
-      </div> -->
-
-      <!-- <div class="produtos-categorias">
-        <div *ngFor="let item of produtos" class="grid-item">
-          <div>
-            <img [src]="apiUrl+'/produto/download/'+item.imagem" alt="">
-          </div>
-          <div class="">
-            <p class="nome-produto">
-              <a href="/oferta/{{item.id}}">
-                {{ item.titulo }}
-              </a>
-            </p>
-            <p class="preco2">{{ item.preco }}</p>
-            <div class="ver-promocao">
-              <a href="{{ item.link }}" target="_blank">Pegar Promoção</a>
-            </div>
-          </div>
-        </div>
-      </div> -->
-
-      <!-- Adicione esta div para a caixa de diálogo -->
-      <div class="dialogo" (click)="fecharDialogCompartilhar()" *ngIf="mostrarDialogCompartilhar">
-        <div class="opcoes-compartilhamento" (click)="impedirFechar($event)">
-          <div>
-            <mat-icon (click)="fecharDialogCompartilhar()" class="close-dialog">close</mat-icon>
-          </div>
-          <h2>Compartilhar em:</h2>
-          <div class="botoes">
-            <button mat-button *ngFor="let redeSocial of redesSociais" (click)="compartilharRedeSocial(redeSocial)">
-              <img [src]="redeSocialIcon(redeSocial)">
-            </button>
-            <button (click)="copiarParaAreaTransferencia()">
-              <img src="../../../assets/copy_paste_icon-icons.com_72426.png" alt="">
-            </button>
-          </div>
-        </div>
       </div>
 
       <div class="reportar" *ngIf="modal" (click)="fecharModal()">
@@ -139,10 +123,10 @@
       </div>
     </div>
 
-    <aside>
+    <aside class="flex-convite">
       <div class="convite">
         <h2>Gostou dessa promoção?</h2>
-        <p>Entre no WhatsApp do Pechinchou e receba promoções imperdíveis de whatsapp</p>
+        <p>Entre no WhatsApp do Sergipe Ofertas e receba promoções imperdíveis no whatsapp</p>
         <a href="">WhatsApp</a>
       </div>
 
@@ -152,4 +136,5 @@
   </div>
 
 
+  <p-messages class="absolute top-8 w-3" [(value)]="msg" [enableService]="false" [closable]="false"></p-messages>
 </section>

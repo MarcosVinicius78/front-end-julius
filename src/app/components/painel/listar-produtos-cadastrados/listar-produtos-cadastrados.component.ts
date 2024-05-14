@@ -1,18 +1,19 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { MessageService } from 'primeng/api';
 import { Produtos } from 'src/app/models/produtos';
 import { ProdutoService } from 'src/app/service/painel/produto.service';
 
 @Component({
   selector: 'app-listar-produtos-cadastrados',
   templateUrl: './listar-produtos-cadastrados.component.html',
-  styleUrls: ['./listar-produtos-cadastrados.component.css']
+  styleUrls: ['./listar-produtos-cadastrados.component.css'],
+  providers: [MessageService]
 })
 export class ListarProdutosCadastradosComponent implements OnInit{
 
   page = 0;
   size = 10;
-  selectedProducts: number[] = [];
   selectAllCheckbox = false;
 
   totalPage!: number
@@ -21,7 +22,14 @@ export class ListarProdutosCadastradosComponent implements OnInit{
 
   produtos: Produtos[] = [];
 
-  constructor(private produtoService: ProdutoService, private route: Router){}
+  produto!: Produtos;
+  selectedProducts!: Produtos;
+
+  constructor(
+    private produtoService: ProdutoService,
+    private route: Router,
+    private messageService: MessageService
+  ){}
 
   ngOnInit(): void {
     this.listarProdutos();
@@ -35,7 +43,7 @@ export class ListarProdutosCadastradosComponent implements OnInit{
   }
 
   changePage(page: any) {
-    this.page = page.pageIndex
+    this.page = page.page
     this.produtoService.listarProduto(this.page, this.size).subscribe( (response: any) => {
       this.produtos = response.content
     });
@@ -43,53 +51,50 @@ export class ListarProdutosCadastradosComponent implements OnInit{
 
   apagarProduto(id: number, urlImagem: string) {
     this.produtoService.apagarProduto(id,urlImagem).subscribe(response => {
-      this.route.navigate(["painel"])
+      this.messageService.add({ severity: 'success', detail: 'Produto Apagado' });
+      this.produtos = [];
+      this.listarProdutos();
     }, err => {
+      this.produtos = [];
+      this.listarProdutos();
+      this.messageService.add({ severity: 'error', detail: 'Erro ao Apagar' });
       console.log(err);
     });
   }
 
-  toggleProductSelection(productId: number) {
-    if (this.selectedProducts.includes(productId)) {
-      // Desmarcar um produto individual
-      this.selectedProducts = this.selectedProducts.filter(id => id !== productId);
-      // Desmarcar o checkbox "Selecionar Todos"
-      this.selectAllCheckbox = false;
-    } else {
-      // Marcar um produto individual
-      this.selectedProducts.push(productId);
-    }
-  }
-
-  selectAll(event: any) {
-    this.selectAllCheckbox = event.target.checked;
-    console.log(this.selectAllCheckbox)
-
-    if (this.selectAllCheckbox) {
-      // Se o checkbox "Selecionar Todos" estiver marcado, marque todos os outros checkboxes
-      this.selectedProducts = this.produtos.map(product => product.id);
-    } else {
-      // Se o checkbox "Selecionar Todos" estiver desmarcado, desmarque todos os outros checkboxes
-      this.selectedProducts = [];
-    }
-  }
-
-  isAllSelected() {
-    // Verifica se todos os produtos estão selecionados
-    return this.selectedProducts.length === this.produtos.length;
-  }
-
-  isSelected(productId: number): boolean {
-    // Verificar se um produto está selecionado
-    return this.selectedProducts.includes(productId);
-  }
-
   apagarVariosProdutos(){
+
+    console.log(this.selectedProducts)
+
     this.produtoService.apagarVariosProdutos(this.selectedProducts).subscribe(response => {
-      // alert(`${response}: produtos apagados`);
-      this.selectedProducts = [];
       this.produtos = [];
+      this.messageService.add({ severity: 'success', detail: 'Produtos Apagados' });
       this.listarProdutos();
+    }, err => {
+      this.messageService.add({ severity: 'error', detail: 'Erro ao Apagar' });
     });
+  }
+
+  gerarStory(preco: string, titulo: string, urlImagem: string, frete: string, cupom: string){
+    this.produtoService.gerarStory(preco, titulo, urlImagem, frete, cupom).subscribe(response => {
+
+      console.log(response)
+      // const contentDisposition = response.headers.get('content-disposition');
+      // const fileName = contentDisposition!.split(';')[1].split('=')[1].trim();
+
+      // Cria um URL para a Blob response
+      const url = window.URL.createObjectURL(response.body!);
+
+      // Cria um link temporário e simula um clique para iniciar o download
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = titulo;
+      document.body.appendChild(link);
+      link.click();
+
+      // Limpa o URL criado
+      window.URL.revokeObjectURL(url);
+      document.body.removeChild(link);
+    })
   }
 }
