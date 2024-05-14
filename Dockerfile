@@ -18,9 +18,9 @@ RUN mv dist/* /var/www/html
 
 VOLUME /var/www/html
 
-# WORKDIR /
+WORKDIR /
 
-# RUN rm -rf /tmp/angular
+RUN rm -rf /tmp/angular
 
 # Copie os arquivos da aplicação Angular para o diretório de trabalho do Nginx
 # COPY ./dist/julius-da-promo-front-end /usr/share/nginx/html
