@@ -85,8 +85,8 @@ export class ProdutoComponent implements OnInit {
     this.meta.addTag({ name: 'description', content: "as melhores promoções" });
     this.meta.addTag({ property: 'og:title', content: productName });
     this.meta.addTag({ property: 'og:description', content: productDescription });
-    this.meta.addTag({ property: 'og:image', content: "https://pechinchous3.s3.sa-east-1.amazonaws.com/media/img/products/social/WhatsApp_Image_2023-11-23_at_19_PoLNjFC_pc079UL_Ui41CXC_QytOhr8_tJIDI50_LDIOSkz_Kqwg0Qq_koWFuh0_lZYzOGD_a2X00FV_KA0ATUM_Fs0t6Up_r9zQDYQ_gOUm6LQ_g5wqsEQ_7rmiu8b_hguz0Od_gEwaY9t_03KmAHq_Yt8lCTX_9ZCFIP4_yqjAIaB_U4Sv7hz_dFoYSqf_EwdG29J.jpg" });
-    // this.meta.addTag({ property: 'og:image', content: `${this.apiUrl}/produto/download/${this.produto.imagem}` });
+    // this.meta.addTag({ property: 'og:image', content: "https://pechinchous3.s3.sa-east-1.amazonaws.com/media/img/products/social/WhatsApp_Image_2023-11-23_at_19_PoLNjFC_pc079UL_Ui41CXC_QytOhr8_tJIDI50_LDIOSkz_Kqwg0Qq_koWFuh0_lZYzOGD_a2X00FV_KA0ATUM_Fs0t6Up_r9zQDYQ_gOUm6LQ_g5wqsEQ_7rmiu8b_hguz0Od_gEwaY9t_03KmAHq_Yt8lCTX_9ZCFIP4_yqjAIaB_U4Sv7hz_dFoYSqf_EwdG29J.jpg" });
+    this.meta.addTag({ property: 'og:image', content: `${this.apiUrl}/produto/download/${this.produto.imagem}` });
   }
 
   fecharModal() {
