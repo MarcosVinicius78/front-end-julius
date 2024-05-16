@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Meta } from '@angular/platform-browser';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { filter } from 'rxjs/operators';
 
@@ -13,18 +14,11 @@ export class AppComponent implements OnInit{
   showHeader = true;
   showFooter = true;
 
-  constructor(private router: Router, private activatedRoute: ActivatedRoute){}
-
-  // shouldShowComponent(): boolean {
-
-  //   let route = this.router;
-  //   while (route.firstChild) {
-  //     route = route.firstChild;
-  //   }
-  //   // Verificar se a rota atual é a rota desejada
-  //   const currentPath = route.snapshot.routeConfig?.path;
-  //   return currentPath !== undefined && !['/'].includes(currentPath);
-  // }
+  constructor(
+    private router: Router,
+    private activatedRoute: ActivatedRoute,
+    private meta: Meta
+  ){}
 
   ngOnInit(): void {
   // Adiciona um ouvinte para as alterações de rota
@@ -36,7 +30,12 @@ export class AppComponent implements OnInit{
         this.showFooter = (route.snapshot.data['hideFooter'] as boolean);
       }
     });
+
+    this.meta.addTags([
+      { name: 'description', content: 'This is an article about Angular Meta service' },
+      { name: 'keywords', content: 'angular, javascript, typescript, meta, seo' }
+  ]);
   }
 
-  
+
 }
