@@ -30,11 +30,6 @@ export class AppComponent implements OnInit{
         this.showFooter = (route.snapshot.data['hideFooter'] as boolean);
       }
     });
-
-    this.meta.addTags([
-      { name: 'description', content: 'This is an article about Angular Meta service' },
-      { name: 'keywords', content: 'angular, javascript, typescript, meta, seo' }
-  ]);
   }
 
 
