@@ -24,7 +24,6 @@
     "@angular/platform-browser-dynamic": "^16.2.0",
     "@angular/platform-server": "^16.2.0",
     "@angular/router": "^16.2.0",
-    "@nguniversal/express-engine": "^16.2.0",
     "date-fns": "^3.0.6",
     "express": "^4.15.2",
     "font-awesome": "^4.7.0",

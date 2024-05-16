@@ -18,7 +18,7 @@ export class CadastrarLojaComponent implements OnInit {
   apiurl: string = environment.apiUrl
 
   imagemFile!: File;
-  imagemBase64!: string;
+  // imagemBase64!: string;
 
   lojas!: Loja[];
 
@@ -61,9 +61,9 @@ export class CadastrarLojaComponent implements OnInit {
     this.imagemFile = event.currentFiles[0]
     const reader = new FileReader();
 
-    reader.onload = (e) => {
-      this.imagemBase64 = reader.result as string;
-    }
+    // reader.onload = (e) => {
+    //   this.imagemBase64 = reader.result as string;
+    // }
 
     reader.readAsDataURL(this.imagemFile);
   }

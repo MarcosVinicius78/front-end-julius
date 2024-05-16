@@ -1,0 +1,10 @@
+<section>
+  <header>
+    <h1 class="text-primary-50">Configurações</h1>
+  </header>
+
+  <p-fileUpload styleClass="mt-2" mode="basic" chooseLabel="Choose" name="demo[]" accept="image/*"
+    (maxFileSize)="1000000000000" (onSelect)="onFileChange($event)"></p-fileUpload>
+
+  <p-button (onClick)="salvarStory()" label="Submit"></p-button>
+</section>

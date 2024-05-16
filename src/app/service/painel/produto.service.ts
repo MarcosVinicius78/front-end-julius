@@ -11,6 +11,7 @@ import { environment } from 'src/environments/environment';
 })
 export class ProdutoService {
 
+
   apiUrl = environment.apiUrl;
 
   constructor(private http: HttpClient) { }
@@ -73,6 +74,10 @@ export class ProdutoService {
     const params = new HttpParams().set('preco', preco.toString()).set('titulo', titulo.toString()).set('urlImagem', urlImagem).set('frete', frete).set('cupom', cupom);
 
     return this.http.get(`${this.apiUrl}/produto/generate-image`, { params, responseType: 'blob', observe: 'response' });
+  }
+
+  salvarStory(formData: FormData) {
+    return this.http.post(`${this.apiUrl}/produto/salvar-story`, formData);
   }
 }
 

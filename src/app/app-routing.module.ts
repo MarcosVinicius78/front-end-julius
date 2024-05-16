@@ -15,6 +15,7 @@ import { LoginComponent } from './components/painel/login/login.component';
 import { AuthRouteguard } from './routeguard/auth-routeguard.service';
 import { BlogComponent } from './components/blog/blog.component';
 import { ListaDePostsComponent } from './components/painel/lista-de-posts/lista-de-posts.component';
+import { ConfiguracoesComponent } from './components/painel/configuracoes/configuracoes.component';
 
 const routes: Routes = [
   { path: 'painel', component: InicioPainelComponent, children: [
@@ -29,6 +30,7 @@ const routes: Routes = [
     { path: 'cadastrar-posts', component: CadastrarPostsComponent},
     { path: 'cadastrar-posts/:id', component: CadastrarPostsComponent},
     { path: 'lista-posts', component: ListaDePostsComponent},
+    { path: 'configuracoes', component: ConfiguracoesComponent},
   ], data: { hideHeader: false, hideFooter: false }, canActivate: [AuthRouteguard]},
   { path: 'login', component: LoginComponent},
   { path: '', component: ListarProdutosComponent, data: { hideHeader: true, hideFooter: true }},

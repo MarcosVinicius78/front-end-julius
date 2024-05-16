@@ -40,6 +40,7 @@ import { ToolbarModule } from 'primeng/toolbar';
 import { MessagesModule } from 'primeng/messages';
 import { ListaDePostsComponent } from './components/painel/lista-de-posts/lista-de-posts.component';
 import { CardModule } from 'primeng/card';
+import { ConfiguracoesComponent } from './components/painel/configuracoes/configuracoes.component';
 
 @NgModule({
   declarations: [
@@ -61,7 +62,8 @@ import { CardModule } from 'primeng/card';
     LoginComponent,
     BlogComponent,
     CadastrarPostsComponent,
-    ListaDePostsComponent
+    ListaDePostsComponent,
+    ConfiguracoesComponent
   ],
   imports: [
     BrowserModule,
