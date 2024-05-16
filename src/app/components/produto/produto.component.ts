@@ -73,19 +73,19 @@ export class ProdutoComponent implements OnInit {
     // this.meta.removeTag('property="og:image"');
 
     // Adiciona as novas tags meta
-    this.meta.addTag({ property: 'og:image:height', content: "300" });
-    this.meta.addTag({ property: 'og:image:width', content: "300" });
-    this.meta.addTag({ property: 'og:site_name', content: "Sergipe Ofertas" });
-    this.meta.addTag({ property: 'og:locale', content: "pt_BR" });
-    this.meta.addTag({ property: 'og:url', content: window.location.href });
-    this.meta.addTag({ property: 'og:type', content: "website" });
-    this.meta.addTag({ property: 'og:image:type', content: "image/jpeg" });
+    // this.meta.addTag({ property: 'og:image:height', content: "300" });
+    // this.meta.addTag({ property: 'og:image:width', content: "300" });
+    // this.meta.addTag({ property: 'og:site_name', content: "Sergipe Ofertas" });
+    // this.meta.addTag({ property: 'og:locale', content: "pt_BR" });
+    // this.meta.addTag({ property: 'og:url', content: window.location.href });
+    // this.meta.addTag({ property: 'og:type', content: "website" });
+    // this.meta.addTag({ property: 'og:image:type', content: "image/jpeg" });
 
 
-    this.meta.addTag({ name: 'description', content: "as melhores promoções" });
-    this.meta.addTag({ property: 'og:title', content: productName });
-    this.meta.addTag({ property: 'og:description', content: productDescription });
-    this.meta.addTag({ property: 'og:image', content: `${this.apiUrl}/produto/download/${this.produto.imagem}` });
+    // this.meta.addTag({ name: 'description', content: "as melhores promoções" });
+    // this.meta.addTag({ property: 'og:title', content: productName });
+    // this.meta.addTag({ property: 'og:description', content: productDescription });
+    // this.meta.addTag({ property: 'og:image', content: `${this.apiUrl}/produto/download/${this.produto.imagem}` });
   }
 
   fecharModal() {
