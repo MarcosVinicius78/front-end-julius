@@ -44,7 +44,7 @@ export class CadastrarProdutoComponent implements OnInit {
   scraperProduto = new ScraperProduto();
 
   frete: any[] = [
-    { name: "Frete Grátis" },
+    { name: "Frete Grátis"},
     { name: "Frete Grátis Algumas Regiões" },
     { name: "Frete Grátis Prime" },
     { name: "Frete Econômico" },
@@ -109,8 +109,6 @@ export class CadastrarProdutoComponent implements OnInit {
 
     this.id = parseInt(this.idEditar)
 
-    console.log(this.scraperProduto)
-
     if (this.idEditar == null && !this.produtoFormGroup.invalid) {
 
       const produto: any = {
@@ -124,7 +122,7 @@ export class CadastrarProdutoComponent implements OnInit {
         cupom: this.produtoFormGroup.get('cupom')?.value,
         urlImagem: this.scraperProduto.urlImagem,
         id_categoria: this.produtoFormGroup.get('id_categoria')?.value.categoria_id,
-        id_loja: this.produtoFormGroup.get('loja')?.value.id,
+        id_loja: this.produtoFormGroup.get('loja')?.value,
         imagem: ['']
       }
 
@@ -148,6 +146,8 @@ export class CadastrarProdutoComponent implements OnInit {
 
       return;
     }
+
+    console.log(this.idEditar)
 
 
     if (this.idEditar !== null) {
@@ -179,32 +179,42 @@ export class CadastrarProdutoComponent implements OnInit {
 
   atualizarProduto() {
 
+
     const produto: any = {
       id: this.idEditar,
       titulo: this.produtoFormGroup.get('titulo')?.value,
       preco: this.produtoFormGroup.get('preco')?.value,
+      precoParcelado: this.produtoFormGroup.get('precoParcelado')?.value,
       freteVariacoes: this.produtoFormGroup.get('freteVariacoes')?.value.name,
       mensagemAdicional: this.produtoFormGroup.get('mensagemAdicional')?.value.name,
       descricao: this.produtoFormGroup.get('descricao')?.value,
       link: this.produtoFormGroup.get('link')?.value,
-      tituloPequeno: this.produtoFormGroup.get('tituloPequeno')?.value,
       cupom: this.produtoFormGroup.get('cupom')?.value,
-      imagemUrl: this.produto.imagem,
+      urlImagem: this.produto.imagem,
       id_categoria: this.produtoFormGroup.get('id_categoria')?.value.categoria_id,
-      id_loja: this.produtoFormGroup.get('loja')?.value
+      id_loja: this.produtoFormGroup.get('loja')?.value.id
     }
 
-    this.salvarImagem()
+    console.log(produto)
+
+    if (this.scraperProduto.urlImagem === '' && this.imagemFile != undefined) {
+      this.salvarImagem();
+    }
 
     this.produtoSevice.atualizarProduto(produto).subscribe(response => {
       this.messageService.add({ severity: 'success', detail: 'Produto Atualizado!' });
+    }, err => {
+      this.messageService.add({ severity: 'error', detail: 'Error ao Atualizado!' });
     });
+
+    return
 
   }
 
   listarLojas() {
     this.lojaService.listarLojas().subscribe(response => {
       this.lojas = response
+
     });
   }
 
@@ -222,8 +232,8 @@ export class CadastrarProdutoComponent implements OnInit {
 
       this.produtoFormGroup = this.formBuilder.group({
         titulo: [this.produto.titulo],
-        tituloPequeno: [this.produto.tituloPequeno],
         preco: [this.produto.preco],
+        precoParcelado: [this.produto.parcelado],
         freteVariacoes: [this.produto.freteVariacoes],
         mensagemAdicional: [this.produto.mensagemAdicional],
         descricao: [this.produto.descricao],
@@ -232,6 +242,10 @@ export class CadastrarProdutoComponent implements OnInit {
         id_categoria: [this.produto.categoriaDto.categoria_id],
         loja: [this.produto.lojaResponseDto.id]
       })
+
+      console.log(this.produto.freteVariacoes)
+      console.log(this.produtoFormGroup.get('freteVariacoes')?.value.name)
+
     }, err => {
       console.log(err);
       this.messageService.add({ severity: 'error', detail: 'Erro ao Recuperar Dados' });

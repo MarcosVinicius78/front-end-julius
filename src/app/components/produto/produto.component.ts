@@ -108,26 +108,35 @@ export class ProdutoComponent implements OnInit {
   }
 
   montarEstruturaCompartilhamento() {
-    let estruturaCompartilhamento = `${this.produto.titulo}\n\n`;
-    estruturaCompartilhamento += `*Por: ${this.produto.preco} (À Vista)*\n`;
+
+    let estruturaCompartilhamento = "";
+
+    if (this.produto.titulo.length > 55 ) {
+      estruturaCompartilhamento = `\u{1F4CC} ${this.produto.titulo.substring(0, 60)}...\n\n`;
+    }else{
+      estruturaCompartilhamento = `\u{1F4CC} ${this.produto.titulo}\n\n`;
+    }
+    estruturaCompartilhamento += `*\u{1F525} ${this.produto.preco} (À Vista)*\n`;
 
     if (this.produto.parcelado) {
-      estruturaCompartilhamento += `Ou: ${this.produto.parcelado} (Parcelado)\n\n`;
+      estruturaCompartilhamento += `\u{1F4B3} ${this.produto.parcelado}`;
     }
 
     if (this.produto.cupom) {
-      estruturaCompartilhamento += `Use o Cupom: *${this.produto.cupom}*\n\n`;
+      estruturaCompartilhamento += `\n \u{1F39F}Use o Cupom: *${this.produto.cupom}*`;
     }
 
     if (this.produto.freteVariacoes) {
-      estruturaCompartilhamento += `${this.produto.freteVariacoes}\n\n`;
+      estruturaCompartilhamento += `\n\n \u{1F4E6} ${this.produto.freteVariacoes}`;
     }
 
-    estruturaCompartilhamento += `Confira aqui: ${window.location.href}`;
+    estruturaCompartilhamento += `\n\n *\u{1F6D2} Compre Aqui:\u{1F447}* ${window.location.href}`;
 
     if (this.produto.mensagemAdicional) {
       estruturaCompartilhamento += `\n\n${this.produto.mensagemAdicional}`;
     }
+
+    console.log(estruturaCompartilhamento)
 
     return estruturaCompartilhamento;
   }
