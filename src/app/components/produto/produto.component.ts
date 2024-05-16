@@ -67,26 +67,29 @@ export class ProdutoComponent implements OnInit {
 
   private setProductMetaTags(productName: string, productDescription: string, productImageUrl: string): void {
     // Limpa todas as tags meta existentes
-    this.meta.removeTag('name="description"');
-    this.meta.removeTag('property="og:title"');
-    this.meta.removeTag('property="og:description"');
-    this.meta.removeTag('property="og:image"');
+    // this.meta.removeTag('name="description"');
+    // this.meta.removeTag('property="og:title"');
+    // this.meta.removeTag('property="og:description"');
+    // this.meta.removeTag('property="og:image"');
 
-    // Adiciona as novas tags meta
-    this.meta.addTag({ property: 'og:image:height', content: "300" });
-    this.meta.addTag({ property: 'og:image:width', content: "300" });
-    this.meta.addTag({ property: 'og:site_name', content: "Sergipe Ofertas" });
-    this.meta.addTag({ property: 'og:locale', content: "pt_BR" });
-    this.meta.addTag({ property: 'og:url', content: window.location.href });
-    this.meta.addTag({ property: 'og:type', content: "website" });
-    this.meta.addTag({ property: 'og:image:type', content: "image/jpeg" });
+    // // Adiciona as novas tags meta
+    // this.meta.addTag({ property: 'og:image:height', content: "300" });
+    // this.meta.addTag({ property: 'og:image:width', content: "300" });
+    // this.meta.addTag({ property: 'og:site_name', content: "Sergipe Ofertas" });
+    // this.meta.addTag({ property: 'og:locale', content: "pt_BR" });
+    // this.meta.addTag({ property: 'og:url', content: window.location.href });
+    // this.meta.addTag({ property: 'og:type', content: "website" });
+    // this.meta.addTag({ property: 'og:image:type', content: "image/jpeg" });
 
 
-    this.meta.addTag({ name: 'description', content: "as melhores promoções" });
-    this.meta.addTag({ property: 'og:title', content: productName });
-    this.meta.addTag({ property: 'og:description', content: productDescription });
-    // this.meta.addTag({ property: 'og:image', content: "https://pechinchous3.s3.sa-east-1.amazonaws.com/media/img/products/social/WhatsApp_Image_2023-11-23_at_19_PoLNjFC_pc079UL_Ui41CXC_QytOhr8_tJIDI50_LDIOSkz_Kqwg0Qq_koWFuh0_lZYzOGD_a2X00FV_KA0ATUM_Fs0t6Up_r9zQDYQ_gOUm6LQ_g5wqsEQ_7rmiu8b_hguz0Od_gEwaY9t_03KmAHq_Yt8lCTX_9ZCFIP4_yqjAIaB_U4Sv7hz_dFoYSqf_EwdG29J.jpg" });
-    this.meta.addTag({ property: 'og:image', content: `${this.apiUrl}/produto/download/${this.produto.imagem}` });
+    // this.meta.addTag({ name: 'description', content: "as melhores promoções" });
+    // this.meta.addTag({ property: 'og:title', content: productName });
+    // this.meta.addTag({ property: 'og:description', content: productDescription });
+    // this.meta.addTag({ property: 'og:image', content: `${this.apiUrl}/produto/download/${this.produto.imagem}` });
+    this.meta.addTags([ 
+      { name: 'description', content: 'This is an article about Angular Meta service' }, 
+      { name: 'keywords', content: 'angular, javascript, typescript, meta, seo' } 
+  ]);
   }
 
   fecharModal() {
