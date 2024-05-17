@@ -166,6 +166,11 @@
     color: green;
   }
 
+  .is-invalid {
+    border-color: red;
+  }
+
+
   .p-dropdown-panel{
     background-color: #184c78;
   }

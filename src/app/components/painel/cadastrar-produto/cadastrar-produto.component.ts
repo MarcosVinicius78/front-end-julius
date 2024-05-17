@@ -43,19 +43,6 @@ export class CadastrarProdutoComponent implements OnInit {
 
   scraperProduto = new ScraperProduto();
 
-  frete: any[] = [
-    { name: "Frete Grátis"},
-    { name: "Frete Grátis Algumas Regiões" },
-    { name: "Frete Grátis Prime" },
-    { name: "Frete Econômico" },
-    { name: "Frete Grátis Retirando na Loja" }
-  ];
-
-  msg: any[] = [
-    { name: "Promoção sujeita a alteração a qualquer momento" },
-    { name: "Convide seus amigos: http://google.com.br" }
-  ];
-
   constructor(
     private formBuilder: FormBuilder,
     private produtoSevice: ProdutoService,
@@ -95,6 +82,9 @@ export class CadastrarProdutoComponent implements OnInit {
   onFileChange(event: any) {
     this.imagemFile = event.target.files[0]
 
+    if (this.produto != undefined && this.produto.imagem != undefined) {
+      this.produto.imagem = "";
+    }
 
     const reader = new FileReader();
 
@@ -109,19 +99,21 @@ export class CadastrarProdutoComponent implements OnInit {
 
     this.id = parseInt(this.idEditar)
 
+    console.log(this.idEditar)
+
     if (this.idEditar == null && !this.produtoFormGroup.invalid) {
 
       const produto: any = {
         titulo: this.produtoFormGroup.get('titulo')?.value,
         preco: this.produtoFormGroup.get('preco')?.value,
         precoParcelado: this.produtoFormGroup.get('precoParcelado')?.value,
-        freteVariacoes: this.produtoFormGroup.get('freteVariacoes')?.value.name,
-        mensagemAdicional: this.produtoFormGroup.get('mensagemAdicional')?.value.name,
+        freteVariacoes: this.produtoFormGroup.get('freteVariacoes')?.value,
+        mensagemAdicional: this.produtoFormGroup.get('mensagemAdicional')?.value,
         descricao: this.produtoFormGroup.get('descricao')?.value,
         link: this.produtoFormGroup.get('link')?.value,
         cupom: this.produtoFormGroup.get('cupom')?.value,
         urlImagem: this.scraperProduto.urlImagem,
-        id_categoria: this.produtoFormGroup.get('id_categoria')?.value.categoria_id,
+        id_categoria: this.produtoFormGroup.get('id_categoria')?.value,
         id_loja: this.produtoFormGroup.get('loja')?.value,
         imagem: ['']
       }
@@ -130,7 +122,7 @@ export class CadastrarProdutoComponent implements OnInit {
 
         this.id = response.id;
 
-        if (this.scraperProduto.urlImagem === '' && this.imagemFile != undefined) {
+        if (this.scraperProduto.urlImagem === '' && this.imagemFile !== undefined) {
           this.salvarImagem();
         }
 
@@ -160,6 +152,8 @@ export class CadastrarProdutoComponent implements OnInit {
       return
     }
 
+    this.produtoFormGroup.markAllAsTouched();
+    console.log(this.produtoFormGroup.controls['titulo'].invalid)
     this.messageService.add({ severity: 'warn', summary: 'Warn', detail: 'Informe os Campos' });
     return;
   }
@@ -169,7 +163,10 @@ export class CadastrarProdutoComponent implements OnInit {
 
     formData.append("file", this.imagemFile)
     formData.append("id", `${this.id}`);
+
+    formData.append("urlImagem", this.produto.imagem);
     this.produtoSevice.salvarImagem(formData).subscribe(response => {
+      this.messageService.add({ severity: 'success', detail: 'Imagem Salva!' });
       return
     }, err => {
       console.log(err);
@@ -185,19 +182,17 @@ export class CadastrarProdutoComponent implements OnInit {
       titulo: this.produtoFormGroup.get('titulo')?.value,
       preco: this.produtoFormGroup.get('preco')?.value,
       precoParcelado: this.produtoFormGroup.get('precoParcelado')?.value,
-      freteVariacoes: this.produtoFormGroup.get('freteVariacoes')?.value.name,
-      mensagemAdicional: this.produtoFormGroup.get('mensagemAdicional')?.value.name,
+      freteVariacoes: this.produtoFormGroup.get('freteVariacoes')?.value,
+      mensagemAdicional: this.produtoFormGroup.get('mensagemAdicional')?.value,
       descricao: this.produtoFormGroup.get('descricao')?.value,
       link: this.produtoFormGroup.get('link')?.value,
       cupom: this.produtoFormGroup.get('cupom')?.value,
-      urlImagem: this.produto.imagem,
-      id_categoria: this.produtoFormGroup.get('id_categoria')?.value.categoria_id,
-      id_loja: this.produtoFormGroup.get('loja')?.value.id
+      urlImagem: "",
+      id_categoria: this.produtoFormGroup.get('id_categoria')?.value,
+      id_loja: this.produtoFormGroup.get('loja')?.value
     }
 
-    console.log(produto)
-
-    if (this.scraperProduto.urlImagem === '' && this.imagemFile != undefined) {
+    if (this.imagemFile != undefined) {
       this.salvarImagem();
     }
 
@@ -227,8 +222,7 @@ export class CadastrarProdutoComponent implements OnInit {
   pegarProduto() {
     this.produtoSevice.pegarProduto(this.idEditar).subscribe(response => {
       this.produto = response;
-
-      this.imagemView = this.produto.imagem
+      this.id = response.id
 
       this.produtoFormGroup = this.formBuilder.group({
         titulo: [this.produto.titulo],
@@ -243,8 +237,7 @@ export class CadastrarProdutoComponent implements OnInit {
         loja: [this.produto.lojaResponseDto.id]
       })
 
-      console.log(this.produto.freteVariacoes)
-      console.log(this.produtoFormGroup.get('freteVariacoes')?.value.name)
+      console.log(this.produto)
 
     }, err => {
       console.log(err);

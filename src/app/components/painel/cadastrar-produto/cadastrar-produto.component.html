@@ -17,7 +17,7 @@
 
       <div class="titulo">
         <span class="p-float-label">
-          <input pInputText id="Titulo" formControlName="titulo" />
+          <input pInputText id="Titulo" formControlName="titulo"/>
           <label htmlFor="titulo">Titulo</label>
         </span>
       </div>
@@ -32,8 +32,15 @@
           <label htmlFor="preco">Preço À Vista</label>
         </span>
         <span>
-          <p-dropdown styleClass="dropdown" [options]="frete" name="freteVariacoes" formControlName="freteVariacoes" optionLabel="name" [showClear]="true"
-            placeholder="Escolha o Frete"></p-dropdown>
+          <select class="dropdown text-primary-50 font-medium text-base" formControlName="freteVariacoes" name="freteVariacoes">
+            <option value="">Selecione o Frete</option>
+            <option value="Frete Grátis">Frete Grátis</option>
+            <option value="Frete Grátis Retirando na Loja">Frete Grátis Algumas Regiões</option>
+            <option value="Frete Grátis Prime">Frete Grátis Prime</option>
+            <option value="Frete Econômico">Frete Econômico</option>
+          </select>
+          <!-- <p-dropdown styleClass="dropdown" [options]="frete" name="freteVariacoes" formControlName="freteVariacoes" optionLabel="name" [showClear]="true"
+            placeholder="Escolha o Frete"></p-dropdown> -->
         </span>
       </div>
 
@@ -47,16 +54,25 @@
 
       <div class="grupo">
         <span>
-          <p-dropdown styleClass="dropdown w-11" [options]="msg" formControlName="mensagemAdicional" name="mensagemAdicional" optionLabel="name" [showClear]="true"
-            placeholder="Escolha a Mensagem"></p-dropdown>
+          <select class="dropdown w-11 text-primary-50 font-medium text-base" formControlName="mensagemAdicional" name="mensagemAdicional">
+            <option value="">Selecione um Mensagem</option>
+            <option value="Promoção sujeita a alteração a qualquer momento">Promoção sujeita a alteração a qualquer momento</option>
+            <option value="Compartilhe com seus Amigos">Compartilhe com seus Amigos</option>
+          </select>
         </span>
         <span>
-          <p-dropdown styleClass="dropdown w-11" [options]="lojas" formControlName="loja" name="loja" optionLabel="nome_loja" [showClear]="true"
-            placeholder="Escolha a Loja"></p-dropdown>
+          <select class="dropdown w-11 text-primary-50 font-medium text-base" formControlName="loja" name="loja">
+            <option value="">Selecione uma Loja</option>
+            <option *ngFor="let item of lojas" value="{{item.id}}">{{ item.nome_loja }}</option>
+          </select>
         </span>
         <span>
-          <p-dropdown styleClass="dropdown w-full" [options]="categorias" formControlName="id_categoria" name="id_categoria" optionLabel="nome_categoria" [showClear]="true"
-            placeholder="Escolha a Categoria"></p-dropdown>
+          <select class="dropdown w-full text-primary-50 font-medium text-base" formControlName="id_categoria" name="id_categoria">
+            <option value="">Selecione uma Categoria</option>
+            <option *ngFor="let item of categorias" value="{{item.categoria_id}}">{{ item.nome_categoria }}</option>
+          </select>
+          <!-- <p-dropdown styleClass="dropdown w-full" [options]="categorias" formControlName="id_categoria" name="id_categoria" optionLabel="nome_categoria" [showClear]="true"
+            placeholder="Escolha a Categoria"></p-dropdown> -->
         </span>
       </div>
 
@@ -70,7 +86,7 @@
                 <div *ngIf="true">
                   <img *ngIf="produto == undefined" [src]="imagemView ==  ''? scraperProduto.urlImagem : imagemView!"
                     alt="Imagem Site">
-                  <img *ngIf="produto != undefined" [src]="apiUrl+'/produto/download/'+imagemView" alt="Selected Image">
+                  <img *ngIf="produto != undefined" [src]=" produto.imagem != ''? apiUrl+'/produto/download/'+produto.imagem : imagemView" alt="Selected Image">
                 </div>
                 <div *ngIf="false">Selecionar Site</div>
               </div>
