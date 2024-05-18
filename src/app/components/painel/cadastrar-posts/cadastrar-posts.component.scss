@@ -18,11 +18,11 @@
     cursor: pointer;
   }
 
-  :is(span) label{
+  span label{
     color: white;
   }
 
-  :is(span) input{
+  span input{
     background-color: #184c78;
     border-color: #225a76;
     color: white;

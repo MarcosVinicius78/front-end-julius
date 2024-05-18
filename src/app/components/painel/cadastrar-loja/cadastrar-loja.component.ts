@@ -8,7 +8,7 @@ import { MessageService } from 'primeng/api';
 @Component({
   selector: 'app-cadastrar-loja',
   templateUrl: './cadastrar-loja.component.html',
-  styleUrls: ['./cadastrar-loja.component.css'],
+  styleUrls: ['./cadastrar-loja.component.scss'],
   providers: [MessageService]
 })
 export class CadastrarLojaComponent implements OnInit {

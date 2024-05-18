@@ -1,26 +1,26 @@
 :host ::ng-deep {
-  :is(section) {
+  section {
     /* background-color: aqua; */
     height: calc(100% - 10px);
   }
 
-  :is(header) {
+  header {
     display: flex;
     justify-content: space-around;
   }
 
-  :is(header) input {
+  header input {
     width: 100px;
     padding: 10px;
     margin-top: 5px;
     border-radius: 5px;
   }
 
-  :is(header) div:first-child {
+  header div:first-child {
     width: 90%;
   }
 
-  :is(header) h1 {
+  header h1 {
     color: white;
     margin: 0;
     margin-top: 10px;

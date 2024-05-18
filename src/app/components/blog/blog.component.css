@@ -1,5 +1,5 @@
 :host ::ng-deep {
-  :is(section){
+  section{
     width: 80%;
     margin: 0 auto;
   }

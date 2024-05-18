@@ -9,7 +9,7 @@ import { PostDTOGeral } from 'src/app/dto/postDTO';
 @Component({
   selector: 'app-cadastrar-posts',
   templateUrl: './cadastrar-posts.component.html',
-  styleUrls: ['./cadastrar-posts.component.css'],
+  styleUrls: ['./cadastrar-posts.component.scss'],
   providers: [MessageService]
 })
 export class CadastrarPostsComponent implements OnInit {
