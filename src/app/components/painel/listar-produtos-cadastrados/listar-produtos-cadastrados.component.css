@@ -1,25 +1,25 @@
 :host ::ng-deep {
-  section {
+  :is(section) {
     height: calc(100% - 10px);
   }
 
-  header {
+  :is(header) {
     display: flex;
     justify-content: space-around;
   }
 
-  header input {
+  :is(header) input {
     width: 100px;
     padding: 10px;
     margin-top: 5px;
     border-radius: 5px;
   }
 
-  header div:first-child {
+  :is(header) div:first-child {
     width: 90%;
   }
 
-  header h1 {
+  :is(header) h1 {
     margin: 0;
     margin-top: 10px;
     margin-left: 10px;
@@ -115,11 +115,13 @@
       display: none;
     }
 
-    .p-datatable-thead th:nth-child(1) {
+    .p-datatable-tbody tr td:nth-child(7){
       display: none;
     }
-
-    .p-datatable-thead th:nth-child(6) {
+    .p-datatable-thead th:nth-child(7) {
+      display: none;
+    }
+    .p-datatable-thead th:nth-child(1) {
       display: none;
     }
 
@@ -128,10 +130,6 @@
     }
 
     .p-datatable-tbody tr td:nth-child(1){
-      display: none;
-    }
-
-    .p-datatable-tbody tr td:nth-child(6){
       display: none;
     }
 
@@ -144,11 +142,11 @@
       text-overflow: ellipsis;
     }
 
-    header input{
+    :is(header) input{
       display: none;
     }
 
-    header div{
+    :is(header) div{
       width: 100%;
       text-align: center;
     }

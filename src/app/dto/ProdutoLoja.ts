@@ -17,5 +17,7 @@ export class ProdutoLoja{
   categoriaDto = new Categoria("");
   imagem!: any
   dataCriacao!: string
+  imagemSocial: string = "";
+  copy: string = "";
 
 }

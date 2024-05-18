@@ -10,7 +10,7 @@
     color: rgb(255, 0, 0);
   }
 
-  h2 {
+  :is(h2) {
     margin: 0;
     margin-bottom: 5px;
     color: white;
@@ -24,11 +24,11 @@
     color: white;
   }
 
-  label {
+  :is(label) {
     color: white;
   }
 
-  p {
+  :is(p) {
     margin: 0;
   }
 
@@ -93,7 +93,7 @@
     align-items: center;
   }
 
-  select {
+  :is(select) {
     width: 100%;
     height: 34px;
     border: 3px solid rgb(221, 221, 221);
@@ -130,11 +130,11 @@
     position: relative;
   }
 
-  input[type="file"] {
+  :is(input)[type="file"] {
     display: none;
   }
 
-  label {
+  :is(label) {
     cursor: pointer;
   }
 
@@ -151,23 +151,19 @@
     position: relative;
   }
 
-  img {
+  :is(img) {
     width: 240px;
     /* height: 100%; */
     object-fit: contain;
   }
 
-  input[type="file"]:focus + label .file-input-label {
+  :is(input)[type="file"]:focus + label .file-input-label {
     border: 2px solid blue;
   }
 
-  input[type="file"]:valid + label .file-input-label {
+  :is(input)[type="file"]:valid + label .file-input-label {
     border: 2px solid green;
     color: green;
-  }
-
-  .is-invalid {
-    border-color: red;
   }
 
 
@@ -200,7 +196,7 @@
       height: 40px;
     }
 
-    header{
+    :is(header){
       width: 95%;
       margin: 0 auto;
     }
@@ -234,7 +230,7 @@
       height: 120px;
     }
 
-    img{
+    :is(img){
       width: 120px;
     }
   }

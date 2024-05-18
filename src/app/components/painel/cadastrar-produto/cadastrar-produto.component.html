@@ -17,6 +17,10 @@
 
       <div class="titulo">
         <span class="p-float-label">
+          <input pInputText id="copy" formControlName="copy"/>
+          <label htmlFor="copy">Copy</label>
+        </span>
+        <span class="mt-4 p-float-label">
           <input pInputText id="Titulo" formControlName="titulo"/>
           <label htmlFor="titulo">Titulo</label>
         </span>
@@ -84,21 +88,21 @@
               <input formControlName="imgem" (change)="onFileChange($event)" id="fileInput" type="file" #fileInput>
               <div id="file-input-label">
                 <div *ngIf="true">
-                  <img *ngIf="produto == undefined" [src]="imagemView ==  ''? scraperProduto.urlImagem : imagemView!"
+                  <img *ngIf="produto != undefined" [src]="imagemView ==  ''? scraperProduto.urlImagem : imagemView!"
                     alt="Imagem Site">
-                  <img *ngIf="produto != undefined" [src]=" produto.imagem != ''? apiUrl+'/produto/download/'+produto.imagem : imagemView" alt="Selected Image">
+                  <img *ngIf="produto.id != 0" [src]=" produto.imagem != ''? apiUrl+'/produto/download/'+produto.imagem : imagemView" alt="Selected Image">
                 </div>
                 <div *ngIf="false">Selecionar Site</div>
               </div>
             </label>
 
-            <label for="fileInput">
-              <input (change)="onFileChange($event)" id="fileInput" type="file" #fileInput>
+            <label for="fileInputs">
+              <input formControlName="imgemSocial" name="imgemSocial" (change)="onFileChangeSocial($event)" id="fileInputs" type="file" #fileInputs>
               <div id="file-input-label">
                 <div *ngIf="true">
-                  <img [src]="" alt="Imagem Social">
+                  <img [src]="produto.imagemSocial != ''? apiUrl+'/produto/download-imagem-real/'+produto.imagemSocial : imagemViewSocial" alt="Imagem Social">
                 </div>
-                <div *ngIf="">Imagem Social</div>
+                <div *ngIf="false">Imagem Social</div>
               </div>
             </label>
           </div>

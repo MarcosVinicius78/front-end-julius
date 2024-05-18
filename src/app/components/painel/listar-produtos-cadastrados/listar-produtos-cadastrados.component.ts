@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { MessageService } from 'primeng/api';
+import { Message, MessageService } from 'primeng/api';
 import { Produtos } from 'src/app/models/produtos';
 import { ProdutoService } from 'src/app/service/painel/produto.service';
+import { Clipboard } from '@angular/cdk/clipboard';
 
 @Component({
   selector: 'app-listar-produtos-cadastrados',
@@ -22,13 +23,14 @@ export class ListarProdutosCadastradosComponent implements OnInit{
 
   produtos: Produtos[] = [];
 
-  produto!: Produtos;
+  // produto!: Produtos;
   selectedProducts!: Produtos;
 
   constructor(
     private produtoService: ProdutoService,
     private route: Router,
-    private messageService: MessageService
+    private messageService: MessageService,
+    private clipboard: Clipboard,
   ){}
 
   ngOnInit(): void {
@@ -95,6 +97,56 @@ export class ListarProdutosCadastradosComponent implements OnInit{
       // Limpa o URL criado
       window.URL.revokeObjectURL(url);
       document.body.removeChild(link);
+    }, err => {
+      this.messageService.add({ severity: 'error', detail: 'Erro ao Gerar Storie' });
     })
+  }
+
+  copiarParaAreaTransferencia(produtos: Produtos) {
+    this.clipboard.copy(this.montarEstruturaCompartilhamento(produtos));
+    this.messageService.add({ severity: 'success', detail: 'POST COPIADO' });
+  }
+
+  montarEstruturaCompartilhamento(produto: Produtos) {
+    console.log(produto.mensagemAdicional)
+
+    let estruturaCompartilhamento = "";
+
+    if(produto.copy){
+      estruturaCompartilhamento += `${produto.copy}\n\n`
+    }
+
+    if (produto.titulo.length > 55 ) {
+      estruturaCompartilhamento += `\u{1F4CC} ${produto.titulo.substring(0, 60)}...\n\n`;
+    }else{
+      estruturaCompartilhamento += `\u{1F4CC} ${produto.titulo}\n\n`;
+    }
+    estruturaCompartilhamento += `*\u{1F525} ${produto.preco} (À Vista)*\n`;
+
+    if (produto.parcelado) {
+      estruturaCompartilhamento += `\u{1F4B3} ${produto.parcelado}\n`;
+    }
+
+    if (produto.cupom) {
+      estruturaCompartilhamento += `\n\u{1F39F} Use o Cupom: *${produto.cupom}*`;
+    }
+
+    if (produto.freteVariacoes) {
+      if (produto.cupom) {
+        estruturaCompartilhamento += `\n\u{1F4E6} ${produto.freteVariacoes}\n`;
+      }else{
+        estruturaCompartilhamento += `\n\u{1F4E6} ${produto.freteVariacoes}\n`;
+      }
+    }
+
+    estruturaCompartilhamento += `\n *\u{1F6D2} Compre Aqui:\u{1F447}* ${window.location.href.replace("painel",'')}oferta/${produto.id}?r=1`;
+
+    if (produto.mensagemAdicional) {
+      estruturaCompartilhamento += `\n\n_${produto.mensagemAdicional}_`;
+    }
+
+    console.log(estruturaCompartilhamento)
+
+    return estruturaCompartilhamento;
   }
 }

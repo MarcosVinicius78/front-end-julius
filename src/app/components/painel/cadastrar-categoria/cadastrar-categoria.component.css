@@ -17,17 +17,17 @@
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
   }
 
-  form div {
+  :is(form) div {
     display: flex;
     flex-direction: column;
     width: 300px;
   }
 
-  h2{
+  :is(h2){
     color: white;
   }
 
-  form div input {
+  :is(form) div input {
     padding: 10px;
     margin-top: 10px;
   }
@@ -131,7 +131,7 @@
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
   }
 
-  form{
+  :is(form){
     width: 80%;
     height: 60%;
     display: flex;
@@ -139,11 +139,11 @@
     justify-content: space-between;
   }
 
-  form label:first-child{
+  :is(form) label:first-child{
     margin-bottom: 10px;
   }
 
-  form input{
+  :is(form) input{
     width: 100%;
     height: 40px;
     background-color: #184c78;
@@ -151,7 +151,7 @@
     color: white;
   }
 
-  label {
+  :is(label) {
     color: white;
   }
 }

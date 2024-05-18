@@ -17,6 +17,7 @@
           <th>Preço</th>
           <th>Loja</th>
           <th>Story</th>
+          <th>Post</th>
           <th>Opções</th>
         </tr>
       </ng-template>
@@ -37,8 +38,11 @@
             </span>
           </td>
           <td>
-            <i (click)="gerarStory(item.preco, item.titulo, item.imagem, item.freteVariacoes, item.cupom)"
+            <i (click)="gerarStory(item.preco, item.titulo, item.imagemSocial, item.freteVariacoes, item.cupom)"
               class="story pi pi-image"></i>
+          </td>
+          <td>
+            <i class="cursor-pointer pi pi-copy" (click)="copiarParaAreaTransferencia(item)"></i>
           </td>
           <td>
             <div class="opcoes">

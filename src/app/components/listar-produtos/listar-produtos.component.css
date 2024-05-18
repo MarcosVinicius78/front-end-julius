@@ -184,8 +184,8 @@ a{
 }
 
 #preco{
-  color: white;
-  background-color: #321710e3;
+  color: #321710e3;
+  /* background-color: #321710e3; */
   padding: 5px;
   display: inline-block;
   border-radius: 5px;

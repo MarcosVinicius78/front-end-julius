@@ -58,10 +58,13 @@ export class ProdutoComponent implements OnInit {
   }
 
   pegarProduto() {
+
     this.produtoService.pegarProduto(this.id).subscribe(response => {
+
       this.produto = response;
       this.produtosPorCategoria()
       this.setProductMetaTags(this.produto.titulo, this.produto.descricao, window.location.href);
+
     });
   }
 
@@ -110,9 +113,9 @@ export class ProdutoComponent implements OnInit {
 
     let estruturaCompartilhamento = "";
 
-    if (this.produto.titulo.length > 55 ) {
+    if (this.produto.titulo.length > 55) {
       estruturaCompartilhamento = `\u{1F4CC} ${this.produto.titulo.substring(0, 60)}...\n\n`;
-    }else{
+    } else {
       estruturaCompartilhamento = `\u{1F4CC} ${this.produto.titulo}\n\n`;
     }
     estruturaCompartilhamento += `*\u{1F525} ${this.produto.preco} (À Vista)*\n`;
@@ -147,14 +150,14 @@ export class ProdutoComponent implements OnInit {
   copiarParaAreaTransferencia() {
     this.clipboard.copy(this.produto.cupom);
     this.msg = [
-      { severity: 'success',detail: "CUPOM COPIADO"}
+      { severity: 'success', detail: "CUPOM COPIADO" }
     ]
     setTimeout(() => {
       this.msg = [];
     }, 3000);
   }
 
-  produtosPorCategoria(){
+  produtosPorCategoria() {
     this.produtoService.obeterProdutoPorCategoria().subscribe(response => {
       this.produtos = response.content
     });
@@ -198,9 +201,9 @@ export class ProdutoComponent implements OnInit {
       }).then(() => {
         console.log('Conteúdo compartilhado com sucesso.');
       })
-      .catch((error) => {
-        console.error('Erro ao compartilhar:', error);
-      });
+        .catch((error) => {
+          console.error('Erro ao compartilhar:', error);
+        });
     } else {
       console.log('A funcionalidade de compartilhamento não é suportada neste navegador.');
     }

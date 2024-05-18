@@ -1,5 +1,5 @@
 :host ::ng-deep {
-  section {
+  :is(section) {
     height: 100%;
     display: flex;
     flex-direction: column;
@@ -15,7 +15,7 @@
     height: 100px;
   }
 
-  header {
+  :is(header) {
     width: 90%;
   }
 
@@ -55,7 +55,7 @@
     height: 160px;
   }
 
-  a {
+  :is(a) {
     text-transform: none;
   }
 

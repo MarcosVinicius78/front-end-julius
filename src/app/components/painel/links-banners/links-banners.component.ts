@@ -4,11 +4,13 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { LinksBanner } from 'src/app/dto/LinksBanner';
 import { Banner } from 'src/app/models/banner';
 import { environment } from 'src/environments/environment';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-links-banners',
   templateUrl: './links-banners.component.html',
-  styleUrls: ['./links-banners.component.css']
+  styleUrls: ['./links-banners.component.css'],
+  providers: [MessageService]
 })
 export class LinksBannersComponent implements OnInit {
 
@@ -24,20 +26,25 @@ export class LinksBannersComponent implements OnInit {
 
   urlApi: string = environment.apiUrl;
 
-  constructor(private formBuilder: FormBuilder,
-              private linkBannerService: LinkBannerService
+  constructor(
+    private formBuilder: FormBuilder,
+    private linkBannerService: LinkBannerService,
+    private messageService: MessageService
   ) { }
 
   ngOnInit(): void {
 
     this.listarLinksEBanners();
 
-    this.linksFormGrupo = this.formBuilder.group({
-      whatsapp: [''],
-      telegram: [''],
-      instagram: [],
-      email: ['']
-    });
+    if (this.linksEBanners.links.length == 0) {
+      this.linksFormGrupo = this.formBuilder.group({
+        whatsapp: [''],
+        telegram: [''],
+        instagram: [],
+        email: ['']
+      });
+    }
+
 
     this.bannerFomrGrupo = this.formBuilder.group({
       nome: ['']
@@ -57,35 +64,37 @@ export class LinksBannersComponent implements OnInit {
       email: this.linksFormGrupo.get(['email'])?.value,
     };
 
-    console.log(links);
-
     this.linkBannerService.salvarLinks(links).subscribe(response => {
-      alert(response);
+      this.messageService.add({ severity: 'success', detail: 'Salvo' });
+    }, err => {
+      this.messageService.add({ severity: 'error', detail: 'Erro ao Salvar' });
     })
   }
 
-  listarLinksEBanners(){
+  listarLinksEBanners() {
     this.linkBannerService.listarLinksEBanners().subscribe(response => {
       this.linksEBanners = response;
 
       this.banners = response.banners
 
-      console.log(response.banners[0].urlImagem)
+      console.log(this.linksEBanners)
 
-      this.linksFormGrupo = this.formBuilder.group({
-        whatsapp: this.linksEBanners.links[0].whatsapp,
-        telegram: this.linksEBanners.links[0].telegram,
-        instagram: this.linksEBanners.links[0].instagram,
-        email: this.linksEBanners.links[0].email
-      });
+      if (this.linksEBanners.links.length != 0) {
+        this.linksFormGrupo = this.formBuilder.group({
+          whatsapp: this.linksEBanners.links[0].whatsapp,
+          telegram: this.linksEBanners.links[0].telegram,
+          instagram: this.linksEBanners.links[0].instagram,
+          email: this.linksEBanners.links[0].email
+        });
+      }
     })
   }
 
-  fecharModal(){
+  fecharModal() {
     this.modal = false;
   }
 
-  abrirModal(){
+  abrirModal() {
     this.modal = true;
   }
 
@@ -114,7 +123,7 @@ export class LinksBannersComponent implements OnInit {
     }
   }
 
-  apagarBanner(id:number){
+  apagarBanner(id: number) {
     this.linkBannerService.apagarBanner(id).subscribe(response => {
       this.listarLinksEBanners()
     });

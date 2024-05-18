@@ -26,6 +26,8 @@ export class CadastrarProdutoComponent implements OnInit {
 
   imagemFile!: File;
   imagemView!: string;
+  imagemFileSocial!: File;
+  imagemViewSocial!: string;
 
   categorias!: Categoria[];
   id: number = 0;
@@ -37,7 +39,7 @@ export class CadastrarProdutoComponent implements OnInit {
 
   selectedFileWhatsapp: File | null = null;
 
-  produto!: ProdutoLoja;
+  produto = new ProdutoLoja();
 
   lojas!: Loja[];
 
@@ -68,7 +70,9 @@ export class CadastrarProdutoComponent implements OnInit {
       url: [''],
       id_categoria: ['', [Validators.required]],
       loja: ['', [Validators.required]],
-      imgem: ['']
+      imgem: [''],
+      imgemSocial: [''],
+      copy: ['']
     })
 
     if (this.idEditar != undefined) {
@@ -95,11 +99,25 @@ export class CadastrarProdutoComponent implements OnInit {
     reader.readAsDataURL(this.imagemFile);
   }
 
+  onFileChangeSocial(event: any) {
+    this.imagemFileSocial = event.target.files[0]
+
+    if (this.produto !== undefined) {
+      this.produto.imagemSocial = ""
+    }
+
+    const reader = new FileReader();
+
+    reader.onload = (e) => {
+      this.imagemViewSocial = reader.result as string;
+    }
+
+    reader.readAsDataURL(this.imagemFileSocial);
+  }
+
   salvarProduto() {
 
     this.id = parseInt(this.idEditar)
-
-    console.log(this.idEditar)
 
     if (this.idEditar == null && !this.produtoFormGroup.invalid) {
 
@@ -115,14 +133,22 @@ export class CadastrarProdutoComponent implements OnInit {
         urlImagem: this.scraperProduto.urlImagem,
         id_categoria: this.produtoFormGroup.get('id_categoria')?.value,
         id_loja: this.produtoFormGroup.get('loja')?.value,
-        imagem: ['']
+        imagem: [''],
+        copy:  this.produtoFormGroup.get('copy')?.value
       }
+
+      console.log(produto)
 
       this.produtoSevice.salvarProduto(produto).subscribe(response => {
 
         this.id = response.id;
 
         if (this.scraperProduto.urlImagem === '' && this.imagemFile !== undefined) {
+
+          this.salvarImagem();
+        }
+
+        if (this.imagemFileSocial !== undefined) {
           this.salvarImagem();
         }
 
@@ -138,9 +164,6 @@ export class CadastrarProdutoComponent implements OnInit {
 
       return;
     }
-
-    console.log(this.idEditar)
-
 
     if (this.idEditar !== null) {
       this.atualizarProduto();
@@ -162,10 +185,16 @@ export class CadastrarProdutoComponent implements OnInit {
     const formData = new FormData();
 
     formData.append("file", this.imagemFile)
+    formData.append("fileSocial", this.imagemFileSocial)
     formData.append("id", `${this.id}`);
 
-    formData.append("urlImagem", this.produto.imagem);
+    if (this.produto != undefined) {
+      formData.append("urlImagem", this.produto.imagem);
+      formData.append("urlImagemReal", this.produto.imagemSocial);
+    }
+    console.log(this.imagemFileSocial)
     this.produtoSevice.salvarImagem(formData).subscribe(response => {
+
       this.messageService.add({ severity: 'success', detail: 'Imagem Salva!' });
       return
     }, err => {
@@ -189,10 +218,11 @@ export class CadastrarProdutoComponent implements OnInit {
       cupom: this.produtoFormGroup.get('cupom')?.value,
       urlImagem: "",
       id_categoria: this.produtoFormGroup.get('id_categoria')?.value,
-      id_loja: this.produtoFormGroup.get('loja')?.value
+      id_loja: this.produtoFormGroup.get('loja')?.value,
+      copy:  this.produtoFormGroup.get('copy')?.value
     }
 
-    if (this.imagemFile != undefined) {
+    if (this.imagemFile !== undefined || this.imagemFileSocial !== undefined) {
       this.salvarImagem();
     }
 
@@ -234,7 +264,8 @@ export class CadastrarProdutoComponent implements OnInit {
         link: [this.produto.link],
         cupom: [this.produto.cupom],
         id_categoria: [this.produto.categoriaDto.categoria_id],
-        loja: [this.produto.lojaResponseDto.id]
+        loja: [this.produto.lojaResponseDto.id],
+        copy: [this.produto.copy]
       })
 
       console.log(this.produto)
@@ -276,7 +307,6 @@ export class CadastrarProdutoComponent implements OnInit {
 
       this.scraperProduto = response;
 
-
       this.produtoFormGroup = this.formBuilder.group({
         url: [''],
         titulo: [this.scraperProduto.nomeProduto, [Validators.required]],
@@ -289,10 +319,15 @@ export class CadastrarProdutoComponent implements OnInit {
         cupom: [''],
         id_categoria: ['', [Validators.required]],
         loja: [loja, [Validators.required]],
-        imgem: ['']
+        imgem: [''],
+        imgemSocial: [''],
+        copy: ['']
       })
 
+      console.log(this.scraperProduto)
+
       this.imagemView = "";
+      this.imagemViewSocial = "";
     }, err => {
       console.log(err)
       this.messageService.add({ severity: 'error', detail: 'Erro no Link' });

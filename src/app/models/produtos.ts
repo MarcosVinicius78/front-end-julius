@@ -5,6 +5,7 @@ export class Produtos {
   public id!: number
   public titulo!: string
   public preco!: string
+  public parcelado!: string
   public descricao!: string
   public dataCriacao!: string;
   public freteVariacoes!: string;
@@ -13,6 +14,7 @@ export class Produtos {
   public link!: string
   public imagem!: string
   public loja!: Loja
-
+  public imagemSocial!: string
+  public copy!: string;
   constructor() { }
 }
