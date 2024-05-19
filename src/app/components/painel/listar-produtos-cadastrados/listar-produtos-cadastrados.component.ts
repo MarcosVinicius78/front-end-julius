@@ -51,8 +51,8 @@ export class ListarProdutosCadastradosComponent implements OnInit{
     });
   }
 
-  apagarProduto(id: number, urlImagem: string) {
-    this.produtoService.apagarProduto(id,urlImagem).subscribe(response => {
+  apagarProduto(id: number, urlImagem: string, imagemSocial: string) {
+    this.produtoService.apagarProduto(id,urlImagem, imagemSocial).subscribe(response => {
       this.messageService.add({ severity: 'success', detail: 'Produto Apagado' });
       this.produtos = [];
       this.listarProdutos();

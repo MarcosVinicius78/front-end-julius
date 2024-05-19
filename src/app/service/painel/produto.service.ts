@@ -40,8 +40,8 @@ export class ProdutoService {
     return this.http.put(`${this.apiUrl}/produto`, produto);
   }
 
-  apagarProduto(id: number, urlImagem: string) {
-    const params = new HttpParams().set('id', id.toString()).set('urlImagem', urlImagem)
+  apagarProduto(id: number, urlImagem: string, imagemSocial:string) {
+    const params = new HttpParams().set('id', id.toString()).set('urlImagem', urlImagem).set('imagemSocial', imagemSocial);
     return this.http.delete(`${this.apiUrl}/produto`, { params });
   }
 

@@ -65,6 +65,10 @@ section{
   display: none;
 }
 
+.img-mobile img{
+  border-radius: 50%;
+}
+
 .links div a:first-child{
   background-color: #25d366;
 }
@@ -148,10 +152,10 @@ section{
 
   .img-mobile{
     margin-top: 10px;
-    width: 200px;
+    /* width: 200px;
     height: 200px;
     background-color: white;
-    border-radius: 50%;
+    border-radius: 50%; */
   }
 
   .img-mobile img{
