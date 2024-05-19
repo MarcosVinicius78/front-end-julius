@@ -25,6 +25,7 @@ section{
 }
 
 .radar{
+  color: #733309;
   font-size: 200px;
   margin-top: 10px;
 }
@@ -183,8 +184,10 @@ a{
   font-weight: 700;
 }
 
+
+
 #preco{
-  color: #321710e3;
+  color: #733309;
   /* background-color: #321710e3; */
   padding: 5px;
   display: inline-block;
@@ -423,5 +426,10 @@ a{
   .banner-mobile{
     display: block;
     height: 100%;
+  }
+
+  .radar p{
+    color: #733309;
+    margin-left: 5px;
   }
 }

@@ -12,6 +12,8 @@ import { environment } from 'src/environments/environment';
 import { Produtos } from 'src/app/models/produtos';
 import * as dateFns from 'date-fns';
 import { Message } from 'primeng/api';
+import { LinksBanner } from 'src/app/dto/LinksBanner';
+import { LinkBannerService } from 'src/app/service/painel/link-banner.service';
 
 @Component({
   selector: 'app-produto',
@@ -21,6 +23,8 @@ import { Message } from 'primeng/api';
 export class ProdutoComponent implements OnInit {
 
   modal = false;
+
+  links = new LinksBanner();
 
   apiUrl: string = environment.apiUrl;
 
@@ -44,6 +48,7 @@ export class ProdutoComponent implements OnInit {
     private reportService: ReportService,
     // private dialog: MatDialog,
     private clipboard: Clipboard,
+    private linkBannerService: LinkBannerService,
     // private snackBar: MatSnackBar
   ) { }
 
@@ -55,6 +60,8 @@ export class ProdutoComponent implements OnInit {
 
     this.id = this.route.snapshot.paramMap.get('id')!;
     this.pegarProduto();
+
+    this.pegarLinks();
   }
 
   pegarProduto() {
@@ -207,5 +214,11 @@ export class ProdutoComponent implements OnInit {
     } else {
       console.log('A funcionalidade de compartilhamento não é suportada neste navegador.');
     }
+  }
+
+  pegarLinks(){
+    this.linkBannerService.listarLinksEBanners().subscribe(response => {
+      this.links = response;
+    });
   }
 }

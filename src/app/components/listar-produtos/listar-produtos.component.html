@@ -56,7 +56,7 @@
             <a routerLink="/oferta/{{ item.id }}">
               <p class="nome-produto">{{ item.titulo }}</p>
             </a>
-            <div class="cupom">
+            <div (click)="copiarParaAreaTransferencia(item.cupom)" class="cupom">
               <div>
                 <p *ngIf="item.cupom">{{ item.cupom }}</p>
                 <i *ngIf="item.cupom" class="pi pi-copy"></i>

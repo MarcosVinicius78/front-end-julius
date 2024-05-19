@@ -6,6 +6,7 @@ import * as dateFns from 'date-fns';
 import { LinkBannerService } from 'src/app/service/painel/link-banner.service';
 import { LinksBanner } from 'src/app/dto/LinksBanner';
 import { environment } from 'src/environments/environment';
+import { Clipboard } from '@angular/cdk/clipboard';
 
 @Component({
   selector: 'app-listar-produtos',
@@ -49,7 +50,8 @@ export class ListarProdutosComponent implements OnInit {
   constructor(
     private produtoService: ProdutoService,
     private linkBannerService: LinkBannerService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private clipboard: Clipboard
   ) { }
 
   ngOnInit() {
@@ -183,7 +185,7 @@ export class ListarProdutosComponent implements OnInit {
     clearInterval(this.intervalId);
   }
 
-
-
-
+  copiarParaAreaTransferencia(cupom: string) {
+    this.clipboard.copy(cupom);
+  }
 }
