@@ -68,7 +68,7 @@
       <div class="convite-mobile">
           <p>Grupo do WhatsApp</p>
           <p>Receba no WhatsApp as Melhores Promoções da internet</p>
-          <a href="">ENTRAR NO GRUPO</a>
+          <a *ngIf="links.links.length != 0" href="{{ links.links[0].whatsapp }}">ENTRAR NO GRUPO</a>
       </div>
 
       <div class="msg">

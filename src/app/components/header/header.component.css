@@ -124,15 +124,12 @@ header nav li:nth-child(4) a{
     font-size: 30px;
   }
 
-  .icon-h1{
-    flex-direction: row-reverse;
-  }
-
   .img-icon{
     height: 45px;
     width: 45px;
     margin-top: 3px;
-    margin-left: 10px;
+    margin-left: 0;
+    margin-right: 5px;
   }
 
   .header{
@@ -171,14 +168,14 @@ header nav li:nth-child(4) a{
     background-color: white;
     position: fixed;
     top: 0;
-    left: 0;
+    right: 0;
     z-index: 1000;
     transition: width 0.3s ease, transform 0.3s ease;
   }
 
   .menu-aberto {
     width: 60%;
-    transform: translateX(-27%);
+    /* transform: translateX(-17%); */
   }
 
 

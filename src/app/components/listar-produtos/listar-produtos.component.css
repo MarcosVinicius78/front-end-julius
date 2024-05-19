@@ -184,8 +184,6 @@ a{
   font-weight: 700;
 }
 
-
-
 #preco{
   color: #733309;
   /* background-color: #321710e3; */
@@ -395,7 +393,7 @@ a{
     font-size: 15px;
     color: white;
     border-radius: 5px;
-    width: 90%;
+    /* width: 90%; */
     text-align: center;
   }
 
