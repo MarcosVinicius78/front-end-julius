@@ -8,7 +8,7 @@ import { MessageService } from 'primeng/api';
 @Component({
   selector: 'app-lista-de-posts',
   templateUrl: './lista-de-posts.component.html',
-  styleUrls: ['./lista-de-posts.component.css'],
+  styleUrls: ['./lista-de-posts.component.scss'],
   providers: [MessageService]
 })
 export class ListaDePostsComponent implements OnInit{

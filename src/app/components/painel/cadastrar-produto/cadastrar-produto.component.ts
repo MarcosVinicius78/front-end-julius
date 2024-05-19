@@ -14,7 +14,7 @@ import { ScraperProduto } from './../../../dto/ScraperProduto';
 @Component({
   selector: 'app-cadastrar-produto',
   templateUrl: './cadastrar-produto.component.html',
-  styleUrls: ['./cadastrar-produto.component.css'],
+  styleUrls: ['./cadastrar-produto.component.scss'],
   providers: [MessageService]
 })
 export class CadastrarProdutoComponent implements OnInit {
@@ -55,6 +55,8 @@ export class CadastrarProdutoComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+
+    console.log(this.produto)
 
     this.idEditar = this.router.snapshot.paramMap.get('id')!;
 
@@ -188,7 +190,7 @@ export class CadastrarProdutoComponent implements OnInit {
     formData.append("fileSocial", this.imagemFileSocial)
     formData.append("id", `${this.id}`);
 
-    if (this.produto != undefined) {
+    if (this.produto.id != 0) {
       formData.append("urlImagem", this.produto.imagem);
       formData.append("urlImagemReal", this.produto.imagemSocial);
     }
@@ -294,6 +296,14 @@ export class CadastrarProdutoComponent implements OnInit {
       });
     }
 
+    if (loja == "" && url.includes("mercado")) {
+      this.lojas.forEach(element => {
+        if (element.nome_loja.toLowerCase().includes("mercado")) {
+          loja = element.id;
+        }
+      });
+    }
+
     if (loja === "") {
       this.lojas.forEach(element => {
         if (element.nome_loja.toLowerCase().includes("magazine")) {
@@ -306,6 +316,7 @@ export class CadastrarProdutoComponent implements OnInit {
     this.produtoSevice.rasparProduto(url).subscribe(response => {
 
       this.scraperProduto = response;
+      console.log(this.scraperProduto)
 
       this.produtoFormGroup = this.formBuilder.group({
         url: [''],

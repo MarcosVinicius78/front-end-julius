@@ -7,16 +7,12 @@
         <div  class="slideshow-container">
           <a routerLink="/grupos" target="_blank">
             <div class="mySlides fade">
-              <img src="../../../assets/ACOMPANHE AS PROMOÇÕES E DESCONTOS EM TEMPO REAL.png" class="h-10rem"
+              <img *ngIf="links.banners.length != 0" [src]="apiUrl+'/banners/'+links.banners[0].urlImagem" class="h-10rem"
                 style="width:100%">
             </div>
           </a>
 
-          <div class="mySlides fade">
-            <img src="../../../assets/pescoco.jpg" class="h-10rem" style="width:100%">
-          </div>
-
-          <!-- Adicione mais slides conforme necessário -->
+        <!-- Adicione mais slides conforme necessário -->
 
           <!-- Botões de navegação -->
           <a class="prev" (click)="plusSlides(-1)">&#10094;</a>

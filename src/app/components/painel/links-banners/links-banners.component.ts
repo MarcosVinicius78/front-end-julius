@@ -9,7 +9,7 @@ import { MessageService } from 'primeng/api';
 @Component({
   selector: 'app-links-banners',
   templateUrl: './links-banners.component.html',
-  styleUrls: ['./links-banners.component.css'],
+  styleUrls: ['./links-banners.component.scss'],
   providers: [MessageService]
 })
 export class LinksBannersComponent implements OnInit {

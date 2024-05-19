@@ -8,7 +8,7 @@ import { Clipboard } from '@angular/cdk/clipboard';
 @Component({
   selector: 'app-listar-produtos-cadastrados',
   templateUrl: './listar-produtos-cadastrados.component.html',
-  styleUrls: ['./listar-produtos-cadastrados.component.css'],
+  styleUrls: ['./listar-produtos-cadastrados.component.scss'],
   providers: [MessageService]
 })
 export class ListarProdutosCadastradosComponent implements OnInit{
@@ -139,7 +139,11 @@ export class ListarProdutosCadastradosComponent implements OnInit{
       }
     }
 
-    estruturaCompartilhamento += `\n *\u{1F6D2} Compre Aqui:\u{1F447}* ${window.location.href.replace("painel",'')}oferta/${produto.id}?r=1`;
+    if (produto.loja.nome_loja.toLocaleLowerCase().includes("amazon") || produto.loja.nome_loja.toLocaleLowerCase().includes("mercado")) {
+      estruturaCompartilhamento += `\n *\u{1F6D2} Compre Aqui:\u{1F447}* ${window.location.href.replace("painel/listar-produtos",'')}/oferta/${produto.id}`;
+    }else{
+      estruturaCompartilhamento += `\n *\u{1F6D2} Compre Aqui:\u{1F447}* ${window.location.href.replace("painel/listar-produtos",'')}/oferta/${produto.id}?r=1`;
+    }
 
     if (produto.mensagemAdicional) {
       estruturaCompartilhamento += `\n\n_${produto.mensagemAdicional}_`;

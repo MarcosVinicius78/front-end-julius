@@ -6,7 +6,7 @@ import { MessageService } from 'primeng/api';
 @Component({
   selector: 'app-report',
   templateUrl: './report.component.html',
-  styleUrls: ['./report.component.css'],
+  styleUrls: ['./report.component.scss'],
   providers: [MessageService]
 })
 export class ReportComponent implements OnInit {
