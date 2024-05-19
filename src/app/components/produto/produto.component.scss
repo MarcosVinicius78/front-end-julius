@@ -163,10 +163,11 @@ p {
 
 .ver-promocoes a {
   background-color: #f0a11f;
-  padding: 20px;
+  padding: 7px;
   border-radius: 50px;
   text-decoration: none;
   color: white;
+  // width: 100%;
   font-weight: 700;
 }
 
@@ -313,14 +314,17 @@ p {
 .ver-promocao {
   display: flex;
   justify-content: center;
-  padding: 10px 20px;
-  border-radius: 5px;
-  background-color: #f0a11f;
-  text-decoration: none;
   font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
 }
 
 .ver-promocao a {
+  width: 100%;
+  font-size: 15px;
+  text-decoration: none;
+  text-align: center;
+  border-radius: 5px;
+  background-color: #f0a11f;
+  padding: 7px;
   color: white;
   text-decoration: none;
 }
