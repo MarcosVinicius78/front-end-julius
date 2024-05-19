@@ -77,6 +77,8 @@ export class CadastrarPostsComponent implements OnInit {
       }, err => {
         console.log(err);
       });
+
+      return;
     }
 
     if (this.idEditar !== null) {
@@ -101,6 +103,8 @@ export class CadastrarPostsComponent implements OnInit {
       this.messageService.add({ severity: 'error', detail: 'Erro ao Atualizar' });
 
     });
+
+    return;
   }
 
   salvarImagem(id: number) {
