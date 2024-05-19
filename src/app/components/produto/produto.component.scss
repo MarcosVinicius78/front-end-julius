@@ -442,6 +442,15 @@ button img {
 
 .frete p {
   margin-left: 10px;
+  width: 100%;
+  max-width: 100%;
+  overflow: hidden;
+  // font-size: 14px;
+  // font-weight: 700;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  text-overflow: ellipsis;
+  display: -webkit-box;
 }
 
 .outras-info div:first-child {
