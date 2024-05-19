@@ -54,9 +54,11 @@ export class ListarProdutosComponent implements OnInit {
 
   ngOnInit() {
 
-    this.startSlideShow();
+    if (this.links.banners.length != 0) {
+      this.startSlideShow();
+      this.showSlides(this.slideIndex)
+    }
 
-    this.showSlides(this.slideIndex)
 
     this.pegarLinks()
 
