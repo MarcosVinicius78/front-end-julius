@@ -139,8 +139,6 @@ export class CadastrarProdutoComponent implements OnInit {
         copy:  this.produtoFormGroup.get('copy')?.value
       }
 
-      console.log(produto)
-
       this.produtoSevice.salvarProduto(produto).subscribe(response => {
 
         this.id = response.id;
@@ -186,8 +184,10 @@ export class CadastrarProdutoComponent implements OnInit {
   salvarImagem() {
     const formData = new FormData();
 
-    formData.append("file", this.imagemFile)
-    formData.append("fileSocial", this.imagemFileSocial)
+    if (this.scraperProduto.urlImagem === '') {
+      formData.append("file", this.imagemFile)
+      formData.append("fileSocial", this.imagemFileSocial)
+    }
     formData.append("id", `${this.id}`);
 
     if (this.produto.id != 0) {
@@ -198,6 +198,8 @@ export class CadastrarProdutoComponent implements OnInit {
     this.produtoSevice.salvarImagem(formData).subscribe(response => {
 
       this.messageService.add({ severity: 'success', detail: 'Imagem Salva!' });
+      this.imagemFile = {} as File;
+      this.imagemFileSocial = {} as File;
       return
     }, err => {
       console.log(err);
