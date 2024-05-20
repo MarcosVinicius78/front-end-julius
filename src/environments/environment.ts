@@ -1,5 +1,5 @@
 export const environment = {
-  apiUrl: 'http://62.72.11.56:8080/api'
+  apiUrl: 'http://62.72.11.56/api'
   // apiUrl: 'http://localhost:8080'
   // apiUrl: 'http://:8080'
   // apiUrl: 'https://www.systemdevmv.site/api'
