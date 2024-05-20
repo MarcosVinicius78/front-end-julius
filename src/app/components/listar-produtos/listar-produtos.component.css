@@ -359,6 +359,28 @@ a{
     justify-content: space-around;
   }
 
+  .frete {
+    display: flex;
+    align-items: center;
+    /* text-align: center; */
+  }
+
+  .frete p {
+    margin: 0;
+    margin-left: 5px;
+    margin-top: 5px;
+    width: 100%;
+    /* max-width: 100%; */
+    overflow: hidden;
+    /* font-size: 14px; */
+    /* font-weight: 700; */
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+  }
+
+
   .img {
     position: relative;
   }

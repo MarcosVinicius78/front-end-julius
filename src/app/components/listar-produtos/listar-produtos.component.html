@@ -62,6 +62,10 @@
                 <i *ngIf="item.cupom" class="pi pi-copy"></i>
               </div>
             </div>
+            <div class="frete">
+              <i class="pi pi-truck"></i>
+              <p>{{ item.freteVariacoes }}</p>
+            </div>
             <a routerLink="/oferta/{{ item.id }}">
               <p id="preco">{{ item.preco }}</p>
             </a>
