@@ -77,33 +77,35 @@
 
       <div class="produtos-categorias">
         <div *ngFor="let item of produtos" class="grid-item">
-          <div class="card">
-            <div>
-              <img [src]="apiUrl+'/produto/download/'+item.imagem" alt="">
-            </div>
-            <div class="info-cat">
-              <p class="data">{{calculateElapsedTime(item.dataCriacao)}}</p>
-              <p class="nome-produto">
-                <a href="/oferta/{{item.id}}">
-                  {{ item.titulo }}
-                </a>
-              </p>
-              <div class="cupom-categoria">
-                <div>
-                  <p *ngIf="item.cupom">{{ item.cupom }}</p>
-                  <i *ngIf="item.cupom" class="pi pi-copy text-base"></i>
+          <a class="text-black-alpha-90 no-underline" href="/oferta/{{item.id}}">
+            <div class="card">
+              <div>
+                  <img [src]="apiUrl+'/produto/download/'+item.imagem" alt="">
+              </div>
+              <div class="info-cat">
+                <p class="data">{{calculateElapsedTime(item.dataCriacao)}}</p>
+                <p class="nome-produto">
+                  <a href="/oferta/{{item.id}}">
+                    {{ item.titulo }}
+                  </a>
+                </p>
+                <div class="cupom-categoria">
+                  <div>
+                    <p *ngIf="item.cupom">{{ item.cupom }}</p>
+                    <i *ngIf="item.cupom" class="pi pi-copy text-base"></i>
+                  </div>
+                </div>
+                <div class="frete">
+                  <i class="pi pi-truck"></i>
+                  <p>{{ item.freteVariacoes }}</p>
+                </div>
+                <p class="preco2">{{ item.preco }}</p>
+                <div class="ver-promocao">
+                  <a href="{{ item.link }}" target="_blank">Pegar Promoção</a>
                 </div>
               </div>
-              <div class="frete">
-                <i class="pi pi-truck"></i>
-                <p>{{ item.freteVariacoes }}</p>
-              </div>
-              <p class="preco2">{{ item.preco }}</p>
-              <div class="ver-promocao">
-                <a href="{{ item.link }}" target="_blank">Pegar Promoção</a>
-              </div>
             </div>
-          </div>
+          </a>
         </div>
       </div>
 
