@@ -124,9 +124,9 @@ export class ListarProdutosCadastradosComponent implements OnInit{
     estruturaCompartilhamento += `*\u{1F525} ${produto.preco} (À Vista)*\n`;
 
     if (produto.parcelado) {
-      estruturaCompartilhamento += ` *\u{1F4B3} ${produto.parcelado}\n`;
+      estruturaCompartilhamento += `* ${produto.parcelado}\n`;
     }
-
+    // \u{1F4B3}
     if (produto.cupom) {
       estruturaCompartilhamento += `\n\u{1F39F} Use o Cupom: *${produto.cupom}*`;
     }
