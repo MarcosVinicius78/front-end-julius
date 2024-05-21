@@ -57,12 +57,25 @@ export class LinksBannersComponent implements OnInit {
   }
 
   salvarLinks() {
-    const links = {
-      whatsapp: this.linksFormGrupo.get(['whatsapp'])?.value,
-      telegram: this.linksFormGrupo.get(['telegram'])?.value,
-      instagram: this.linksFormGrupo.get(['instagram'])?.value,
-      email: this.linksFormGrupo.get(['email'])?.value,
-    };
+
+    let links = {};
+
+    if (!this.linksEBanners.links || !this.linksEBanners.links.length || this.linksEBanners.links[0].id === undefined) {
+      links = {
+        whatsapp: this.linksFormGrupo.get(['whatsapp'])?.value,
+        telegram: this.linksFormGrupo.get(['telegram'])?.value,
+        instagram: this.linksFormGrupo.get(['instagram'])?.value,
+        email: this.linksFormGrupo.get(['email'])?.value,
+      };
+    } else {
+      links = {
+        id: this.linksEBanners.links[0].id,
+        whatsapp: this.linksFormGrupo.get(['whatsapp'])?.value,
+        telegram: this.linksFormGrupo.get(['telegram'])?.value,
+        instagram: this.linksFormGrupo.get(['instagram'])?.value,
+        email: this.linksFormGrupo.get(['email'])?.value,
+      };
+    }
 
     this.linkBannerService.salvarLinks(links).subscribe(response => {
       this.messageService.add({ severity: 'success', detail: 'Salvo' });
@@ -76,8 +89,6 @@ export class LinksBannersComponent implements OnInit {
       this.linksEBanners = response;
 
       this.banners = response.banners
-
-      console.log(this.linksEBanners)
 
       if (this.linksEBanners.links.length != 0) {
         this.linksFormGrupo = this.formBuilder.group({
