@@ -124,7 +124,7 @@ export class ListarProdutosCadastradosComponent implements OnInit{
     estruturaCompartilhamento += `*\u{1F525} ${produto.preco} (À Vista)*\n`;
 
     if (produto.parcelado) {
-      estruturaCompartilhamento += `\u{1F4B3} ${produto.parcelado}\n`;
+      estruturaCompartilhamento += ` *\u{1F4B3} ${produto.parcelado}\n`;
     }
 
     if (produto.cupom) {
@@ -140,16 +140,22 @@ export class ListarProdutosCadastradosComponent implements OnInit{
     }
 
     if (produto.loja.nome_loja.toLocaleLowerCase().includes("amazon") || produto.loja.nome_loja.toLocaleLowerCase().includes("mercado")) {
-      estruturaCompartilhamento += `\n *\u{1F6D2} Compre Aqui:\u{1F447}* ${window.location.href.replace("painel/listar-produtos",'')}/oferta/${produto.id}`;
+      if (this.route.url === "/painel") {
+        estruturaCompartilhamento += `\n *\u{1F6D2} Compre Aqui:\u{1F447}* ${window.location.href.replace("painel",'')}oferta/${produto.id}`;
+      }else{
+        estruturaCompartilhamento += `\n *\u{1F6D2} Compre Aqui:\u{1F447}* ${window.location.href.replace("painel/listar-produtos",'')}oferta/${produto.id}`;
+      }
     }else{
-      estruturaCompartilhamento += `\n *\u{1F6D2} Compre Aqui:\u{1F447}* ${window.location.href.replace("painel/listar-produtos",'')}/oferta/${produto.id}?r=1`;
+      if (this.route.url === "/painel") {
+        estruturaCompartilhamento += `\n *\u{1F6D2} Compre Aqui:\u{1F447}* ${window.location.href.replace("painel",'')}oferta/${produto.id}?r=1`;
+      }else{
+        estruturaCompartilhamento += `\n *\u{1F6D2} Compre Aqui:\u{1F447}* ${window.location.href.replace("painel/listar-produtos",'')}oferta/${produto.id}?r=1`;
+      }
     }
 
     if (produto.mensagemAdicional) {
       estruturaCompartilhamento += `\n\n_${produto.mensagemAdicional}_`;
     }
-
-    console.log(estruturaCompartilhamento)
 
     return estruturaCompartilhamento;
   }

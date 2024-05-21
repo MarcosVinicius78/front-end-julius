@@ -8,11 +8,11 @@
       <div class="inputs">
         <div class="email">
           <label for="email">E-mail</label>
-          <input formControlName="email" type="text">
+          <input formControlName="email" type="email">
         </div>
         <div class="senha">
           <label for="senha">Senha</label>
-          <input type="text" formControlName="senha">
+          <input type="password" formControlName="senha">
         </div>
         <div class="senha-errada" *ngIf="senhaErrada">
           <p>Usuario ou senha Incorreto</p>
