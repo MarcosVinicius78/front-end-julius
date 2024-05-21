@@ -128,9 +128,9 @@ export class ProdutoComponent implements OnInit {
     estruturaCompartilhamento += `*\u{1F525} ${this.produto.preco} (À Vista)*\n`;
 
     if (this.produto.parcelado) {
-      estruturaCompartilhamento += `\u{1F4B3} ${this.produto.parcelado}`;
+      estruturaCompartilhamento += `* ${this.produto.parcelado}`;
     }
-
+    // \u{1F4B3}
     if (this.produto.cupom) {
       estruturaCompartilhamento += `\n \u{1F39F}Use o Cupom: *${this.produto.cupom}*`;
     }
