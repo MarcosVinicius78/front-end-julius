@@ -1,7 +1,8 @@
 export const environment = {
-  apiUrl: 'http://62.72.11.56/api'
+  // apiUrl: 'http://62.72.11.56/api'
   // apiUrl: 'http://localhost:8080'
   // apiUrl: 'http://:8080'
   // apiUrl: 'https://www.systemdevmv.site/api'
+  apiUrl: 'http://www.systemdevmv.site/api'
   // apiUrl: 'https://fc6mxmb4-8080.brs.devtunnels.ms'
 }
