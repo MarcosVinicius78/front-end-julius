@@ -4,6 +4,7 @@ export const environment = {
   // apiUrl: 'http://:8080'
   // apiUrl: 'https://www.systemdevmv.site/api'
   // apiUrl: 'http://www.systemdevmv.site/api'
-  apiUrl: 'http://www.sergipeofertas.com.br/api'
+  apiUrl: 'https://sergipeofertas.com.br/api'
+  // apiUrl: 'http://www.sergipeofertas.com.br/api'
   // apiUrl: 'https://fc6mxmb4-8080.brs.devtunnels.ms'
 }
