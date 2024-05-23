@@ -20,27 +20,29 @@ import { RedirectGuardService } from './routeguard/redirect-guard.service';
 import { BlankComponent } from './components/blank/blank.component';
 
 const routes: Routes = [
-  { path: 'painel', component: InicioPainelComponent, children: [
-    { path: '', component: ListarProdutosCadastradosComponent},
-    { path: 'cadastrar-produtos', component: CadastrarProdutoComponent},
-    { path: 'atualizar-produtos/:id', component: CadastrarProdutoComponent},
-    { path: 'listar-produtos', component: ListarProdutosCadastradosComponent},
-    { path: 'cadastrar-categoria', component: CadastrarCategoriaComponent},
-    { path: 'cadastrar-loja', component: CadastrarLojaComponent},
-    { path: 'report', component: ReportComponent},
-    { path: 'links-banners', component: LinksBannersComponent},
-    { path: 'cadastrar-posts', component: CadastrarPostsComponent},
-    { path: 'cadastrar-posts/:id', component: CadastrarPostsComponent},
-    { path: 'lista-posts', component: ListaDePostsComponent},
-    { path: 'configuracoes', component: ConfiguracoesComponent},
-  ], data: { hideHeader: false, hideFooter: false }, canActivate: [AuthRouteguard]},
-  { path: 'login', component: LoginComponent},
-  { path: '', component: ListarProdutosComponent, data: { hideHeader: true, hideFooter: true }},
-  { path:  'oferta/:id', component: ProdutoComponent, data: { hideHeader: true, hideFooter: true }, canActivate: [RedirectGuardService]},
-  { path:  'produtos-categoria/:id', component: ListarProdutosComponent, data: { hideHeader: true, hideFooter: true }},
-  { path:  'grupos', component: GruposComponent, data: { hideHeader: true, hideFooter: true }},
-  { path: 'blog', component: BlogComponent, data: { hideHeader: true, hideFooter: true }},
-  { path: 'blog/:id', component: BlogComponent, data: { hideHeader: true, hideFooter: true }},
+  {
+    path: 'painel', component: InicioPainelComponent, children: [
+      { path: '', component: ListarProdutosCadastradosComponent },
+      { path: 'cadastrar-produtos', component: CadastrarProdutoComponent },
+      { path: 'atualizar-produtos/:id', component: CadastrarProdutoComponent },
+      { path: 'listar-produtos', component: ListarProdutosCadastradosComponent },
+      { path: 'cadastrar-categoria', component: CadastrarCategoriaComponent },
+      { path: 'cadastrar-loja', component: CadastrarLojaComponent },
+      { path: 'report', component: ReportComponent },
+      { path: 'links-banners', component: LinksBannersComponent },
+      { path: 'cadastrar-posts', component: CadastrarPostsComponent },
+      { path: 'cadastrar-posts/:id', component: CadastrarPostsComponent },
+      { path: 'lista-posts', component: ListaDePostsComponent },
+      { path: 'configuracoes', component: ConfiguracoesComponent },
+    ], data: { hideHeader: false, hideFooter: false }, canActivate: [AuthRouteguard]
+  },
+  { path: 'login', component: LoginComponent },
+  { path: '', component: ListarProdutosComponent, data: { hideHeader: true, hideFooter: true } },
+  { path: 'oferta/:id', component: ProdutoComponent, data: { hideHeader: true, hideFooter: true }, canActivate: [RedirectGuardService] },
+  { path: 'produtos-categoria/:id', component: ListarProdutosComponent, data: { hideHeader: true, hideFooter: true } },
+  { path: 'grupos', component: GruposComponent, data: { hideHeader: true, hideFooter: true } },
+  { path: 'blog', component: BlogComponent, data: { hideHeader: true, hideFooter: true } },
+  { path: 'blog/:id', component: BlogComponent, data: { hideHeader: true, hideFooter: true } },
   { path: 'blank', component: BlankComponent }
   // { path: '', redirectTo: '/inicio', pathMatch: 'full'},
   // { path: '**', redirectTo: '', pathMatch: 'full'},
@@ -48,8 +50,9 @@ const routes: Routes = [
 
 @NgModule({
   imports: [RouterModule.forRoot(routes, {
-    initialNavigation: 'enabledBlocking'
-})],
+    initialNavigation: 'enabledBlocking',
+    useHash: false
+  })],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }

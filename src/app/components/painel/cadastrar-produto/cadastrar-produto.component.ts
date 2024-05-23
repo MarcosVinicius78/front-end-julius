@@ -56,7 +56,7 @@ export class CadastrarProdutoComponent implements OnInit {
 
   ngOnInit(): void {
 
-    console.log(this.produto)
+    console.log(this.scraperProduto)
 
     this.idEditar = this.router.snapshot.paramMap.get('id')!;
 
@@ -142,6 +142,8 @@ export class CadastrarProdutoComponent implements OnInit {
       this.produtoSevice.salvarProduto(produto).subscribe(response => {
 
         this.id = response.id;
+
+        // this.scraperProduto = {} as ScraperProduto;
 
         if (this.scraperProduto.urlImagem === '' && this.imagemFile !== undefined) {
 
@@ -272,8 +274,6 @@ export class CadastrarProdutoComponent implements OnInit {
         copy: [this.produto.copy]
       })
 
-      console.log(this.produto)
-
     }, err => {
       console.log(err);
       this.messageService.add({ severity: 'error', detail: 'Erro ao Recuperar Dados' });
@@ -318,7 +318,6 @@ export class CadastrarProdutoComponent implements OnInit {
     this.produtoSevice.rasparProduto(url).subscribe(response => {
 
       this.scraperProduto = response;
-      console.log(this.scraperProduto)
 
       this.produtoFormGroup = this.formBuilder.group({
         url: [''],
@@ -337,7 +336,6 @@ export class CadastrarProdutoComponent implements OnInit {
         copy: ['']
       })
 
-      console.log(this.scraperProduto)
 
       this.imagemView = "";
       this.imagemViewSocial = "";
