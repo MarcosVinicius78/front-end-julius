@@ -143,7 +143,6 @@ export class CadastrarProdutoComponent implements OnInit {
 
         this.id = response.id;
 
-        // this.scraperProduto = {} as ScraperProduto;
 
         if (this.scraperProduto.urlImagem === '' && this.imagemFile !== undefined) {
 
@@ -153,6 +152,9 @@ export class CadastrarProdutoComponent implements OnInit {
         if (this.imagemFileSocial !== undefined) {
           this.salvarImagem();
         }
+
+        this.scraperProduto.urlImagem = '';
+        this.scraperProduto.urlProduto = '';
 
         this.messageService.add({ severity: 'success', detail: 'Produto Salvo' });
 

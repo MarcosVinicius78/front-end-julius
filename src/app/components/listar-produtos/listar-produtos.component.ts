@@ -47,6 +47,9 @@ export class ListarProdutosComponent implements OnInit {
     }
   ];
 
+  loading = false;
+  private scrollPositionKey = 'scrollPosition';
+
   constructor(
     private produtoService: ProdutoService,
     private linkBannerService: LinkBannerService,
@@ -55,6 +58,7 @@ export class ListarProdutosComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    // this.restoreScrollPosition();
 
     if (this.links.banners.length != 0) {
       this.startSlideShow();
@@ -75,36 +79,56 @@ export class ListarProdutosComponent implements OnInit {
   }
 
   listarPorCategoria() {
-    console.log(this.idCategoria);
+
     this.produtoService.ProdutoPorCategoria(this.idCategoria, this.page, this.size).subscribe(response => {
       this.produtos = this.produtos.concat(response);
     });
   }
 
   listarProdutos() {
+    this.loading = true;
     this.produtoService.listarProduto(this.page, this.size).subscribe((response: any) => {
       this.produtos = this.produtos.concat(response.content)
+      this.page++;
+      this.loading = false;
+      // this.navigateToProductDetail()
     });
   }
 
-  @HostListener('window:scroll', ['$event'])
+  private isAtBottom(): boolean {
+    const threshold = 100; // Buffer de 100 pixels antes de considerar que o scroll chegou ao final
+    const scrollTop = (document.documentElement && document.documentElement.scrollTop) || document.body.scrollTop;
+    const scrollHeight = (document.documentElement && document.documentElement.scrollHeight) || document.body.scrollHeight;
+    const clientHeight = document.documentElement.clientHeight || window.innerHeight;
+    const isBottom = scrollTop + clientHeight >= scrollHeight - threshold;
+    return isBottom;
+  }
+
+  @HostListener('window:scroll', [])
   onScroll(event: Event): void {
     const scrollPosition = window.scrollY + window.innerHeight;
     const documentHeight = document.documentElement.offsetHeight;
 
-    if (scrollPosition >= documentHeight) {
+    // console.log((window.innerHeight + window.scrollY))
+    // console.log(document.body.offsetHeight)
 
-      // Lógica de paginação
-      this.page++;
-      if (!this.idCategoria) {
-        this.listarProdutos()
-        return;
-      }
-
-      this.listarPorCategoria()
-
-      return;
+    console.log(this.isAtBottom())
+    if (this.isAtBottom() && !this.loading) {
+      this.listarProdutos()
     }
+    // if (scrollPosition >= documentHeight) {
+
+    //   // Lógica de paginação
+    //   this.page++;
+    //   if (!this.idCategoria) {
+    //     this.listarProdutos()
+    //     return;
+    //   }
+
+    //   this.listarPorCategoria()
+
+    //   return;
+    // }
   }
 
   pesquisar(): void {
@@ -187,5 +211,21 @@ export class ListarProdutosComponent implements OnInit {
 
   copiarParaAreaTransferencia(cupom: string) {
     this.clipboard.copy(cupom);
+  }
+
+
+  navigateToProductDetail() {
+    // Salvar a posição do scroll
+    const scrollPosition = window.scrollY;
+    localStorage.setItem(this.scrollPositionKey, scrollPosition.toString());
+  }
+
+  private restoreScrollPosition() {
+    const savedPosition = localStorage.getItem(this.scrollPositionKey);
+    if (savedPosition) {
+      setTimeout(() => {
+        window.scrollTo(0, parseInt(savedPosition, 10));
+      }, 0);
+    }
   }
 }
