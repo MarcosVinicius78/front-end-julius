@@ -1,5 +1,5 @@
-import { AfterViewInit, Component, HostListener, OnInit, ViewChild } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { AfterViewInit, Component, HostListener, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { Produtos } from 'src/app/models/produtos';
 import { ProdutoService } from 'src/app/service/painel/produto.service';
 import * as dateFns from 'date-fns';
@@ -7,13 +7,14 @@ import { LinkBannerService } from 'src/app/service/painel/link-banner.service';
 import { LinksBanner } from 'src/app/dto/LinksBanner';
 import { environment } from 'src/environments/environment';
 import { Clipboard } from '@angular/cdk/clipboard';
+import { filter } from 'rxjs/operators';
 
 @Component({
   selector: 'app-listar-produtos',
   templateUrl: './listar-produtos.component.html',
   styleUrls: ['./listar-produtos.component.css']
 })
-export class ListarProdutosComponent implements OnInit {
+export class ListarProdutosComponent implements OnInit, OnDestroy {
   @ViewChild('swiper', { static: false }) swiper: any;
 
   apiUrl: string = environment.apiUrl
@@ -54,8 +55,9 @@ export class ListarProdutosComponent implements OnInit {
     private produtoService: ProdutoService,
     private linkBannerService: LinkBannerService,
     private route: ActivatedRoute,
-    private clipboard: Clipboard
-  ) { }
+    private clipboard: Clipboard,
+    private router: Router
+  ) {}
 
   ngOnInit() {
     // this.restoreScrollPosition();
@@ -72,11 +74,20 @@ export class ListarProdutosComponent implements OnInit {
 
     if (Number.isNaN(this.idCategoria)) {
       this.listarProdutos();
+      const scrollPosition = localStorage.getItem(this.scrollPositionKey);
+          if (scrollPosition) {
+            setTimeout(() => window.scrollTo(0, +scrollPosition), 0);
+          }
       return;
     }
 
     this.listarPorCategoria();
   }
+
+  ngOnDestroy(): void {
+    localStorage.setItem(this.scrollPositionKey, window.scrollY.toString());
+  }
+
 
   listarPorCategoria() {
 

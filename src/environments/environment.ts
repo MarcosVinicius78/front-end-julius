@@ -4,7 +4,6 @@ export const environment = {
   apiUrl: 'https://www.systemdevmv.site/api'
   // apiUrl: 'http://www.systemdevmv.site/api'
 
-
   // esse aqui
   // apiUrl: 'https://sergipeofertas.com.br/api'
 
