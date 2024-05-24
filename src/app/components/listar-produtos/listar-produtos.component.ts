@@ -14,7 +14,7 @@ import { filter } from 'rxjs/operators';
   templateUrl: './listar-produtos.component.html',
   styleUrls: ['./listar-produtos.component.css']
 })
-export class ListarProdutosComponent implements OnInit, OnDestroy {
+export class ListarProdutosComponent implements OnInit {
   @ViewChild('swiper', { static: false }) swiper: any;
 
   apiUrl: string = environment.apiUrl
@@ -49,24 +49,21 @@ export class ListarProdutosComponent implements OnInit, OnDestroy {
   ];
 
   loading = false;
-  private scrollPositionKey = 'scrollPosition';
+
 
   constructor(
     private produtoService: ProdutoService,
     private linkBannerService: LinkBannerService,
     private route: ActivatedRoute,
-    private clipboard: Clipboard,
-    private router: Router
+    private clipboard: Clipboard
   ) {}
 
   ngOnInit() {
-    // this.restoreScrollPosition();
 
     if (this.links.banners.length != 0) {
       this.startSlideShow();
       this.showSlides(this.slideIndex)
     }
-
 
     this.pegarLinks()
 
@@ -74,20 +71,11 @@ export class ListarProdutosComponent implements OnInit, OnDestroy {
 
     if (Number.isNaN(this.idCategoria)) {
       this.listarProdutos();
-      const scrollPosition = localStorage.getItem(this.scrollPositionKey);
-          if (scrollPosition) {
-            setTimeout(() => window.scrollTo(0, +scrollPosition), 0);
-          }
       return;
     }
 
     this.listarPorCategoria();
   }
-
-  ngOnDestroy(): void {
-    localStorage.setItem(this.scrollPositionKey, window.scrollY.toString());
-  }
-
 
   listarPorCategoria() {
 
@@ -102,7 +90,6 @@ export class ListarProdutosComponent implements OnInit, OnDestroy {
       this.produtos = this.produtos.concat(response.content)
       this.page++;
       this.loading = false;
-      // this.navigateToProductDetail()
     });
   }
 
@@ -120,10 +107,6 @@ export class ListarProdutosComponent implements OnInit, OnDestroy {
     const scrollPosition = window.scrollY + window.innerHeight;
     const documentHeight = document.documentElement.offsetHeight;
 
-    // console.log((window.innerHeight + window.scrollY))
-    // console.log(document.body.offsetHeight)
-
-    console.log(this.isAtBottom())
     if (this.isAtBottom() && !this.loading) {
       this.listarProdutos()
     }
@@ -222,21 +205,5 @@ export class ListarProdutosComponent implements OnInit, OnDestroy {
 
   copiarParaAreaTransferencia(cupom: string) {
     this.clipboard.copy(cupom);
-  }
-
-
-  navigateToProductDetail() {
-    // Salvar a posição do scroll
-    const scrollPosition = window.scrollY;
-    localStorage.setItem(this.scrollPositionKey, scrollPosition.toString());
-  }
-
-  private restoreScrollPosition() {
-    const savedPosition = localStorage.getItem(this.scrollPositionKey);
-    if (savedPosition) {
-      setTimeout(() => {
-        window.scrollTo(0, parseInt(savedPosition, 10));
-      }, 0);
-    }
   }
 }
