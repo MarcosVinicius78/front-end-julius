@@ -115,6 +115,14 @@
       display: none;
     }
 
+    .p-datatable-tbody tr td:nth-child(3){
+      display: none;
+    }
+
+    .p-datatable-thead th:nth-child(3) {
+      display: none;
+    }
+
     .p-datatable-tbody tr td:nth-child(7){
       display: none;
     }

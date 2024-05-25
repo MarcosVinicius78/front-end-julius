@@ -287,7 +287,7 @@ export class CadastrarProdutoComponent implements OnInit {
     let loja: String = "";
 
     this.lojas.forEach(element => {
-      if (url.includes(element.nome_loja.toLowerCase())) {
+      if (url.includes(element.nome_loja.toLowerCase().replace(' ',''))) {
         loja = element.id;
       }
     });
