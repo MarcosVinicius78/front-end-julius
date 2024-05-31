@@ -136,7 +136,7 @@ export class CadastrarProdutoComponent implements OnInit {
         id_categoria: this.produtoFormGroup.get('id_categoria')?.value,
         id_loja: this.produtoFormGroup.get('loja')?.value,
         imagem: [''],
-        copy:  this.produtoFormGroup.get('copy')?.value
+        copy: this.produtoFormGroup.get('copy')?.value
       }
 
       this.produtoSevice.salvarProduto(produto).subscribe(response => {
@@ -155,6 +155,9 @@ export class CadastrarProdutoComponent implements OnInit {
 
         this.scraperProduto.urlImagem = '';
         this.scraperProduto.urlProduto = '';
+        this.imagemViewSocial = '';
+        this.imagemFile = {} as File;
+        this.imagemFileSocial = {} as File;
 
         this.messageService.add({ severity: 'success', detail: 'Produto Salvo' });
 
@@ -187,23 +190,25 @@ export class CadastrarProdutoComponent implements OnInit {
 
   salvarImagem() {
     const formData = new FormData();
+    formData.append("id", `${this.id}`);
 
     if (this.scraperProduto.urlImagem === '') {
       formData.append("file", this.imagemFile)
       formData.append("fileSocial", this.imagemFileSocial)
     }
-    formData.append("id", `${this.id}`);
+
+    if (this.scraperProduto.urlImagem !== '' && this.imagemFileSocial !== undefined) {
+      formData.append("fileSocial", this.imagemFileSocial)
+    }
 
     if (this.produto.id != 0) {
       formData.append("urlImagem", this.produto.imagem);
       formData.append("urlImagemReal", this.produto.imagemSocial);
     }
-    console.log(this.imagemFileSocial)
+
     this.produtoSevice.salvarImagem(formData).subscribe(response => {
 
       this.messageService.add({ severity: 'success', detail: 'Imagem Salva!' });
-      this.imagemFile = {} as File;
-      this.imagemFileSocial = {} as File;
       return
     }, err => {
       console.log(err);
@@ -227,7 +232,7 @@ export class CadastrarProdutoComponent implements OnInit {
       urlImagem: "",
       id_categoria: this.produtoFormGroup.get('id_categoria')?.value,
       id_loja: this.produtoFormGroup.get('loja')?.value,
-      copy:  this.produtoFormGroup.get('copy')?.value
+      copy: this.produtoFormGroup.get('copy')?.value
     }
 
     if (this.imagemFile !== undefined || this.imagemFileSocial !== undefined) {
@@ -287,7 +292,7 @@ export class CadastrarProdutoComponent implements OnInit {
     let loja: String = "";
 
     this.lojas.forEach(element => {
-      if (url.includes(element.nome_loja.toLowerCase().replace(' ',''))) {
+      if (url.includes(element.nome_loja.toLowerCase().replace(' ', ''))) {
         loja = element.id;
       }
     });
