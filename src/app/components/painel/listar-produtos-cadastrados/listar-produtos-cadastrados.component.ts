@@ -79,13 +79,13 @@ export class ListarProdutosCadastradosComponent implements OnInit{
     });
   }
 
-  copiarParaAreaTransferenciaCupom(cupom : string) {
-    this.clipboard.copy(cupom);
+  copiarParaAreaTransferenciaLink(link : string) {
+    this.clipboard.copy(link);
   }
 
-  gerarStory(preco: string, titulo: string, urlImagem: string, frete: string, cupom: string){
+  gerarStory(preco: string, titulo: string, urlImagem: string, frete: string, cupom: string, link: string){
 
-    this.copiarParaAreaTransferenciaCupom(cupom);
+    this.copiarParaAreaTransferenciaLink(link);
 
     this.produtoService.gerarStory(preco, titulo, urlImagem, frete, cupom).subscribe(response => {
 
