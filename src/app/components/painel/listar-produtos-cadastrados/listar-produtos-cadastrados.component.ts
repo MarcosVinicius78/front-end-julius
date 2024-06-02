@@ -51,6 +51,8 @@ export class ListarProdutosCadastradosComponent implements OnInit{
     });
   }
 
+
+
   apagarProduto(id: number, urlImagem: string, imagemSocial: string) {
     this.produtoService.apagarProduto(id,urlImagem, imagemSocial).subscribe(response => {
       this.messageService.add({ severity: 'success', detail: 'Produto Apagado' });
@@ -77,10 +79,16 @@ export class ListarProdutosCadastradosComponent implements OnInit{
     });
   }
 
+  copiarParaAreaTransferenciaCupom(cupom : string) {
+    this.clipboard.copy(cupom);
+  }
+
   gerarStory(preco: string, titulo: string, urlImagem: string, frete: string, cupom: string){
+
+    this.copiarParaAreaTransferenciaCupom(cupom);
+
     this.produtoService.gerarStory(preco, titulo, urlImagem, frete, cupom).subscribe(response => {
 
-      console.log(response)
       // const contentDisposition = response.headers.get('content-disposition');
       // const fileName = contentDisposition!.split(';')[1].split('=')[1].trim();
 
