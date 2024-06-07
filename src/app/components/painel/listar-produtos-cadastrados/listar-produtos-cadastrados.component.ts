@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Message, MessageService } from 'primeng/api';
 import { Produtos } from 'src/app/models/produtos';
 import { ProdutoService } from 'src/app/service/painel/produto.service';
 import { Clipboard } from '@angular/cdk/clipboard';
+import { isPlatformBrowser } from '@angular/common';
 
 @Component({
   selector: 'app-listar-produtos-cadastrados',
@@ -11,7 +12,7 @@ import { Clipboard } from '@angular/cdk/clipboard';
   styleUrls: ['./listar-produtos-cadastrados.component.scss'],
   providers: [MessageService]
 })
-export class ListarProdutosCadastradosComponent implements OnInit{
+export class ListarProdutosCadastradosComponent implements OnInit {
 
   page = 0;
   size = 10;
@@ -31,14 +32,14 @@ export class ListarProdutosCadastradosComponent implements OnInit{
     private route: Router,
     private messageService: MessageService,
     private clipboard: Clipboard,
-  ){}
+  ) { }
 
   ngOnInit(): void {
     this.listarProdutos();
   }
 
-  listarProdutos(){
-    this.produtoService.listarProduto(this.page, this.size).subscribe( response => {
+  listarProdutos() {
+    this.produtoService.listarProduto(this.page, this.size).subscribe(response => {
       this.produtos = this.produtos.concat(response.content)
       this.totalPage = response.totalPages
     });
@@ -46,15 +47,13 @@ export class ListarProdutosCadastradosComponent implements OnInit{
 
   changePage(page: any) {
     this.page = page.page
-    this.produtoService.listarProduto(this.page, this.size).subscribe( (response: any) => {
+    this.produtoService.listarProduto(this.page, this.size).subscribe((response: any) => {
       this.produtos = response.content
     });
   }
 
-
-
   apagarProduto(id: number, urlImagem: string, imagemSocial: string) {
-    this.produtoService.apagarProduto(id,urlImagem, imagemSocial).subscribe(response => {
+    this.produtoService.apagarProduto(id, urlImagem, imagemSocial).subscribe(response => {
       this.messageService.add({ severity: 'success', detail: 'Produto Apagado' });
       this.produtos = [];
       this.listarProdutos();
@@ -66,7 +65,7 @@ export class ListarProdutosCadastradosComponent implements OnInit{
     });
   }
 
-  apagarVariosProdutos(){
+  apagarVariosProdutos() {
 
     console.log(this.selectedProducts)
 
@@ -79,11 +78,11 @@ export class ListarProdutosCadastradosComponent implements OnInit{
     });
   }
 
-  copiarParaAreaTransferenciaLink(link : string) {
+  copiarParaAreaTransferenciaLink(link: string) {
     this.clipboard.copy(link);
   }
 
-  gerarStory(preco: string, titulo: string, urlImagem: string, frete: string, cupom: string, link: string){
+  gerarStory(preco: string, titulo: string, urlImagem: string, frete: string, cupom: string, link: string) {
 
     this.copiarParaAreaTransferenciaLink(link);
 
@@ -120,13 +119,13 @@ export class ListarProdutosCadastradosComponent implements OnInit{
 
     let estruturaCompartilhamento = "";
 
-    if(produto.copy){
+    if (produto.copy) {
       estruturaCompartilhamento += `${produto.copy}\n\n`
     }
 
-    if (produto.titulo.length > 55 ) {
+    if (produto.titulo.length > 55) {
       estruturaCompartilhamento += `\u{1F4CC} ${produto.titulo.substring(0, 60)}...\n\n`;
-    }else{
+    } else {
       estruturaCompartilhamento += `\u{1F4CC} ${produto.titulo}\n\n`;
     }
     estruturaCompartilhamento += `*\u{1F525} ${produto.preco} (À Vista)*\n`;
@@ -142,22 +141,22 @@ export class ListarProdutosCadastradosComponent implements OnInit{
     if (produto.freteVariacoes) {
       if (produto.cupom) {
         estruturaCompartilhamento += `\n\u{1F4E6} ${produto.freteVariacoes}\n`;
-      }else{
+      } else {
         estruturaCompartilhamento += `\n\u{1F4E6} ${produto.freteVariacoes}\n`;
       }
     }
 
     if (produto.loja.nome_loja.toLocaleLowerCase().includes("amazon") || produto.loja.nome_loja.toLocaleLowerCase().includes("mercado")) {
       if (this.route.url === "/painel") {
-        estruturaCompartilhamento += `\n *\u{1F6D2} Compre Aqui:\u{1F447}* ${window.location.href.replace("painel",'')}oferta/${produto.id}`;
-      }else{
-        estruturaCompartilhamento += `\n *\u{1F6D2} Compre Aqui:\u{1F447}* ${window.location.href.replace("painel/listar-produtos",'')}oferta/${produto.id}`;
+        estruturaCompartilhamento += `\n *\u{1F6D2} Compre Aqui:\u{1F447}* ${window.location.href.replace("painel", '')}oferta/${produto.id}`;
+      } else {
+        estruturaCompartilhamento += `\n *\u{1F6D2} Compre Aqui:\u{1F447}* ${window.location.href.replace("painel/listar-produtos", '')}oferta/${produto.id}`;
       }
-    }else{
+    } else {
       if (this.route.url === "/painel") {
-        estruturaCompartilhamento += `\n *\u{1F6D2} Compre Aqui:\u{1F447}* ${window.location.href.replace("painel",'')}oferta/${produto.id}?r=1`;
-      }else{
-        estruturaCompartilhamento += `\n *\u{1F6D2} Compre Aqui:\u{1F447}* ${window.location.href.replace("painel/listar-produtos",'')}oferta/${produto.id}?r=1`;
+        estruturaCompartilhamento += `\n *\u{1F6D2} Compre Aqui:\u{1F447}* ${window.location.href.replace("painel", '')}oferta/${produto.id}?r=1`;
+      } else {
+        estruturaCompartilhamento += `\n *\u{1F6D2} Compre Aqui:\u{1F447}* ${window.location.href.replace("painel/listar-produtos", '')}oferta/${produto.id}?r=1`;
       }
     }
 

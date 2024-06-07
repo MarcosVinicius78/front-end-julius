@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, HostListener, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, HostListener, Inject, OnDestroy, OnInit, ViewChild, PLATFORM_ID } from '@angular/core';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { Produtos } from 'src/app/models/produtos';
 import { ProdutoService } from 'src/app/service/painel/produto.service';
@@ -8,6 +8,7 @@ import { LinksBanner } from 'src/app/dto/LinksBanner';
 import { environment } from 'src/environments/environment';
 import { Clipboard } from '@angular/cdk/clipboard';
 import { filter } from 'rxjs/operators';
+import { isPlatformBrowser } from '@angular/common';
 
 @Component({
   selector: 'app-listar-produtos',
@@ -56,7 +57,7 @@ export class ListarProdutosComponent implements OnInit {
     private linkBannerService: LinkBannerService,
     private route: ActivatedRoute,
     private clipboard: Clipboard
-  ) {}
+  ) { }
 
   ngOnInit() {
 
@@ -78,7 +79,6 @@ export class ListarProdutosComponent implements OnInit {
   }
 
   listarPorCategoria() {
-
     this.produtoService.ProdutoPorCategoria(this.idCategoria, this.page, this.size).subscribe(response => {
       this.produtos = this.produtos.concat(response);
     });
@@ -104,8 +104,8 @@ export class ListarProdutosComponent implements OnInit {
 
   @HostListener('window:scroll', [])
   onScroll(event: Event): void {
-    const scrollPosition = window.scrollY + window.innerHeight;
-    const documentHeight = document.documentElement.offsetHeight;
+    // const scrollPosition = window.scrollY + window.innerHeight;
+    // const documentHeight = document.documentElement.offsetHeight;
 
     if (this.isAtBottom() && !this.loading) {
       this.listarProdutos()

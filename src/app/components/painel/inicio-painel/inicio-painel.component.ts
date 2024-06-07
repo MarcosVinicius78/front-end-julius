@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
+import { Component, Inject, OnInit, PLATFORM_ID } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Component({
@@ -10,12 +11,12 @@ export class InicioPainelComponent implements OnInit {
 
   constructor(
     private route: Router
-  ){ }
+  ) { }
 
   ngOnInit() {
   }
 
-  sair(){
+  sair() {
     window.sessionStorage.removeItem("userdetails");
     window.sessionStorage.removeItem("Authorization");
     window.sessionStorage.removeItem("XSRF-TOKEN");

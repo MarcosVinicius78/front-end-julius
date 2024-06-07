@@ -1,5 +1,6 @@
+import { isPlatformBrowser } from '@angular/common';
 import { AuthService } from './../../../service/painel/auth.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit, PLATFORM_ID } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { getCookie } from 'typescript-cookie';
@@ -21,7 +22,7 @@ export class LoginComponent implements OnInit {
     private formBuilder: FormBuilder,
     private authService: AuthService,
     private route: Router
-  ){}
+  ) { }
 
 
   ngOnInit(): void {
@@ -31,15 +32,15 @@ export class LoginComponent implements OnInit {
     })
   }
 
-  login(){
+  login() {
     this.authService.login(this.userForm.get(['email'])?.value, this.userForm.get(['senha'])?.value).subscribe(reposnse => {
-      window.sessionStorage.setItem("Authorization",reposnse.headers.get('Authorization')!);
+      window.sessionStorage.setItem("Authorization", reposnse.headers.get('Authorization')!);
       let xsrf = getCookie("XSRF-TOKEN")!;
       window.sessionStorage.setItem("userdetails", JSON.stringify("logado"))
       window.sessionStorage.setItem("XSRF-TOKEN", xsrf);
       this.route.navigate(['painel']);
     }, err => {
-      if (err.status === 401 ) {
+      if (err.status === 401) {
         this.senhaErrada = true;
       }
     })

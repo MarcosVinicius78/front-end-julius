@@ -14,6 +14,7 @@ import * as dateFns from 'date-fns';
 import { Message } from 'primeng/api';
 import { LinksBanner } from 'src/app/dto/LinksBanner';
 import { LinkBannerService } from 'src/app/service/painel/link-banner.service';
+import { MetaService } from 'src/app/service/meta.service';
 
 @Component({
   selector: 'app-produto',
@@ -42,6 +43,7 @@ export class ProdutoComponent implements OnInit {
   msg!: Message[];
 
   constructor(
+    private metaService: MetaService,
     private route: ActivatedRoute,
     private produtoService: ProdutoService,
     private meta: Meta,
@@ -76,6 +78,12 @@ export class ProdutoComponent implements OnInit {
   }
 
   private setProductMetaTags(productName: string, productDescription: string, productImageUrl: string): void {
+
+    this.metaService.updateMetaTags(
+      productName,
+      productDescription,
+      productImageUrl
+    );
     // Limpa todas as tags meta existentes
     // this.meta.removeTag('name="description"');
     // this.meta.removeTag('property="og:title"');
