@@ -31,7 +31,7 @@ export class ListarProdutosComponent implements OnInit {
   termoPesquisa: string = '';
 
   page = 0;
-  size = 10;
+  size = 12;
   slideIndex = 1;
 
   responsiveOptions: any[] = [
