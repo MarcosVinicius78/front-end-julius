@@ -120,7 +120,7 @@ export class ListarProdutosCadastradosComponent implements OnInit {
     let estruturaCompartilhamento = "";
 
     if (produto.copy) {
-      estruturaCompartilhamento += `${produto.copy}\n\n`
+      estruturaCompartilhamento += `*${produto.copy}*\n\n`
     }
 
     if (produto.titulo.length > 55) {
