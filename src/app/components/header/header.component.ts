@@ -10,6 +10,9 @@ import { isPlatformBrowser } from '@angular/common';
 })
 export class HeaderComponent implements OnInit {
 
+  menuValue:boolean=false;
+  menu_icon :string ='pi pi-bars';
+
   categorias: Categoria[] = [];
 
   constructor(
@@ -27,6 +30,17 @@ export class HeaderComponent implements OnInit {
       if (dropdown) {
         dropdown.classList.toggle('show');
       }
+  }
+
+  openMenu(){
+    console.log(this.menuValue)
+    this.menuValue =! this.menuValue ;
+    console.log(this.menuValue)
+    this.menu_icon = this.menuValue ? 'pi pi-times' : 'pi pi-bars';
+  }
+   closeMenu() {
+    this.menuValue = false;
+    this.menu_icon = 'bi bi-list';
   }
 
 }

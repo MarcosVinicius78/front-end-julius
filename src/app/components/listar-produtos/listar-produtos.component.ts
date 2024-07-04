@@ -110,7 +110,7 @@ export class ListarProdutosComponent implements OnInit {
     // const scrollPosition = window.scrollY + window.innerHeight;
     // const documentHeight = document.documentElement.offsetHeight;
 
-    if (this.isAtBottom() && !this.loading && this.termoPesquisa === '') {
+    if (this.isAtBottom() && !this.loading && this.termoPesquisa === '' && Number.isNaN(this.idCategoria)) {
       this.listarProdutos()
     }
 
