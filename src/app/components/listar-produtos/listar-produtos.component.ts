@@ -28,9 +28,12 @@ export class ListarProdutosComponent implements OnInit {
 
   links = new LinksBanner();
 
+
+  termoPesquisaAnterior: string = '';
   termoPesquisa: string = '';
 
   page = 0;
+  pagePesquisa = 0;
   size = 12;
   slideIndex = 1;
 
@@ -107,30 +110,32 @@ export class ListarProdutosComponent implements OnInit {
     // const scrollPosition = window.scrollY + window.innerHeight;
     // const documentHeight = document.documentElement.offsetHeight;
 
-    if (this.isAtBottom() && !this.loading) {
+    if (this.isAtBottom() && !this.loading && this.termoPesquisa === '') {
       this.listarProdutos()
     }
-    // if (scrollPosition >= documentHeight) {
 
-    //   // Lógica de paginação
-    //   this.page++;
-    //   if (!this.idCategoria) {
-    //     this.listarProdutos()
-    //     return;
-    //   }
+    if (this.termoPesquisa != '') {
+      this.pesquisar()
+    }
 
-    //   this.listarPorCategoria()
-
-    //   return;
-    // }
   }
 
   pesquisar(): void {
 
-    this.produtoService.pesquisarProdutos(this.termoPesquisa).subscribe(
+    if (this.termoPesquisa != this.termoPesquisaAnterior) {
+      this.pagePesquisa = 0;
+    }
+    if (this.pagePesquisa == 0) {
+      this.produtos = [];
+    }
+
+
+    this.produtoService.pesquisarProdutos(this.termoPesquisa,this.pagePesquisa, this.size).subscribe(
       data => {
-        this.produtos = data;
-        console.log(data);
+        this.produtos = this.produtos.concat(data.content);
+        this.pagePesquisa++
+        this.loading = false;
+        this.termoPesquisaAnterior = this.termoPesquisa;
       },
       error => {
         console.error('Erro ao pesquisar produtos:', error);

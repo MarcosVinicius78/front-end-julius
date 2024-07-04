@@ -193,7 +193,12 @@ a{
   border-radius: 5px;
   font-weight: 700;
   font-size: 25px;
-  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  overflow: hidden;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    text-overflow: ellipsis;
+    display: -webkit-box;
 }
 
 .publicidade{
@@ -398,10 +403,7 @@ a{
     margin-left: 5px;
     margin-top: 5px;
     width: 100%;
-    /* max-width: 100%; */
     overflow: hidden;
-    /* font-size: 14px; */
-    /* font-weight: 700; */
     -webkit-line-clamp: 1;
     -webkit-box-orient: vertical;
     text-overflow: ellipsis;

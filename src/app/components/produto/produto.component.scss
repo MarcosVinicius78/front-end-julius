@@ -24,6 +24,11 @@ section {
   font-size: 2.4rem;
   font-weight: 700;
   font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+  overflow: hidden;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    text-overflow: ellipsis;
+    display: -webkit-box;
 }
 
 .informaçoes div:first-child {
