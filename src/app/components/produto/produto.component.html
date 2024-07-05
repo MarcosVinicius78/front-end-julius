@@ -115,11 +115,15 @@
 
       <div class="reportar" *ngIf="modal" (click)="fecharModal()">
         <div class="opcoes-reportar" (click)="impedirFechar($event)">
-          <button class="close-modal" (click)="fecharModal()">&times;</button>
-          <h2>Opções de Report</h2>
-          <div class="opcoes-botoes">
-            <button (click)="reportar(produto.id, 'oferta')">Reportar Oferta</button>
-            <button (click)="reportar(produto.id, 'cupom')">Reportar Cupom</button>
+          <div class="flex flex-row w-full">
+            <h2>Reportar</h2>
+            <i class="close-modal pi pi-times" (click)="fecharModal()"></i>
+          </div>
+          <div class="opcoes-botoes flex w-full h-7rem justify-content-around">
+            <p-button styleClass="w-full" (click)="reportar(produto.id, 'oferta')" label="Reportar Oferta" [raised]="true" severity="warning"></p-button>
+            <!-- <button (click)="reportar(produto.id, 'oferta')">Reportar Oferta</button> -->
+            <p-button styleClass="w-full" (click)="reportar(produto.id, 'cupom')" label="Reportar Cupom" [raised]="true" severity="warning"></p-button>
+            <!-- <button (click)="reportar(produto.id, 'cupom')">Reportar Cupom</button> -->
           </div>
         </div>
       </div>

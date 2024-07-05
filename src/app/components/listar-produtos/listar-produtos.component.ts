@@ -127,6 +127,7 @@ export class ListarProdutosComponent implements OnInit {
   }
 
   pesquisar(): void {
+    this.idCategoria = NaN;
 
     if (this.termoPesquisa != this.termoPesquisaAnterior) {
       this.pagePesquisa = 0;

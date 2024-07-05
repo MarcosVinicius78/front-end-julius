@@ -33,9 +33,7 @@ export class HeaderComponent implements OnInit {
   }
 
   openMenu(){
-    console.log(this.menuValue)
     this.menuValue =! this.menuValue ;
-    console.log(this.menuValue)
     this.menu_icon = this.menuValue ? 'pi pi-times' : 'pi pi-bars';
   }
    closeMenu() {
