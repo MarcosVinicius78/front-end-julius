@@ -78,14 +78,15 @@ section{
 }
 
 @media screen and (max-width: 600px){
+
   .header{
     flex-direction: column;
-    height: 100vh;
+    height: 100dvh;
     justify-content: initial;
   }
 
   .mobile-des{
-    display: none;
+    display: none !important;
   }
 
   .mobile{
