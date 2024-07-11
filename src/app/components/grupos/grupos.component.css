@@ -7,12 +7,12 @@
 }
 
 section{
-  height: calc(100vh - 186px);
+  height: calc(100% - 135.2px);
 }
 
 .frase{
   background-color: white;
-  height: 260px;
+  height: 52%;
   display: flex;
   justify-content: center;
   align-items: center;

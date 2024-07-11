@@ -30,12 +30,13 @@ section{
   margin-top: 10px;
 }
 
-.titulo input{
+.pesquisa input{
   width: 80%;
   height: 40px;
   margin-top: 10px;
   border-radius: 5px;
-  border: 1px solid rgb(182, 182, 182);
+  padding-left: 10px;
+  border: 1px solid rgb(43, 43, 43);
 }
 
 .titulo p{
@@ -112,20 +113,13 @@ a{
 
 .loja img{
   border-radius: 50%;
-  width: 30px;
-  height: 30px;
+  width: 25px;
+  height: 25px;
 }
 
 /* seu-componente.component.css */
 .pesquisa {
   position: relative;
-}
-
-.fa-search {
-  position: absolute;
-  top: 46%;
-  right: 120px;
-  cursor: pointer;
 }
 
 .info a:nth-child(2) p{
@@ -319,7 +313,8 @@ a{
 }
 
 .frete{
-  margin-left: 8px;
+  padding: 0px 0 0px 5px;
+  /* margin-left: 8px; */
   display: flex;
 }
 
@@ -388,7 +383,8 @@ a{
   }
 
   .frete {
-    margin-left: 12px;
+
+    /* margin-left: 12px; */
     display: flex;
     align-items: center;
     /* text-align: center; */
@@ -424,7 +420,7 @@ a{
   }
 
   .info{
-    width: 97%;
+    width: 100%;
     overflow: hidden;
     text-align: start;
     margin-left: 0;

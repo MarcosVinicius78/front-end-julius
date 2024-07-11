@@ -8,6 +8,9 @@
 
         <div class="info">
           <div *ngIf="produto.imagem != undefined" class="imagem-produto">
+            <div *ngIf="produto.promocaoEncerrada" class="promo-encerrada">
+              Promoção Encerrada
+            </div>
             <img [src]="apiUrl+'/produto/download/'+produto.imagem" alt="">
           </div>
           <div>
@@ -17,10 +20,10 @@
 
           <div class="informaçoes">
             <div>
-              <h2 class="titulo">{{ produto.titulo }}</h2>
+              <h2 [class.promo-encerrada-cor]="produto.promocaoEncerrada" class="titulo">{{ produto.titulo }}</h2>
               <p class="data-none">há {{calculateElapsedTime(produto.dataCriacao)}}</p>
             </div>
-            <p class="preco">{{ produto.preco }}</p>
+            <p [class.promo-encerrada-cor]="produto.promocaoEncerrada" class="preco">{{ produto.preco }}</p>
 
             <div (click)="copiarParaAreaTransferencia()" *ngIf="produto.cupom" class="cupom">
               <div>

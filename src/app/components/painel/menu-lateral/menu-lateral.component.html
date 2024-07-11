@@ -23,4 +23,4 @@
     <li><a routerLink="/painel/configuracoes">Configurações</a></li>
   </ul>
 </div>
-<i *ngIf="menuAtivado" class="pi pi-times"></i>
+<i *ngIf="menuAtivado" (click)="ativarMenu()" class="pi pi-times"></i>

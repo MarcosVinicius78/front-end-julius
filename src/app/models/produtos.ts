@@ -16,5 +16,6 @@ export class Produtos {
   public loja!: Loja
   public imagemSocial!: string
   public copy!: string;
+  public promocaoEncerrada!: boolean;
   constructor() { }
 }

@@ -1,3 +1,4 @@
+import { MenuOpcoesComponent } from './components/painel/listar-produtos-cadastrados/components/menuOpcoes/menuOpcoes.component';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
@@ -65,7 +66,8 @@ import { BlankComponent } from './components/blank/blank.component';
     CadastrarPostsComponent,
     ListaDePostsComponent,
     ConfiguracoesComponent,
-    BlankComponent
+    BlankComponent,
+    MenuOpcoesComponent
   ],
   imports: [
     BrowserModule,

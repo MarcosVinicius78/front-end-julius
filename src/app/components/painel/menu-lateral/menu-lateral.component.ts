@@ -12,7 +12,7 @@ export class MenuLateralComponent {
   constructor(private elementRef: ElementRef) { }
 
   ativarMenu() {
-    this.menuAtivado = true;
+    this.menuAtivado =! this.menuAtivado;
   }
 
   @HostListener('document:click', ['$event'])

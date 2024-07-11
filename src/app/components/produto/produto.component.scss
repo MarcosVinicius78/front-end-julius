@@ -145,9 +145,17 @@ p {
 
 .imagem-produto {
   padding: 10px;
+  position: relative;
+  width: 400px;
+  height: 300px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .imagem-produto img {
+  width: 100%;
+  height: 100%;
   object-fit: contain;
 }
 
@@ -189,11 +197,6 @@ p {
 .outras-promocoes h2 {
   margin-left: 10px;
   margin: 0;
-}
-
-.imagem-produto img {
-  width: 270px;
-  height: 240px;
 }
 
 .info {
@@ -266,6 +269,10 @@ p {
   justify-content: center;
   color: white;
   border-radius: 5px;
+}
+
+.promo-encerrada-cor{
+  color: #b1b1b1 !important;
 }
 
 .outras-info {
@@ -482,6 +489,19 @@ button img {
   color: black;
 }
 
+.promo-encerrada{
+  position: absolute;
+  background-color: #cecece8c;
+  width: 95%;
+  height: 90%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  text-transform: uppercase;
+  font-size: 23px;
+}
+
 @media screen and (max-width: 600px) {
   .produto {
     width: 100%;
@@ -619,11 +639,19 @@ button img {
     text-overflow: ellipsis;
   }
 
+  .opcoes-reportar{
+    width: 90%;
+  }
+
   .imagem-produto img {
     width: 100%;
-    height: 200px;
+    height: 100%;
     padding: 0;
     object-fit: contain;
+  }
+
+  .imagem-produto{
+    width: auto;
   }
 
   .informaçoes {
@@ -663,10 +691,6 @@ button img {
   .info div:nth-child(2) {
     display: flex;
     font-size: 12px;
-  }
-
-  .report {
-    display: none;
   }
 
   .titulo {

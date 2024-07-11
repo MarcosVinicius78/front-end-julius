@@ -1,0 +1,19 @@
+<div class="menu-container">
+  <i class="pi pi-ellipsis-v" (click)="onToggleMenu()"></i>
+  <div #menu *ngIf="menuOpen" class="menu" [@menuState]="menuOpen ? 'open' : 'closed'">
+    <i (click)="onToggleMenu()" class="p-2 text-gray-900 pi pi-times"></i>
+    <div class="flex">
+      <i class="text-gray-900 pi pi-pencil"></i>
+      <a class="font-medium text-center block w-full text-gray-900 no-underline" href="/painel/atualizar-produtos/{{product.id}}">Editar</a>
+    </div>
+    <div class="flex">
+      <i class="text-gray-900 pi pi-trash"></i>
+      <button class="text-base font-medium w-full border-none text-gray-900" (click)="apagarProduto(product.id,product.imagem, product.imagemSocial)">APAGAR</button>
+    </div>
+    <div class="flex">
+      <i class="text-gray-900 pi pi-megaphone flex align-items-center"></i>
+      <button (click)="encerrarPromocao(product.promocaoEncerrada ? false : true, product.id)" class="text-base font-medium w-full border-none text-gray-900">{{product.promocaoEncerrada ? "Ativar Promoção" : "Encerrar Promoção"}}</button>
+    </div>
+  </div>
+</div>
+<p-toast></p-toast>

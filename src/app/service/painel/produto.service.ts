@@ -79,6 +79,10 @@ export class ProdutoService {
   salvarStory(formData: FormData) {
     return this.http.post(`${this.apiUrl}/produto/salvar-story`, formData);
   }
+
+  encerrarPromocao(status: boolean,id:number){
+    return this.http.get(`${this.apiUrl}/produto/encerrar-promocao?status=${status}&id=${id}`)
+  }
 }
 
 interface PordutosPage {

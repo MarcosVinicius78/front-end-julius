@@ -19,5 +19,6 @@ export class ProdutoLoja{
   dataCriacao!: string
   imagemSocial: string = "";
   copy: string = "";
+  promocaoEncerrada!: boolean;
 
 }

@@ -1,6 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Message, MessageService } from 'primeng/api';
+import { MenuItem, Message, MessageService } from 'primeng/api';
 import { Produtos } from 'src/app/models/produtos';
 import { ProdutoService } from 'src/app/service/painel/produto.service';
 import { Clipboard } from '@angular/cdk/clipboard';
@@ -18,6 +18,8 @@ export class ListarProdutosCadastradosComponent implements OnInit {
   size = 10;
   selectAllCheckbox = false;
 
+  items: MenuItem[] | undefined;
+
   totalPage!: number
 
   number!: number
@@ -26,6 +28,8 @@ export class ListarProdutosCadastradosComponent implements OnInit {
 
   // produto!: Produtos;
   selectedProducts!: Produtos;
+
+  openMenuId: number | null = null;
 
   constructor(
     private produtoService: ProdutoService,
@@ -36,6 +40,22 @@ export class ListarProdutosCadastradosComponent implements OnInit {
 
   ngOnInit(): void {
     this.listarProdutos();
+
+
+    this.items = [
+      {
+          label: 'Apagar',
+          icon: 'pi pi-trash',
+      },
+      {
+          label: 'Editar',
+          icon: 'pi pi-fw pi-pencil',
+      },
+      {
+          label: 'Promocao Encerrada',
+          icon: 'pi pi-fw pi-user',
+      },
+  ];
   }
 
   listarProdutos() {
@@ -165,5 +185,14 @@ export class ListarProdutosCadastradosComponent implements OnInit {
     }
 
     return estruturaCompartilhamento;
+  }
+
+  toggleMenu(productId: number) {
+    console.log(this.openMenuId)
+    if (this.openMenuId === productId) {
+      this.openMenuId = null;
+    } else {
+      this.openMenuId = productId;
+    }
   }
 }
