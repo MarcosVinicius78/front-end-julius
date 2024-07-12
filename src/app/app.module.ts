@@ -12,7 +12,7 @@ import { MenuLateralComponent } from './components/painel/menu-lateral/menu-late
 import { CadastrarProdutoComponent } from './components/painel/cadastrar-produto/cadastrar-produto.component';
 import { ListarProdutosCadastradosComponent } from './components/painel/listar-produtos-cadastrados/listar-produtos-cadastrados.component';
 import { CadastrarCategoriaComponent } from './components/painel/cadastrar-categoria/cadastrar-categoria.component';
-import { HttpClientModule, HttpClient, HttpClientXsrfModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HttpClient, HTTP_INTERCEPTORS, provideHttpClient, withInterceptorsFromDi, withXsrfConfiguration } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CadastrarLojaComponent } from './components/painel/cadastrar-loja/cadastrar-loja.component';
 import { ProdutoComponent } from './components/produto/produto.component';
@@ -44,64 +44,58 @@ import { CardModule } from 'primeng/card';
 import { ConfiguracoesComponent } from './components/painel/configuracoes/configuracoes.component';
 import { BlankComponent } from './components/blank/blank.component';
 
-@NgModule({
-  declarations: [
-    AppComponent,
-    HeaderComponent,
-    ListarProdutosComponent,
-    InicioPainelComponent,
-    FooterComponent,
-    MenuLateralComponent,
-    CadastrarProdutoComponent,
-    ListarProdutosCadastradosComponent,
-    CadastrarCategoriaComponent,
-    CadastrarLojaComponent,
-    ProdutoComponent,
-    CarrosselComponent,
-    GruposComponent,
-    ReportComponent,
-    LinksBannersComponent,
-    LoginComponent,
-    BlogComponent,
-    CadastrarPostsComponent,
-    ListaDePostsComponent,
-    ConfiguracoesComponent,
-    BlankComponent,
-    MenuOpcoesComponent
-  ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    HttpClientModule,
-    FormsModule,
-    ReactiveFormsModule,
-    BrowserAnimationsModule,
-    // MatIconModule,
-    ButtonModule,
-    TableModule,
-    ToastModule,
-    EditorModule,
-    FileUploadModule,
-    ToolbarModule,
-    // MatDialogModule,
-    // MatSnackBarModule,
-    PaginatorModule,
-    InputTextModule,
-    DropdownModule,
-    MessagesModule,
-    CardModule,
-    HttpClientXsrfModule.withOptions({
-      cookieName: 'XSRF-TOKEN',
-      headerName: 'X-XSRF-TOKEN'
-    })
-  ],
-  providers: [
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: RequireService,
-      multi: true
-    },
-    AuthRouteguard],
-  bootstrap: [AppComponent]
-})
+@NgModule({ declarations: [
+        AppComponent,
+        HeaderComponent,
+        ListarProdutosComponent,
+        InicioPainelComponent,
+        FooterComponent,
+        MenuLateralComponent,
+        CadastrarProdutoComponent,
+        ListarProdutosCadastradosComponent,
+        CadastrarCategoriaComponent,
+        CadastrarLojaComponent,
+        ProdutoComponent,
+        CarrosselComponent,
+        GruposComponent,
+        ReportComponent,
+        LinksBannersComponent,
+        LoginComponent,
+        BlogComponent,
+        CadastrarPostsComponent,
+        ListaDePostsComponent,
+        ConfiguracoesComponent,
+        BlankComponent,
+        MenuOpcoesComponent
+    ],
+    bootstrap: [AppComponent], imports: [BrowserModule,
+        AppRoutingModule,
+        FormsModule,
+        ReactiveFormsModule,
+        BrowserAnimationsModule,
+        // MatIconModule,
+        ButtonModule,
+        TableModule,
+        ToastModule,
+        EditorModule,
+        FileUploadModule,
+        ToolbarModule,
+        // MatDialogModule,
+        // MatSnackBarModule,
+        PaginatorModule,
+        InputTextModule,
+        DropdownModule,
+        MessagesModule,
+        CardModule], providers: [
+        {
+            provide: HTTP_INTERCEPTORS,
+            useClass: RequireService,
+            multi: true
+        },
+        AuthRouteguard,
+        provideHttpClient(withInterceptorsFromDi(), withXsrfConfiguration({
+            cookieName: 'XSRF-TOKEN',
+            headerName: 'X-XSRF-TOKEN'
+        }))
+    ] })
 export class AppModule { }
