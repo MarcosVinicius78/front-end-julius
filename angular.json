@@ -99,27 +99,6 @@
             "scripts": []
           }
         },
-        "server": {
-          "builder": "@angular-devkit/build-angular:server",
-          "options": {
-            "outputPath": "dist/julius-da-promo-front-end/server",
-            "main": "server.ts",
-            "tsConfig": "tsconfig.server.json"
-          },
-          "configurations": {
-            "production": {
-              "outputHashing": "media"
-            },
-            "development": {
-              "buildOptimizer": false,
-              "optimization": false,
-              "sourceMap": true,
-              "extractLicenses": false,
-              "vendorChunk": true
-            }
-          },
-          "defaultConfiguration": "production"
-        },
         "serve-ssr": {
           "builder": "@angular-devkit/build-angular:ssr-dev-server",
           "configurations": {
@@ -149,6 +128,27 @@
             "development": {
               "browserTarget": "julius-da-promo-front-end:build:development",
               "serverTarget": "julius-da-promo-front-end:server:development"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "server": {
+          "builder": "@angular-devkit/build-angular:server",
+          "options": {
+            "outputPath": "dist/julius-da-promo-front-end/server",
+            "main": "server.ts",
+            "tsConfig": "tsconfig.server.json"
+          },
+          "configurations": {
+            "production": {
+              "outputHashing": "media"
+            },
+            "development": {
+              "buildOptimizer": false,
+              "optimization": false,
+              "sourceMap": true,
+              "extractLicenses": false,
+              "vendorChunk": true
             }
           },
           "defaultConfiguration": "production"

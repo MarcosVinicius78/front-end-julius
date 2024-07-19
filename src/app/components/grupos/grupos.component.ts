@@ -1,6 +1,7 @@
 import { LinkBannerService } from './../../service/painel/link-banner.service';
 import { Component, OnInit } from '@angular/core';
 import { LinksBanner } from 'src/app/dto/LinksBanner';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-grupos',

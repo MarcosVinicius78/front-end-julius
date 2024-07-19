@@ -1,5 +1,6 @@
+import { isPlatformBrowser } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { Inject, Injectable, PLATFORM_ID } from '@angular/core';
 import { User } from 'src/app/models/user';
 import { environment } from 'src/environments/environment';
 
@@ -11,7 +12,8 @@ export class AuthService {
   apiUrl = environment.apiUrl
 
   constructor(
-    private http: HttpClient
+    private http: HttpClient,
+    @Inject(PLATFORM_ID) private platformId: Object
   ){}
 
   login(username: any, password: any){
@@ -21,7 +23,9 @@ export class AuthService {
     user.username = username;
     user.password = password;
 
-    window.sessionStorage.setItem('userdetails', JSON.stringify(user));
+    if (isPlatformBrowser(this.platformId)) {
+      window.sessionStorage.setItem('userdetails', JSON.stringify(user));
+    }
 
     return this.http.get(`${this.apiUrl}/user`, {observe: 'response', withCredentials: true});
   }

@@ -82,7 +82,7 @@ export class ListarProdutosComponent implements OnInit {
   }
 
   listarPorCategoria() {
-    this.produtoService.ProdutoPorCategoria(this.idCategoria, this.page, this.size).subscribe(response => {
+    this.produtoService.ProdutoPorCategoria(environment.site,this.idCategoria, this.page, this.size).subscribe(response => {
       this.produtos = this.produtos.concat(response);
       this.page++
       this.loading = false

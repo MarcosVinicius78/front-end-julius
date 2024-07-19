@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject, OnInit, PLATFORM_ID } from '@angular/core';
 import { Router } from '@angular/router';
 import { MenuItem, Message, MessageService } from 'primeng/api';
 import { Produtos } from 'src/app/models/produtos';
@@ -36,26 +36,26 @@ export class ListarProdutosCadastradosComponent implements OnInit {
     private route: Router,
     private messageService: MessageService,
     private clipboard: Clipboard,
+    @Inject(PLATFORM_ID) private platformId: Object
   ) { }
 
   ngOnInit(): void {
     this.listarProdutos();
 
-
     this.items = [
       {
-          label: 'Apagar',
-          icon: 'pi pi-trash',
+        label: 'Apagar',
+        icon: 'pi pi-trash',
       },
       {
-          label: 'Editar',
-          icon: 'pi pi-fw pi-pencil',
+        label: 'Editar',
+        icon: 'pi pi-fw pi-pencil',
       },
       {
-          label: 'Promocao Encerrada',
-          icon: 'pi pi-fw pi-user',
+        label: 'Promocao Encerrada',
+        icon: 'pi pi-fw pi-user',
       },
-  ];
+    ];
   }
 
   listarProdutos() {
@@ -111,19 +111,21 @@ export class ListarProdutosCadastradosComponent implements OnInit {
       // const contentDisposition = response.headers.get('content-disposition');
       // const fileName = contentDisposition!.split(';')[1].split('=')[1].trim();
 
-      // Cria um URL para a Blob response
-      const url = window.URL.createObjectURL(response.body!);
+      if (isPlatformBrowser(this.platformId)) {
+        // Cria um URL para a Blob response
+        const url = window.URL.createObjectURL(response.body!);
 
-      // Cria um link temporário e simula um clique para iniciar o download
-      const link = document.createElement('a');
-      link.href = url;
-      link.download = titulo;
-      document.body.appendChild(link);
-      link.click();
+        // Cria um link temporário e simula um clique para iniciar o download
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = titulo;
+        document.body.appendChild(link);
+        link.click();
 
-      // Limpa o URL criado
-      window.URL.revokeObjectURL(url);
-      document.body.removeChild(link);
+        // Limpa o URL criado
+        window.URL.revokeObjectURL(url);
+        document.body.removeChild(link);
+      }
     }, err => {
       this.messageService.add({ severity: 'error', detail: 'Erro ao Gerar Storie' });
     })
@@ -135,7 +137,7 @@ export class ListarProdutosCadastradosComponent implements OnInit {
   }
 
   montarEstruturaCompartilhamento(produto: Produtos) {
-    console.log(produto.mensagemAdicional)
+
 
     let estruturaCompartilhamento = "";
 
@@ -166,17 +168,20 @@ export class ListarProdutosCadastradosComponent implements OnInit {
       }
     }
 
-    if (produto.loja.nome_loja.toLocaleLowerCase().includes("amazon") || produto.loja.nome_loja.toLocaleLowerCase().includes("mercado")) {
-      if (this.route.url === "/painel") {
-        estruturaCompartilhamento += `\n *\u{1F6D2} Compre Aqui:\u{1F447}* ${window.location.href.replace("painel", '')}oferta/${produto.id}`;
+    if (isPlatformBrowser(this.platformId)) {
+
+      if (produto.loja.nome_loja.toLocaleLowerCase().includes("amazon") || produto.loja.nome_loja.toLocaleLowerCase().includes("mercado")) {
+        if (this.route.url === "/painel") {
+          estruturaCompartilhamento += `\n *\u{1F6D2} Compre Aqui:\u{1F447}* ${window.location.href.replace("painel", '')}oferta/${produto.id}`;
+        } else {
+          estruturaCompartilhamento += `\n *\u{1F6D2} Compre Aqui:\u{1F447}* ${window.location.href.replace("painel/listar-produtos", '')}oferta/${produto.id}`;
+        }
       } else {
-        estruturaCompartilhamento += `\n *\u{1F6D2} Compre Aqui:\u{1F447}* ${window.location.href.replace("painel/listar-produtos", '')}oferta/${produto.id}`;
-      }
-    } else {
-      if (this.route.url === "/painel") {
-        estruturaCompartilhamento += `\n *\u{1F6D2} Compre Aqui:\u{1F447}* ${window.location.href.replace("painel", '')}oferta/${produto.id}?r=1`;
-      } else {
-        estruturaCompartilhamento += `\n *\u{1F6D2} Compre Aqui:\u{1F447}* ${window.location.href.replace("painel/listar-produtos", '')}oferta/${produto.id}?r=1`;
+        if (this.route.url === "/painel") {
+          estruturaCompartilhamento += `\n *\u{1F6D2} Compre Aqui:\u{1F447}* ${window.location.href.replace("painel", '')}oferta/${produto.id}?r=1`;
+        } else {
+          estruturaCompartilhamento += `\n *\u{1F6D2} Compre Aqui:\u{1F447}* ${window.location.href.replace("painel/listar-produtos", '')}oferta/${produto.id}?r=1`;
+        }
       }
     }
 
@@ -188,7 +193,6 @@ export class ListarProdutosCadastradosComponent implements OnInit {
   }
 
   toggleMenu(productId: number) {
-    console.log(this.openMenuId)
     if (this.openMenuId === productId) {
       this.openMenuId = null;
     } else {

@@ -18,7 +18,7 @@ export class LinkBannerService {
   }
 
   listarLinksEBanners(){
-    return this.http.get<LinksBanner>(`${this.apiUrl}/banners`);
+    return this.http.get<LinksBanner>(`${this.apiUrl}/banners/links-site/${environment.site}`);
   }
 
   uploadImage(formData: FormData) {

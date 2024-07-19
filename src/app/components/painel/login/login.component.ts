@@ -34,11 +34,14 @@ export class LoginComponent implements OnInit {
 
   login() {
     this.authService.login(this.userForm.get(['email'])?.value, this.userForm.get(['senha'])?.value).subscribe(reposnse => {
-      window.sessionStorage.setItem("Authorization", reposnse.headers.get('Authorization')!);
-      let xsrf = getCookie("XSRF-TOKEN")!;
-      window.sessionStorage.setItem("userdetails", JSON.stringify("logado"))
-      window.sessionStorage.setItem("XSRF-TOKEN", xsrf);
-      this.route.navigate(['painel']);
+      if (typeof sessionStorage !== 'undefined') {
+        // Acesso seguro ao sessionStorage aqui
+        window.sessionStorage.setItem("Authorization", reposnse.headers.get('Authorization')!);
+        let xsrf = getCookie("XSRF-TOKEN")!;
+        window.sessionStorage.setItem("userdetails", JSON.stringify("logado"))
+        window.sessionStorage.setItem("XSRF-TOKEN", xsrf);
+        this.route.navigate(['painel']);
+      }
     }, err => {
       if (err.status === 401) {
         this.senhaErrada = true;

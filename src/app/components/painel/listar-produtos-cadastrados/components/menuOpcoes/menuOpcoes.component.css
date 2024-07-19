@@ -21,6 +21,7 @@ button {
   transform: scale(0.8); /* Inicialmente menor */
   border-radius: 5px;
   width: 150px;
+  z-index: 10000;
 }
 
 .menu div {

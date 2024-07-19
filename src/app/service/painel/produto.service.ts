@@ -27,7 +27,7 @@ export class ProdutoService {
 
   listarProduto(page: number, size: number): Observable<any> {
 
-    const params = new HttpParams().set('page', page.toString()).set('size', size.toString());
+    const params = new HttpParams().set('page', page.toString()).set('size', size.toString()).set('site', environment.site);
 
     return this.http.get<PordutosPage>(`${this.apiUrl}/produto`, { params });
   }
@@ -45,14 +45,9 @@ export class ProdutoService {
     return this.http.delete(`${this.apiUrl}/produto`, { params });
   }
 
-  obeterProdutoPorCategoria() {
+  ProdutoPorCategoria(site: number, categoriaId: any, page: number, size: number) {
 
-    return this.http.get<any>(`${this.apiUrl}/produto`)
-  }
-
-  ProdutoPorCategoria(categoriaId: any, page: number, size: number) {
-
-    const params = new HttpParams().set('categoriaId', categoriaId.toString()).set('page', page.toString()).set('size', size.toString());
+    const params = new HttpParams().set('categoriaId', categoriaId.toString()).set('page', page.toString()).set('size', size.toString()).set('site', site);
 
     return this.http.get<any>(`${this.apiUrl}/produto/por-categoria`, { params })
   }

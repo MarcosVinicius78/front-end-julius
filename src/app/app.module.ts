@@ -1,6 +1,6 @@
 import { MenuOpcoesComponent } from './components/painel/listar-produtos-cadastrados/components/menuOpcoes/menuOpcoes.component';
 import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
+import { BrowserModule, provideClientHydration } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -96,6 +96,7 @@ import { BlankComponent } from './components/blank/blank.component';
         provideHttpClient(withInterceptorsFromDi(), withXsrfConfiguration({
             cookieName: 'XSRF-TOKEN',
             headerName: 'X-XSRF-TOKEN'
-        }))
+        })),
+        provideClientHydration()
     ] })
 export class AppModule { }

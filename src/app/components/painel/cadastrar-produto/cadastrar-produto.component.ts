@@ -56,8 +56,6 @@ export class CadastrarProdutoComponent implements OnInit {
 
   ngOnInit(): void {
 
-    console.log(this.scraperProduto)
-
     this.idEditar = this.router.snapshot.paramMap.get('id')!;
 
     this.produtoFormGroup = this.formBuilder.group({
@@ -67,7 +65,8 @@ export class CadastrarProdutoComponent implements OnInit {
       mensagemAdicional: ['Promoção sujeita a alteração a qualquer momento'],
       freteVariacoes: [''],
       descricao: [''],
-      link: ['', Validators.required],
+      link_se: [''],
+      link_ofm: [''],
       cupom: [''],
       url: [''],
       id_categoria: ['', [Validators.required]],
@@ -130,7 +129,8 @@ export class CadastrarProdutoComponent implements OnInit {
         freteVariacoes: this.produtoFormGroup.get('freteVariacoes')?.value,
         mensagemAdicional: this.produtoFormGroup.get('mensagemAdicional')?.value,
         descricao: this.produtoFormGroup.get('descricao')?.value,
-        link: this.produtoFormGroup.get('link')?.value,
+        link_se: this.produtoFormGroup.get('link_se')?.value,
+        link_ofm: this.produtoFormGroup.get('link_ofm')?.value,
         cupom: this.produtoFormGroup.get('cupom')?.value,
         urlImagem: this.scraperProduto.urlImagem,
         id_categoria: this.produtoFormGroup.get('id_categoria')?.value,
@@ -139,10 +139,11 @@ export class CadastrarProdutoComponent implements OnInit {
         copy: this.produtoFormGroup.get('copy')?.value
       }
 
+      console.log(produto)
+
       this.produtoSevice.salvarProduto(produto).subscribe(response => {
 
         this.id = response.id;
-
 
         if (this.scraperProduto.urlImagem === '' && this.imagemFile !== undefined) {
 
@@ -154,7 +155,8 @@ export class CadastrarProdutoComponent implements OnInit {
         }
 
         this.scraperProduto.urlImagem = '';
-        this.scraperProduto.urlProduto = '';
+        this.scraperProduto.urlProdutoSe = '';
+        this.scraperProduto.urlProdutoOfm = '';
         this.imagemViewSocial = '';
         this.imagemFile = {} as File;
         this.imagemFileSocial = {} as File;
@@ -183,7 +185,6 @@ export class CadastrarProdutoComponent implements OnInit {
     }
 
     this.produtoFormGroup.markAllAsTouched();
-    console.log(this.produtoFormGroup.controls['titulo'].invalid)
     this.messageService.add({ severity: 'warn', summary: 'Warn', detail: 'Informe os Campos' });
     return;
   }
@@ -227,7 +228,8 @@ export class CadastrarProdutoComponent implements OnInit {
       freteVariacoes: this.produtoFormGroup.get('freteVariacoes')?.value,
       mensagemAdicional: this.produtoFormGroup.get('mensagemAdicional')?.value,
       descricao: this.produtoFormGroup.get('descricao')?.value,
-      link: this.produtoFormGroup.get('link')?.value,
+      link_se: this.produtoFormGroup.get('link_se')?.value,
+      link_ofm: this.produtoFormGroup.get('link_ofm')?.value,
       cupom: this.produtoFormGroup.get('cupom')?.value,
       urlImagem: "",
       id_categoria: this.produtoFormGroup.get('id_categoria')?.value,
@@ -252,7 +254,6 @@ export class CadastrarProdutoComponent implements OnInit {
   listarLojas() {
     this.lojaService.listarLojas().subscribe(response => {
       this.lojas = response
-
     });
   }
 
@@ -265,6 +266,7 @@ export class CadastrarProdutoComponent implements OnInit {
   pegarProduto() {
     this.produtoSevice.pegarProduto(this.idEditar).subscribe(response => {
       this.produto = response;
+      console.log(this.produto)
       this.id = response.id
 
       this.produtoFormGroup = this.formBuilder.group({
@@ -274,7 +276,8 @@ export class CadastrarProdutoComponent implements OnInit {
         freteVariacoes: [this.produto.freteVariacoes],
         mensagemAdicional: [this.produto.mensagemAdicional],
         descricao: [this.produto.descricao],
-        link: [this.produto.link],
+        link_se: [this.produto.link_se],
+        link_ofm: [this.produto.link_ofm],
         cupom: [this.produto.cupom],
         id_categoria: [this.produto.categoriaDto.categoria_id],
         loja: [this.produto.lojaResponseDto.id],
@@ -334,7 +337,8 @@ export class CadastrarProdutoComponent implements OnInit {
         mensagemAdicional: ['Promoção sujeita a alteração a qualquer momento'],
         freteVariacoes: [''],
         descricao: [''],
-        link: [this.scraperProduto.urlProduto, Validators.required],
+        link_se: [this.scraperProduto.urlProdutoSe ],
+        link_ofm: [this.scraperProduto.urlProdutoOfm ],
         cupom: [''],
         id_categoria: ['', [Validators.required]],
         loja: [loja, [Validators.required]],

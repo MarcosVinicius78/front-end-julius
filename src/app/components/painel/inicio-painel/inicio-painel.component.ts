@@ -10,16 +10,19 @@ import { Router } from '@angular/router';
 export class InicioPainelComponent implements OnInit {
 
   constructor(
-    private route: Router
+    private route: Router,
+    @Inject(PLATFORM_ID) private platformId: Object
   ) { }
 
   ngOnInit() {
   }
 
   sair() {
-    window.sessionStorage.removeItem("userdetails");
-    window.sessionStorage.removeItem("Authorization");
-    window.sessionStorage.removeItem("XSRF-TOKEN");
+    if (isPlatformBrowser(this.platformId)) {
+      window.sessionStorage.removeItem("userdetails");
+      window.sessionStorage.removeItem("Authorization");
+      window.sessionStorage.removeItem("XSRF-TOKEN");
+    }
     this.route.navigate(["login"])
   }
 

@@ -1,20 +1,21 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject, OnInit, PLATFORM_ID } from '@angular/core';
 import { Meta } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
-import { ProdutoLoja } from 'src/app/dto/ProdutoLoja';
 import { ProdutoService } from 'src/app/service/painel/produto.service';
 import { ReportService } from 'src/app/service/painel/report.service';
 
 // import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
 // import { MatSnackBar } from '@angular/material/snack-bar';
 import { Clipboard } from '@angular/cdk/clipboard';
-import { environment } from 'src/environments/environment';
-import { Produtos } from 'src/app/models/produtos';
+import { isPlatformBrowser } from '@angular/common';
 import * as dateFns from 'date-fns';
 import { Message } from 'primeng/api';
 import { LinksBanner } from 'src/app/dto/LinksBanner';
-import { LinkBannerService } from 'src/app/service/painel/link-banner.service';
+import { Produtos } from 'src/app/models/produtos';
 import { MetaService } from 'src/app/service/meta.service';
+import { LinkBannerService } from 'src/app/service/painel/link-banner.service';
+import { environment } from 'src/environments/environment';
+import { ProdutoLoja } from 'src/app/dto/ProdutoLoja';
 
 @Component({
   selector: 'app-produto',
@@ -25,6 +26,9 @@ export class ProdutoComponent implements OnInit {
 
   modal = false;
 
+  page = 0;
+  size = 12;
+
   links = new LinksBanner();
 
   apiUrl: string = environment.apiUrl;
@@ -34,11 +38,9 @@ export class ProdutoComponent implements OnInit {
   mostrarDialogCompartilhar = false;
   redesSociais = ['Facebook', 'Twitter', 'Instagram', 'WhatsApp'];
 
-  convite!: boolean;
-
   produtos: Produtos[] = [];
 
-  produto = new ProdutoLoja;
+  produto = new ProdutoLoja();
 
   msg!: Message[];
 
@@ -52,13 +54,10 @@ export class ProdutoComponent implements OnInit {
     private clipboard: Clipboard,
     private linkBannerService: LinkBannerService,
     // private snackBar: MatSnackBar
+    @Inject(PLATFORM_ID) private platformId: Object
   ) { }
 
   ngOnInit(): void {
-
-    if (window.localStorage.getItem("convite") == 'true' || window.localStorage.getItem("convite") == undefined) {
-      this.convite = true;
-    }
 
     this.id = this.route.snapshot.paramMap.get('id')!;
     this.pegarProduto();
@@ -71,8 +70,10 @@ export class ProdutoComponent implements OnInit {
     this.produtoService.pegarProduto(this.id).subscribe(response => {
 
       this.produto = response;
-      this.produtosPorCategoria()
-      this.setProductMetaTags(this.produto.titulo, this.produto.descricao, window.location.href);
+      this.listarProdutos()
+      if (isPlatformBrowser(this.platformId)) {
+        this.setProductMetaTags(this.produto.titulo, this.produto.descricao, window.location.href);
+      }
 
     });
   }
@@ -85,25 +86,27 @@ export class ProdutoComponent implements OnInit {
       productImageUrl
     );
     // Limpa todas as tags meta existentes
-    // this.meta.removeTag('name="description"');
-    // this.meta.removeTag('property="og:title"');
-    // this.meta.removeTag('property="og:description"');
-    // this.meta.removeTag('property="og:image"');
+    this.meta.removeTag('name="description"');
+    this.meta.removeTag('property="og:title"');
+    this.meta.removeTag('property="og:description"');
+    this.meta.removeTag('property="og:image"');
 
     // Adiciona as novas tags meta
-    // this.meta.addTag({ property: 'og:image:height', content: "300" });
-    // this.meta.addTag({ property: 'og:image:width', content: "300" });
-    // this.meta.addTag({ property: 'og:site_name', content: "Sergipe Ofertas" });
-    // this.meta.addTag({ property: 'og:locale', content: "pt_BR" });
-    // this.meta.addTag({ property: 'og:url', content: window.location.href });
-    // this.meta.addTag({ property: 'og:type', content: "website" });
-    // this.meta.addTag({ property: 'og:image:type', content: "image/jpeg" });
+    this.meta.addTag({ property: 'og:image:height', content: "300" });
+    this.meta.addTag({ property: 'og:image:width', content: "300" });
+    this.meta.addTag({ property: 'og:site_name', content: "Sergipe Ofertas" });
+    this.meta.addTag({ property: 'og:locale', content: "pt_BR" });
+    if (isPlatformBrowser(this.platformId)) {
+      this.meta.addTag({ property: 'og:url', content: window.location.href });
+    }
+    this.meta.addTag({ property: 'og:type', content: "website" });
+    this.meta.addTag({ property: 'og:image:type', content: "image/jpeg" });
 
 
-    // this.meta.addTag({ name: 'description', content: "as melhores promoções" });
-    // this.meta.addTag({ property: 'og:title', content: productName });
-    // this.meta.addTag({ property: 'og:description', content: productDescription });
-    // this.meta.addTag({ property: 'og:image', content: `${this.apiUrl}/produto/download/${this.produto.imagem}` });
+    this.meta.addTag({ name: 'description', content: "as melhores promoções" });
+    this.meta.addTag({ property: 'og:title', content: productName });
+    this.meta.addTag({ property: 'og:description', content: productDescription });
+    this.meta.addTag({ property: 'og:image', content: `${this.apiUrl}/produto/download/${this.produto.imagem}` });
   }
 
   fecharModal() {
@@ -147,13 +150,13 @@ export class ProdutoComponent implements OnInit {
       estruturaCompartilhamento += `\n\n \u{1F4E6} ${this.produto.freteVariacoes}`;
     }
 
-    estruturaCompartilhamento += `\n\n *\u{1F6D2} Compre Aqui:\u{1F447}* ${window.location.href}`;
+    if (isPlatformBrowser(this.platformId)) {
+      estruturaCompartilhamento += `\n\n *\u{1F6D2} Compre Aqui:\u{1F447}* ${window.location.href}`;
+    }
 
     if (this.produto.mensagemAdicional) {
       estruturaCompartilhamento += `\n\n${this.produto.mensagemAdicional}`;
     }
-
-    console.log(estruturaCompartilhamento)
 
     return estruturaCompartilhamento;
   }
@@ -172,8 +175,8 @@ export class ProdutoComponent implements OnInit {
     }, 3000);
   }
 
-  produtosPorCategoria() {
-    this.produtoService.obeterProdutoPorCategoria().subscribe(response => {
+  listarProdutos() {
+    this.produtoService.listarProduto(this.page ,this.size).subscribe(response => {
       this.produtos = response.content
     });
   }

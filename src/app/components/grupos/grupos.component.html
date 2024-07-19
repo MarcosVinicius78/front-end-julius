@@ -15,7 +15,7 @@
     </div>
     <div class="links">
       <div>
-        <a class="flex justify-content-center align-items-center mt-3" *ngIf="links.links.length !== 0" href="{{ links.links[0].whatsapp }}">
+        <a class="flex justify-content-center align-items-center mt-3" *ngIf="links.links !== undefined" href="{{ links.links.whatsapp }}">
           <svg class="mr-2" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="25" height="25" viewBox="0 0 48 48">
             <path fill="#fff"
               d="M4.868,43.303l2.694-9.835C5.9,30.59,5.026,27.324,5.027,23.979C5.032,13.514,13.548,5,24.014,5c5.079,0.002,9.845,1.979,13.43,5.566c3.584,3.588,5.558,8.356,5.556,13.428c-0.004,10.465-8.522,18.98-18.986,18.98c-0.001,0,0,0,0,0h-0.008c-3.177-0.001-6.3-0.798-9.073-2.311L4.868,43.303z">
@@ -35,7 +35,7 @@
           </svg>
           WhatsApp
         </a>
-        <a class="mobile-des flex justify-content-center align-items-center mt-3" *ngIf="links.links.length !== 0" href="{{ links.links[0].telegram }}">
+        <a class="mobile-des flex justify-content-center align-items-center mt-3" *ngIf="links.links !== undefined" href="{{ links.links.telegram }}">
           <svg class="mr-2" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="25" height="25" viewBox="0 0 48 48">
             <path fill="#29b6f6" d="M24 4A20 20 0 1 0 24 44A20 20 0 1 0 24 4Z"></path>
             <path fill="#fff"
@@ -61,7 +61,7 @@
 
     <div class="links-mob mt-3">
       <div>
-        <a class="flex justify-content-center align-items-center" *ngIf="links.links.length !== 0" href="{{ links.links[0].telegram }}">
+        <a class="flex justify-content-center align-items-center" *ngIf="links.links !== undefined" href="{{ links.links.telegram }}">
           <svg class="mr-2" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="25" height="25" viewBox="0 0 48 48">
             <path fill="#29b6f6" d="M24 4A20 20 0 1 0 24 44A20 20 0 1 0 24 4Z"></path>
             <path fill="#fff"
