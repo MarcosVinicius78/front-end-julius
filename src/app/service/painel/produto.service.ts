@@ -57,7 +57,7 @@ export class ProdutoService {
   }
 
   pesquisarProdutos(termoPesquisa: string, page: number, size: number): Observable<any> {
-    return this.http.get<any>(`${this.apiUrl}/produto/pesquisar?termoPesquisa=${termoPesquisa}&page=${page}&size=${size}`);
+    return this.http.get<any>(`${this.apiUrl}/produto/pesquisar?termoPesquisa=${termoPesquisa}&page=${page}&size=${size}&site=${environment.site}`);
   }
 
   rasparProduto(link: string) {
