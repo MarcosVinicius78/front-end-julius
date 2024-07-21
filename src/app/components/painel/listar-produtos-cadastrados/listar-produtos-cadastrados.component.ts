@@ -150,22 +150,37 @@ export class ListarProdutosCadastradosComponent implements OnInit {
     } else {
       estruturaCompartilhamento += `\u{1F4CC} ${produto.titulo}\n\n`;
     }
-    estruturaCompartilhamento += `*\u{1F525} ${produto.preco} (À Vista)*\n`;
 
-    if (produto.parcelado) {
+    if (produto.freteVariacoes.includes("CUPOM")) {
+      estruturaCompartilhamento += `*\u{1F525} ${produto.preco} (Frete Grátis)*\n`;
+    }else if(produto.parcelado.toLocaleLowerCase().includes("sem juros")){
+      estruturaCompartilhamento += `*\u{1F525} ${produto.preco} (Parcelado)*\n`;
+    }else if(produto.freteVariacoes.toLocaleLowerCase().includes("prime")){
+      estruturaCompartilhamento += `*\u{1F525} ${produto.preco} (Frete Grátis Prime)*\n`;
+    }else if(produto.freteVariacoes.toLocaleLowerCase().includes("frete grátis") && produto.freteVariacoes.length < 12){
+      estruturaCompartilhamento += `*\u{1F525} ${produto.preco} (Frete Grátis)*\n`;
+    }else if(produto.freteVariacoes.toLocaleLowerCase().includes("econômico") && produto.freteVariacoes.length <= 15){
+      estruturaCompartilhamento += `*\u{1F525} ${produto.preco} (Frete Econômico)*\n`;
+    }else{
+      estruturaCompartilhamento += `*\u{1F525} ${produto.preco} (À Vista)*\n`;
+    }
+
+    if (produto.parcelado.toLocaleLowerCase().includes("sem juros")) {
+      estruturaCompartilhamento += `_${produto.parcelado}_\n`;
+    }else if (produto.parcelado) {
       estruturaCompartilhamento += `* ${produto.parcelado}\n`;
     }
-    // \u{1F4B3}
+
     if (produto.cupom) {
-      estruturaCompartilhamento += `\n\u{1F39F} Use o Cupom: *${produto.cupom}*`;
+      estruturaCompartilhamento += `\n\u{1F39F} Use o Cupom: *${produto.cupom}*\n`;
     }
 
-    if (produto.freteVariacoes) {
-      if (produto.cupom) {
-        estruturaCompartilhamento += `\n\u{1F4E6} ${produto.freteVariacoes}\n`;
-      } else {
-        estruturaCompartilhamento += `\n\u{1F4E6} ${produto.freteVariacoes}\n`;
-      }
+    if (produto.freteVariacoes.includes("CUPOM")) {
+      estruturaCompartilhamento += `\n* ${produto.freteVariacoes}\n`;
+    }else if(produto.freteVariacoes.includes("Algumas")){
+      estruturaCompartilhamento += `\u{1F4E6} ${produto.freteVariacoes}\n`;
+    }else if(produto.freteVariacoes.includes("Loja")){
+      estruturaCompartilhamento += `\u{1F4E6} ${produto.freteVariacoes}\n`;
     }
 
     if (isPlatformBrowser(this.platformId)) {

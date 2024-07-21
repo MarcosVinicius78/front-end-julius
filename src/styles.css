@@ -4,15 +4,21 @@
 @import "primeicons/primeicons.css";
 @import "../node_modules/primeflex/primeflex.css";
 
-
 @import "../node_modules/quill/dist/quill.core.css";
 @import "../node_modules/quill/dist/quill.snow.css";
 
-body{
+body {
   padding: 0;
   margin: 0;
   height: 0;
   background-color: rgb(238, 238, 238);
+}
+
+@font-face {
+  font-family: "MinhaFonte";
+  src: url("./assets/font/ace-sans-black.otf");
+  font-weight: normal;
+  font-style: normal;
 }
 
 /* Estilo da barra de rolagem */
@@ -46,22 +52,28 @@ body{
   background-color: #777; /* Cor do polegar quando ativo */
 }
 
-a{
+a {
   /* font-size: 14px; */
   text-transform: uppercase;
 }
 
-p{
+p {
   margin: 0;
   padding: 0;
 }
 
-h1{
+h1 {
   margin: 0;
   /* font-size: 20px; */
   /* font-family: 'Poppins', sans-serif; */
-  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
 }
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
