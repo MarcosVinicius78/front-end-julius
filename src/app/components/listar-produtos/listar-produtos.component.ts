@@ -140,6 +140,7 @@ export class ListarProdutosComponent implements OnInit {
     this.produtoService.pesquisarProdutos(this.termoPesquisa,this.pagePesquisa, this.size).subscribe(
       data => {
         this.produtos = this.produtos.concat(data.content);
+        console.log(this.produtos)
         this.pagePesquisa++
         this.loading = false;
         this.termoPesquisaAnterior = this.termoPesquisa;

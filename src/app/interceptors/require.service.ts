@@ -64,6 +64,7 @@ export class RequireService implements HttpInterceptor {
           // this.router.navigate(['dashboard']);
         }
       }, error => {
+        console.log(401)
         if (error.status === 401) {
           if (typeof sessionStorage !== 'undefined') {
             if (isPlatformBrowser(this.platformId)) {
