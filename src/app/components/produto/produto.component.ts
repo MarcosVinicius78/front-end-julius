@@ -75,6 +75,8 @@ export class ProdutoComponent implements OnInit {
         this.setProductMetaTags(this.produto.titulo, this.produto.descricao, window.location.href);
       }
 
+    }, err => {
+      this.listarProdutos()
     });
   }
 

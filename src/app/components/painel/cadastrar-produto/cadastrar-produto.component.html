@@ -82,7 +82,7 @@
         <span>
           <select class="dropdown w-full text-primary-50 font-medium text-base" formControlName="id_categoria" name="id_categoria">
             <option value="">Selecione uma Categoria</option>
-            <option *ngFor="let item of categorias" value="{{item.categoria_id}}">{{ item.nome_categoria }}</option>
+            <option *ngFor="let item of categorias" value="{{item.categoria_id}}">{{ item.nomeCategoria }}</option>
           </select>
           <!-- <p-dropdown styleClass="dropdown w-full" [options]="categorias" formControlName="id_categoria" name="id_categoria" optionLabel="nome_categoria" [showClear]="true"
             placeholder="Escolha a Categoria"></p-dropdown> -->

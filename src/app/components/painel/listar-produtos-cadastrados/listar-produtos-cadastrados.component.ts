@@ -165,7 +165,7 @@ export class ListarProdutosCadastradosComponent implements OnInit {
       estruturaCompartilhamento += `*\u{1F525} ${produto.preco} (À Vista)*\n`;
     }
 
-    if (produto.parcelado.toLocaleLowerCase().includes("sem juros")) {
+    if (produto.parcelado && produto.parcelado.toLocaleLowerCase().includes("sem juros")) {
       estruturaCompartilhamento += `_${produto.parcelado}_\n`;
     }else if (produto.parcelado) {
       estruturaCompartilhamento += `* ${produto.parcelado}\n`;

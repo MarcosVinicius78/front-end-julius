@@ -1,12 +1,27 @@
-<div class="categoria">
-  <a href="produtos-categoria/{{produto.categoriaDto.categoria_id}}">{{ produto.categoriaDto.nome_categoria }}</a>
+<div  class="categoria">
+  <a *ngIf="produto" href="produtos-categoria/{{produto.categoriaDto.categoria_id}}">{{ produto.categoriaDto.nomeCategoria }}</a>
 </div>
 <section>
   <div class="container">
     <div class="flex">
       <div class="produto">
 
-        <div class="info">
+        <article *ngIf="produto == undefined" class="promocao-apagada">
+          <picture>
+            <source srcset="https://fonts.gstatic.com/s/e/notoemoji/latest/1f622/512.webp" type="image/webp">
+            <img src="https://fonts.gstatic.com/s/e/notoemoji/latest/1f622/512.gif" alt="😢" width="150" height="150">
+          </picture>
+          <div>
+            <p>A promoção encerrou :(</p>
+            <p>Fique tranquilo, há diversas ofertas no site esperando por você</p>
+            <ul>
+              <li>Basta efetuar outra busca</li>
+              <li>Ou retornar para a página principal <a href="">Página principal</a></li>
+            </ul>
+          </div>
+        </article>
+
+        <div *ngIf="produto" class="info">
           <div *ngIf="produto.imagem != undefined" class="imagem-produto">
             <div *ngIf="produto.promocaoEncerrada" class="promo-encerrada">
               Promoção Encerrada
@@ -50,7 +65,7 @@
 
         <hr class="linha-estilizada">
 
-        <div class="outras-info">
+        <div *ngIf="produto" class="outras-info">
           <button class="report" (click)="abrirModal()">Reportar</button>
           <button (click)="shares()" class="comp">
             <i class="pi pi-share-alt mr-2"></i>

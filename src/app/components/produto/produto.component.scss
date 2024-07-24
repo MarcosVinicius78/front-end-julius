@@ -502,7 +502,31 @@ button img {
   font-size: 23px;
 }
 
+.promocao-apagada{
+  height: 300px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.promocao-apagada p:first-child{
+  font-weight: 800;
+  text-align: center;
+  font-size: 20px;
+}
+
+.promocao-apagada p:nth-child(2){
+  font-weight: 500;
+  margin-top: 10px;
+}
+
+
 @media screen and (max-width: 600px) {
+  .promocao-apagada{
+    height: 400px;
+    width: auto;
+  }
   .produto {
     width: 100%;
     margin-top: 0;

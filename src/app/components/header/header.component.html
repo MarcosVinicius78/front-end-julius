@@ -12,7 +12,7 @@
       <a (click)="toggleCategoria()" class="dropbtn">CATEGORIAS</a>
       <div id="categ" class="dropdown-content">
         <a id="cat" *ngFor="let item of categorias" href="produtos-categoria/{{item.categoria_id}}">{{
-          item.nome_categoria }}</a>
+          item.nomeCategoria }}</a>
       </div>
     </div>
     <a routerLink="/sobre">QUEM SOMOS</a>

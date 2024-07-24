@@ -39,7 +39,7 @@ export class CadastrarCategoriaComponent implements OnInit {
     if (this.id === undefined && !this.categoriaFormGroup.invalid) {
       const categoria = new Categoria(this.categoriaFormGroup.get(['nome_categoria'])?.value)
 
-      this.categoriaService.salvarCategoria(categoria.nome_categoria).subscribe(response => {
+      this.categoriaService.salvarCategoria(categoria.nomeCategoria).subscribe(response => {
 
         this.categorias.push(response);
         this.categoriaFormGroup.reset()
@@ -82,7 +82,7 @@ export class CadastrarCategoriaComponent implements OnInit {
     this.categoriaService.pegarCategoria(id).subscribe(response => {
 
       this.categoriaFormGroup = this.formBuilder.group({
-        nome_categoria: [response.nome_categoria],
+        nome_categoria: [response.nomeCategoria],
       })
     })
   }
@@ -90,7 +90,7 @@ export class CadastrarCategoriaComponent implements OnInit {
   atualizarCategoria() {
     const categoria: any = {
       categoria_id: this.id,
-      nome_categoria: this.categoriaFormGroup.get('nome_categoria')?.value,
+      nomeCategoria: this.categoriaFormGroup.get('nome_categoria')?.value,
       }
 
       this.categoriaService.atualizarCategoria(categoria).subscribe(response => {
