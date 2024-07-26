@@ -171,9 +171,9 @@ export class ListarProdutosCadastradosComponent implements OnInit {
       estruturaCompartilhamento += `* ${produto.parcelado}\n`;
     }
 
-    if (produto.cupom && produto.cupom.length < 48) {
+    if (produto.cupom && produto.cupom.length < 20) {
       estruturaCompartilhamento += `\n\u{1F39F} Use o Cupom: *${produto.cupom}*\n`;
-    }else if (produto.cupom && produto.cupom.length > 48){
+    }else if (produto.cupom){
       estruturaCompartilhamento += `\n_\u{1F5E3} ${produto.cupom}_\n`;
     }
 
