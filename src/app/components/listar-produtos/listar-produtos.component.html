@@ -65,7 +65,7 @@
               </div>
             </div>
             <div class="frete">
-              <i *ngIf="item.freteVariacoes && item.freteVariacoes.length > 48" class="pi pi-truck"></i>
+              <i *ngIf="item.freteVariacoes && item.freteVariacoes.length < 48" class="pi pi-truck"></i>
               <p *ngIf="item.freteVariacoes && item.freteVariacoes.length < 48">{{ item.freteVariacoes }}</p>
             </div>
             <a routerLink="/oferta/{{ item.id }}">
