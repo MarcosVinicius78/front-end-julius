@@ -6,17 +6,20 @@
   <i class="menu-icon pi pi-bars" (click)="openMenu()"></i>
   <nav class="desktop_menu" [class.mobile_menu]="menuValue">
     <i (click)="openMenu()" class="fechar-menu pi pi-times p-2"></i>
-    <a href="">RADAR DE OFERTAS</a>
+    <a href="">Buscar Promoção</a>
+    <a routerLink="/sobre">Que Somos</a>
 
     <div>
-      <a (click)="toggleCategoria()" class="dropbtn">CATEGORIAS</a>
+      <a (click)="toggleCategoria()" class="dropbtn">Categorias</a>
       <div id="categ" class="dropdown-content">
         <a id="cat" *ngFor="let item of categorias" href="produtos-categoria/{{item.categoria_id}}">{{
           item.nomeCategoria }}</a>
+        </div>
       </div>
-    </div>
-    <a routerLink="/sobre">QUEM SOMOS</a>
-    <a routerLink="blog">BLOG</a>
-    <a href="/grupos">Grupos</a>
+      <a href="/grupos">Grupos</a>
+      <a routerLink="blog">Blog</a>
+      <a class="itens-header" href="">Política de Privacidade</a>
+      <a class="itens-header" href="">Termos de Uso</a>
+      <a class="itens-header" href="">Fale Conosoco</a>
   </nav>
 </header>

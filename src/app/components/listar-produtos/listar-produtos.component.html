@@ -1,6 +1,8 @@
 <div class="section">
 
+
   <section>
+
     <div *ngIf="links.banners.length != 0" class="banner1">
       <div class="banner">
 
@@ -29,7 +31,7 @@
         <!-- <i class="pi pi-search" (click)="pesquisar()" role="button"></i> -->
         <input type="search" [(ngModel)]="termoPesquisa" (keyup.enter)="pesquisar()" placeholder="Procurar Promoções">
       </div>
-      <div class="radar">
+      <div class="radar mb-2">
         <p>
           Radar de Ofertas
         </p>
@@ -58,8 +60,8 @@
             </a>
             <div (click)="copiarParaAreaTransferencia(item.cupom)" class="cupom">
               <div>
-                <p *ngIf="item.cupom">{{ item.cupom }}</p>
-                <i *ngIf="item.cupom" class="pi pi-copy"></i>
+                <p *ngIf="item.cupom && item.cupom.length < 17">{{ item.cupom }}</p>
+                <i *ngIf="item.cupom && item.cupom.length < 17" class="pi pi-copy"></i>
               </div>
             </div>
             <div class="frete">
@@ -70,7 +72,7 @@
               <p id="preco">{{ item.preco }}</p>
             </a>
             <div class="ir-loja">
-              <a href="{{ item.link }}" target="_blank">Pegar Promoção</a>
+              <a href="{{ item.link }}" (click)="abrirModal($event, item.cupom, item.imagem, item.titulo, item.link, item.freteVariacoes, item.id)" target="_blank">Pegar Promoção</a>
             </div>
           </div>
         </div>
@@ -159,4 +161,28 @@
     </div>
   </div>
 
+  <aside class="modal-informacao" *ngIf="modal">
+    <div class="conteudo-modal">
+      <div class="flex justify-content-end">
+        <i class="pi pi-times cursor-pointer" (click)="fecharModal()"></i>
+      </div>
+      <div routerLink="/oferta/{{ produtoModalDto.id }}" class="header-modal flex align-items-center justify-content-around">
+        <img [src]="apiUrl+'/produto/download/'+produtoModalDto.imagem" alt="imagem-produto">
+        <p id="titulo-modal">{{ produtoModalDto.titulo }}</p>
+      </div>
+
+      <div class="info-modal">
+        <p>Instruções Adicionais</p>
+        <P>{{ produtoModalDto.cupomInformacoes == ''? produtoModalDto.frete : produtoModalDto.cupomInformacoes }}</P>
+      </div>
+
+      <a href="{{produtoModalDto.link}}" target="_blank">Pegar Promoção</a>
+    </div>
+
+    <div (click)="fecharModal()" class="cursor-pointer backgroud-modal">
+
+    </div>
+  </aside>
+
 </div>
+

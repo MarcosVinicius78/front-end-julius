@@ -16,6 +16,7 @@ import { MetaService } from 'src/app/service/meta.service';
 import { LinkBannerService } from 'src/app/service/painel/link-banner.service';
 import { environment } from 'src/environments/environment';
 import { ProdutoLoja } from 'src/app/dto/ProdutoLoja';
+import { ProdutoModalDto } from 'src/app/dto/produtoModalDto';
 
 @Component({
   selector: 'app-produto',
@@ -43,6 +44,9 @@ export class ProdutoComponent implements OnInit {
   produto = new ProdutoLoja();
 
   msg!: Message[];
+
+  modalInfo: boolean = false;
+  produtoModalDto = new ProdutoModalDto();
 
   constructor(
     private metaService: MetaService,
@@ -113,6 +117,7 @@ export class ProdutoComponent implements OnInit {
 
   fecharModal() {
     this.modal = false;
+    this.modalInfo = false;
   }
 
   abrirModal() {
@@ -233,5 +238,20 @@ export class ProdutoComponent implements OnInit {
     this.linkBannerService.listarLinksEBanners().subscribe(response => {
       this.links = response;
     });
+  }
+
+  abrirModalInfo(event: Event, cupom: string, img: string, titulo: string, link: string, frete: string, id: number){
+    console.log(frete.length)
+
+    if (cupom.length > 18 || frete.length > 48) {
+      this.produtoModalDto.id = id;
+      this.produtoModalDto.titulo = titulo;
+      this.produtoModalDto.imagem = img;
+      this.produtoModalDto.cupomInformacoes = cupom;
+      this.produtoModalDto.link = link;
+      this.produtoModalDto.frete = frete
+      event.preventDefault();
+      this.modalInfo = true;
+    }
   }
 }

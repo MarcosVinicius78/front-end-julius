@@ -41,6 +41,7 @@ nav{
 nav a{
   text-decoration: none;
   color: white;
+
 }
 
 /* Estilo do botão do dropdown */
@@ -53,16 +54,17 @@ nav a{
 
 #cat{
   color: black;
+  text-transform: initial;
+  font-size: 16px;
 }
 
 /* Estilo do conteúdo do dropdown */
 .dropdown-content {
-  overflow: hidden;
+  overflow: auto;
   display: none;
-  border-radius: 5px;
-  background-color: white; /* Cor de fundo do conteúdo do dropdown */
-  box-shadow: 0 8px 16px rgba(0,0,0,0.2); /* Sombra */
-  /* z-index: 1; */
+  background-color: white;
+  box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+  max-height: 50%;
 }
 
 /* Estilo dos links dentro do dropdown */
@@ -83,6 +85,10 @@ nav a{
 
 nav a{
   font-size: larger;
+}
+
+.itens-header{
+  display: none;
 }
 
 .show {
@@ -148,6 +154,8 @@ header nav li:nth-child(4) a{
     color: black;
     padding: 12px 10px 12px 32px;
     text-align: right;
+    font-size: 17px;
+    text-transform: initial;
   }
 
   .dropdown-content a{
@@ -158,10 +166,13 @@ header nav li:nth-child(4) a{
 
   .dropdown-content{
     overflow-x: hidden;
-    padding: 0;
+    overflow-y: auto;
+    padding: 0 10px;
     width: 100%;
     white-space: nowrap;
     text-overflow: ellipsis;
+    box-shadow: inset 0px 0px 5px 3px rgba(0, 0, 0, 0.2);
+    max-height: 100%;
   }
 
   .fechar-menu{

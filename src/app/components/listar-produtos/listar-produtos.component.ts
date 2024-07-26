@@ -9,6 +9,7 @@ import { environment } from 'src/environments/environment';
 import { Clipboard } from '@angular/cdk/clipboard';
 import { filter } from 'rxjs/operators';
 import { isPlatformBrowser } from '@angular/common';
+import { ProdutoModalDto } from 'src/app/dto/produtoModalDto';
 
 @Component({
   selector: 'app-listar-produtos',
@@ -36,6 +37,9 @@ export class ListarProdutosComponent implements OnInit {
   pagePesquisa = 0;
   size = 12;
   slideIndex = 1;
+
+  modal: boolean = false;
+  produtoModalDto = new ProdutoModalDto();
 
   responsiveOptions: any[] = [
     {
@@ -218,5 +222,24 @@ export class ListarProdutosComponent implements OnInit {
 
   copiarParaAreaTransferencia(cupom: string) {
     this.clipboard.copy(cupom);
+  }
+
+  abrirModal(event: Event, cupom: string, img: string, titulo: string, link: string, frete: string, id: number){
+    console.log(frete.length)
+
+    if (cupom.length > 18 || frete.length > 48) {
+      this.produtoModalDto.id = id;
+      this.produtoModalDto.titulo = titulo;
+      this.produtoModalDto.imagem = img;
+      this.produtoModalDto.cupomInformacoes = cupom;
+      this.produtoModalDto.link = link;
+      this.produtoModalDto.frete = frete
+      event.preventDefault();
+      this.modal = true;
+    }
+  }
+
+  fecharModal(){
+    this.modal = false
   }
 }
