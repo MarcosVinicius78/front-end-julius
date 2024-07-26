@@ -171,8 +171,10 @@ export class ListarProdutosCadastradosComponent implements OnInit {
       estruturaCompartilhamento += `* ${produto.parcelado}\n`;
     }
 
-    if (produto.cupom) {
+    if (produto.cupom && produto.cupom.length < 48) {
       estruturaCompartilhamento += `\n\u{1F39F} Use o Cupom: *${produto.cupom}*\n`;
+    }else if (produto.cupom && produto.cupom.length > 48){
+      estruturaCompartilhamento += `\n_\u{1F5E3} ${produto.cupom}_\n`;
     }
 
     if (produto.freteVariacoes.includes("CUPOM")) {
@@ -187,15 +189,15 @@ export class ListarProdutosCadastradosComponent implements OnInit {
 
       if (produto.loja.nome_loja.toLocaleLowerCase().includes("amazon") || produto.loja.nome_loja.toLocaleLowerCase().includes("mercado")) {
         if (this.route.url === "/painel") {
-          estruturaCompartilhamento += `\n *\u{1F6D2} Compre Aqui:\u{1F447}* ${window.location.href.replace("painel", '')}oferta/${produto.id}`;
+          estruturaCompartilhamento += `\n*\u{1F6D2} Compre Aqui:\u{1F447}* ${window.location.href.replace("painel", '')}oferta/${produto.id}`;
         } else {
-          estruturaCompartilhamento += `\n *\u{1F6D2} Compre Aqui:\u{1F447}* ${window.location.href.replace("painel/listar-produtos", '')}oferta/${produto.id}`;
+          estruturaCompartilhamento += `\n*\u{1F6D2} Compre Aqui:\u{1F447}* ${window.location.href.replace("painel/listar-produtos", '')}oferta/${produto.id}`;
         }
       } else {
         if (this.route.url === "/painel") {
-          estruturaCompartilhamento += `\n *\u{1F6D2} Compre Aqui:\u{1F447}* ${window.location.href.replace("painel", '')}oferta/${produto.id}?r=1`;
+          estruturaCompartilhamento += `\n*\u{1F6D2} Compre Aqui:\u{1F447}* ${window.location.href.replace("painel", '')}oferta/${produto.id}?r=1`;
         } else {
-          estruturaCompartilhamento += `\n *\u{1F6D2} Compre Aqui:\u{1F447}* ${window.location.href.replace("painel/listar-produtos", '')}oferta/${produto.id}?r=1`;
+          estruturaCompartilhamento += `\n*\u{1F6D2} Compre Aqui:\u{1F447}* ${window.location.href.replace("painel/listar-produtos", '')}oferta/${produto.id}?r=1`;
         }
       }
     }
