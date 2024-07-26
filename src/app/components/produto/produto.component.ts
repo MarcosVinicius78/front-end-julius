@@ -243,7 +243,7 @@ export class ProdutoComponent implements OnInit {
   abrirModalInfo(event: Event, cupom: string, img: string, titulo: string, link: string, frete: string, id: number){
     console.log(frete.length)
 
-    if (cupom.length > 18 || frete.length > 48) {
+    if (cupom && cupom.length > 18 || frete && frete.length > 48) {
       this.produtoModalDto.id = id;
       this.produtoModalDto.titulo = titulo;
       this.produtoModalDto.imagem = img;
