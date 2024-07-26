@@ -65,7 +65,7 @@
               </div>
             </div>
             <div class="frete">
-              <i *ngIf="item.freteVariacoes && item.freteVariacoes.length > 48"class="pi pi-truck"></i>
+              <i *ngIf="item.freteVariacoes && item.freteVariacoes.length > 48" class="pi pi-truck"></i>
               <p *ngIf="item.freteVariacoes && item.freteVariacoes.length < 48">{{ item.freteVariacoes }}</p>
             </div>
             <a routerLink="/oferta/{{ item.id }}">
@@ -173,7 +173,7 @@
 
       <div class="info-modal">
         <p>Instruções Adicionais</p>
-        <P>{{ produtoModalDto.cupomInformacoes == ''? produtoModalDto.frete : produtoModalDto.cupomInformacoes }}</P>
+        <P>{{ produtoModalDto.cupomInformacoes == null || produtoModalDto.cupomInformacoes == ''? produtoModalDto.frete : produtoModalDto.cupomInformacoes }}</P>
       </div>
 
       <a href="{{produtoModalDto.link}}" target="_blank">Pegar Promoção</a>
