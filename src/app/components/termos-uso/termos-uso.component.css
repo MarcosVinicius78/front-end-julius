@@ -1,0 +1,59 @@
+section{
+  height: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.card-pp{
+  border-radius: 5px;
+  height: 90%;
+  margin-bottom: 15px;
+  width: 70%;
+  background-color: white;
+  padding: 15px;
+}
+
+.card-pp div p{
+  /* height: 90%; */
+  /* margin-top: 10px; */
+  text-align: justify;
+  color: rgb(112, 114, 116);
+  font-size: 14px;
+}
+
+.card-pp h3{
+  font-size: 15px;
+}
+
+.card-pp h2{
+  font-size: 17px;
+}
+
+.pagina-inicial{
+  padding: 10px 0 10px 0;
+  width: 70%;
+  display: flex;
+  justify-content: left;
+}
+
+.pagina-inicial a{
+  text-transform: initial;
+  text-decoration: none;
+  color: rgb(82, 82, 82);
+}
+
+@media screen and (max-width: 720px){
+  .pagina-inicial a{
+
+  }
+
+  .card-pp {
+    width: 95%;
+  }
+
+  .pagina-inicial{
+    width: 95%;
+  }
+}

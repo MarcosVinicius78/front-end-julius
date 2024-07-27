@@ -18,6 +18,8 @@ import { ListaDePostsComponent } from './components/painel/lista-de-posts/lista-
 import { ConfiguracoesComponent } from './components/painel/configuracoes/configuracoes.component';
 import { RedirectGuardService } from './routeguard/redirect-guard.service';
 import { BlankComponent } from './components/blank/blank.component';
+import { PoliticaPrivacidadeComponent } from './components/politica-privacidade/politica-privacidade.component';
+import { TermosUsoComponent } from './components/termos-uso/termos-uso.component';
 
 const routes: Routes = [
   {
@@ -42,6 +44,8 @@ const routes: Routes = [
   { path: 'produtos-categoria/:id', component: ListarProdutosComponent, data: { hideHeader: true, hideFooter: true } },
   { path: 'grupos', component: GruposComponent, data: { hideHeader: true, hideFooter: true } },
   { path: 'blog', component: BlogComponent, data: { hideHeader: true, hideFooter: true } },
+  { path: 'politica-privacidade', component: PoliticaPrivacidadeComponent, data: { hideHeader: true, hideFooter: true } },
+  { path: 'termos-uso', component: TermosUsoComponent, data: { hideHeader: true, hideFooter: true } },
   { path: 'blog/:id', component: BlogComponent, data: { hideHeader: true, hideFooter: true } },
   { path: 'blank', component: BlankComponent },
   // { path: '', redirectTo: '/inicio', pathMatch: 'full'},
