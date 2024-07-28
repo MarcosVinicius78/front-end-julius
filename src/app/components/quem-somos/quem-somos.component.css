@@ -26,6 +26,7 @@ section {
 }
 
 .circulo p{
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
   width: 90%;
   font-size: 17px;
   color: rgb(0, 0, 0);
@@ -42,10 +43,12 @@ h2{
 @media screen and (max-width: 720px){
   section{
     flex-direction: column;
-    height: auto;
+    height: calc(100dvh - 85px);
+    justify-content: space-between;
   }
 
   h2{
+    margin: 10px 0 0 0;
     font-size: 23px;
     width: auto;
   }
@@ -60,7 +63,7 @@ h2{
   }
 
   .circulo p{
-    font-size: 17px;
+    font-size: 18px;
   }
 
   section div:nth-child(1){
@@ -68,6 +71,7 @@ h2{
   }
 
   section div:nth-child(3){
+    height: auto;
     background-color: rgb(224, 224, 224);
   }
 

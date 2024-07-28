@@ -45,10 +45,6 @@ section{
 }
 
 @media screen and (max-width: 720px){
-  .pagina-inicial a{
-
-  }
-
   .card-pp {
     width: 95%;
   }
