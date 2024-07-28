@@ -1,0 +1,74 @@
+
+*{
+  font-family: "SergipeOfertas";
+}
+
+section {
+  height: calc(100vh - 135.5px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  justify-content: space-around;
+}
+
+.circulo{
+  width: 400px;
+  height: 400px;
+  border-radius: 50%;
+  background-color: rgb(224, 224, 224);
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+
+.circulo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.circulo p{
+  width: 90%;
+  font-size: 17px;
+  color: rgb(0, 0, 0);
+  text-align: center;
+}
+
+h2{
+  width: 400px;
+  text-transform: uppercase;
+  text-align: center;
+  font-size: 28px;
+}
+
+@media screen and (max-width: 720px){
+  section{
+    flex-direction: column;
+    height: auto;
+  }
+
+  h2{
+    font-size: 23px;
+    width: auto;
+  }
+
+  .circulo{
+    border-radius: 0;
+    width: 100%;
+    height: auto;
+    padding: 10px;
+    box-shadow: none;
+    background-color: transparent;
+  }
+
+  .circulo p{
+    font-size: 17px;
+  }
+
+  section div:nth-child(1){
+    background-color: rgb(224, 224, 224);
+  }
+
+  section div:nth-child(3){
+    background-color: rgb(224, 224, 224);
+  }
+
+}
