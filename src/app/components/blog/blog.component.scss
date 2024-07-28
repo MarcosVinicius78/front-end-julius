@@ -1,7 +1,8 @@
 :host ::ng-deep {
-  section{
+  section {
     width: 80%;
     margin: 0 auto;
+    height: auto;
   }
 
   .p-card {
@@ -21,14 +22,15 @@
 
   .p-card-content p {
     display: -webkit-box;
-    -webkit-line-clamp: 3; /* Altere o número para a quantidade desejada de linhas */
+    -webkit-line-clamp: 3;
+    /* Altere o número para a quantidade desejada de linhas */
     -webkit-box-orient: vertical;
     overflow: hidden;
     max-width: 600px;
     text-overflow: ellipsis;
   }
 
-  .p-card-header img{
+  .p-card-header img {
     height: 100%;
     width: 250px;
   }
@@ -48,7 +50,7 @@
     justify-content: space-around;
   }
 
-  .convite h2{
+  .convite h2 {
     font-size: 19px;
     margin: 0;
   }
@@ -58,7 +60,7 @@
     text-align: center;
   }
 
-  .flex-convite div:last-child{
+  .flex-convite div:last-child {
     margin-top: 10px;
   }
 
@@ -72,21 +74,24 @@
     text-decoration: none;
   }
 
-  .p-card-body{
+  .p-card-body {
     width: 80%;
   }
 
 
   .container {
     position: relative;
-    width: 100%; /* largura da imagem */
-    height: 280px; /* altura da imagem */
+    width: 100%;
+    /* largura da imagem */
+    height: 280px;
+    /* altura da imagem */
   }
 
   .background-image {
     width: 100%;
     height: 100%;
-    object-fit: cover; /* para garantir que a imagem cubra todo o espaço disponível */
+    object-fit: cover;
+    /* para garantir que a imagem cubra todo o espaço disponível */
   }
 
   .text-overlay {
@@ -95,19 +100,71 @@
     left: 0;
     width: 100%;
     height: 100%;
-    padding: 20px; /* Espaçamento interno para o texto */
-    color: white; /* Cor do texto */
-    background-color: rgba(0, 0, 0, 0.5); /* Cor de fundo com transparência */
-    /* display: flex; */
+    padding: 20px;
+    /* Espaçamento interno para o texto */
+    color: white;
+    /* Cor do texto */
+    background-color: rgba(0, 0, 0, 0.5);
+    /* Cor de fundo com transparência */
     flex-direction: column;
-    /* justify-content: center; */
-    /* align-items: center; */
-    /* text-align: center; */
   }
 
   .text-overlay h2 {
-    margin-bottom: 10px; /* Espaçamento inferior para o título */
+    margin-bottom: 10px;
+    /* Espaçamento inferior para o título */
   }
 
+  @media screen and (max-width: 720px) {
+    section {
+      width: 100%;
+      height: auto;
+    }
 
+    header h1 {
+      font-size: 20px;
+      padding: 10px;
+    }
+
+    .p-card {
+      flex-direction: column;
+      height: auto;
+    }
+
+    .card-mobile {
+      width: 100% !important;
+    }
+
+    .flex-convite {
+      display: none;
+    }
+
+    .p-card-header img {
+      width: 100%;
+      height: 160px;
+    }
+
+    .p-card-body {
+      width: 100%;
+      text-transform: initial;
+    }
+
+    .p-card-title {
+      font-size: 17px;
+      width: 100%;
+      overflow: hidden;
+      -webkit-line-clamp: 3;
+    }
+
+    .post{
+      width: 100% !important;
+    }
+
+    .conteudo-mobile{
+      padding: 10px;
+    }
+
+    .card-mobile{
+      padding: 10px;
+    }
+  }
 }
