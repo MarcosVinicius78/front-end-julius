@@ -308,6 +308,14 @@ export class CadastrarProdutoComponent implements OnInit {
       });
     }
 
+    if (loja == "" && url.includes("shopee")) {
+      this.lojas.forEach(element => {
+        if (element.nome_loja.toLowerCase().includes("shopee")) {
+          loja = element.id;
+        }
+      });
+    }
+
     if (loja == "" && url.includes("mercado")) {
       this.lojas.forEach(element => {
         if (element.nome_loja.toLowerCase().includes("mercado")) {

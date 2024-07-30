@@ -64,15 +64,14 @@ export class RequireService implements HttpInterceptor {
           // this.router.navigate(['dashboard']);
         }
       }, error => {
-        console.log(401)
+        console.log(error)
         if (error.status === 401) {
-          if (typeof sessionStorage !== 'undefined') {
+          if (error.error.message && error.error.message.includes('Unauthorized')) {
             if (isPlatformBrowser(this.platformId)) {
-              // Acesso seguro ao sessionStorage aqui
-              window.sessionStorage.removeItem('userdetails')
-              window.sessionStorage.removeItem('Authorization')
+              window.sessionStorage.removeItem('userdetails');
+              window.sessionStorage.removeItem('Authorization');
             }
-              this.router.navigate(['login'])
+            this.router.navigate(['login']);
           }
         }
       }));
