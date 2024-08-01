@@ -61,7 +61,7 @@
             <div (click)="copiarParaAreaTransferencia(item.cupom)" class="cupom">
               <div>
                 <i *ngIf="item.cupom && item.cupom.length < 18" class="pi pi-copy"></i>
-                <p *ngIf="item.cupom && item.cupom.length < 18">{{ item.cupom }}</p>
+                <p *ngIf="item.cupom && item.cupom.length < 18">Cupom: {{ item.cupom }}</p>
               </div>
             </div>
             <div class="frete">
