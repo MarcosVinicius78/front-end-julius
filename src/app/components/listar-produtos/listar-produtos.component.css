@@ -87,10 +87,6 @@ a{
   object-fit: contain;
 }
 
-.info p{
-  /* margin: 9px; */
-}
-
 .data{
   color: rgb(122, 121, 121);
   font-size: 9px;
@@ -127,7 +123,7 @@ a{
   width: 100%;
   /* max-width: 100%; */
   overflow: hidden;
-  font-size: 12px;
+  font-size: 13px;
   color: rgb(53, 58, 61);
   overflow-wrap: break-word;
   line-break: strict;
@@ -159,7 +155,7 @@ a{
 .cupom > div p{
   margin: 0;
   margin-left: 4px;
-  font-size: 11px;
+  font-size: 12px;
   color: rgb(87, 87, 87);
 }
 
@@ -424,6 +420,7 @@ a{
   padding: 5px 0px 0px 0px;
   /* margin-left: 8px; */
   display: flex;
+  align-items: center;
 }
 
 .frete i{
