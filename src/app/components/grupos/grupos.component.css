@@ -123,6 +123,10 @@ section{
 
   .texto p{
     font-size: 20px;
+    text-shadow: 5px 0px 2px rgb(125 42 0);
+    text-transform: uppercase;
+    /* font-weight: 800; */
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
   }
 
   .frase{
@@ -144,6 +148,10 @@ section{
     color: rgb(58, 58, 58);
   }
 
+  .links a{
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  }
+
   .links-mob div a{
     padding: 10px 0px 10px 0px;
     text-align: center;
@@ -152,6 +160,7 @@ section{
     color: rgb(0, 0, 0);
     background-color: #0088cc;
     font-weight: 500;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
   }
 
   .links-mob div{

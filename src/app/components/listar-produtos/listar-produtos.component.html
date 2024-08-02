@@ -66,7 +66,7 @@
             </div>
             <div class="frete">
               <i *ngIf="item.freteVariacoes && item.freteVariacoes.length < 48" class="pi pi-truck"></i>
-              <p *ngIf="item.freteVariacoes && item.freteVariacoes.length < 48">{{ item.freteVariacoes }}</p>
+              <p *ngIf="item.freteVariacoes && item.freteVariacoes.length < 48">{{ item.freteVariacoes.replaceAll('*','') }}</p>
             </div>
             <a routerLink="/oferta/{{ item.id }}">
               <p id="preco">{{ item.preco }}</p>

@@ -1,5 +1,6 @@
-<div  class="categoria">
-  <a *ngIf="produto" href="produtos-categoria/{{produto.categoriaDto.categoria_id}}">{{ produto.categoriaDto.nomeCategoria }}</a>
+<div class="categoria">
+  <a *ngIf="produto" href="produtos-categoria/{{produto.categoriaDto.categoria_id}}">{{
+    produto.categoriaDto.nomeCategoria }}</a>
 </div>
 <section>
   <div class="container">
@@ -40,7 +41,8 @@
             </div>
             <p [class.promo-encerrada-cor]="produto.promocaoEncerrada" class="preco">{{ produto.preco }}</p>
 
-            <div (click)="copiarParaAreaTransferencia()" *ngIf="produto.cupom && produto.cupom.length < 20" class="cupom">
+            <div (click)="copiarParaAreaTransferencia()" *ngIf="produto.cupom && produto.cupom.length < 20"
+              class="cupom">
               <div>
                 <div class="align-items-center">
                   <p class="text-base w-full">CUPOM: {{ produto.cupom }}</p>
@@ -54,11 +56,13 @@
 
             <div class="frete mt-3 mb-2">
               <i *ngIf="produto.freteVariacoes && produto.freteVariacoes.length < 48" class="pi pi-truck"></i>
-              <p *ngIf="produto.freteVariacoes && produto.freteVariacoes.length < 48">{{ produto.freteVariacoes }}</p>
+              <p *ngIf="produto.freteVariacoes && produto.freteVariacoes.length < 48">{{ produto.freteVariacoes.replaceAll('*','') }}</p>
             </div>
 
             <div class="ir-loja">
-              <a href="{{ produto.link_se }}" (click)="abrirModalInfo($event, produto.cupom, produto.imagem, produto.titulo, produto.link_se, produto.freteVariacoes, produto.id)" target="_blank">Ir a Loja</a>
+              <a href="{{ produto.link_se }}"
+                (click)="abrirModalInfo($event, produto.cupom, produto.imagem, produto.titulo, produto.link_se, produto.freteVariacoes, produto.id)"
+                target="_blank">Ir a Loja</a>
             </div>
           </div>
         </div>
@@ -84,8 +88,8 @@
       </div>
 
       <div class="convite-mobile">
-          <p>Economize Recebendo todas as Promoções Relâmpago em Tempo Real</p>
-          <a *ngIf="links.links != undefined" href="{{ links.links.whatsapp }}">PARTICIPAR DO GRUPO</a>
+        <p>Economize Recebendo todas as Promoções Relâmpago em Tempo Real</p>
+        <a *ngIf="links.links != undefined" href="{{ links.links.whatsapp }}">PARTICIPAR DO GRUPO</a>
       </div>
 
       <div class="msg">
@@ -94,35 +98,33 @@
 
       <div class="produtos-categorias">
         <div *ngFor="let item of produtos" class="grid-item">
-          <a class="text-black-alpha-90 no-underline" href="/oferta/{{item.id}}">
-            <div class="card">
-              <div>
-                  <img [src]="apiUrl+'/produto/download/'+item.imagem" alt="">
+          <div class="card">
+            <div>
+              <img [src]="apiUrl+'/produto/download/'+item.imagem" alt="">
+            </div>
+            <div class="info-cat">
+              <p class="data">{{calculateElapsedTime(item.dataCriacao)}}</p>
+              <p class="nome-produto">
+                <a href="/oferta/{{item.id}}">
+                  {{ item.titulo }}
+                </a>
+              </p>
+              <div class="cupom-categoria">
+                <div>
+                  <i *ngIf="item.cupom" class="pi pi-copy text-base"></i>
+                  <p class="ml-2" *ngIf="item.cupom">Cupom: {{ item.cupom }}</p>
+                </div>
               </div>
-              <div class="info-cat">
-                <p class="data">{{calculateElapsedTime(item.dataCriacao)}}</p>
-                <p class="nome-produto">
-                  <a href="/oferta/{{item.id}}">
-                    {{ item.titulo }}
-                  </a>
-                </p>
-                <div class="cupom-categoria">
-                  <div>
-                    <p *ngIf="item.cupom">{{ item.cupom }}</p>
-                    <i *ngIf="item.cupom" class="pi pi-copy text-base"></i>
-                  </div>
-                </div>
-                <div class="frete">
-                  <i class="pi pi-truck"></i>
-                  <p>{{ item.freteVariacoes }}</p>
-                </div>
-                <p class="preco2">{{ item.preco }}</p>
-                <div class="ver-promocao">
-                  <a href="{{ item.link }}" target="_blank">Pegar Promoção</a>
-                </div>
+              <div class="frete">
+                <i class="pi pi-truck"></i>
+                <p>{{ item.freteVariacoes.replace('*', '') }}</p>
+              </div>
+              <p class="preco2">{{ item.preco }}</p>
+              <div class="ver-promocao">
+                <a href="{{ item.link }}" target="_blank">Pegar Promoção</a>
               </div>
             </div>
-          </a>
+          </div>
         </div>
       </div>
 
@@ -137,9 +139,11 @@
             <i class="close-modal pi pi-times" (click)="fecharModal()"></i>
           </div>
           <div class="opcoes-botoes flex w-full h-7rem justify-content-around">
-            <p-button styleClass="w-full" (click)="reportar(produto.id, 'oferta')" label="Reportar Oferta" [raised]="true" severity="warning"></p-button>
+            <p-button styleClass="w-full" (click)="reportar(produto.id, 'oferta')" label="Reportar Oferta"
+              [raised]="true" severity="warning"></p-button>
             <!-- <button (click)="reportar(produto.id, 'oferta')">Reportar Oferta</button> -->
-            <p-button styleClass="w-full" (click)="reportar(produto.id, 'cupom')" label="Reportar Cupom" [raised]="true" severity="warning"></p-button>
+            <p-button styleClass="w-full" (click)="reportar(produto.id, 'cupom')" label="Reportar Cupom" [raised]="true"
+              severity="warning"></p-button>
             <!-- <button (click)="reportar(produto.id, 'cupom')">Reportar Cupom</button> -->
           </div>
         </div>
@@ -186,7 +190,8 @@
 
       <div class="info-modal">
         <p>Instruções Adicionais</p>
-        <P>{{ produtoModalDto.cupomInformacoes == null || produtoModalDto.cupomInformacoes == ''? produtoModalDto.frete : produtoModalDto.cupomInformacoes }}</P>
+        <P>{{ produtoModalDto.cupomInformacoes == null || produtoModalDto.cupomInformacoes == ''? produtoModalDto.frete
+          : produtoModalDto.cupomInformacoes }}</P>
       </div>
 
       <a href="{{produtoModalDto.link}}" target="_blank">IR A LOJA</a>

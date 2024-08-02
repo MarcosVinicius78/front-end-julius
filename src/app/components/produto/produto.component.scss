@@ -25,10 +25,10 @@ section {
   font-weight: 700;
   font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
   overflow: hidden;
-    -webkit-line-clamp: 1;
-    -webkit-box-orient: vertical;
-    text-overflow: ellipsis;
-    display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  text-overflow: ellipsis;
+  display: -webkit-box;
 }
 
 .informaçoes div:first-child {
@@ -36,7 +36,7 @@ section {
   justify-content: space-between;
 }
 
-.modal-informacao{
+.modal-informacao {
   width: 100%;
   height: 100vh;
   position: fixed;
@@ -51,35 +51,35 @@ section {
   overflow-y: auto;
 }
 
-.backgroud-modal{
+.backgroud-modal {
   width: 100%;
-    height: 100vh;
-    position: fixed;
-    top: 0px;
-    left: 0px;
-    display: flex;
-    z-index: 1000;
-    -webkit-box-pack: center;
-    justify-content: center;
-    -webkit-box-align: center;
-    align-items: center;
-    overflow-y: auto;
-    background: rgba(0, 0, 0, 0.8);
-    cursor: pointer;
+  height: 100vh;
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  display: flex;
+  z-index: 1000;
+  -webkit-box-pack: center;
+  justify-content: center;
+  -webkit-box-align: center;
+  align-items: center;
+  overflow-y: auto;
+  background: rgba(0, 0, 0, 0.8);
+  cursor: pointer;
 }
 
-.header-modal{
+.header-modal {
   display: flex;
   justify-content: space-around;
   align-items: center;
 }
 
-.header-modal img{
+.header-modal img {
   width: 100px;
   height: 100px;
 }
 
-#titulo-modal{
+#titulo-modal {
   width: 60%;
   height: 45%;
   -webkit-box-align: center;
@@ -93,7 +93,7 @@ section {
   text-overflow: ellipsis;
 }
 
-.info-modal{
+.info-modal {
   margin-top: 5px;
   display: flex;
   flex-direction: column;
@@ -102,18 +102,18 @@ section {
   justify-content: space-around;
 }
 
-.info-modal p:last-child{
+.info-modal p:last-child {
   text-align: center;
   font-size: 15px;
   width: 80%;
 }
 
-.info-modal p:first-child{
+.info-modal p:first-child {
   font-size: 20px;
   font-weight: 600;
 }
 
-.conteudo-modal{
+.conteudo-modal {
   z-index: 10010;
   width: 378px;
   height: 350px;
@@ -128,7 +128,7 @@ section {
   justify-content: space-around;
 }
 
-.conteudo-modal a:last-child{
+.conteudo-modal a:last-child {
   font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
   font-size: 18px;
   background-color: aqua;
@@ -182,7 +182,7 @@ section {
   margin-right: 10px;
 }
 
-.cupom > div {
+.cupom>div {
   display: flex;
   // width: 31%;
   padding: 5px;
@@ -192,27 +192,29 @@ section {
   justify-content: space-around;
 }
 
-.cupom-categoria{
+.cupom-categoria {
   display: flex;
-  justify-content: flex-end;
+  // justify-content: flex-end;
+  margin: 0;
 }
 
-.cupom-categoria > div{
+.cupom-categoria>div {
   display: flex;
   height: 26px;
   width: auto;
-  background-color: rgb(226, 226, 226);
+  // background-color: rgb(226, 226, 226);
   align-items: center;
   border-radius: 10px;
-  justify-content: flex-end;
+  // justify-content: flex-end;
+  font-size: 13px;
 }
 
-.msg{
+.msg {
   margin-top: 10px;
   padding: 10px;
 }
 
-.msg p{
+.msg p {
   font-size: 20px;
   font-weight: 700;
 }
@@ -342,7 +344,7 @@ p {
   justify-content: space-around;
 }
 
-.convite h2{
+.convite h2 {
   font-size: 19px;
   margin: 0;
 }
@@ -352,7 +354,7 @@ p {
   text-align: center;
 }
 
-.flex-convite div:last-child{
+.flex-convite div:last-child {
   margin-top: 10px;
 }
 
@@ -376,7 +378,7 @@ p {
   border-radius: 5px;
 }
 
-.promo-encerrada-cor{
+.promo-encerrada-cor {
   color: #b1b1b1 !important;
 }
 
@@ -447,15 +449,16 @@ p {
 }
 
 .nome-produto {
-    width: 100%;
-    max-width: 100%;
-    overflow: hidden;
-    font-size: 14px;
-    font-weight: 700;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-    text-overflow: ellipsis;
-    display: -webkit-box;
+  width: 100%;
+  max-width: 100%;
+  overflow: hidden;
+  font-size: 13px;
+  font-family: 'SergipeOfertas';
+  font-weight: 700;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  text-overflow: ellipsis;
+  display: -webkit-box;
 }
 
 .nome-produto a {
@@ -465,7 +468,7 @@ p {
 
 .preco2 {
   color: #cf0013;
-  font-size: 20px;
+  font-size: 25px;
   font-weight: 700;
   font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
 }
@@ -486,18 +489,27 @@ p {
   object-fit: contain;
 }
 
-.produtos-categorias .info-cat{
+.produtos-categorias .info-cat {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
 }
 
+.produtos-categorias .frete {
+  font-size: 12px;
+  width: 100%;
+  overflow: hidden;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  text-overflow: ellipsis;
+}
+
 .grid-item {
-  display: flex;
+  // display: flex;
   width: 100%;
 }
 
-.card{
+.card {
   border-radius: 10px;
   height: 340px;
   padding: 10px;
@@ -505,8 +517,8 @@ p {
   background-color: rgb(255, 255, 255);
 }
 
-.info-cat{
-  height: 54%;
+.info-cat {
+  height: 50%;
 }
 
 .reportar {
@@ -542,11 +554,11 @@ button img {
   width: 30px;
 }
 
-.data{
+.data {
   display: none;
 }
 
-.data-none{
+.data-none {
   text-align: end;
   margin-top: 20px;
   margin-left: 20px;
@@ -562,8 +574,6 @@ button img {
   width: 100%;
   max-width: 100%;
   overflow: hidden;
-  // font-size: 14px;
-  // font-weight: 700;
   -webkit-line-clamp: 1;
   -webkit-box-orient: vertical;
   text-overflow: ellipsis;
@@ -583,18 +593,18 @@ button img {
   display: none;
 }
 
-.categoria{
+.categoria {
   padding: 10px;
   width: 1290px;
   margin: 0 auto;
 }
 
-.categoria a{
+.categoria a {
   text-decoration: none;
   color: black;
 }
 
-.promo-encerrada{
+.promo-encerrada {
   position: absolute;
   background-color: #cecece8c;
   width: 95%;
@@ -607,7 +617,7 @@ button img {
   font-size: 23px;
 }
 
-.promocao-apagada{
+.promocao-apagada {
   height: 300px;
   display: flex;
   flex-direction: column;
@@ -615,30 +625,31 @@ button img {
   justify-content: space-around;
 }
 
-.promocao-apagada p:first-child{
+.promocao-apagada p:first-child {
   font-weight: 800;
   text-align: center;
   font-size: 20px;
 }
 
-.promocao-apagada p:nth-child(2){
+.promocao-apagada p:nth-child(2) {
   font-weight: 500;
   margin-top: 10px;
 }
 
 
 @media screen and (max-width: 600px) {
-  .promocao-apagada{
+  .promocao-apagada {
     height: 400px;
     width: auto;
   }
+
   .produto {
     width: 100%;
     margin-top: 0;
     padding: 21px;
   }
 
-  .preco{
+  .preco {
     font-size: 31px;
   }
 
@@ -680,7 +691,7 @@ button img {
     display: none;
   }
 
-  .conteudo-modal{
+  .conteudo-modal {
     width: 90%;
     height: 50%;
   }
@@ -735,6 +746,7 @@ button img {
   .grid-item {
     max-width: 47%;
   }
+
   .loja p {
     display: none;
   }
@@ -772,7 +784,7 @@ button img {
     text-overflow: ellipsis;
   }
 
-  .opcoes-reportar{
+  .opcoes-reportar {
     width: 90%;
   }
 
@@ -783,7 +795,7 @@ button img {
     object-fit: contain;
   }
 
-  .imagem-produto{
+  .imagem-produto {
     width: auto;
   }
 
@@ -803,15 +815,15 @@ button img {
     /* align-items: center; */
   }
 
-  .cupom .copiar p{
+  .cupom .copiar p {
     font-size: 50px;
   }
 
-  .categoria{
+  .categoria {
     display: none;
   }
 
-  .cupom > div {
+  .cupom>div {
     justify-content: space-between;
     width: 100%;
     padding: 5px;
@@ -836,7 +848,7 @@ button img {
     text-overflow: ellipsis;
   }
 
-  .frete p{
+  .frete p {
     width: 100%;
   }
 }
