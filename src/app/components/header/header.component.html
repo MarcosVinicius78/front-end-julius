@@ -20,6 +20,6 @@
       <a routerLink="blog">Blog</a>
       <a class="itens-header" routerLink="/politica-privacidade">Política de Privacidade</a>
       <a class="itens-header" href="termos-uso">Termos de Uso</a>
-      <a class="itens-header" href="">Fale Conosoco</a>
+      <a class="itens-header" href="{{ links.links != undefined ? 'mailto:' + links.links.email : '#'}}">Fale Conosoco</a>
   </nav>
 </header>

@@ -98,8 +98,8 @@ export class ProdutoComponent implements OnInit {
     this.meta.removeTag('property="og:image"');
 
     // Adiciona as novas tags meta
-    this.meta.addTag({ property: 'og:image:height', content: "300" });
-    this.meta.addTag({ property: 'og:image:width', content: "300" });
+    this.meta.addTag({ property: 'og:image:height', content: "500" });
+    this.meta.addTag({ property: 'og:image:width', content: "500" });
     this.meta.addTag({ property: 'og:site_name', content: "Sergipe Ofertas" });
     this.meta.addTag({ property: 'og:locale', content: "pt_BR" });
     if (isPlatformBrowser(this.platformId)) {

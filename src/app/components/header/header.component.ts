@@ -2,6 +2,8 @@ import { CategoriaService } from 'src/app/service/painel/categoria.service';
 import { Component, Inject, OnInit, PLATFORM_ID } from '@angular/core';
 import { Categoria } from 'src/app/models/categoria';
 import { isPlatformBrowser } from '@angular/common';
+import { LinkBannerService } from 'src/app/service/painel/link-banner.service';
+import { LinksBanner } from 'src/app/dto/LinksBanner';
 
 @Component({
   selector: 'app-header',
@@ -12,16 +14,19 @@ export class HeaderComponent implements OnInit {
 
   menuValue:boolean=false;
   menu_icon :string ='pi pi-bars';
+  links = new LinksBanner();
 
   categorias: Categoria[] = [];
 
   constructor(
-    private categoriaService: CategoriaService
+    private categoriaService: CategoriaService,
+    private linkBannerService: LinkBannerService
   ) { }
 
   ngOnInit() {
     this.categoriaService.listarCategoria().subscribe(response => {
       this.categorias = response;
+      this.pegarLinks();
     });
   }
 
@@ -41,4 +46,9 @@ export class HeaderComponent implements OnInit {
     this.menu_icon = 'bi bi-list';
   }
 
+  pegarLinks() {
+    this.linkBannerService.listarLinksEBanners().subscribe(response => {
+      this.links = response;
+    });
+  }
 }

@@ -157,7 +157,7 @@
         </svg>
         Instagram
       </a>
-      <a *ngIf="links.links !== undefined" href="{{ links.links.email }}">FALE CONOSCO</a>
+      <a *ngIf="links.links !== undefined" href="{{ 'mailto:' + links.links.email }}">FALE CONOSCO</a>
     </div>
   </div>
 
