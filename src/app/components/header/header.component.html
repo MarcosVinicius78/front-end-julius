@@ -7,19 +7,39 @@
   <nav class="desktop_menu" [class.mobile_menu]="menuValue">
     <i (click)="openMenu()" class="fechar-menu pi pi-times p-2"></i>
     <a href="">Buscar Promoção</a>
-    <a routerLink="/quem-somos">Que Somos</a>
+    <a class="mobile" routerLink="/quem-somos">
+      Que Somos
+      <i class="pi pi-users mr-2 text-white-alpha-90 text-lg text-justify"></i>
+    </a>
 
     <div>
-      <a (click)="toggleCategoria()" class="dropbtn">Categorias</a>
+      <a (click)="toggleCategoria()" class="dropbtn flex align-items-center">
+        <i class="mr-2 text-white-alpha-90 text-lg pi pi-th-large"></i>
+        Categorias
+        <i class="ml-2 text-white-alpha-90 text-lg pi pi-chevron-down"></i>
+      </a>
       <div id="categ" class="dropdown-content">
         <a id="cat" *ngFor="let item of categorias" href="produtos-categoria/{{item.categoria_id}}">{{
           item.nomeCategoria }}</a>
-        </div>
       </div>
-      <a href="/grupos">Grupos</a>
-      <a routerLink="blog">Blog</a>
-      <a class="itens-header" routerLink="/politica-privacidade">Política de Privacidade</a>
-      <a class="itens-header" href="termos-uso">Termos de Uso</a>
-      <a class="itens-header" href="{{ links.links != undefined ? 'mailto:' + links.links.email : '#'}}">Fale Conosoco</a>
+    </div>
+    <a class="flex align-items-center" href="/grupos">
+      <i class="pi pi-whatsapp mr-2 text-white-alpha-90 text-lg text-justify"></i>
+      Grupos
+    </a>
+
+    <a class="desktop flex align-items-center" routerLink="/quem-somos">
+      <i class="pi pi-users mr-2 text-white-alpha-90 text-lg text-justify"></i>
+      Que Somos
+    </a>
+
+    <a class="flex align-items-center" routerLink="blog">
+      <i class="pi pi-comments mr-2 text-white-alpha-90 text-lg text-justify"></i>
+      Blog
+    </a>
+    <hr>
+    <a class="itens-header" routerLink="/politica-privacidade">Política de Privacidade</a>
+    <a class="itens-header" href="termos-uso">Termos de Uso</a>
+    <a class="itens-header" href="{{ links.links != undefined ? 'mailto:' + links.links.email : '#'}}">Fale Conosoco</a>
   </nav>
 </header>

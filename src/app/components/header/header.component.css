@@ -36,7 +36,7 @@
 nav{
   margin-left: 50px;
   display: flex;
-  width: 40%;
+  width: 50%;
   align-items: center;
   justify-content: space-around;
 }
@@ -86,10 +86,6 @@ nav a{
   background-color: #ddd; /* Cor de fundo quando hover */
 }
 
-nav a{
-  font-size: larger;
-}
-
 .itens-header{
   display: none;
 }
@@ -118,10 +114,21 @@ header nav li:nth-child(4) a{
   display: none;
 }
 
+.mobile{
+  display: none;
+}
 @media screen and (max-width:720px){
 
   *{
     margin-top: 0;
+  }
+
+  .itens-header{
+    color: #747474 !important;
+  }
+
+  .desktop{
+    display: none !important;
   }
 
   .menu-icon {
@@ -159,8 +166,18 @@ header nav li:nth-child(4) a{
     color: black;
     padding: 12px 10px 12px 7px;
     text-align: right;
+    flex-direction: row-reverse;
     font-size: 17px;
     text-transform: initial;
+  }
+
+  .header nav div a i:last-child{
+    margin-right: 5px !important;
+  }
+
+  .header nav a i{
+    margin: 0 0 0px 5px !important;
+    color: black !important;
   }
 
   .dropdown-content a{
