@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
+import { Component, Inject, OnInit, PLATFORM_ID } from '@angular/core';
 import { Meta } from '@angular/platform-browser';
 import { ActivatedRoute, ActivatedRouteSnapshot, Router } from '@angular/router';
 import { Action } from 'rxjs/internal/scheduler/Action';
@@ -19,7 +20,8 @@ export class BlankComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private meta: Meta,
-    private produtoService: ProdutoService
+    private produtoService: ProdutoService,
+    @Inject(PLATFORM_ID) private platformId: Object
   ) { }
 
   ngOnInit(): void {
@@ -35,8 +37,10 @@ export class BlankComponent implements OnInit {
           this.meta.updateTag({ name: 'og:description', content: response.descricao });
           this.meta.updateTag({ name: 'og:image', content: `${environment.apiUrl}/produto/download-imagem-real/${response.imagemSocial}` });
 
+          if (isPlatformBrowser(this.platformId)) {
+            window.location.href = response.link_se;
+          }
           // Redirecionar para a URL final após definir as meta tags
-          window.location.href = response.link_se;
         });
       } else {
         // Redirecionar se os parâmetros não forem válidos
