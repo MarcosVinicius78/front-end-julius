@@ -75,9 +75,9 @@ export class ProdutoComponent implements OnInit {
 
       this.produto = response;
       this.listarProdutos()
-      if (isPlatformBrowser(this.platformId)) {
-        this.setProductMetaTags(this.produto.titulo, this.produto.descricao, "");
-      }
+      this.setProductMetaTags(this.produto.titulo, this.produto.descricao, "");
+      // if (isPlatformBrowser(this.platformId)) {
+      // }
 
     }, err => {
       this.listarProdutos()
@@ -86,33 +86,14 @@ export class ProdutoComponent implements OnInit {
 
   private setProductMetaTags(productName: string, productDescription: string, productImageUrl: string): void {
 
-    this.metaService.updateMetaTags(
-      productName,
-      productDescription,
-      productImageUrl
-    );
-    // Limpa todas as tags meta existentes
-    // this.meta.removeTag('name="description"');
-    // this.meta.removeTag('property="og:title"');
-    // this.meta.removeTag('property="og:description"');
-    // this.meta.removeTag('property="og:image"');
-
-    // Adiciona as novas tags meta
-    this.meta.addTag({ property: 'og:image:height', content: "500" });
-    this.meta.addTag({ property: 'og:image:width', content: "500" });
-    // this.meta.addTag({ property: 'og:site_name', content: "Sergipe Ofertas" });
-    this.meta.addTag({ property: 'og:locale', content: "pt_BR" });
-    // if (isPlatformBrowser(this.platformId)) {
-    //   this.meta.addTag({ property: 'og:url', content: window.location.href });
-    // }
     this.meta.addTag({ property: 'og:type', content: "website" });
-    this.meta.addTag({ property: 'og:image:type', content: "image/jpeg" });
+    this.meta.addTag({ property: 'og:image:width', content: "500" });
+    this.meta.addTag({ property: 'og:image:height', content: "500" });
+    this.meta.updateTag({ name: 'description', content: "Ofertas" });
+    this.meta.updateTag({ property: 'og:title', content: productName });
+    this.meta.updateTag({ property: 'og:description', content: productDescription });
+    this.meta.updateTag({ property: 'og:image', content: `${this.apiUrl}/produto/download-imagem-real/${this.produto.imagemSocial}` });
 
-
-    this.meta.addTag({ name: 'description', content: "as melhores promoções" });
-    this.meta.addTag({ property: 'og:title', content: productName });
-    this.meta.addTag({ property: 'og:description', content: productDescription });
-    this.meta.addTag({ property: 'og:image', content: `${this.apiUrl}/produto/download-imagem-real/${this.produto.imagemSocial}` });
   }
 
   fecharModal() {
@@ -183,7 +164,7 @@ export class ProdutoComponent implements OnInit {
   }
 
   listarProdutos() {
-    this.produtoService.listarProduto(this.page ,this.size).subscribe(response => {
+    this.produtoService.listarProduto(this.page, this.size).subscribe(response => {
       this.produtos = response.content
     });
   }
@@ -234,13 +215,13 @@ export class ProdutoComponent implements OnInit {
     }
   }
 
-  pegarLinks(){
+  pegarLinks() {
     this.linkBannerService.listarLinksEBanners().subscribe(response => {
       this.links = response;
     });
   }
 
-  abrirModalInfo(event: Event, cupom: string, img: string, titulo: string, link: string, frete: string, id: number){
+  abrirModalInfo(event: Event, cupom: string, img: string, titulo: string, link: string, frete: string, id: number) {
     console.log(frete.length)
 
     if (cupom && cupom.length > 18 || frete && frete.length > 48) {
