@@ -34,7 +34,6 @@ export class BlankComponent implements OnInit {
           this.meta.updateTag({ name: 'og:title', content: response.titulo });
           this.meta.updateTag({ name: 'og:description', content: response.descricao });
           this.meta.updateTag({ name: 'og:image', content: `${environment.apiUrl}/produto/download-imagem-real/${response.imagemSocial}` });
-          alert(response.titulo)
 
           // Redirecionar para a URL final após definir as meta tags
           window.location.href = response.link_se;
