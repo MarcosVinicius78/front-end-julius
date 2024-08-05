@@ -7,6 +7,7 @@
 }
 
 section{
+  margin-top: 80px;
   min-width: 77%;
 }
 
@@ -300,7 +301,7 @@ a{
   max-height: 400px;
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
   margin-left: 10px;
-  margin-top: 10px;
+  margin-top: 90px;
   border-radius: 5px;
   background-color: white;
 }
@@ -446,6 +447,7 @@ a{
   section{
     width: 100%;
     display: block;
+    margin-top: 60px;
   }
 
   .section{

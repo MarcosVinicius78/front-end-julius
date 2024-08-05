@@ -39,11 +39,12 @@ export class HeaderComponent implements OnInit {
 
   openMenu(){
     this.menuValue =! this.menuValue ;
+    console.log("aqui")
     this.menu_icon = this.menuValue ? 'pi pi-times' : 'pi pi-bars';
   }
    closeMenu() {
     this.menuValue = false;
-    this.menu_icon = 'bi bi-list';
+    // this.menu_icon = 'bi bi-list';
   }
 
   pegarLinks() {

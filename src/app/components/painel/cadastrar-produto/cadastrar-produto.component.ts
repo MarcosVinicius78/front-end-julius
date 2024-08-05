@@ -264,7 +264,7 @@ export class CadastrarProdutoComponent implements OnInit {
   }
 
   pegarProduto() {
-    this.produtoSevice.pegarProduto(this.idEditar).subscribe(response => {
+    this.produtoSevice.pegarProduto(this.idEditar,0).subscribe(response => {
       this.produto = response;
       console.log(this.produto)
       this.id = response.id

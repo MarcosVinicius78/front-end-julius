@@ -3,7 +3,11 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 100px;
+  height: 80px;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 12;
 }
 
 .header a{
@@ -130,6 +134,15 @@ header nav li:nth-child(4) a{
     display: none !important;
   }
 
+  .fechar{
+    background-color: black;
+    position: absolute;
+    width: 50%;
+    height: 100%;
+    left: 0;
+    z-index: 1000;
+  }
+
   .menu-icon {
     display: flex;
     align-items: center;
@@ -203,7 +216,7 @@ header nav li:nth-child(4) a{
   .desktop_menu {
     display: block;
     position: fixed !important;
-    right: -280px;
+    right: -380px;
     transition: 0.4s ease-in-out;
     /* top: 64px; */
     background: white;

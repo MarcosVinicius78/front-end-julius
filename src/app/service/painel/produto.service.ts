@@ -32,8 +32,9 @@ export class ProdutoService {
     return this.http.get<PordutosPage>(`${this.apiUrl}/produto`, { params });
   }
 
-  pegarProduto(id: any) {
-    return this.http.get<ProdutoLoja>(`${this.apiUrl}/produto/${id}`);
+  pegarProduto(id: any, r: number) {
+    const params = new HttpParams().set('r', r);
+    return this.http.get<ProdutoLoja>(`${this.apiUrl}/produto/${id}`, { params });
   }
 
   atualizarProduto(produto: any) {

@@ -71,12 +71,12 @@ export class ProdutoComponent implements OnInit {
 
   pegarProduto() {
 
-    this.produtoService.pegarProduto(this.id).subscribe(response => {
+    this.produtoService.pegarProduto(this.id, 0).subscribe(response => {
 
       this.produto = response;
       this.listarProdutos()
       if (isPlatformBrowser(this.platformId)) {
-        this.setProductMetaTags(this.produto.titulo, this.produto.descricao, window.location.href);
+        this.setProductMetaTags(this.produto.titulo, this.produto.descricao, "");
       }
 
     }, err => {
@@ -92,19 +92,19 @@ export class ProdutoComponent implements OnInit {
       productImageUrl
     );
     // Limpa todas as tags meta existentes
-    this.meta.removeTag('name="description"');
-    this.meta.removeTag('property="og:title"');
-    this.meta.removeTag('property="og:description"');
-    this.meta.removeTag('property="og:image"');
+    // this.meta.removeTag('name="description"');
+    // this.meta.removeTag('property="og:title"');
+    // this.meta.removeTag('property="og:description"');
+    // this.meta.removeTag('property="og:image"');
 
     // Adiciona as novas tags meta
     this.meta.addTag({ property: 'og:image:height', content: "500" });
     this.meta.addTag({ property: 'og:image:width', content: "500" });
-    this.meta.addTag({ property: 'og:site_name', content: "Sergipe Ofertas" });
+    // this.meta.addTag({ property: 'og:site_name', content: "Sergipe Ofertas" });
     this.meta.addTag({ property: 'og:locale', content: "pt_BR" });
-    if (isPlatformBrowser(this.platformId)) {
-      this.meta.addTag({ property: 'og:url', content: window.location.href });
-    }
+    // if (isPlatformBrowser(this.platformId)) {
+    //   this.meta.addTag({ property: 'og:url', content: window.location.href });
+    // }
     this.meta.addTag({ property: 'og:type', content: "website" });
     this.meta.addTag({ property: 'og:image:type', content: "image/jpeg" });
 
@@ -112,7 +112,7 @@ export class ProdutoComponent implements OnInit {
     this.meta.addTag({ name: 'description', content: "as melhores promoções" });
     this.meta.addTag({ property: 'og:title', content: productName });
     this.meta.addTag({ property: 'og:description', content: productDescription });
-    this.meta.addTag({ property: 'og:image', content: `${this.apiUrl}/produto/download/${this.produto.imagem}` });
+    this.meta.addTag({ property: 'og:image', content: `${this.apiUrl}/produto/download-imagem-real/${this.produto.imagemSocial}` });
   }
 
   fecharModal() {
