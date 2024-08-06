@@ -4,12 +4,12 @@
 }
 
 section {
-  height: calc(100vh - 135.5px);
+  height: calc(100vh - 75px);
   display: flex;
   align-items: center;
   justify-content: center;
   justify-content: space-around;
-  margin-top: 50px;
+  /* margin-top: 50px; */
 }
 
 .circulo{
