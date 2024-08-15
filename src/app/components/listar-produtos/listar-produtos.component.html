@@ -1,6 +1,4 @@
 <div class="section">
-
-
   <section>
 
     <div *ngIf="links.banners.length != 0" class="banner1">
@@ -39,9 +37,7 @@
     </div>
 
     <div class="container">
-
       <div class="lista-de-produtos" *ngFor="let item of produtos">
-
         <div class="card">
           <div *ngIf="item.imagem != undefined" class="img">
             <a routerLink="/oferta/{{ item.id }}">

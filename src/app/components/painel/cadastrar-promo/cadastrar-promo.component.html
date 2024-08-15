@@ -8,16 +8,24 @@
     <div *ngFor="let promos of promosProdutos">
       <p-card header="{{promos.copyPromo}}" [style]="{ width: '360px' }">
         <ng-template pTemplate="header">
-          <img *ngIf="promos.urlImagem != null" alt="Card" [src]="apiUrl+'/promos/download-imagem-promo/'+promos.urlImagem" alt="{{ promos.copyPromo }}" />
+          <a routerLink="/promos/{{promos.idPromo}}">
+            <img *ngIf="promos.urlImagem != null" alt="Card"
+              [src]="apiUrl+'/promos/download-imagem-promo/'+promos.urlImagem" alt="{{ promos.copyPromo }}" />
+          </a>
         </ng-template>
         <div class="produtos" *ngFor="let produtos of promos.produtoResponseDto">
           <p>{{ produtos.titulo }}</p>
         </div>
         <ng-template pTemplate="footer">
           <div class="flex gap-3 mt-1">
-            <p-button icon="pi pi-copy" (onClick)="criarPost(promos.produtoResponseDto, promos.copyPromo, promos.idPromo)" severity="success" class="w-full" styleClass="w-full" />
-            <p-button icon="pi pi-pen-to-square" (onClick)="editarPromo(promos.idPromo, promos.produtoResponseDto)" severity="secondary" class="w-full" styleClass="w-full" />
-            <p-button icon="pi pi-trash" (onClick)="apagarPromo(promos.idPromo, promos.urlImagem)" class="w-full" styleClass="w-full" />
+            <p-button icon="pi pi-copy"
+              (onClick)="criarPost(promos.produtoResponseDto, promos.copyPromo, promos.idPromo)" severity="success"
+              class="w-full" styleClass="w-full" />
+            <p-button icon="pi pi-pen-to-square"
+              (onClick)="editarPromo(promos.copyPromo, promos.idPromo, promos.produtoResponseDto)" severity="secondary"
+              class="w-full" styleClass="w-full" />
+            <p-button icon="pi pi-trash" (onClick)="apagarPromo(promos.idPromo, promos.urlImagem)" class="w-full"
+              styleClass="w-full" />
           </div>
         </ng-template>
       </p-card>
@@ -25,14 +33,13 @@
 
   </div>
 
-  <p-dialog header="Cadastrar Promo" [modal]="true" [draggable]="false" [(visible)]="modal"
-    [style]="{ width: '80%' }">
+  <p-dialog header="Cadastrar Promo" [modal]="true" [draggable]="false" [(visible)]="modal" [style]="{ width: '80%' }">
     <div class="p-2">
       <form class="flex justify-content-around" [formGroup]="produtosSelecionadoGroup">
-        <input type="text" pInputText name="copyPromo" formControlName="copyPromo"/>
-        <p-button label="Salvar" severity="success" (onClick)="salvarProduto()"/>
+        <input type="text" pInputText name="copyPromo" formControlName="copyPromo" />
+        <p-button label="Salvar" severity="success" (onClick)="salvarProduto()" />
         <p-fileUpload styleClass="mt-2" mode="basic" chooseLabel="Choose" name="demo[]" accept="image/*"
-        (maxFileSize)="1000000000000" (onSelect)="onFileChange($event)"></p-fileUpload>
+          (maxFileSize)="1000000000000" (onSelect)="onFileChange($event)"></p-fileUpload>
       </form>
     </div>
     <p-pickList [source]="sourceProducts" [target]="targetProducts" sourceHeader="Produtos" targetHeader="Selecionados"
@@ -45,13 +52,15 @@
                     src="https://primefaces.org/cdn/primeng/images/demo/product/{{ product.image }}"
                     alt="" /> -->
           <div class="flex-1 flex flex-column gap-2">
-            <span class="font-bold surface-overlay white-space-nowrap overflow-hidden text-overflow-ellipsis" style="width:250px">{{ product.titulo }}</span>
+            <span class="font-bold surface-overlay white-space-nowrap overflow-hidden text-overflow-ellipsis"
+              style="width:250px">{{ product.titulo }}</span>
           </div>
           <span class="font-bold text-900">
             {{ product.preco }}
           </span>
           <span class="flex justify-content-center">
-            <p-button *ngIf="idEditar != undefined" icon="pi pi-times" (onClick)="apagarProdutoPromo(product.id)" severity="danger" />
+            <p-button *ngIf="idEditar != undefined" icon="pi pi-times" (onClick)="apagarProdutoPromo(product.id)"
+              severity="danger" />
           </span>
         </div>
       </ng-template>

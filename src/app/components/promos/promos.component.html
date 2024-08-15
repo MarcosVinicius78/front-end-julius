@@ -1,6 +1,9 @@
+<header>
+  <h2>Promoções: </h2>
+</header>
 <section class="flex gap-3 justify-content-center">
   <div class="w-7 lista-de-produtos">
-    <div class="mt-2" *ngFor="let item of produtos">
+    <div class="" *ngFor="let item of produtos">
       <p-card styleClass="flex align-items-center">
         <ng-template styleClass="w-8" pTemplate="header">
           <a routerLink="/oferta/{{ item.id }}">
@@ -13,11 +16,6 @@
               <h1>{{ item.titulo }}</h1>
             </a>
           </div>
-
-          <!-- <div class="outras-info">
-            <p *ngIf="item.cupom < ">{{ item.cupom }}</p>
-            <p>{{ item.freteVariacoes }}</p>
-          </div> -->
 
           <div (click)="copiarParaAreaTransferencia(item.cupom)" class="cupom">
             <i *ngIf="item.cupom && item.cupom.length < 18" class="pi pi-copy"></i>

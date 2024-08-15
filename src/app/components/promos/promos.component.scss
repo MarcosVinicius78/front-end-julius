@@ -1,6 +1,5 @@
 :host ::ng-deep {
   section {
-    margin-top: 100px;
     height: 100vh;
   }
 
@@ -24,6 +23,7 @@
   }
 
   .convite {
+    margin-top: 10px;
     border-radius: 10px;
     width: 250px;
     height: 200px;
@@ -47,10 +47,6 @@
     text-align: center;
   }
 
-  .flex-convite div:last-child {
-    margin-top: 10px;
-  }
-
   .info h1 {
     min-height: 28px;
     width: 100%;
@@ -67,6 +63,7 @@
     display: -webkit-box;
     padding: 5px 0 0px 0;
     font-family: "SergipeOfertas";
+    font-size: 20px;
   }
 
   .p-card-header {
@@ -76,6 +73,7 @@
   .p-card {
     height: 200px;
     align-items: normal !important;
+    margin-top: 10px;
   }
 
   .p-card-header {
@@ -143,18 +141,26 @@
 
   .frete p {
     margin-left: 5px;
+    font-size: 15px;
   }
 
   .cupom{
     display: flex;
   }
 
+  header{
+    margin-top: 85px;
+    margin-left: 12%;
+  }
 
+  header h2{
+    margin: 0;
+  }
 
   @media screen and (max-width: 600px) {
     section {
       margin-top: 50px;
-      height: calc(100dvh - 51px);
+      height: 100dvh;
     }
 
     .flex-convite {
@@ -173,6 +179,7 @@
     .p-card {
       flex-direction: column;
       height: auto;
+      margin-top: 0;
     }
 
     .info h1 {
@@ -182,6 +189,7 @@
     }
 
     .lista-de-produtos {
+      height: fit-content;
       width: 100% !important;
       display: grid;
       grid-template-columns: calc(50% - 4px) calc(50% - 4px);
@@ -189,6 +197,10 @@
       overflow: hidden;
       padding: 5px;
       /* margin: 0 5vw; */
+    }
+
+    .lista-de-produtos > div{
+      height: fit-content;
     }
 
     .preco p {
@@ -258,6 +270,15 @@
       -webkit-box-orient: vertical;
       text-overflow: ellipsis;
       display: -webkit-box;
+    }
+
+    header{
+      margin-top: 55px;
+      margin-left: 0;
+    }
+
+    section{
+      margin-top: 0;
     }
   }
 }

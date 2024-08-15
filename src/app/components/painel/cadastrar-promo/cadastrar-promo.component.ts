@@ -51,7 +51,6 @@ export class CadastrarPromoComponent implements OnInit {
   }
 
   onFileChange(event: any) {
-    console.log(event.currentFiles)
 
     this.imagemFile = event.currentFiles[0]
     const reader = new FileReader();
@@ -103,10 +102,7 @@ export class CadastrarPromoComponent implements OnInit {
         this.produtosSelecionadoGroup.reset()
       })
     }
-
     this.atualizarPromo()
-
-
   }
 
   salvarImagem(id: any) {
@@ -146,7 +142,7 @@ export class CadastrarPromoComponent implements OnInit {
     });
   }
 
-  editarPromo(idEditar: number, produtosEditar: ProdutosPromo[]) {
+  editarPromo(copy: string,idEditar: number, produtosEditar: ProdutosPromo[]) {
 
     this.idEditar = idEditar;
     this.targetProducts = [];
@@ -162,18 +158,22 @@ export class CadastrarPromoComponent implements OnInit {
       this.targetProducts.push(produtos)
     })
 
+    this.produtosSelecionadoGroup = this.formBuilder.group({
+      copyPromo: [copy]
+    })
+
     this.modal = true;
   }
 
   apagarProdutoPromo(id: number) {
     if (this.targetProducts.length === 1) {
-      // this.apagarPromo(this.idEditar, urlImagem)
+
       this.modal = false
       this.listarPromo()
       return;
     }
     this.promoService.apagarPromoProduto(this.idEditar, id).subscribe(response => {
-      // this.modal = false;
+
       this.targetProducts = this.targetProducts.filter(produto => produto.id !== id);
       this.listarPromo()
       this.idEditar = 0;
@@ -189,12 +189,8 @@ export class CadastrarPromoComponent implements OnInit {
     });
 
     estruturaCompartilhamento += `*\u{1F6D2} Compre Aqui: \u{1F447}* ${window.location.href.replace("painel/cadastrar-promo", '')}promos/${id}`;
-    // console.log(estruturaCompartilhamento)
+
     this.clipboard.copy(estruturaCompartilhamento);
   }
-
-  // copiarParaAreaTransferencia(produtos: Produtos) {
-  //   this.messageService.add({ severity: 'success', detail: 'POST COPIADO' });
-  // }
 
 }
