@@ -21,10 +21,6 @@ export class ConfiguracoesComponent {
     this.imagemFile = event.currentFiles[0]
     const reader = new FileReader();
 
-    // reader.onload = (e) => {
-    //   this.imagemBase64 = reader.result as string;
-    // }
-
     reader.readAsDataURL(this.imagemFile);
   }
 

@@ -21,12 +21,16 @@ import { BlankComponent } from './components/blank/blank.component';
 import { PoliticaPrivacidadeComponent } from './components/politica-privacidade/politica-privacidade.component';
 import { TermosUsoComponent } from './components/termos-uso/termos-uso.component';
 import { QuemSomosComponent } from './components/quem-somos/quem-somos.component';
+import { CadastrarPromoComponent } from './components/painel/cadastrar-promo/cadastrar-promo.component';
+import { PromosComponent } from './components/promos/promos.component';
+
 
 const routes: Routes = [
   {
     path: 'painel', component: InicioPainelComponent, children: [
       { path: '', component: ListarProdutosCadastradosComponent },
       { path: 'cadastrar-produtos', component: CadastrarProdutoComponent },
+      { path: 'cadastrar-promo', component: CadastrarPromoComponent },
       { path: 'atualizar-produtos/:id', component: CadastrarProdutoComponent },
       { path: 'listar-produtos', component: ListarProdutosCadastradosComponent },
       { path: 'cadastrar-categoria', component: CadastrarCategoriaComponent },
@@ -48,6 +52,7 @@ const routes: Routes = [
   { path: 'politica-privacidade', component: PoliticaPrivacidadeComponent, data: { hideHeader: true, hideFooter: true } },
   { path: 'termos-uso', component: TermosUsoComponent, data: { hideHeader: true, hideFooter: true } },
   { path: 'quem-somos', component: QuemSomosComponent, data: { hideHeader: true, hideFooter: true } },
+  { path: 'promos/:id', component: PromosComponent, data: { hideHeader: true, hideFooter: true } },
   { path: 'blog/:id', component: BlogComponent, data: { hideHeader: true, hideFooter: true } },
   { path: 'blank', component: BlankComponent },
   // { path: '', redirectTo: '/inicio', pathMatch: 'full'},

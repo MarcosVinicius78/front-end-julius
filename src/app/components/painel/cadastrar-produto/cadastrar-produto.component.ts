@@ -139,8 +139,6 @@ export class CadastrarProdutoComponent implements OnInit {
         copy: this.produtoFormGroup.get('copy')?.value
       }
 
-      console.log(produto)
-
       this.produtoSevice.salvarProduto(produto).subscribe(response => {
 
         this.id = response.id;

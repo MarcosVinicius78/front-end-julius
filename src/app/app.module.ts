@@ -43,7 +43,10 @@ import { ListaDePostsComponent } from './components/painel/lista-de-posts/lista-
 import { CardModule } from 'primeng/card';
 import { ConfiguracoesComponent } from './components/painel/configuracoes/configuracoes.component';
 import { BlankComponent } from './components/blank/blank.component';
-
+import { CadastrarPromoComponent } from './components/painel/cadastrar-promo/cadastrar-promo.component';
+import { DialogModule } from 'primeng/dialog';
+import { PickListModule } from 'primeng/picklist';
+import { PromosComponent } from './components/promos/promos.component';
 @NgModule({ declarations: [
         AppComponent,
         HeaderComponent,
@@ -66,7 +69,9 @@ import { BlankComponent } from './components/blank/blank.component';
         ListaDePostsComponent,
         ConfiguracoesComponent,
         BlankComponent,
-        MenuOpcoesComponent
+        MenuOpcoesComponent,
+        CadastrarPromoComponent,
+        PromosComponent
     ],
     bootstrap: [AppComponent], imports: [BrowserModule,
         AppRoutingModule,
@@ -86,6 +91,8 @@ import { BlankComponent } from './components/blank/blank.component';
         InputTextModule,
         DropdownModule,
         MessagesModule,
+        DialogModule,
+        PickListModule,
         CardModule], providers: [
         {
             provide: HTTP_INTERCEPTORS,

@@ -54,10 +54,8 @@ export class ProdutoComponent implements OnInit {
     private produtoService: ProdutoService,
     private meta: Meta,
     private reportService: ReportService,
-    // private dialog: MatDialog,
     private clipboard: Clipboard,
     private linkBannerService: LinkBannerService,
-    // private snackBar: MatSnackBar
     @Inject(PLATFORM_ID) private platformId: Object
   ) { }
 
