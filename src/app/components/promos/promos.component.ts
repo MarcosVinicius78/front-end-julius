@@ -11,7 +11,7 @@ import { Clipboard } from '@angular/cdk/clipboard';
 @Component({
   selector: 'app-promos',
   templateUrl: './promos.component.html',
-  styleUrls: ['./promos.component.css']
+  styleUrls: ['./promos.component.scss']
 })
 export class PromosComponent implements OnInit {
 

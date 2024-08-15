@@ -6,6 +6,7 @@ import { ProdutoService } from 'src/app/service/painel/produto.service';
 import { PromosService } from 'src/app/service/painel/promos.service';
 import { response } from 'express';
 import { environment } from 'src/environments/environment';
+import { Clipboard } from '@angular/cdk/clipboard';
 
 @Component({
   selector: 'app-cadastrar-promo',
@@ -36,7 +37,8 @@ export class CadastrarPromoComponent implements OnInit {
   constructor(
     private promoService: PromosService,
     private produtosService: ProdutoService,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private clipboard: Clipboard
   ) { }
 
   ngOnInit() {
@@ -187,7 +189,12 @@ export class CadastrarPromoComponent implements OnInit {
     });
 
     estruturaCompartilhamento += `*\u{1F6D2} Compre Aqui: \u{1F447}* ${window.location.href.replace("painel/cadastrar-promo", '')}promos/${id}`;
-    console.log(estruturaCompartilhamento)
+    // console.log(estruturaCompartilhamento)
+    this.clipboard.copy(estruturaCompartilhamento);
   }
+
+  // copiarParaAreaTransferencia(produtos: Produtos) {
+  //   this.messageService.add({ severity: 'success', detail: 'POST COPIADO' });
+  // }
 
 }
