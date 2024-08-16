@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Meta } from '@angular/platform-browser';
+import { Meta, Title } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { LinksBanner } from 'src/app/dto/LinksBanner';
 import { PrmomsProdutos, ProdutosPromo } from 'src/app/models/promos';
@@ -54,6 +54,17 @@ export class PromosComponent implements OnInit {
     this.meta.updateTag({ property: 'og:description', content: productDescription });
     this.meta.updateTag({ property: 'og:image', content: `${this.apiUrl}/promos/download-imagem-promo/${productImageUrl}` });
 
+    this.addPreloadLink(`${this.apiUrl}/promos/download-imagem-promo/${productImageUrl}`)
+
+  }
+
+  addPreloadLink(href: string): void {
+    const link: HTMLLinkElement = document.createElement('link');
+    link.rel = 'preload';
+    link.as = 'image';
+    link.href = href;
+    link.type = 'image/jpeg';
+    document.head.appendChild(link);
   }
 
   pegarLinks() {
