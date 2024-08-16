@@ -184,8 +184,8 @@ export class CadastrarPromoComponent implements OnInit {
     let estruturaCompartilhamento = copy + "\n\n";
 
     produto.forEach(item => {
-      estruturaCompartilhamento += item.titulo + "\n";
-      estruturaCompartilhamento += item.preco + "\n\n"
+      estruturaCompartilhamento += "\u{1F4CC}" + item.titulo.substring(0,60)+"..." + "\n";
+      estruturaCompartilhamento += "\u{1F525}" + item.preco + "\n\n"
     });
 
     estruturaCompartilhamento += `*\u{1F6D2} Compre Aqui: \u{1F447}* ${window.location.href.replace("painel/cadastrar-promo", '')}promos/${id}`;
