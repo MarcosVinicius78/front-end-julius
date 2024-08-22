@@ -79,6 +79,10 @@ export class ProdutoService {
   encerrarPromocao(status: boolean,id:number){
     return this.http.get(`${this.apiUrl}/produto/encerrar-promocao?status=${status}&id=${id}`)
   }
+
+  listarDestaques(page: number, size: number){
+    return this.http.get<PordutosPage>(`${this.apiUrl}/produto/destaque?page=${page}&size=${size}`);
+  }
 }
 
 interface PordutosPage {
