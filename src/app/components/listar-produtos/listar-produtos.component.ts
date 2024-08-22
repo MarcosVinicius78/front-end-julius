@@ -129,18 +129,22 @@ export class ListarProdutosComponent implements OnInit {
 
     if (this.isAtBottom() && !this.loading && this.termoPesquisa === '' && Number.isNaN(this.idCategoria) && this.path !== "destaque") {
       this.listarProdutos()
+      return
     }
 
     if (this.isAtBottom() && this.termoPesquisa != '' && !this.loading && Number.isNaN(this.idCategoria) && this.pagePesquisa < this.page) {
       this.pesquisar()
+      return
     }
 
     if (this.isAtBottom() && !this.loading && !Number.isNaN(this.idCategoria)) {
       this.listarPorCategoria();
+      return
     }
 
     if (this.isAtBottom() && !this.loading && this.path === "destaque" && this.pagePesquisa < this.page) {
       this.produtosEmDestaque();
+      return
     }
 
   }
