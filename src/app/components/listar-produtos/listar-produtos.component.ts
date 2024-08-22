@@ -90,6 +90,7 @@ export class ListarProdutosComponent implements OnInit {
       }
 
       this.listarPorCategoria();
+      return
     }
 
     this.produtos = []
