@@ -142,7 +142,7 @@ export class ListarProdutosComponent implements OnInit {
       return
     }
 
-    if (this.isAtBottom() && !this.loading && this.path === "destaque" && this.pagePesquisa < this.page) {
+    if (this.isAtBottom() && !this.loading && this.path === "destaque" && Number.isNaN(this.idCategoria) && this.pagePesquisa < this.page) {
       this.produtosEmDestaque();
       return
     }
