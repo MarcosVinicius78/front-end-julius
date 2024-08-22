@@ -28,7 +28,7 @@ section{
   font-size: 14px;
 }
 
-.card-pp h3{
+.card-pp div h3{
   font-size: 15px;
 }
 
@@ -50,9 +50,6 @@ section{
 }
 
 @media screen and (max-width: 720px){
-  .pagina-inicial a{
-
-  }
 
   .card-pp {
     width: 95%;

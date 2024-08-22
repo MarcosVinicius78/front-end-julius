@@ -45,6 +45,7 @@ const routes: Routes = [
   },
   { path: 'login', component: LoginComponent },
   { path: '', component: ListarProdutosComponent, data: { hideHeader: true, hideFooter: true } },
+  { path: 'destaque', component: ListarProdutosComponent, data: { hideHeader: true, hideFooter: true } },
   { path: 'oferta/:id', component: ProdutoComponent, data: { hideHeader: true, hideFooter: true }, canActivate: [RedirectGuardService] },
   { path: 'produtos-categoria/:id', component: ListarProdutosComponent, data: { hideHeader: true, hideFooter: true } },
   { path: 'grupos', component: GruposComponent, data: { hideHeader: true, hideFooter: true } },

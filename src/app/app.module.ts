@@ -23,8 +23,6 @@ import { LinksBannersComponent } from './components/painel/links-banners/links-b
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { ButtonModule } from 'primeng/button';
-// import { MatDialogModule } from '@angular/material/dialog';
-// import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { EditorModule } from 'primeng/editor';
 import { LoginComponent } from './components/painel/login/login.component';
 import { RequireService } from './interceptors/require.service';
@@ -78,15 +76,12 @@ import { PromosComponent } from './components/promos/promos.component';
         FormsModule,
         ReactiveFormsModule,
         BrowserAnimationsModule,
-        // MatIconModule,
         ButtonModule,
         TableModule,
         ToastModule,
         EditorModule,
         FileUploadModule,
         ToolbarModule,
-        // MatDialogModule,
-        // MatSnackBarModule,
         PaginatorModule,
         InputTextModule,
         DropdownModule,

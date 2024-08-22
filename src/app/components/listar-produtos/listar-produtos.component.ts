@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, HostListener, Inject, OnDestroy, OnInit, ViewChild, PLATFORM_ID } from '@angular/core';
+import { AfterViewInit, Component, HostListener, Inject, OnDestroy, OnInit, ViewChild, PLATFORM_ID, destroyPlatform } from '@angular/core';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { Produtos } from 'src/app/models/produtos';
 import { ProdutoService } from 'src/app/service/painel/produto.service';
@@ -10,6 +10,7 @@ import { Clipboard } from '@angular/cdk/clipboard';
 import { filter } from 'rxjs/operators';
 import { isPlatformBrowser } from '@angular/common';
 import { ProdutoModalDto } from 'src/app/dto/produtoModalDto';
+import { url } from 'node:inspector';
 
 @Component({
   selector: 'app-listar-produtos',
@@ -58,6 +59,7 @@ export class ListarProdutosComponent implements OnInit {
 
   loading = false;
 
+  path!: string;
 
   constructor(
     private produtoService: ProdutoService,
@@ -68,6 +70,10 @@ export class ListarProdutosComponent implements OnInit {
 
   ngOnInit() {
 
+    this.route.url.subscribe(params => {
+      this.path = params.map(segment => segment.path).join(("/"));
+    });
+
     if (this.links.banners.length != 0) {
       this.startSlideShow();
       this.showSlides(this.slideIndex)
@@ -77,16 +83,21 @@ export class ListarProdutosComponent implements OnInit {
 
     this.idCategoria = Number.parseInt(this.route.snapshot.paramMap.get('id')!);
 
-    if (Number.isNaN(this.idCategoria)) {
-      this.listarProdutos();
-      return;
+    if (this.path !== "destaque") {
+      if (Number.isNaN(this.idCategoria)) {
+        this.listarProdutos();
+        return;
+      }
+
+      this.listarPorCategoria();
     }
 
-    this.listarPorCategoria();
+    this.produtos = []
+    this.produtosEmDestaque();
   }
 
   listarPorCategoria() {
-    this.produtoService.ProdutoPorCategoria(environment.site,this.idCategoria, this.page, this.size).subscribe(response => {
+    this.produtoService.ProdutoPorCategoria(environment.site, this.idCategoria, this.page, this.size).subscribe(response => {
       this.produtos = this.produtos.concat(response);
       this.page++
       this.loading = false
@@ -116,16 +127,22 @@ export class ListarProdutosComponent implements OnInit {
     // const scrollPosition = window.scrollY + window.innerHeight;
     // const documentHeight = document.documentElement.offsetHeight;
 
-    if (this.isAtBottom() && !this.loading && this.termoPesquisa === '' && Number.isNaN(this.idCategoria)) {
+    if (this.isAtBottom() && !this.loading && this.termoPesquisa === '' && Number.isNaN(this.idCategoria) && this.path !== "destaque") {
       this.listarProdutos()
     }
 
-    if (this.termoPesquisa != '') {
+    if (this.isAtBottom() && this.termoPesquisa != '' && !this.loading && Number.isNaN(this.idCategoria) && this.pagePesquisa < this.page) {
       this.pesquisar()
     }
 
     if (this.isAtBottom() && !this.loading && !Number.isNaN(this.idCategoria)) {
       this.listarPorCategoria();
+    }
+
+    if (this.path === "destaque" && this.pagePesquisa < this.page) {
+      console.log("page pesquisa "+this.pagePesquisa)
+      console.log("page ",this.page)
+      this.produtosEmDestaque();
     }
 
   }
@@ -141,18 +158,14 @@ export class ListarProdutosComponent implements OnInit {
     }
 
 
-    this.produtoService.pesquisarProdutos(this.termoPesquisa,this.pagePesquisa, this.size).subscribe(
+    this.produtoService.pesquisarProdutos(this.termoPesquisa, this.pagePesquisa, this.size).subscribe(
       data => {
+        this.page = data.pageable.pageSize
         this.produtos = this.produtos.concat(data.content);
-        console.log(this.produtos)
-        this.pagePesquisa++
         this.loading = false;
         this.termoPesquisaAnterior = this.termoPesquisa;
-      },
-      error => {
-        console.error('Erro ao pesquisar produtos:', error);
-      }
-    );
+      });
+      this.pagePesquisa++
   }
 
   calculateElapsedTime(createdDate: string): string {
@@ -224,10 +237,9 @@ export class ListarProdutosComponent implements OnInit {
     this.clipboard.copy(cupom);
   }
 
-  abrirModal(event: Event, cupom: string, img: string, titulo: string, link: string, frete: string, id: number){
-    console.log(frete.length)
+  abrirModal(event: Event, cupom: string, img: string, titulo: string, link: string, frete: string, id: number) {
 
-    if (cupom && cupom.length > 18 ||frete && frete.length > 48) {
+    if (cupom && cupom.length > 18 || frete && frete.length > 48) {
       this.produtoModalDto.id = id;
       this.produtoModalDto.titulo = titulo;
       this.produtoModalDto.imagem = img;
@@ -239,7 +251,16 @@ export class ListarProdutosComponent implements OnInit {
     }
   }
 
-  fecharModal(){
+  fecharModal() {
     this.modal = false
+  }
+
+  produtosEmDestaque() {
+    this.produtoService.listarDestaques(this.pagePesquisa, this.size).subscribe(response => {
+      this.produtos = this.produtos.concat(response.content);
+      this.page = response.totalPages
+    });
+    this.pagePesquisa++
+
   }
 }

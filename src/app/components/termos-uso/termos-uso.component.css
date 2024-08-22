@@ -4,7 +4,7 @@ section{
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  margin-top: 70px;
+  margin-top: 75px;
 }
 
 .card-pp{
@@ -29,7 +29,13 @@ section{
 }
 
 .card-pp h2{
+  text-align: center;
   font-size: 17px;
+}
+
+.card-pp div:last-child div:last-child a{
+  text-transform: initial;
+  color: rgb(0, 128, 255);
 }
 
 .pagina-inicial{
@@ -48,6 +54,10 @@ section{
 @media screen and (max-width: 720px){
   .card-pp {
     width: 95%;
+  }
+
+  .card-pp h3{
+    text-align: center;
   }
 
   .pagina-inicial{

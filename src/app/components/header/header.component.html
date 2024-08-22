@@ -6,8 +6,11 @@
   <i class="menu-icon pi pi-bars" (click)="openMenu()"></i>
   <nav class="desktop_menu" [class.mobile_menu]="menuValue">
     <i (click)="openMenu()" class="fechar-menu pi pi-times p-2"></i>
-    <a href="">Buscar Promoção</a>
-    <a class="mobile" routerLink="/quem-somos">
+    <a routerLink="destaque">
+      <i class="mr-1 text-white-alpha-90 text-lg pi pi-star"></i>
+      Destaques
+    </a>
+    <a  (click)="openMenu()" class="mobile" routerLink="/quem-somos">
       Que Somos
       <i class="pi pi-users mr-2 text-white-alpha-90 text-lg text-justify"></i>
     </a>
@@ -23,7 +26,7 @@
           item.nomeCategoria }}</a>
       </div>
     </div>
-    <a class="flex align-items-center" href="/grupos">
+    <a  (click)="openMenu()" class="flex align-items-center" routerLink="/grupos">
       <i class="pi pi-whatsapp mr-2 text-white-alpha-90 text-lg text-justify"></i>
       Grupos
     </a>
@@ -33,13 +36,13 @@
       Que Somos
     </a>
 
-    <a class="flex align-items-center" routerLink="blog">
+    <a  (click)="openMenu()" class="flex align-items-center" routerLink="blog">
       <i class="pi pi-comments mr-2 text-white-alpha-90 text-lg text-justify"></i>
       Blog
     </a>
     <hr class="mobile">
-    <a class="itens-header" routerLink="/politica-privacidade">Política de Privacidade</a>
-    <a class="itens-header" href="termos-uso">Termos de Uso</a>
-    <a class="itens-header" href="{{ links.links != undefined ? 'mailto:' + links.links.email : '#'}}">Fale Conosoco</a>
+    <a  (click)="openMenu()" class="itens-header" routerLink="/politica-privacidade">Política de Privacidade</a>
+    <a  (click)="openMenu()" class="itens-header" routerLink="termos-uso">Termos de Uso</a>
+    <a  (click)="openMenu()" class="itens-header" href="{{ links.links != undefined ? 'mailto:' + links.links.email : '#'}}">Fale Conosoco</a>
   </nav>
 </header>

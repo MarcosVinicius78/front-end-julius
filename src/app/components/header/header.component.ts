@@ -16,6 +16,8 @@ export class HeaderComponent implements OnInit {
   menu_icon :string ='pi pi-bars';
   links = new LinksBanner();
 
+  sidebarVisible: boolean = false;
+
   categorias: Categoria[] = [];
 
   constructor(
