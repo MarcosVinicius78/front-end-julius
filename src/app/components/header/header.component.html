@@ -6,13 +6,13 @@
   <i class="menu-icon pi pi-bars" (click)="openMenu()"></i>
   <nav class="desktop_menu" [class.mobile_menu]="menuValue">
     <i (click)="openMenu()" class="fechar-menu pi pi-times p-2"></i>
-    <a routerLink="destaque">
+    <a (click)="openMenu()" routerLink="destaque">
       <i class="mr-1 text-white-alpha-90 text-lg pi pi-star"></i>
       Destaques
     </a>
     <a  (click)="openMenu()" class="mobile" routerLink="/quem-somos">
-      Que Somos
       <i class="pi pi-users mr-2 text-white-alpha-90 text-lg text-justify"></i>
+      Que Somos
     </a>
 
     <div>

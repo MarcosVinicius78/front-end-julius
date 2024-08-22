@@ -140,8 +140,6 @@ export class ListarProdutosComponent implements OnInit {
     }
 
     if (this.isAtBottom() && !this.loading && this.path === "destaque" && this.pagePesquisa < this.page) {
-      console.log("page pesquisa "+this.pagePesquisa)
-      console.log("page ",this.page)
       this.produtosEmDestaque();
     }
 
@@ -259,8 +257,8 @@ export class ListarProdutosComponent implements OnInit {
     this.produtoService.listarDestaques(this.pagePesquisa, this.size).subscribe(response => {
       this.produtos = this.produtos.concat(response.content);
       this.page = response.totalPages
-      this.loading = false;
     });
+    this.loading = false;
     this.pagePesquisa++
 
   }
