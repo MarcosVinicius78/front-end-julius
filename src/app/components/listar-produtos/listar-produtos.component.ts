@@ -139,7 +139,7 @@ export class ListarProdutosComponent implements OnInit {
       this.listarPorCategoria();
     }
 
-    if (this.path === "destaque" && this.pagePesquisa < this.page) {
+    if (this.isAtBottom() && this.path === "destaque" && this.pagePesquisa < this.page) {
       console.log("page pesquisa "+this.pagePesquisa)
       console.log("page ",this.page)
       this.produtosEmDestaque();
