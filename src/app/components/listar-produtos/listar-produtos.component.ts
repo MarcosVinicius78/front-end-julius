@@ -259,6 +259,7 @@ export class ListarProdutosComponent implements OnInit {
     this.produtoService.listarDestaques(this.pagePesquisa, this.size).subscribe(response => {
       this.produtos = this.produtos.concat(response.content);
       this.page = response.totalPages
+      this.loading = false;
     });
     this.pagePesquisa++
 
