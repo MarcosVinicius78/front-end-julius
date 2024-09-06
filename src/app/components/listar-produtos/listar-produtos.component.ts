@@ -11,6 +11,7 @@ import { filter } from 'rxjs/operators';
 import { isPlatformBrowser } from '@angular/common';
 import { ProdutoModalDto } from 'src/app/dto/produtoModalDto';
 import { url } from 'node:inspector';
+import { AtivarRodapéService } from 'src/app/service/ativarRodapé.service';
 
 @Component({
   selector: 'app-listar-produtos',
@@ -65,7 +66,8 @@ export class ListarProdutosComponent implements OnInit {
     private produtoService: ProdutoService,
     private linkBannerService: LinkBannerService,
     private route: ActivatedRoute,
-    private clipboard: Clipboard
+    private clipboard: Clipboard,
+    private ativarRodape: AtivarRodapéService
   ) { }
 
   ngOnInit() {
@@ -167,6 +169,7 @@ export class ListarProdutosComponent implements OnInit {
         this.produtos = this.produtos.concat(data.content);
         this.loading = false;
         this.termoPesquisaAnterior = this.termoPesquisa;
+        console.log(data)
       });
       this.pagePesquisa++
   }
@@ -266,5 +269,9 @@ export class ListarProdutosComponent implements OnInit {
     this.loading = false;
     this.pagePesquisa++
 
+  }
+
+  abrirFooter(){
+    this.ativarRodape.ativarRodape(true);
   }
 }

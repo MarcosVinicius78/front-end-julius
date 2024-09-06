@@ -62,6 +62,7 @@ export class ListarProdutosCadastradosComponent implements OnInit {
     this.produtoService.listarProduto(this.page, this.size).subscribe(response => {
       this.produtos = this.produtos.concat(response.content)
       this.totalPage = response.totalPages
+      console.log(this.produtos)
     });
   }
 
@@ -144,7 +145,6 @@ export class ListarProdutosCadastradosComponent implements OnInit {
     if (produto.copy) {
       estruturaCompartilhamento += `*${produto.copy}*\n\n`
     }
-
     if (produto.titulo.length > 55) {
       estruturaCompartilhamento += `\u{1F4CC} ${produto.titulo.substring(0, 60)}...\n\n`;
     } else {
@@ -166,6 +166,7 @@ export class ListarProdutosCadastradosComponent implements OnInit {
     }
 
     if (produto.parcelado && produto.parcelado.toLocaleLowerCase().includes("sem juros")) {
+      console.log("aqui")
       estruturaCompartilhamento += `_${produto.parcelado}_\n`;
     }else if (produto.parcelado) {
       estruturaCompartilhamento += `* ${produto.parcelado}\n`;

@@ -442,6 +442,10 @@ a{
   display: -webkit-box;
 }
 
+.exibir-rodape span{
+  cursor: pointer;
+}
+
 @media screen and (max-width: 720px){
 
   section{

@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { NavigationEnd, Router } from '@angular/router';
+import { filter } from 'rxjs/operators';
 import { LinksBanner } from 'src/app/dto/LinksBanner';
+import { AtivarRodapéService } from 'src/app/service/ativarRodapé.service';
 import { LinkBannerService } from 'src/app/service/painel/link-banner.service';
 
 @Component({
@@ -9,13 +12,32 @@ import { LinkBannerService } from 'src/app/service/painel/link-banner.service';
 })
 export class FooterComponent implements OnInit{
 
+  footerFixo: boolean = false;
   links = new LinksBanner();
+  rodapeAtivo: boolean = false;
+  rodapeGeral: boolean = false;
 
   constructor(
     private linkBannerService: LinkBannerService,
+    private ativarRodape: AtivarRodapéService,
+    private router: Router
   ){}
+
   ngOnInit(): void {
     this.pegarLinks()
+
+    this.router.events.pipe(
+      filter((event): event is NavigationEnd => event instanceof NavigationEnd)
+    ).subscribe((event: NavigationEnd) => {
+      if (event.url === '/') {
+        this.ativarRodape.rodapeAtivo$.subscribe((ativo) => {
+          this.rodapeAtivo = ativo;
+          console.log(event.url);
+        });
+      } else {
+        this.rodapeGeral = true;
+      }
+    });
   }
 
   pegarLinks(){
@@ -24,9 +46,12 @@ export class FooterComponent implements OnInit{
     });
   }
 
-  footerFixo: boolean = false;
 
   toggleFooter(): void {
     this.footerFixo = !this.footerFixo;
+  }
+
+  fecharFooter(){
+    this.ativarRodape.ativarRodape(false);
   }
 }

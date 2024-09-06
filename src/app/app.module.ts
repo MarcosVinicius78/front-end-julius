@@ -45,6 +45,7 @@ import { CadastrarPromoComponent } from './components/painel/cadastrar-promo/cad
 import { DialogModule } from 'primeng/dialog';
 import { PickListModule } from 'primeng/picklist';
 import { PromosComponent } from './components/promos/promos.component';
+
 @NgModule({ declarations: [
         AppComponent,
         HeaderComponent,

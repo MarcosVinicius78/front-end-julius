@@ -1,4 +1,4 @@
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 import { Produtos } from 'src/app/models/produtos';
 import { PrmomsProdutos, ProdutosPromo, PromoSalvar } from 'src/app/models/promos';
@@ -7,11 +7,13 @@ import { PromosService } from 'src/app/service/painel/promos.service';
 import { response } from 'express';
 import { environment } from 'src/environments/environment';
 import { Clipboard } from '@angular/cdk/clipboard';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-cadastrar-promo',
   templateUrl: './cadastrar-promo.component.html',
-  styleUrls: ['./cadastrar-promo.component.scss']
+  styleUrls: ['./cadastrar-promo.component.scss'],
+  providers: [MessageService]
 })
 export class CadastrarPromoComponent implements OnInit {
 
@@ -24,6 +26,7 @@ export class CadastrarPromoComponent implements OnInit {
   page = 0
   size = 12
   idEditar!: number
+  totalPageProdutos!: number;
 
   imagemFile!: File;
   imagemView!: string;
@@ -38,16 +41,23 @@ export class CadastrarPromoComponent implements OnInit {
     private promoService: PromosService,
     private produtosService: ProdutoService,
     private formBuilder: FormBuilder,
-    private clipboard: Clipboard
+    private clipboard: Clipboard,
+    private messageService: MessageService
   ) { }
 
   ngOnInit() {
 
     this.produtosSelecionadoGroup = this.formBuilder.group({
-      copyPromo: []
+      copyPromo: ['', [Validators.required]]
     });
 
     this.listarPromo()
+  }
+
+  onPageChange(event: any) {
+    this.page = event.first;
+    // this.size = event.rows;
+    this.listarProdutosModal()
   }
 
   onFileChange(event: any) {
@@ -67,6 +77,7 @@ export class CadastrarPromoComponent implements OnInit {
 
   abrirModal() {
     this.modal = true;
+    this.sourceProducts = []
     this.listarProdutosModal()
     this.targetProducts = []
   }
@@ -74,35 +85,44 @@ export class CadastrarPromoComponent implements OnInit {
   listarProdutosModal() {
     this.produtosService.listarProduto(this.page, this.size).subscribe(response => {
       this.sourceProducts = response.content
+      this.totalPageProdutos = response.totalPages
     });
   }
 
-  salvarProduto() {
+  salvarPromo() {
 
-    this.promoSalvar = {
-      id: 0,
-      copyPromo: '',
-      idProdutos: []
+    console.log(this.produtosSelecionadoGroup.invalid)
+
+    if (this.targetProducts.length !== 0 && !this.produtosSelecionadoGroup.invalid) {
+
+      this.promoSalvar = {
+        id: 0,
+        copyPromo: '',
+        idProdutos: []
+      }
+
+      this.promoSalvar.copyPromo = this.produtosSelecionadoGroup.get('copyPromo')?.value
+
+      if (this.idEditar === undefined || this.idEditar === 0) {
+
+        this.targetProducts.forEach(item => {
+          this.promoSalvar.idProdutos.push(item.id)
+        })
+
+        this.promoService.salvarPromo(this.promoSalvar).subscribe(response => {
+
+          this.modal = false
+          this.salvarImagem(response.idPromo)
+          this.listarPromo()
+          this.idEditar = 0
+          this.produtosSelecionadoGroup.reset()
+          return
+        })
+      }
+      this.atualizarPromo()
     }
-
-    this.promoSalvar.copyPromo = this.produtosSelecionadoGroup.get('copyPromo')?.value
-
-    if (this.idEditar === undefined || this.idEditar === 0) {
-
-      this.targetProducts.forEach(item => {
-        this.promoSalvar.idProdutos.push(item.id)
-      })
-
-      this.promoService.salvarPromo(this.promoSalvar).subscribe(response => {
-
-        this.modal = false
-        this.salvarImagem(response.idPromo)
-        this.listarPromo()
-        this.idEditar = 0
-        this.produtosSelecionadoGroup.reset()
-      })
-    }
-    this.atualizarPromo()
+    console.log("aqui")
+    this.messageService.add({ severity: 'warn', summary: 'warn', detail: 'Informe os Campos' });
   }
 
   salvarImagem(id: any) {
@@ -130,7 +150,7 @@ export class CadastrarPromoComponent implements OnInit {
       this.listarPromo()
       this.idEditar = 0
       this.produtosSelecionadoGroup.reset()
-
+      return
     });
   }
 
@@ -142,7 +162,7 @@ export class CadastrarPromoComponent implements OnInit {
     });
   }
 
-  editarPromo(copy: string,idEditar: number, produtosEditar: ProdutosPromo[]) {
+  editarPromo(copy: string, idEditar: number, produtosEditar: ProdutosPromo[]) {
 
     this.idEditar = idEditar;
     this.targetProducts = [];
@@ -154,6 +174,7 @@ export class CadastrarPromoComponent implements OnInit {
       produtos.id = response.id;
       produtos.titulo = response.titulo;
       produtos.preco = response.preco;
+      produtos.imagem = response.urlImagem
 
       this.targetProducts.push(produtos)
     })
@@ -180,11 +201,11 @@ export class CadastrarPromoComponent implements OnInit {
     });
   }
 
-  criarPost(produto: ProdutosPromo[], copy: string, id:number){
+  criarPost(produto: ProdutosPromo[], copy: string, id: number) {
     let estruturaCompartilhamento = copy + "\n\n";
 
     produto.forEach(item => {
-      estruturaCompartilhamento += `*\u{1F4CC} ${item.titulo.substring(0,60)}...* \n`;
+      estruturaCompartilhamento += `*\u{1F4CC} ${item.titulo.substring(0, 60)}...* \n`;
       estruturaCompartilhamento += `\u{1F525} ${item.preco} \n\n`
     });
 

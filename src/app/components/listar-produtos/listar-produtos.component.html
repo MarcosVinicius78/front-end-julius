@@ -155,6 +155,10 @@
       </a>
       <a *ngIf="links.links !== undefined" href="{{ 'mailto:' + links.links.email }}">FALE CONOSCO</a>
     </div>
+
+    <div class="exibir-rodape p-3 flex justify-content-center">
+      <span (click)="abrirFooter()">Exibir Rodapé<i class="pi pi-chevron-down"></i></span>
+    </div>
   </div>
 
   <aside class="modal-informacao" *ngIf="modal">

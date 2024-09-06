@@ -1,6 +1,6 @@
 import { Component, Inject, OnInit, PLATFORM_ID } from '@angular/core';
 import { Meta } from '@angular/platform-browser';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ProdutoService } from 'src/app/service/painel/produto.service';
 import { ReportService } from 'src/app/service/painel/report.service';
 
@@ -17,6 +17,7 @@ import { LinkBannerService } from 'src/app/service/painel/link-banner.service';
 import { environment } from 'src/environments/environment';
 import { ProdutoLoja } from 'src/app/dto/ProdutoLoja';
 import { ProdutoModalDto } from 'src/app/dto/produtoModalDto';
+import { AtivarRodapéService } from 'src/app/service/ativarRodapé.service';
 
 @Component({
   selector: 'app-produto',
@@ -56,7 +57,9 @@ export class ProdutoComponent implements OnInit {
     private reportService: ReportService,
     private clipboard: Clipboard,
     private linkBannerService: LinkBannerService,
-    @Inject(PLATFORM_ID) private platformId: Object
+    @Inject(PLATFORM_ID) private platformId: Object,
+    private ativarRodape: AtivarRodapéService,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
@@ -74,8 +77,6 @@ export class ProdutoComponent implements OnInit {
       this.produto = response;
       this.listarProdutos()
       this.setProductMetaTags(this.produto.titulo, this.produto.descricao, "");
-      // if (isPlatformBrowser(this.platformId)) {
-      // }
 
     }, err => {
       this.listarProdutos()
