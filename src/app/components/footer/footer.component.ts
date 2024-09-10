@@ -16,6 +16,7 @@ export class FooterComponent implements OnInit{
   links = new LinksBanner();
   rodapeAtivo: boolean = false;
   rodapeGeral: boolean = false;
+  rodapeMobile: boolean = false;
 
   constructor(
     private linkBannerService: LinkBannerService,
@@ -30,11 +31,13 @@ export class FooterComponent implements OnInit{
       filter((event): event is NavigationEnd => event instanceof NavigationEnd)
     ).subscribe((event: NavigationEnd) => {
       if (event.url === '/') {
+        // this.ativarRodape.ativarRodape(true);
         this.ativarRodape.rodapeAtivo$.subscribe((ativo) => {
           this.rodapeAtivo = ativo;
-          console.log(event.url);
+          this.rodapeMobile = true
         });
-      } else {
+      } else if(event.url.includes('oferta')) {
+        this.rodapeMobile = false
         this.rodapeGeral = true;
       }
     });

@@ -1,7 +1,7 @@
 <div [class.fechar]="rodapeAtivo" (click)="fecharFooter()" class="fechar">
 </div>
 
-<footer [ngClass]="{'footerInicio' : rodapeAtivo, 'footer-geral' : rodapeGeral}">
+<footer [ngClass]="{'footerInicio' : rodapeAtivo, 'footer-geral' : rodapeGeral, 'footer-mobile': rodapeMobile}">
   <div *ngIf="rodapeAtivo" class="fechar-modal">
     <i (click)="fecharFooter()" class="pi pi-times"></i>
   </div>

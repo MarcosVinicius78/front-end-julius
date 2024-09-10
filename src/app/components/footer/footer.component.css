@@ -181,9 +181,13 @@ p {
     width: 100%;
   }
 
+  .footer-mobile{
+    display: none !important;
+  }
+
   footer{
-    position: relative;
-    bottom: auto;
+    /* position: relative; */
+    /* bottom: auto; */
   }
 
   .flex{
