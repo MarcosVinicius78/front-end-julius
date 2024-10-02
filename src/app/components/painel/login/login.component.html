@@ -10,9 +10,13 @@
           <label for="email">E-mail</label>
           <input formControlName="email" type="email">
         </div>
-        <div class="senha">
+        <div class="senha" style="position: relative;">
           <label for="senha">Senha</label>
-          <input type="password" formControlName="senha">
+          <input [type]="showPassword ? 'text' : 'password'" formControlName="senha">
+          <button type="button" (click)="togglePasswordVisibility()"
+            style="position: absolute; right: 5px; top: 70%; transform: translateY(-50%); background: none; border: none; cursor: pointer;">
+            <i [class]="showPassword ? 'pi pi-eye-slash' : 'pi pi-eye'"></i>
+          </button>
         </div>
         <div class="senha-errada" *ngIf="senhaErrada">
           <p>Usuario ou senha Incorreto</p>

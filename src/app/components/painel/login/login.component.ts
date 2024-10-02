@@ -14,6 +14,9 @@ import { getCookie } from 'typescript-cookie';
 })
 export class LoginComponent implements OnInit {
 
+  password: string = '';
+  showPassword: boolean = false;
+
   userForm!: FormGroup;
 
   senhaErrada: boolean = false;
@@ -48,5 +51,9 @@ export class LoginComponent implements OnInit {
       }
     })
 
+  }
+
+  togglePasswordVisibility(): void {
+    this.showPassword = !this.showPassword;
   }
 }
