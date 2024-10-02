@@ -49,9 +49,12 @@ export class FooterComponent implements OnInit{
           this.ativarRodape.rodapeAtivo$.subscribe((ativo) => {
             this.paginaInicial = ativo;
           });
+        }else if(event.url === '/grupos'){
+          this.paginaInicial = false;
         }else{
           this.paginaInicial = true;
           this.rodapeGeral = true
+
         }
 
         console.log(this.paginaInicial)

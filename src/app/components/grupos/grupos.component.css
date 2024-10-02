@@ -68,6 +68,7 @@ section{
 
 .links div a:first-child{
   background-color: #25d366;
+  color: white;
 }
 
 .links div a:nth-child(2){
@@ -78,7 +79,7 @@ section{
 
   .header{
     flex-direction: column;
-    height: calc(100dvh - 85.2px);
+    height: 100dvh;
     justify-content: initial;
   }
 
@@ -113,12 +114,13 @@ section{
 
   .foto-com-carrinho{
     width: 100%;
-    display: block;
+    display: flex;
+    justify-content: center;
     margin-top: 50px;
   }
 
   .foto-com-carrinho img{
-    width: 100%;
+    width: 90%;
   }
 
   .texto p{
@@ -147,6 +149,7 @@ section{
     text-align: center;
     color: rgb(58, 58, 58);
   }
+  
 
   .links a{
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
@@ -157,7 +160,7 @@ section{
     text-align: center;
     text-decoration: none;
     border-radius: 10px;
-    color: rgb(0, 0, 0);
+    color: rgb(255, 255, 255);
     background-color: #0088cc;
     font-weight: 500;
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
