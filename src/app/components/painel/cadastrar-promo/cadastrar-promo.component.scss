@@ -17,8 +17,10 @@
 
   .lista-de-produtos {
     display: grid;
-    grid-template-columns: repeat(4, calc(19% - 12px));
+    grid-template-columns: repeat(5, calc(18% - 12px));
     height: auto;
+    gap: 5px;
+    justify-content: center;
   }
 
   .p-card {
