@@ -32,6 +32,12 @@
     </div>
 
   </div>
+  <div class="paginacao">
+    <p-paginator [first]="0" [rows]="1" [totalRecords]="totalPagepromo" (onPageChange)="changePage($event)"
+      [showCurrentPageReport]="true" currentPageReportTemplate="{first} de {totalRecords}" [showPageLinks]="false"
+      [showFirstLastIcon]="false"></p-paginator>
+
+  </div>
 
   <p-dialog header="Cadastrar Promo" [modal]="true" [draggable]="false" [(visible)]="modal" [style]="{ width: '90%' }">
     <div class="p-2">

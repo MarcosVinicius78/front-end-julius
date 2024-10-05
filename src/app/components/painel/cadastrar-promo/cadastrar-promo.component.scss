@@ -15,17 +15,29 @@
     color: white;
   }
 
+  .p-paginator{
+    background-color: transparent;
+  }
+
+  .p-paginator-current{
+    color: white;
+  }
+
+  .p-paginator button{
+    color: white;
+  }
+
   .lista-de-produtos {
     display: grid;
     grid-template-columns: repeat(5, calc(18% - 12px));
-    height: auto;
+    height: calc(100% - 120px);
     gap: 5px;
     justify-content: center;
   }
 
   .p-card {
     width: 200px !important;
-    height: 100%;
+    height: auto;
   }
 
   .p-card-title {

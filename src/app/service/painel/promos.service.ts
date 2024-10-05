@@ -1,6 +1,6 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { PrmomsProdutos, PromoSalvar } from 'src/app/models/promos';
+import { PrmomsProdutos, Promos, PromoSalvar } from 'src/app/models/promos';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
@@ -15,8 +15,9 @@ export class PromosService {
   ) { }
 
 
-  listarPromos(){
-    return this.http.get<PrmomsProdutos[]>(`${this.api}/promos`)
+  listarPromos(page: number, size: number){
+    const params = new HttpParams().set('page', page.toString()).set('size', size.toString());
+    return this.http.get<PromosPage>(`${this.api}/promos`, { params })
   }
 
   pegarPromo(id: string){
@@ -42,4 +43,10 @@ export class PromosService {
   salvarImagem(formData: FormData) {
     return this.http.post(`${this.api}/promos/upload`, formData);
   }
+}
+
+interface PromosPage {
+  content: PrmomsProdutos[],
+  totalElements: number,
+  totalPages: number
 }

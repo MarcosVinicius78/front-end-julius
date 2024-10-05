@@ -28,6 +28,10 @@ export class CadastrarPromoComponent implements OnInit {
   idEditar!: number
   totalPageProdutos!: number;
 
+  totalPagepromo!: number;
+  pagePromo = 0;
+  sizePromo = 12;
+
   imagemFile!: File;
   imagemView!: string;
 
@@ -69,9 +73,10 @@ export class CadastrarPromoComponent implements OnInit {
   }
 
   listarPromo() {
-    this.promoService.listarPromos().subscribe(response => {
-      this.promosProdutos = response
+    this.promoService.listarPromos(this.pagePromo, this.sizePromo).subscribe(response => {
 
+      this.totalPagepromo = response.totalPages
+      this.promosProdutos = response.content
     });
   }
 
@@ -214,6 +219,13 @@ export class CadastrarPromoComponent implements OnInit {
     estruturaCompartilhamento += "_Promoção sujeita a alteração a qualquer momento_"
 
     this.clipboard.copy(estruturaCompartilhamento);
+  }
+
+  changePage(page: any) {
+    this.pagePromo = page.page
+    this.promoService.listarPromos(this.pagePromo, this.sizePromo).subscribe((response: any) => {
+      this.promosProdutos = response.content
+    });
   }
 
 }
