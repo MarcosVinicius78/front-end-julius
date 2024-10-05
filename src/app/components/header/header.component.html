@@ -10,6 +10,10 @@
   <i class="menu-icon pi pi-bars" (click)="openMenu()"></i>
   <nav class="desktop_menu" [class.mobile_menu]="menuValue">
     <i (click)="openMenu()" class="fechar-menu pi pi-times p-2"></i>
+    <a  (click)="openMenu()" class="mobile" routerLink="/quem-somos">
+      <i class="pi pi-home mr-2 text-white-alpha-90 text-lg text-justify"></i>
+      Ofertas do Dia
+    </a>
     <a (click)="openMenu()" routerLink="destaque">
       <i class="mr-1 text-white-alpha-90 text-lg pi pi-star"></i>
       Destaques
