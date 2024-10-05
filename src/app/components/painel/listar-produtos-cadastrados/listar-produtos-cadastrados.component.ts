@@ -145,11 +145,12 @@ export class ListarProdutosCadastradosComponent implements OnInit {
     if (produto.copy) {
       estruturaCompartilhamento += `*${produto.copy}*\n\n`
     }
-    // if (produto.titulo.length > 55) {
-    //   estruturaCompartilhamento += `\u{1F4CC} ${produto.titulo.substring(0, 60)}...\n\n`;
-    // } else {
-    //   estruturaCompartilhamento += `\u{1F4CC} ${produto.titulo}\n\n`;
-    // }
+
+    if (produto.copy.length === 0 && produto.titulo.length > 55) {
+      estruturaCompartilhamento += `\u{1F4CC} ${produto.titulo.substring(0, 60)}...\n\n`;
+    } else if (produto.copy.length === 0) {
+      estruturaCompartilhamento += `\u{1F4CC} ${produto.titulo}\n\n`;
+    }
 
     if (produto.freteVariacoes.includes("CUPOM")) {
       estruturaCompartilhamento += `*\u{1F525} ${produto.preco} (Frete Grátis)*\n`;
@@ -160,7 +161,7 @@ export class ListarProdutosCadastradosComponent implements OnInit {
     }
 
     if (produto.freteVariacoes.includes("CUPOM")) {
-      estruturaCompartilhamento += `\n* ${produto.freteVariacoes}\n`;
+      estruturaCompartilhamento += `* ${produto.freteVariacoes}\n`;
     }
 
     if (produto.parcelado && produto.parcelado.toLocaleLowerCase().includes("sem juros")) {
