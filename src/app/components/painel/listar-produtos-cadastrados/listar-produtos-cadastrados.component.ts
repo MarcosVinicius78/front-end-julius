@@ -160,10 +160,6 @@ export class ListarProdutosCadastradosComponent implements OnInit {
       estruturaCompartilhamento += `*\u{1F525} ${produto.preco} (À Vista)*\n`;
     }
 
-    if (produto.freteVariacoes.includes("CUPOM")) {
-      estruturaCompartilhamento += `* ${produto.freteVariacoes}\n`;
-    }
-
     if (produto.parcelado && produto.parcelado.toLocaleLowerCase().includes("sem juros")) {
       estruturaCompartilhamento += `_${produto.parcelado}_\n`;
     }else if (produto.parcelado) {
@@ -178,24 +174,22 @@ export class ListarProdutosCadastradosComponent implements OnInit {
 
     if (isPlatformBrowser(this.platformId)) {
 
-      if (produto.loja.nome_loja.toLocaleLowerCase().includes("amazon")) {
-        if (this.route.url === "/painel") {
-          estruturaCompartilhamento += `\n*\u{1F6D2} Compre Aqui:\u{1F447}* ${window.location.href.replace("painel", '')}oferta/${produto.id}`;
-        } else {
-          estruturaCompartilhamento += `\n*\u{1F6D2} Compre Aqui:\u{1F447}* ${window.location.href.replace("painel/listar-produtos", '')}oferta/${produto.id}`;
-        }
-      } else {
+      // if (produto.loja.nome_loja.toLocaleLowerCase().includes("amazon")) {
+      //   if (this.route.url === "/painel") {
+      //     estruturaCompartilhamento += `\n*\u{1F6D2} Compre Aqui:\u{1F447}* ${window.location.href.replace("painel", '')}oferta/${produto.id}`;
+      //   } else {
+      //     estruturaCompartilhamento += `\n*\u{1F6D2} Compre Aqui:\u{1F447}* ${window.location.href.replace("painel/listar-produtos", '')}oferta/${produto.id}`;
+      //   }
+      // } else {
         if (this.route.url === "/painel") {
           estruturaCompartilhamento += `\n*\u{1F6D2} Compre Aqui:\u{1F447}* ${window.location.href.replace("painel", '')}oferta/${produto.id}?r=1`;
         } else {
           estruturaCompartilhamento += `\n*\u{1F6D2} Compre Aqui:\u{1F447}* ${window.location.href.replace("painel/listar-produtos", '')}oferta/${produto.id}?r=1`;
         }
-      }
+
     }
 
-    if(produto.freteVariacoes.includes("Algumas")){
-      estruturaCompartilhamento += `\n\n\u{1F4E6} ${produto.freteVariacoes}`;
-    }else if(!produto.freteVariacoes.includes("CUPOM")){
+    if(produto.freteVariacoes){
       estruturaCompartilhamento += `\n\n\u{1F4E6} ${produto.freteVariacoes}`;
     }
 
