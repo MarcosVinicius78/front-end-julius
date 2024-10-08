@@ -1,8 +1,10 @@
-<!-- <div class="close" [class.mobile_menu]="menuValue" (click)="openMenu()">
+<div *ngIf="abrirCategoria" (click)="toggleCategoria()" class="fechar-categoria fechar-categoria-mobile">
 
-</div> -->
+</div>
 
 <header class="header">
+  <div class="close" *ngIf="menuValue" (click)="openMenu()">
+  </div>
   <a class="icon-h1 flex" href="">
     <!-- <img class="img-icon" src="../../../assets/413307893_685333763588479_6412520808455805246_n.jpg" alt="sergipe"> -->
     <h1 routerLink="">SERGIPE OFERTAS</h1>
@@ -29,7 +31,7 @@
         Categorias
         <i class="ml-2 text-white-alpha-90 text-lg pi pi-chevron-down"></i>
       </a>
-      <div id="categ" class="dropdown-content">
+      <div *ngIf="abrirCategoria" @categoria id="categ" class="dropdown-content">
         <a id="cat" *ngFor="let item of categorias" href="produtos-categoria/{{item.categoria_id}}">{{
           item.nomeCategoria }}</a>
       </div>
