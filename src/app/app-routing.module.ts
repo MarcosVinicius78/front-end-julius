@@ -48,7 +48,7 @@ const routes: Routes = [
   { path: 'destaque', component: ListarProdutosComponent, data: { hideHeader: true, hideFooter: true } },
   { path: 'oferta/:id', component: ProdutoComponent, data: { hideHeader: true, hideFooter: true }, canActivate: [RedirectGuardService] },
   { path: 'produtos-categoria/:id', component: ListarProdutosComponent, data: { hideHeader: true, hideFooter: true } },
-  { path: 'grupos', component: GruposComponent, data: { hideHeader: true, hideFooter: true } },
+  { path: 'grupos', component: GruposComponent, data: { hideHeader: false, hideFooter: false } },
   { path: 'blog', component: BlogComponent, data: { hideHeader: true, hideFooter: true } },
   { path: 'politica-privacidade', component: PoliticaPrivacidadeComponent, data: { hideHeader: true, hideFooter: true } },
   { path: 'termos-uso', component: TermosUsoComponent, data: { hideHeader: true, hideFooter: true } },
