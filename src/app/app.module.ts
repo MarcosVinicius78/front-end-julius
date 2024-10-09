@@ -45,6 +45,8 @@ import { CadastrarPromoComponent } from './components/painel/cadastrar-promo/cad
 import { DialogModule } from 'primeng/dialog';
 import { PickListModule } from 'primeng/picklist';
 import { PromosComponent } from './components/promos/promos.component';
+import { InputIconModule } from 'primeng/inputicon';
+import { IconFieldModule } from 'primeng/iconfield';
 
 @NgModule({ declarations: [
         AppComponent,
@@ -89,6 +91,8 @@ import { PromosComponent } from './components/promos/promos.component';
         MessagesModule,
         DialogModule,
         PickListModule,
+        InputIconModule,
+        IconFieldModule,
         CardModule], providers: [
         {
             provide: HTTP_INTERCEPTORS,

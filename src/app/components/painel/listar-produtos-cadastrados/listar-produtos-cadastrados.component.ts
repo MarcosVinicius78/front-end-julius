@@ -5,6 +5,9 @@ import { Produtos } from 'src/app/models/produtos';
 import { ProdutoService } from 'src/app/service/painel/produto.service';
 import { Clipboard } from '@angular/cdk/clipboard';
 import { isPlatformBrowser } from '@angular/common';
+import { FormControl } from '@angular/forms';
+import { debounceTime, map, switchMap } from 'rxjs';
+
 
 @Component({
   selector: 'app-listar-produtos-cadastrados',
@@ -25,6 +28,9 @@ export class ListarProdutosCadastradosComponent implements OnInit {
   number!: number
 
   produtos: Produtos[] = [];
+
+  termoPesquisa = new FormControl();
+  palavra: string = "";
 
   // produto!: Produtos;
   selectedProducts!: Produtos;
@@ -56,21 +62,34 @@ export class ListarProdutosCadastradosComponent implements OnInit {
         icon: 'pi pi-fw pi-user',
       },
     ];
+
+    this.termoPesquisa.valueChanges
+    .pipe(
+      debounceTime(300),
+      switchMap((termo: string) => this.pesquisar(termo))
+    )
+    .subscribe(resultados => {
+
+    });
   }
 
   listarProdutos() {
     this.produtoService.listarProduto(this.page, this.size).subscribe(response => {
       this.produtos = this.produtos.concat(response.content)
       this.totalPage = response.totalPages
-      console.log(this.produtos)
     });
   }
 
   changePage(page: any) {
     this.page = page.page
-    this.produtoService.listarProduto(this.page, this.size).subscribe((response: any) => {
-      this.produtos = response.content
-    });
+
+    if (this.palavra === "") {
+      this.produtoService.listarProduto(this.page, this.size).subscribe((response: any) => {
+        this.produtos = response.content
+      });
+    }else{
+      this.pesquisar(this.palavra);
+    }
   }
 
   apagarProduto(id: number, urlImagem: string, imagemSocial: string) {
@@ -206,5 +225,25 @@ export class ListarProdutosCadastradosComponent implements OnInit {
     } else {
       this.openMenuId = productId;
     }
+  }
+
+  pesquisar(termo: string) {
+    this.palavra = termo;
+
+    // return this.produtoService.pesquisarProdutos(termo, this.page, this.size)
+    // .pipe(
+    //   map( data => data)
+    // );
+
+    this.produtoService.pesquisarProdutos(termo, this.page, this.size).subscribe(
+      data => {
+        this.totalPage = data.totalPages
+        this.produtos = data.content;
+        // this.loading = false;
+        // this.termoPesquisaAnterior = this.termoPesquisa;
+        // console.log(data)
+      });
+
+      return this.produtos
   }
 }

@@ -3,6 +3,10 @@
     <div>
       <h1>Produtos Cadastrados</h1>
     </div>
+    <p-iconField iconPosition="left">
+      <!-- <p-inputIcon styleClass="pi pi-search" /> -->
+      <input [formControl]="termoPesquisa" type="text" pInputText />
+    </p-iconField>
     <input (click)="apagarVariosProdutos()" type="submit" value="Apagar">
   </header>
 
@@ -53,7 +57,7 @@
               </a>
             </div> -->
             <app-menuOpcoes [product]="item" [menuOpen]="openMenuId === item.id"
-            (toggleMenu)="toggleMenu(item.id)"></app-menuOpcoes>
+              (toggleMenu)="toggleMenu(item.id)"></app-menuOpcoes>
           </td>
         </tr>
       </ng-template>
