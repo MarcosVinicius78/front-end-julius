@@ -208,9 +208,9 @@ export class ListarProdutosCadastradosComponent implements OnInit {
 
     }
 
-    if(produto.freteVariacoes){
-      estruturaCompartilhamento += `\n\n\u{1F4E6} ${produto.freteVariacoes}`;
-    }
+    // if(produto.freteVariacoes){
+    //   estruturaCompartilhamento += `\n\n\u{1F4E6} ${produto.freteVariacoes}`;
+    // }
 
     if (produto.mensagemAdicional) {
       estruturaCompartilhamento += `\n\n_${produto.mensagemAdicional}_`;
