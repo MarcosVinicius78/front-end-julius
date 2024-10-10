@@ -66,6 +66,7 @@ export class LinksBannersComponent implements OnInit {
         telegram: this.linksFormGrupo.get(['telegram'])?.value,
         instagram: this.linksFormGrupo.get(['instagram'])?.value,
         email: this.linksFormGrupo.get(['email'])?.value,
+        siteId: environment.site
       };
     } else {
       links = {
@@ -74,6 +75,7 @@ export class LinksBannersComponent implements OnInit {
         telegram: this.linksFormGrupo.get(['telegram'])?.value,
         instagram: this.linksFormGrupo.get(['instagram'])?.value,
         email: this.linksFormGrupo.get(['email'])?.value,
+        siteId: environment.site
       };
     }
 

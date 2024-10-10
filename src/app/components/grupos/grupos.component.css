@@ -183,14 +183,8 @@ section{
   background-size: cover; /* A imagem cobre toda a área */
   background-position: center; /* Centraliza a imagem */
   background-repeat: no-repeat;
-
-  /* Define o tamanho da área de fundo */
   height: 100vh;
-  /* width: 100%; */
-
-  /* Posiciona o conteúdo no centro da imagem */
   display: flex;
-  /* align-items: center; */
   justify-content: center;
 }
 

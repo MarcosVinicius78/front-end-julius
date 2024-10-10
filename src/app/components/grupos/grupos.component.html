@@ -100,7 +100,7 @@
     <div class="titulo2">
       <h2>RECEBA PROMOÇÕES NO SEU WHATSAPP</h2>
     </div>
-    <a href="#" class="cta-button">QUERO RECEBER</a>
+    <a *ngIf="links.links !== undefined" [href]="links.links.whatsapp" class="cta-button">QUERO RECEBER</a>
     <p class="description">
       Ao participar dos nossos Grupos você receberá ofertas, cupons e descontos das Grandes Lojas com Exclusividade!
     </p>
