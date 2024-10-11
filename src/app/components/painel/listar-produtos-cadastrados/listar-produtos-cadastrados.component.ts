@@ -7,6 +7,7 @@ import { Clipboard } from '@angular/cdk/clipboard';
 import { isPlatformBrowser } from '@angular/common';
 import { FormControl } from '@angular/forms';
 import { debounceTime, map, switchMap } from 'rxjs';
+import { response } from 'express';
 
 
 @Component({
@@ -107,8 +108,6 @@ export class ListarProdutosCadastradosComponent implements OnInit {
 
   apagarVariosProdutos() {
 
-    console.log(this.selectedProducts)
-
     this.produtoService.apagarVariosProdutos(this.selectedProducts).subscribe(response => {
       this.produtos = [];
       this.messageService.add({ severity: 'success', detail: 'Produtos Apagados' });
@@ -128,9 +127,6 @@ export class ListarProdutosCadastradosComponent implements OnInit {
 
     this.produtoService.gerarStory(preco, titulo, urlImagem, frete, cupom).subscribe(response => {
 
-      // const contentDisposition = response.headers.get('content-disposition');
-      // const fileName = contentDisposition!.split(';')[1].split('=')[1].trim();
-
       if (isPlatformBrowser(this.platformId)) {
         // Cria um URL para a Blob response
         const url = window.URL.createObjectURL(response.body!);
@@ -139,6 +135,31 @@ export class ListarProdutosCadastradosComponent implements OnInit {
         const link = document.createElement('a');
         link.href = url;
         link.download = titulo;
+        document.body.appendChild(link);
+        link.click();
+
+        // Limpa o URL criado
+        window.URL.revokeObjectURL(url);
+        document.body.removeChild(link);
+      }
+    }, err => {
+      this.messageService.add({ severity: 'error', detail: 'Erro ao Gerar Storie' });
+    })
+  }
+
+  gerarFeed(id: number){
+
+    console.log(this.selectedProducts);
+
+    this.produtoService.gerarFeed(id).subscribe(response => {
+      if (isPlatformBrowser(this.platformId)) {
+        // Cria um URL para a Blob response
+        const url = window.URL.createObjectURL(response.body!);
+
+        // Cria um link temporário e simula um clique para iniciar o download
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = "teste";
         document.body.appendChild(link);
         link.click();
 

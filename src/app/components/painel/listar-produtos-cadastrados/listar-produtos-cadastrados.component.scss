@@ -8,18 +8,32 @@
     justify-content: space-around;
   }
 
-  header input {
-    width: 100px;
+  header i {
+    background-color: red;
+    // width: 100px;
     padding: 10px;
     margin-top: 5px;
     border-radius: 5px;
+    cursor: pointer;
+    color: white;
   }
 
-  .p-inputtext{
+  .feed{
+    color: white;
+    font-weight: 700;
+    border-radius: 10px;
+    border: none;
+    background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%,
+        #fd5949 45%, #d6249f 60%, #285AEB 90%);
+    box-shadow: 0px 3px 10px rgba(0, 0, 0, .25);
+    cursor: pointer;
+  }
+
+  .p-inputtext {
     width: 500px;
   }
 
-  
+
 
   header h1 {
     margin: 0;

@@ -72,6 +72,10 @@ export class ProdutoService {
     return this.http.get(`${this.apiUrl}/produto/generate-image`, { params, responseType: 'blob', observe: 'response' });
   }
 
+  gerarFeed(id: number){
+    return this.http.get(`${this.apiUrl}/produto/gerarFeed/${id}`, { responseType: 'blob', observe: 'response' })
+  }
+
   salvarStory(formData: FormData) {
     return this.http.post(`${this.apiUrl}/produto/salvar-story`, formData);
   }
