@@ -60,8 +60,8 @@ export class CadastrarProdutoComponent implements OnInit {
 
     this.produtoFormGroup = this.formBuilder.group({
       titulo: ['', [Validators.required]],
-      precoParcelado: [''],
       preco: ['', [Validators.required]],
+      check: [false],
       mensagemAdicional: ['Promoção sujeita a alteração a qualquer momento'],
       freteVariacoes: [''],
       descricao: [''],
@@ -120,12 +120,18 @@ export class CadastrarProdutoComponent implements OnInit {
 
     this.id = parseInt(this.idEditar)
 
+    let parcelado = "";
+
     if (this.idEditar == null && !this.produtoFormGroup.invalid) {
+
+      if (this.produtoFormGroup.get('check')?.value === true) {
+        parcelado = "sem juros"
+      }
 
       const produto: any = {
         titulo: this.produtoFormGroup.get('titulo')?.value,
         preco: this.produtoFormGroup.get('preco')?.value,
-        precoParcelado: this.produtoFormGroup.get('precoParcelado')?.value,
+        precoParcelado: parcelado,
         freteVariacoes: this.produtoFormGroup.get('freteVariacoes')?.value,
         mensagemAdicional: this.produtoFormGroup.get('mensagemAdicional')?.value,
         descricao: this.produtoFormGroup.get('descricao')?.value,
@@ -217,12 +223,18 @@ export class CadastrarProdutoComponent implements OnInit {
 
   atualizarProduto() {
 
+    let parcelado = "";
+
+    if (this.produtoFormGroup.get('check')?.value === true) {
+      console.log("teste aqui")
+      parcelado = "sem juros"
+    }
 
     const produto: any = {
       id: this.idEditar,
       titulo: this.produtoFormGroup.get('titulo')?.value,
       preco: this.produtoFormGroup.get('preco')?.value,
-      precoParcelado: this.produtoFormGroup.get('precoParcelado')?.value,
+      precoParcelado: parcelado,
       freteVariacoes: this.produtoFormGroup.get('freteVariacoes')?.value,
       mensagemAdicional: this.produtoFormGroup.get('mensagemAdicional')?.value,
       descricao: this.produtoFormGroup.get('descricao')?.value,
@@ -262,15 +274,16 @@ export class CadastrarProdutoComponent implements OnInit {
   }
 
   pegarProduto() {
+
+
     this.produtoSevice.pegarProduto(this.idEditar,0).subscribe(response => {
       this.produto = response;
-      console.log(this.produto)
       this.id = response.id
 
       this.produtoFormGroup = this.formBuilder.group({
         titulo: [this.produto.titulo],
         preco: [this.produto.preco],
-        precoParcelado: [this.produto.parcelado],
+        check: [this.produto.parcelado.includes("sem juros")? true : false],
         freteVariacoes: [this.produto.freteVariacoes],
         mensagemAdicional: [this.produto.mensagemAdicional],
         descricao: [this.produto.descricao],
@@ -330,6 +343,13 @@ export class CadastrarProdutoComponent implements OnInit {
       });
     }
 
+    let parcelado = "";
+
+    if (this.produtoFormGroup.get('check')?.value === true) {
+      console.log("teste aqui")
+      parcelado = "sem juros"
+    }
+
 
     this.produtoSevice.rasparProduto(url).subscribe(response => {
 
@@ -338,7 +358,7 @@ export class CadastrarProdutoComponent implements OnInit {
       this.produtoFormGroup = this.formBuilder.group({
         url: [''],
         titulo: [this.scraperProduto.nomeProduto, [Validators.required]],
-        precoParcelado: [this.scraperProduto.precoParcelado],
+        check: [response.precoParcelado.includes("sem juros")? true : false],
         preco: [this.scraperProduto.precoProduto, [Validators.required]],
         mensagemAdicional: ['Promoção sujeita a alteração a qualquer momento'],
         freteVariacoes: [''],

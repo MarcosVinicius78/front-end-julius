@@ -27,19 +27,21 @@
       </div>
 
       <div class=" grupo">
-        <span class="p-float-label">
-          <input pInputText id="precoParcelado" formControlName="precoParcelado" />
-          <label htmlFor="precoParcelado">Preço Parcelado</label>
+        <span class="p-float-label checked">
+          <p-inputSwitch id="check" name="check" formControlName="check" />
+          <!-- <input pInputText id="precoParcelado" formControlName="precoParcelado" />
+          <label htmlFor="precoParcelado">Preço Parcelado</label> -->
         </span>
         <span class="p-float-label">
           <input pInputText id="preco" formControlName="preco" />
-          <label htmlFor="preco">Preço À Vista</label>
+          <label htmlFor="preco">Preço</label>
         </span>
         <span>
           <select class="dropdown text-primary-50 font-medium text-base" formControlName="freteVariacoes" name="freteVariacoes">
             <option value="">Selecione o Frete</option>
             <!-- <option value="Frete Grátis">Frete Grátis</option> -->
-            <option value="No Carrinho Selecione o *🏷️CUPOM de Frete Grátis* Acima de R$ 19,90 para Garantir o Frete Grátis!">Frete Shopee</option>
+            <option value="No Carrinho Selecione o *🏷️CUPOM de Frete Grátis* Acima de R$ 19,90 para Garantir o Frete Grátis!">Frete Grátis Shopee</option>
+            <option value="No Carrinho Selecione o *🏷️CUPOM de Frete Econômico* Acima de R$ 19,90 para Garantir o Frete Econômico!">Frete Econômico Shopee</option>
             <option value="*Frete Grátis* Algumas Regiões">Frete Grátis Algumas Regiões</option>
             <!-- <option value="Grátis Retirando na Loja">Grátis Retirando na Loja</option> -->
             <!-- <option value="Frete Econômico Ou Grátis Retirando na Loja">Frete Econômico Ou Grátis Retirando na Loja</option> -->

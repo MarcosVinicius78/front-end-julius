@@ -203,17 +203,11 @@ export class ListarProdutosCadastradosComponent implements OnInit {
 
     if (produto.freteVariacoes.includes("CUPOM")) {
       estruturaCompartilhamento += `*\u{1F525} ${produto.preco} (Frete Grátis)*\n`;
-    }else if(produto.parcelado.toLocaleLowerCase().includes("sem juros")){
+    }else if(produto.parcelado && produto.parcelado.toLocaleLowerCase().includes("sem juros")){
       estruturaCompartilhamento += `*\u{1F525} ${produto.preco} (Parcelado)*\n`;
     }else{
       estruturaCompartilhamento += `*\u{1F525} ${produto.preco}* à vista\n`;
     }
-
-    // if (produto.parcelado && produto.parcelado.toLocaleLowerCase().includes("sem juros")) {
-    //   estruturaCompartilhamento += `_${produto.parcelado}_\n`;
-    // }else if (produto.parcelado) {
-    //   estruturaCompartilhamento += `* ${produto.parcelado}\n`;
-    // }
 
     if (produto.cupom && produto.cupom.length < 20) {
       estruturaCompartilhamento += `\n\u{1F39F} Use o Cupom: *${produto.cupom}*\n`;

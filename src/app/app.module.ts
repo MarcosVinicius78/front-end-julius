@@ -48,6 +48,7 @@ import { PickListModule } from 'primeng/picklist';
 import { PromosComponent } from './components/promos/promos.component';
 import { InputIconModule } from 'primeng/inputicon';
 import { IconFieldModule } from 'primeng/iconfield';
+import { InputSwitchModule } from 'primeng/inputswitch';
 
 @NgModule({ declarations: [
         AppComponent,
@@ -95,6 +96,7 @@ import { IconFieldModule } from 'primeng/iconfield';
         PickListModule,
         InputIconModule,
         IconFieldModule,
+        InputSwitchModule,
         CardModule], providers: [
         {
             provide: HTTP_INTERCEPTORS,

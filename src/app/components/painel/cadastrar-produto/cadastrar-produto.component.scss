@@ -51,7 +51,13 @@
   }
 
   .grupo span {
-    width: 48%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+  }
+
+  .checked{
+    width: 120px !important;
   }
 
   .link {
