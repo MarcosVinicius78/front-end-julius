@@ -172,8 +172,17 @@ export class ListarProdutosCadastradosComponent implements OnInit {
     })
   }
 
-  copiarParaAreaTransferencia(produtos: Produtos) {
-    this.clipboard.copy(this.montarEstruturaCompartilhamento(produtos));
+  copiarParaAreaTransferencia(produtos: Produtos, valor: number) {
+
+    let post = this.montarEstruturaCompartilhamento(produtos)
+
+    if (valor === 1) {
+      this.clipboard.copy(post);
+    }else{
+      post = post.replace(/_/g, '__');
+      post = post.replace(/\*/g, '**');
+      this.clipboard.copy(post);
+    }
     this.messageService.add({ severity: 'success', detail: 'POST COPIADO' });
   }
 
@@ -197,14 +206,14 @@ export class ListarProdutosCadastradosComponent implements OnInit {
     }else if(produto.parcelado.toLocaleLowerCase().includes("sem juros")){
       estruturaCompartilhamento += `*\u{1F525} ${produto.preco} (Parcelado)*\n`;
     }else{
-      estruturaCompartilhamento += `*\u{1F525} ${produto.preco} (À Vista)*\n`;
+      estruturaCompartilhamento += `*\u{1F525} ${produto.preco}* à vista\n`;
     }
 
-    if (produto.parcelado && produto.parcelado.toLocaleLowerCase().includes("sem juros")) {
-      estruturaCompartilhamento += `_${produto.parcelado}_\n`;
-    }else if (produto.parcelado) {
-      estruturaCompartilhamento += `* ${produto.parcelado}\n`;
-    }
+    // if (produto.parcelado && produto.parcelado.toLocaleLowerCase().includes("sem juros")) {
+    //   estruturaCompartilhamento += `_${produto.parcelado}_\n`;
+    // }else if (produto.parcelado) {
+    //   estruturaCompartilhamento += `* ${produto.parcelado}\n`;
+    // }
 
     if (produto.cupom && produto.cupom.length < 20) {
       estruturaCompartilhamento += `\n\u{1F39F} Use o Cupom: *${produto.cupom}*\n`;
@@ -213,18 +222,10 @@ export class ListarProdutosCadastradosComponent implements OnInit {
     }
 
     if (isPlatformBrowser(this.platformId)) {
-
-      // if (produto.loja.nome_loja.toLocaleLowerCase().includes("amazon")) {
-      //   if (this.route.url === "/painel") {
-      //     estruturaCompartilhamento += `\n*\u{1F6D2} Compre Aqui:\u{1F447}* ${window.location.href.replace("painel", '')}oferta/${produto.id}`;
-      //   } else {
-      //     estruturaCompartilhamento += `\n*\u{1F6D2} Compre Aqui:\u{1F447}* ${window.location.href.replace("painel/listar-produtos", '')}oferta/${produto.id}`;
-      //   }
-      // } else {
         if (this.route.url === "/painel") {
-          estruturaCompartilhamento += `\n*\u{1F6D2} Compre Aqui:\u{1F447}* ${window.location.href.replace("painel", '')}oferta/${produto.id}?r=1`;
+          estruturaCompartilhamento += `\n*\u{1F6D2} Confira Aqui:\u{1F447}*\n${window.location.href.replace("painel", '')}oferta/${produto.id}?r=1`;
         } else {
-          estruturaCompartilhamento += `\n*\u{1F6D2} Compre Aqui:\u{1F447}* ${window.location.href.replace("painel/listar-produtos", '')}oferta/${produto.id}?r=1`;
+          estruturaCompartilhamento += `\n*\u{1F6D2} Confira Aqui:\u{1F447}*\n${window.location.href.replace("painel/listar-produtos", '')}oferta/${produto.id}?r=1`;
         }
 
     }

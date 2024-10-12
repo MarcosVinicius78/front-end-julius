@@ -23,7 +23,12 @@
           <th>Preço</th>
           <th>Loja</th>
           <th>Story</th>
-          <th>Post</th>
+          <th>
+            <img src="../../../../assets/img/whatsapp.png" alt="whatsapp">
+          </th>
+          <th>
+            <img src="../../../../assets/img/telegram.jpg" alt="telegram">
+          </th>
           <th>Gerar Feed</th>
           <th>Opções</th>
         </tr>
@@ -49,7 +54,10 @@
               class="story pi pi-image"></i>
           </td>
           <td class="text-center">
-            <i class="cursor-pointer pi pi-copy" (click)="copiarParaAreaTransferencia(item)"></i>
+            <i class="cursor-pointer pi pi-copy" (click)="copiarParaAreaTransferencia(item, 1)"></i>
+          </td>
+          <td class="text-center">
+            <i class="cursor-pointer pi pi-copy" (click)="copiarParaAreaTransferencia(item,2)"></i>
           </td>
           <td class="text-center">
             <input type="submit" (click)="gerarFeed(item.id)" class="feed" value="Gerar Feed">

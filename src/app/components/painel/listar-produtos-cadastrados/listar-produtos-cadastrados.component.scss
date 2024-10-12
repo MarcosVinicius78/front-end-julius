@@ -135,8 +135,14 @@
     padding: 0.7rem 0.7rem;
   }
 
-  .p-datatable .p-datatable-tbody>tr {
-    // height: 40px;
+  .p-datatable-thead th:nth-child(6) img{
+    width: 40px;
+    border-radius: 50%;
+  }
+
+  .p-datatable-thead th:nth-child(7) img{
+    width: 40px;
+    border-radius: 50%;
   }
 
   @media screen and (max-width: 720px) {
@@ -145,7 +151,7 @@
     }
 
     .p-datatable {
-      width: 98%;
+      width: 100%;
       margin: 0 auto;
     }
 
@@ -165,11 +171,19 @@
       display: none;
     }
 
-    .p-datatable-tbody tr td:nth-child(7) {
+    .p-datatable-tbody tr td:nth-child(8) {
       display: none;
     }
 
-    .p-datatable-thead th:nth-child(7) {
+    .p-datatable-thead th:nth-child(8) {
+      display: none;
+    }
+
+    .p-datatable-tbody tr td:nth-child(9) {
+      display: none;
+    }
+
+    .p-datatable-thead th:nth-child(9) {
       display: none;
     }
 
