@@ -17,13 +17,4 @@ export class InicioPainelComponent implements OnInit {
   ngOnInit() {
   }
 
-  sair() {
-    if (isPlatformBrowser(this.platformId)) {
-      window.sessionStorage.removeItem("userdetails");
-      window.sessionStorage.removeItem("Authorization");
-      window.sessionStorage.removeItem("XSRF-TOKEN");
-    }
-    this.route.navigate(["login"])
-  }
-
 }

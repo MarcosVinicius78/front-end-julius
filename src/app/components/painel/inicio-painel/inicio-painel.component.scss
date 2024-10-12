@@ -1,20 +1,23 @@
 .section-painel{
   display: flex;
   justify-content: space-between;
+  height: 100%;
 }
 
 section{
   background-color: #1c475e;
+  height: 100vh;
 }
 
 .inicio{
   display: block;
   width: 80%;
   margin-right: 20px;
-  height: calc(98vh - 70px);
+  height: 100%;
   background-color: #1c475e;
   border-radius: 10px;
   overflow-y: auto;
+  padding: 10px;
   /* box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 15px 0px; */
 }
 
@@ -25,42 +28,6 @@ section{
 a{
   color: black;
   text-decoration: none;
-}
-
-header{
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background-color: #163a4d;
-  margin-bottom: 13px;
-}
-
-header div{
-  margin-right: 10px;
-}
-
-header div input{
-  padding: 10px;
-  width: 100px;
-  background-color: red;
-  border: none;
-  color: white;
-  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-}
-
-header h1{
-  margin: 0;
-  display: flex;
-  align-items: center;
-  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-  font-weight: bold;
-  margin-left: 30px;
-  height: 70px;
-}
-
-header h1 a{
-  margin-left: 30px;
-  color: white;
 }
 
 /* section{
