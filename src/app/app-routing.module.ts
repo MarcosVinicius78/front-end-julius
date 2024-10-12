@@ -1,3 +1,4 @@
+import { GrupoSeComponent } from './components/grupo-se/grupo-se.component';
 import { CadastrarPostsComponent } from './components/painel/cadastrar-posts/cadastrar-posts.component';
 import { LinksBannersComponent } from './components/painel/links-banners/links-banners.component';
 import { ProdutoComponent } from './components/produto/produto.component';
@@ -49,6 +50,7 @@ const routes: Routes = [
   { path: 'oferta/:id', component: ProdutoComponent, data: { hideHeader: true, hideFooter: true }, canActivate: [RedirectGuardService] },
   { path: 'produtos-categoria/:id', component: ListarProdutosComponent, data: { hideHeader: true, hideFooter: true } },
   { path: 'grupos', component: GruposComponent, data: { hideHeader: false, hideFooter: false } },
+  { path: 'grupo-se', component: GrupoSeComponent, data: { hideHeader: false, hideFooter: false } },
   { path: 'blog', component: BlogComponent, data: { hideHeader: true, hideFooter: true } },
   { path: 'politica-privacidade', component: PoliticaPrivacidadeComponent, data: { hideHeader: true, hideFooter: true } },
   { path: 'termos-uso', component: TermosUsoComponent, data: { hideHeader: true, hideFooter: true } },

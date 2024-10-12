@@ -1,3 +1,4 @@
+import { GrupoSeComponent } from './components/grupo-se/grupo-se.component';
 import { MenuOpcoesComponent } from './components/painel/listar-produtos-cadastrados/components/menuOpcoes/menuOpcoes.component';
 import { NgModule } from '@angular/core';
 import { BrowserModule, provideClientHydration } from '@angular/platform-browser';
@@ -72,7 +73,8 @@ import { IconFieldModule } from 'primeng/iconfield';
         BlankComponent,
         MenuOpcoesComponent,
         CadastrarPromoComponent,
-        PromosComponent
+        PromosComponent,
+        GrupoSeComponent
     ],
     bootstrap: [AppComponent], imports: [BrowserModule,
         AppRoutingModule,

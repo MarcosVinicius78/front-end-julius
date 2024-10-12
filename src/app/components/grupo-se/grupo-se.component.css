@@ -1,0 +1,91 @@
+.container {
+  /* Defina a imagem de fundo */
+  background-image: url("src/assets/img/SERGIPE OFERTAS.png");
+  background-size: cover; /* A imagem cobre toda a área */
+  background-position: center; /* Centraliza a imagem */
+  background-repeat: no-repeat;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+}
+
+.titulo2 {
+  width: 300px;
+}
+
+.overlay {
+  text-align: center;
+  color: #fff;
+  padding: 20px;
+  max-width: 800px;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.logo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.logo img {
+  width: 50px;
+  margin-bottom: 20px;
+}
+
+h1 {
+  font-size: 1.5rem;
+  margin-left: 10px;
+  margin-bottom: 10px;
+  text-shadow: -1px -1px 0 #ff9f11, 1px -1px 0 #ff9f11, -1px 1px 0 #ff9f11,
+    1px 1px 0 #ff9f11;
+}
+
+h2 {
+  font-size: 3rem;
+  margin-bottom: 30px;
+  text-shadow: -1.5px -1.5px 0 #ff9f11, 1.5px -1.5px 0 #ff9f11,
+    -1.5px 1.5px 0 #ff9f11, 1.5px 1.5px 0 #ff9f11;
+  letter-spacing: 3px;
+}
+
+.cta-button {
+  display: inline-block;
+  background-color: #28a745;
+  color: white;
+  padding: 25px 30px;
+  text-decoration: none;
+  font-size: 1.5rem;
+  font-weight: 700;
+  border-radius: 50px;
+  transition: background-color 0.3s ease;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+}
+
+.cta-button:hover {
+  background-color: #218838;
+}
+
+.description {
+  font-size: 1.3rem;
+  margin-top: 20px;
+  margin-bottom: 10px;
+  color: #ffffff;
+  text-shadow: -0.5px -0.5px 0 #ff9f11, 0.5px -0.5px 0 #ff9f11,
+    -0.5px 0.5px 0 #ff9f11, 0.5px 0.5px 0 #ff9f11;
+  letter-spacing: 2px;
+}
+
+.link {
+  font-size: 1rem;
+  color: #ffffff;
+  text-shadow: -0.5px -0.5px 0 #ff9f11,
+    0.5px -0.5px 0 #ff9f11,
+    -0.5px 0.5px 0 #ff9f11,
+    0.5px 0.5px 0 #ff9f11;
+  letter-spacing: 2px;
+}
