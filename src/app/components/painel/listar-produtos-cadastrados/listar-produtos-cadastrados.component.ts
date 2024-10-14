@@ -210,9 +210,9 @@ export class ListarProdutosCadastradosComponent implements OnInit {
     }
 
     if (produto.cupom && produto.cupom.length < 20) {
-      estruturaCompartilhamento += `\n\u{1F39F} Use o Cupom: *${produto.cupom}*\n`;
+      estruturaCompartilhamento += `\u{1F39F} Use o Cupom: *${produto.cupom}*\n`;
     }else if (produto.cupom){
-      estruturaCompartilhamento += `\n_\u{1F5E3} ${produto.cupom}_\n`;
+      estruturaCompartilhamento += `_\u{1F5E3} ${produto.cupom}_\n`;
     }
 
     if (isPlatformBrowser(this.platformId)) {
