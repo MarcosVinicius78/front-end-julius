@@ -24,6 +24,7 @@ import { TermosUsoComponent } from './components/termos-uso/termos-uso.component
 import { QuemSomosComponent } from './components/quem-somos/quem-somos.component';
 import { CadastrarPromoComponent } from './components/painel/cadastrar-promo/cadastrar-promo.component';
 import { PromosComponent } from './components/promos/promos.component';
+import { PesquisaComponent } from './components/pesquisa/pesquisa.component';
 
 
 const routes: Routes = [
@@ -57,6 +58,7 @@ const routes: Routes = [
   { path: 'quem-somos', component: QuemSomosComponent, data: { hideHeader: true, hideFooter: true } },
   { path: 'promos/:id', component: PromosComponent, data: { hideHeader: true, hideFooter: true } },
   { path: 'blog/:id', component: BlogComponent, data: { hideHeader: true, hideFooter: true } },
+  { path: 'pesquisa', component: PesquisaComponent, data: { hideHeader: true, hideFooter: false } },
   { path: 'blank', component: BlankComponent },
   // { path: '', redirectTo: '/inicio', pathMatch: 'full'},
   { path: '**', redirectTo: '', pathMatch: 'full'},

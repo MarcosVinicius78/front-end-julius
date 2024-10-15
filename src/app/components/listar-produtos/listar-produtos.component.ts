@@ -1,17 +1,14 @@
-import { AfterViewInit, Component, HostListener, Inject, OnDestroy, OnInit, ViewChild, PLATFORM_ID, destroyPlatform } from '@angular/core';
-import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
-import { Produtos } from 'src/app/models/produtos';
-import { ProdutoService } from 'src/app/service/painel/produto.service';
-import * as dateFns from 'date-fns';
-import { LinkBannerService } from 'src/app/service/painel/link-banner.service';
-import { LinksBanner } from 'src/app/dto/LinksBanner';
-import { environment } from 'src/environments/environment';
 import { Clipboard } from '@angular/cdk/clipboard';
-import { filter } from 'rxjs/operators';
-import { isPlatformBrowser } from '@angular/common';
+import { Component, HostListener, OnInit, ViewChild } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import * as dateFns from 'date-fns';
+import { LinksBanner } from 'src/app/dto/LinksBanner';
 import { ProdutoModalDto } from 'src/app/dto/produtoModalDto';
-import { url } from 'node:inspector';
+import { Produtos } from 'src/app/models/produtos';
 import { AtivarRodapéService } from 'src/app/service/ativarRodapé.service';
+import { LinkBannerService } from 'src/app/service/painel/link-banner.service';
+import { ProdutoService } from 'src/app/service/painel/produto.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-listar-produtos',
@@ -130,25 +127,48 @@ export class ListarProdutosComponent implements OnInit {
     // const scrollPosition = window.scrollY + window.innerHeight;
     // const documentHeight = document.documentElement.offsetHeight;
 
-    if (this.isAtBottom() && !this.loading && this.termoPesquisa === '' && Number.isNaN(this.idCategoria) && this.path !== "destaque") {
-      this.listarProdutos()
-      return
+    const scrollThreshold = 1;
+
+    if ((window.innerHeight + window.scrollY) >= (document.documentElement.scrollHeight - scrollThreshold)) {
+      // O scroll chegou ao fim da página ou está muito próximo
+      if (!this.loading) {
+        if (this.termoPesquisa === '' && Number.isNaN(this.idCategoria) && this.path !== "destaque") {
+          this.listarProdutos()
+        }
+
+        if (this.termoPesquisa != '' && Number.isNaN(this.idCategoria) && this.pagePesquisa < this.page) {
+          this.pesquisar();
+        }
+
+        if (!Number.isNaN(this.idCategoria)) {
+          this.listarPorCategoria();
+        }
+
+        if (this.path === "destaque" && Number.isNaN(this.idCategoria) && this.pagePesquisa < this.page) {
+          this.produtosEmDestaque();
+        }
+      }
     }
 
-    if (this.isAtBottom() && this.termoPesquisa != '' && !this.loading && Number.isNaN(this.idCategoria) && this.pagePesquisa < this.page) {
-      this.pesquisar()
-      return
-    }
+    // if (this.isAtBottom() && !this.loading && this.termoPesquisa === '' && Number.isNaN(this.idCategoria) && this.path !== "destaque") {
+    //   this.listarProdutos()
+    //   return
+    // }
 
-    if (this.isAtBottom() && !this.loading && !Number.isNaN(this.idCategoria)) {
-      this.listarPorCategoria();
-      return
-    }
+    // if (this.isAtBottom() && this.termoPesquisa != '' && !this.loading && Number.isNaN(this.idCategoria) && this.pagePesquisa < this.page) {
+    //   this.pesquisar()
+    //   return
+    // }
 
-    if (this.isAtBottom() && !this.loading && this.path === "destaque" && Number.isNaN(this.idCategoria) && this.pagePesquisa < this.page) {
-      this.produtosEmDestaque();
-      return
-    }
+    // if (this.isAtBottom() && !this.loading && !Number.isNaN(this.idCategoria)) {
+    //   this.listarPorCategoria();
+    //   return
+    // }
+
+    // if (this.isAtBottom() && !this.loading && this.path === "destaque" && Number.isNaN(this.idCategoria) && this.pagePesquisa < this.page) {
+    //   this.produtosEmDestaque();
+    //   return
+    // }
 
   }
 
@@ -171,7 +191,7 @@ export class ListarProdutosComponent implements OnInit {
         this.termoPesquisaAnterior = this.termoPesquisa;
         console.log(data)
       });
-      this.pagePesquisa++
+    this.pagePesquisa++
   }
 
   calculateElapsedTime(createdDate: string): string {
@@ -271,7 +291,7 @@ export class ListarProdutosComponent implements OnInit {
 
   }
 
-  abrirFooter(){
+  abrirFooter() {
     this.ativarRodape.ativarRodape(true);
   }
 }

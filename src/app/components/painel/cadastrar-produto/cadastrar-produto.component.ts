@@ -38,6 +38,7 @@ export class CadastrarProdutoComponent implements OnInit {
 
   categorias!: Categoria[];
   id: number = 0;
+  idOmc: number = 0;
   idEditar!: string;
 
   link!: string;
@@ -68,34 +69,29 @@ export class CadastrarProdutoComponent implements OnInit {
     this.idEditar = this.router.snapshot.paramMap.get('id')!;
 
     this.cuponsSE = [
-      { name : '10SERGIPEEOFERTAS' },
-      { name : '20SERGIPEEOFERTAS' },
-      { name : '30SERGIPEEOFERTAS' },
-      { name : '40SERGIPEEOFERTAS' },
-      { name : '50SERGIPEEOFERTAS' },
-      { name : '60SERGIPEEOFERTAS' },
-      { name : '70SERGIPEEOFERTAS' },
-      { name : '80SERGIPEEOFERTAS' },
-      { name : '90SERGIPEEOFERTAS' },
-      { name : '100SERGIPEEOFERTAS' }
+      { name: '10SERGIPEEOFERTAS' },
+      { name: '20SERGIPEEOFERTAS' },
+      { name: '30SERGIPEEOFERTAS' },
+      { name: '40SERGIPEEOFERTAS' },
+      { name: '50SERGIPEEOFERTAS' },
+      { name: '60SERGIPEEOFERTAS' },
+      { name: '70SERGIPEEOFERTAS' },
+      { name: '80SERGIPEEOFERTAS' },
+      { name: '90SERGIPEEOFERTAS' },
+      { name: '100SERGIPEEOFERTAS' }
     ]
 
     this.cuponsOMC = [
-      { name : '10OFERTASMAISCUPOM' },
-      { name : '20OFERTASMAISCUPOM' },
-      { name : '30OFERTASMAISCUPOM' },
-      { name : '40OFERTASMAISCUPOM' },
-      { name : '50OFERTASMAISCUPOM' },
-      { name : '60OFERTASMAISCUPOM' },
-      { name : '70OFERTASMAISCUPOM' },
-      { name : '80OFERTASMAISCUPOM' },
-      { name : '90OFERTASMAISCUPOM' },
-      { name : '100OFERTASMAISCUPOM' },
-    ]
-
-    this.mensagemAdicional = [
-      { name : "Promoção sujeita a alteração a qualquer momento" },
-      { name : "Compartilhe com seus Amigos" }
+      { name: '10OFERTASMAISCUPOM' },
+      { name: '20OFERTASMAISCUPOM' },
+      { name: '30OFERTASMAISCUPOM' },
+      { name: '40OFERTASMAISCUPOM' },
+      { name: '50OFERTASMAISCUPOM' },
+      { name: '60OFERTASMAISCUPOM' },
+      { name: '70OFERTASMAISCUPOM' },
+      { name: '80OFERTASMAISCUPOM' },
+      { name: '90OFERTASMAISCUPOM' },
+      { name: '100OFERTASMAISCUPOM' },
     ]
 
     this.produtoFormGroup = this.formBuilder.group({
@@ -115,6 +111,11 @@ export class CadastrarProdutoComponent implements OnInit {
       imgemSocial: [''],
       copy: ['']
     })
+
+    this.mensagemAdicional = [
+      { name: "Promoção sujeita a alteração a qualquer momento" },
+      { name: "Compartilhe com seus Amigos" }
+    ]
 
     if (this.idEditar != undefined) {
       this.pegarProduto();
@@ -168,16 +169,18 @@ export class CadastrarProdutoComponent implements OnInit {
         parcelado = "sem juros"
       }
 
+      console.log(this.produtoFormGroup.get('cupom')?.value)
+
       const produto: any = {
         titulo: this.produtoFormGroup.get('titulo')?.value,
         preco: this.produtoFormGroup.get('preco')?.value,
         precoParcelado: parcelado,
         freteVariacoes: this.produtoFormGroup.get('freteVariacoes')?.value,
-        mensagemAdicional: this.produtoFormGroup.get('mensagemAdicional')?.value['name'] === undefined? this.produtoFormGroup.get('mensagemAdicional')?.value : this.produtoFormGroup.get('mensagemAdicional')?.value['name'],
-        cupomOmc: this.produtoFormGroup.get('cupomOmc')?.value['name'],
+        mensagemAdicional: this.produtoFormGroup.get('mensagemAdicional')?.value['name'] === undefined ? this.produtoFormGroup.get('mensagemAdicional')?.value : this.produtoFormGroup.get('mensagemAdicional')?.value['name'],
         link_se: this.produtoFormGroup.get('link_se')?.value,
         link_ofm: this.produtoFormGroup.get('link_ofm')?.value,
-        cupom: this.produtoFormGroup.get('cupom')?.value['name'],
+        cupom: this.produtoFormGroup.get('cupom')?.value === undefined || this.produtoFormGroup.get('cupom')?.value.length > 1 ? this.produtoFormGroup.get('cupom')?.value : this.produtoFormGroup.get('cupom')?.value['name'],
+        cupomOmc: this.produtoFormGroup.get('cupomOmc')?.value === undefined || this.produtoFormGroup.get('cupomOmc')?.value.length > 1 ? this.produtoFormGroup.get('cupomOmc')?.value : this.produtoFormGroup.get('cupomOmc')?.value['name'],
         urlImagem: this.scraperProduto.urlImagem,
         id_categoria: this.produtoFormGroup.get('id_categoria')?.value,
         id_loja: this.produtoFormGroup.get('loja')?.value,
@@ -188,6 +191,7 @@ export class CadastrarProdutoComponent implements OnInit {
       this.produtoSevice.salvarProduto(produto).subscribe(response => {
 
         this.id = response.id;
+        this.idOmc = response.idOmc
 
         if (this.scraperProduto.urlImagem === '' && this.imagemFile !== undefined) {
 
@@ -206,7 +210,6 @@ export class CadastrarProdutoComponent implements OnInit {
         this.imagemFileSocial = {} as File;
 
         this.messageService.add({ severity: 'success', detail: 'Produto Salvo' });
-
       }, err => {
         console.log(err.status);
         this.messageService.add({ severity: 'error', detail: 'Erro ao salvar' });
@@ -236,7 +239,9 @@ export class CadastrarProdutoComponent implements OnInit {
   salvarImagem() {
     const formData = new FormData();
     formData.append("id", `${this.id}`);
+    formData.append("idOmc", `${this.idOmc}`);
 
+    console.log(this.idOmc)
     if (this.scraperProduto.urlImagem === '') {
       formData.append("file", this.imagemFile)
       formData.append("fileSocial", this.imagemFileSocial)
@@ -278,18 +283,16 @@ export class CadastrarProdutoComponent implements OnInit {
       preco: this.produtoFormGroup.get('preco')?.value,
       precoParcelado: parcelado,
       freteVariacoes: this.produtoFormGroup.get('freteVariacoes')?.value,
-      mensagemAdicional: this.produtoFormGroup.get('mensagemAdicional')?.value['name'] === undefined?  this.produtoFormGroup.get('mensagemAdicional')?.value : this.produtoFormGroup.get('mensagemAdicional')?.value['name'],
+      mensagemAdicional: this.produtoFormGroup.get('mensagemAdicional')?.value['name'] === undefined ? this.produtoFormGroup.get('mensagemAdicional')?.value : this.produtoFormGroup.get('mensagemAdicional')?.value['name'],
       link_se: this.produtoFormGroup.get('link_se')?.value,
       link_ofm: this.produtoFormGroup.get('link_ofm')?.value,
-      cupom: this.produtoFormGroup.get('cupom')?.value === null || this.produtoFormGroup.get('cupom')?.value.length > 1? this.produtoFormGroup.get('cupom')?.value : this.produtoFormGroup.get('cupom')?.value['name'],
-      cupomOmc: this.produtoFormGroup.get('cupomOmc')?.value === null || this.produtoFormGroup.get('cupomOmc')?.value.length > 1?  this.produtoFormGroup.get('cupomOmc')?.value : this.produtoFormGroup.get('cupomOmc')?.value['name'],
+      cupom: this.produtoFormGroup.get('cupom')?.value === null || this.produtoFormGroup.get('cupom')?.value.length > 1 ? this.produtoFormGroup.get('cupom')?.value : this.produtoFormGroup.get('cupom')?.value['name'],
+      cupomOmc: this.produtoFormGroup.get('cupomOmc')?.value === null || this.produtoFormGroup.get('cupomOmc')?.value.length > 1 ? this.produtoFormGroup.get('cupomOmc')?.value : this.produtoFormGroup.get('cupomOmc')?.value['name'],
       urlImagem: "",
       id_categoria: this.produtoFormGroup.get('id_categoria')?.value,
       id_loja: this.produtoFormGroup.get('loja')?.value,
       copy: this.produtoFormGroup.get('copy')?.value
     }
-
-    console.log(parcelado.length)
 
     if (this.imagemFile !== undefined || this.imagemFileSocial !== undefined) {
       this.salvarImagem();
@@ -337,7 +340,7 @@ export class CadastrarProdutoComponent implements OnInit {
     //   { name : "Compartilhe com seus Amigos" }
     // ]
 
-    this.produtoSevice.pegarProduto(this.idEditar,0).subscribe(response => {
+    this.produtoSevice.pegarProduto(this.idEditar, 0).subscribe(response => {
       this.produto = response;
       this.id = response.id
 
@@ -350,7 +353,7 @@ export class CadastrarProdutoComponent implements OnInit {
       this.produtoFormGroup = this.formBuilder.group({
         titulo: [this.produto.titulo],
         preco: [this.produto.preco],
-        check: [this.produto.parcelado.includes("sem juros")? true : false],
+        check: [this.produto.parcelado.includes("sem juros") ? true : false],
         freteVariacoes: [this.produto.freteVariacoes],
         mensagemAdicional: [this.produto.mensagemAdicional],
         descricao: [this.produto.descricao],
@@ -419,16 +422,16 @@ export class CadastrarProdutoComponent implements OnInit {
     }
 
     this.cuponsSE = [
-      { name : '10SERGIPEEOFERTAS' },
-      { name : '20SERGIPEEOFERTAS' },
-      { name : '30SERGIPEEOFERTAS' },
-      { name : '40SERGIPEEOFERTAS' },
-      { name : '50SERGIPEEOFERTAS' },
-      { name : '60SERGIPEEOFERTAS' },
-      { name : '70SERGIPEEOFERTAS' },
-      { name : '80SERGIPEEOFERTAS' },
-      { name : '90SERGIPEEOFERTAS' },
-      { name : '100SERGIPEEOFERTAS' }
+      { name: '10SERGIPEEOFERTAS' },
+      { name: '20SERGIPEEOFERTAS' },
+      { name: '30SERGIPEEOFERTAS' },
+      { name: '40SERGIPEEOFERTAS' },
+      { name: '50SERGIPEEOFERTAS' },
+      { name: '60SERGIPEEOFERTAS' },
+      { name: '70SERGIPEEOFERTAS' },
+      { name: '80SERGIPEEOFERTAS' },
+      { name: '90SERGIPEEOFERTAS' },
+      { name: '100SERGIPEEOFERTAS' }
     ]
 
     this.produtoSevice.rasparProduto(url).subscribe(response => {
@@ -438,13 +441,13 @@ export class CadastrarProdutoComponent implements OnInit {
       this.produtoFormGroup = this.formBuilder.group({
         url: [''],
         titulo: [this.scraperProduto.nomeProduto, [Validators.required]],
-        check: [response.precoParcelado.includes("sem juros")? true : false],
+        check: [response.precoParcelado.includes("sem juros") ? true : false],
         preco: [this.scraperProduto.precoProduto, [Validators.required]],
         mensagemAdicional: ['Promoção sujeita a alteração a qualquer momento'],
         freteVariacoes: [''],
         cupomOmc: [''],
-        link_se: [this.scraperProduto.urlProdutoSe ],
-        link_ofm: [this.scraperProduto.urlProdutoOfm ],
+        link_se: [this.scraperProduto.urlProdutoSe],
+        link_ofm: [this.scraperProduto.urlProdutoOfm],
         cupom: [''],
         id_categoria: ['', [Validators.required]],
         loja: [loja, [Validators.required]],

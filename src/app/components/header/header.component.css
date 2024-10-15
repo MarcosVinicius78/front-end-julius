@@ -144,6 +144,10 @@ header nav li:nth-child(4) a{
   z-index: 10;
 }
 
+.pesquisa{
+  display: none;
+}
+
 @media screen and (max-width:720px){
 
   *{
@@ -287,5 +291,51 @@ header nav li:nth-child(4) a{
     height: 100%;
     z-index: 1000;
     background-color: rgba(0, 0, 0, 0.199);
+  }
+
+  .pesquisa{
+    display: flex;
+    align-items: center;
+  }
+
+  .pesquisa i{
+    background-color: #F0A11F;
+    /* border: 1px solid #e4b466; */
+    padding: 8px;
+    border-radius: 50%;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+  }
+
+  .modal-pesquisa{
+    background-color: white;
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    z-index: 10000;
+    top: 0;
+    padding: 10px;
+  }
+
+  .box p{
+    margin-top: 10px;
+    margin-bottom: 10px;
+    font-weight: 700;
+  }
+
+  .box{
+    height: 100%;
+  }
+
+  .box ul{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    height: 30%;
+  }
+
+  .box ul li a{
+    color: black;
+    text-decoration: none;
+    text-transform: initial;
   }
 }

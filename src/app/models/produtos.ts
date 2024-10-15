@@ -3,6 +3,7 @@ import { Loja } from "./loja";
 export class Produtos {
 
   public id!: number
+  public idOmc!: number
   public titulo!: string
   public preco!: string
   public parcelado!: string

@@ -49,6 +49,7 @@ import { PromosComponent } from './components/promos/promos.component';
 import { InputIconModule } from 'primeng/inputicon';
 import { IconFieldModule } from 'primeng/iconfield';
 import { InputSwitchModule } from 'primeng/inputswitch';
+import { PesquisaComponent } from './components/pesquisa/pesquisa.component';
 
 @NgModule({ declarations: [
         AppComponent,
@@ -75,7 +76,8 @@ import { InputSwitchModule } from 'primeng/inputswitch';
         MenuOpcoesComponent,
         CadastrarPromoComponent,
         PromosComponent,
-        GrupoSeComponent
+        GrupoSeComponent,
+        PesquisaComponent
     ],
     bootstrap: [AppComponent], imports: [BrowserModule,
         AppRoutingModule,

@@ -1,4 +1,25 @@
 <div *ngIf="abrirCategoria" (click)="toggleCategoria()" class="fechar-categoria fechar-categoria-mobile">
+</div>
+<div @pesquisa *ngIf="modalPesquisa" class="modal-pesquisa">
+  <div class="flex justify-content-between align-items-center">
+    <p-iconField iconPosition="left">
+      <p-inputIcon styleClass="pi pi-search" />
+      <input [(ngModel)]="termoPesquisa" class="w-full" type="text" (keyup.enter)="pesquisar()" pInputText placeholder="Search" />
+    </p-iconField>
+    <i (click)="abrirModalPesquisa()" class="pi pi-times"></i>
+  </div>
+
+  <div class="box">
+    <p>Mais Buscados</p>
+
+    <ul>
+      <li><a href="/pesquisa?search=Smart TV">Smart TV</a></li>
+      <li><a href="/pesquisa?search=Guarda Roupa">Guarda Roupa</a></li>
+      <li><a href="/pesquisa?search=Notebook">Notebook</a></li>
+      <li><a href="/pesquisa?search=Air Fryer">Air Fryer</a></li>
+      <li><a href="/pesquisa?search=Iphone">Iphone</a></li>
+    </ul>
+  </div>
 
 </div>
 
@@ -9,10 +30,13 @@
     <!-- <img class="img-icon" src="../../../assets/413307893_685333763588479_6412520808455805246_n.jpg" alt="sergipe"> -->
     <h1 routerLink="">SERGIPE OFERTAS</h1>
   </a>
+  <div class="pesquisa">
+    <i (click)="abrirModalPesquisa()" class="pi pi-search pesquisa"></i>
+  </div>
   <i class="menu-icon pi pi-bars" (click)="openMenu()"></i>
   <nav class="desktop_menu" [class.mobile_menu]="menuValue">
     <i (click)="openMenu()" class="fechar-menu pi pi-times p-2"></i>
-    <a  (click)="openMenu()" class="mobile" routerLink="/">
+    <a (click)="openMenu()" class="mobile" routerLink="/">
       <i class="pi pi-home mr-2 text-white-alpha-90 text-lg text-justify"></i>
       Ofertas do Dia
     </a>
@@ -20,7 +44,7 @@
       <i class="mr-1 text-white-alpha-90 text-lg pi pi-star"></i>
       Destaques
     </a>
-    <a  (click)="openMenu()" class="mobile" routerLink="/quem-somos">
+    <a (click)="openMenu()" class="mobile" routerLink="/quem-somos">
       <i class="pi pi-users mr-2 text-white-alpha-90 text-lg text-justify"></i>
       Que Somos
     </a>
@@ -36,7 +60,7 @@
           item.nomeCategoria }}</a>
       </div>
     </div>
-    <a  (click)="openMenu()" class="flex align-items-center" routerLink="/grupos">
+    <a (click)="openMenu()" class="flex align-items-center" routerLink="/grupos">
       <i class="pi pi-whatsapp mr-2 text-white-alpha-90 text-lg text-justify"></i>
       Grupos
     </a>
@@ -46,14 +70,20 @@
       Que Somos
     </a>
 
-    <a  (click)="openMenu()" class="flex align-items-center" routerLink="blog">
+    <a (click)="openMenu()" class="flex align-items-center" routerLink="blog">
       <i class="pi pi-comments mr-2 text-white-alpha-90 text-lg text-justify"></i>
       Blog
     </a>
 
+    <!-- <p-iconField iconPosition="left">
+      <p-inputIcon styleClass="pi pi-search" />
+      <input [(ngModel)]="termoPesquisa" class="w-full" type="text" (keyup.enter)="pesquisar()" pInputText placeholder="Search" />
+    </p-iconField> -->
+
     <hr class="mobile">
-    <a  (click)="openMenu()" class="itens-header" routerLink="/politica-privacidade">Política de Privacidade</a>
-    <a  (click)="openMenu()" class="itens-header" routerLink="termos-uso">Termos de Uso</a>
-    <a  (click)="openMenu()" class="itens-header" href="{{ links.links != undefined ? 'mailto:' + links.links.email : '#'}}">Fale Conosoco</a>
+    <a (click)="openMenu()" class="itens-header" routerLink="/politica-privacidade">Política de Privacidade</a>
+    <a (click)="openMenu()" class="itens-header" routerLink="termos-uso">Termos de Uso</a>
+    <a (click)="openMenu()" class="itens-header"
+      href="{{ links.links != undefined ? 'mailto:' + links.links.email : '#'}}">Fale Conosoco</a>
   </nav>
 </header>

@@ -5,6 +5,7 @@ import { isPlatformBrowser } from '@angular/common';
 import { LinkBannerService } from 'src/app/service/painel/link-banner.service';
 import { LinksBanner } from 'src/app/dto/LinksBanner';
 import { animate, style, transition, trigger } from '@angular/animations';
+import { ActivatedRoute, ActivatedRouteSnapshot, Router } from '@angular/router';
 
 @Component({
   selector: 'app-header',
@@ -12,6 +13,15 @@ import { animate, style, transition, trigger } from '@angular/animations';
   styleUrls: ['./header.component.css'],
   animations: [
     trigger('categoria', [
+      transition(':enter', [
+        style({ opacity: 0, transform: 'translateY(-10%)' }),
+        animate('300ms ease', style({ opacity: 1, transform: 'translateY(0)' }))
+      ]),
+      transition(':leave', [
+        animate('300ms ease', style({ opacity: 0, transform: 'translateY(0%)' }))
+      ])
+    ]),
+    trigger('pesquisa', [
       transition(':enter', [
         style({ opacity: 0, transform: 'translateY(-10%)' }),
         animate('300ms ease', style({ opacity: 1, transform: 'translateY(0)' }))
@@ -33,9 +43,15 @@ export class HeaderComponent implements OnInit {
 
   categorias: Categoria[] = [];
 
+  modalPesquisa: boolean = false;
+
+  termoPesquisa: string = "";
+
   constructor(
     private categoriaService: CategoriaService,
-    private linkBannerService: LinkBannerService
+    private linkBannerService: LinkBannerService,
+    private router: Router,
+    private route: ActivatedRoute
   ) { }
 
   ngOnInit() {
@@ -68,5 +84,16 @@ export class HeaderComponent implements OnInit {
     this.linkBannerService.listarLinksEBanners().subscribe(response => {
       this.links = response;
     });
+  }
+
+  abrirModalPesquisa(){
+    this.modalPesquisa =! this.modalPesquisa
+  }
+
+  pesquisar(){
+    // const queryParams = this.route.snapshot.queryParams
+
+    this.router.navigate(["/pesquisa"], { queryParams: { search: this.termoPesquisa } })
+    this.modalPesquisa = false
   }
 }
