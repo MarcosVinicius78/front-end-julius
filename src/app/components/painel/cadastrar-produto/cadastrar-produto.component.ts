@@ -270,7 +270,7 @@ export class CadastrarProdutoComponent implements OnInit {
       parcelado = "sem juros"
     }
 
-    console.log(this.produtoFormGroup.get('mensagemAdicional')?.value)
+    console.log(this.produtoFormGroup.get('cupom')?.value)
 
     const produto: any = {
       id: this.idEditar,
@@ -281,13 +281,15 @@ export class CadastrarProdutoComponent implements OnInit {
       mensagemAdicional: this.produtoFormGroup.get('mensagemAdicional')?.value['name'] === undefined?  this.produtoFormGroup.get('mensagemAdicional')?.value : this.produtoFormGroup.get('mensagemAdicional')?.value['name'],
       link_se: this.produtoFormGroup.get('link_se')?.value,
       link_ofm: this.produtoFormGroup.get('link_ofm')?.value,
-      cupom: this.produtoFormGroup.get('cupom')?.value['name'] === undefined? this.produtoFormGroup.get('cupom')?.value : this.produtoFormGroup.get('cupom')?.value['name'],
-      cupomOmc: this.produtoFormGroup.get('cupomOmc')?.value === null?  this.produtoFormGroup.get('cupomOmc')?.value : this.produtoFormGroup.get('cupomOmc')?.value['name'],
+      cupom: this.produtoFormGroup.get('cupom')?.value === null || this.produtoFormGroup.get('cupom')?.value.length > 1? this.produtoFormGroup.get('cupom')?.value : this.produtoFormGroup.get('cupom')?.value['name'],
+      cupomOmc: this.produtoFormGroup.get('cupomOmc')?.value === null || this.produtoFormGroup.get('cupomOmc')?.value.length > 1?  this.produtoFormGroup.get('cupomOmc')?.value : this.produtoFormGroup.get('cupomOmc')?.value['name'],
       urlImagem: "",
       id_categoria: this.produtoFormGroup.get('id_categoria')?.value,
       id_loja: this.produtoFormGroup.get('loja')?.value,
       copy: this.produtoFormGroup.get('copy')?.value
     }
+
+    console.log(parcelado.length)
 
     if (this.imagemFile !== undefined || this.imagemFileSocial !== undefined) {
       this.salvarImagem();
