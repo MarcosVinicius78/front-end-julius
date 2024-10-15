@@ -21,6 +21,13 @@ export class CadastrarProdutoComponent implements OnInit {
 
   mensagem!: string;
 
+  cuponsSE!: any[] | undefined;
+  mensagemAdicional!: any[] | undefined;
+  cuponsOMC!: any[] | undefined;
+  cupomSelecionadoSE!: any | undefined;
+  cupomSelecionadoOMC!: string | undefined;
+  mensagemSelecionada!: string | undefined;
+
   produtoFormGroup!: FormGroup;
   apiUrl: string = environment.apiUrl;
 
@@ -45,6 +52,8 @@ export class CadastrarProdutoComponent implements OnInit {
 
   scraperProduto = new ScraperProduto();
 
+  cupomOmc: boolean = true;
+
   constructor(
     private formBuilder: FormBuilder,
     private produtoSevice: ProdutoService,
@@ -57,6 +66,37 @@ export class CadastrarProdutoComponent implements OnInit {
   ngOnInit(): void {
 
     this.idEditar = this.router.snapshot.paramMap.get('id')!;
+
+    this.cuponsSE = [
+      { name : '10SERGIPEEOFERTAS' },
+      { name : '20SERGIPEEOFERTAS' },
+      { name : '30SERGIPEEOFERTAS' },
+      { name : '40SERGIPEEOFERTAS' },
+      { name : '50SERGIPEEOFERTAS' },
+      { name : '60SERGIPEEOFERTAS' },
+      { name : '70SERGIPEEOFERTAS' },
+      { name : '80SERGIPEEOFERTAS' },
+      { name : '90SERGIPEEOFERTAS' },
+      { name : '100SERGIPEEOFERTAS' }
+    ]
+
+    this.cuponsOMC = [
+      { name : '10OFERTASMAISCUPOM' },
+      { name : '20OFERTASMAISCUPOM' },
+      { name : '30OFERTASMAISCUPOM' },
+      { name : '40OFERTASMAISCUPOM' },
+      { name : '50OFERTASMAISCUPOM' },
+      { name : '60OFERTASMAISCUPOM' },
+      { name : '70OFERTASMAISCUPOM' },
+      { name : '80OFERTASMAISCUPOM' },
+      { name : '90OFERTASMAISCUPOM' },
+      { name : '100OFERTASMAISCUPOM' },
+    ]
+
+    this.mensagemAdicional = [
+      { name : "Promoção sujeita a alteração a qualquer momento" },
+      { name : "Compartilhe com seus Amigos" }
+    ]
 
     this.produtoFormGroup = this.formBuilder.group({
       titulo: ['', [Validators.required]],
@@ -133,11 +173,11 @@ export class CadastrarProdutoComponent implements OnInit {
         preco: this.produtoFormGroup.get('preco')?.value,
         precoParcelado: parcelado,
         freteVariacoes: this.produtoFormGroup.get('freteVariacoes')?.value,
-        mensagemAdicional: this.produtoFormGroup.get('mensagemAdicional')?.value,
-        cupomOmc: this.produtoFormGroup.get('cupomOmc')?.value,
+        mensagemAdicional: this.produtoFormGroup.get('mensagemAdicional')?.value['name'] === undefined? this.produtoFormGroup.get('mensagemAdicional')?.value : this.produtoFormGroup.get('mensagemAdicional')?.value['name'],
+        cupomOmc: this.produtoFormGroup.get('cupomOmc')?.value['name'],
         link_se: this.produtoFormGroup.get('link_se')?.value,
         link_ofm: this.produtoFormGroup.get('link_ofm')?.value,
-        cupom: this.produtoFormGroup.get('cupom')?.value,
+        cupom: this.produtoFormGroup.get('cupom')?.value['name'],
         urlImagem: this.scraperProduto.urlImagem,
         id_categoria: this.produtoFormGroup.get('id_categoria')?.value,
         id_loja: this.produtoFormGroup.get('loja')?.value,
@@ -230,17 +270,19 @@ export class CadastrarProdutoComponent implements OnInit {
       parcelado = "sem juros"
     }
 
+    console.log(this.produtoFormGroup.get('mensagemAdicional')?.value)
+
     const produto: any = {
       id: this.idEditar,
       titulo: this.produtoFormGroup.get('titulo')?.value,
       preco: this.produtoFormGroup.get('preco')?.value,
       precoParcelado: parcelado,
       freteVariacoes: this.produtoFormGroup.get('freteVariacoes')?.value,
-      mensagemAdicional: this.produtoFormGroup.get('mensagemAdicional')?.value,
-      cupomOmc: this.produtoFormGroup.get('cupomOmc')?.value,
+      mensagemAdicional: this.produtoFormGroup.get('mensagemAdicional')?.value['name'] === undefined?  this.produtoFormGroup.get('mensagemAdicional')?.value : this.produtoFormGroup.get('mensagemAdicional')?.value['name'],
       link_se: this.produtoFormGroup.get('link_se')?.value,
       link_ofm: this.produtoFormGroup.get('link_ofm')?.value,
-      cupom: this.produtoFormGroup.get('cupom')?.value,
+      cupom: this.produtoFormGroup.get('cupom')?.value['name'] === undefined? this.produtoFormGroup.get('cupom')?.value : this.produtoFormGroup.get('cupom')?.value['name'],
+      cupomOmc: this.produtoFormGroup.get('cupomOmc')?.value === null?  this.produtoFormGroup.get('cupomOmc')?.value : this.produtoFormGroup.get('cupomOmc')?.value['name'],
       urlImagem: "",
       id_categoria: this.produtoFormGroup.get('id_categoria')?.value,
       id_loja: this.produtoFormGroup.get('loja')?.value,
@@ -275,10 +317,33 @@ export class CadastrarProdutoComponent implements OnInit {
 
   pegarProduto() {
 
+    // this.cuponsSE = [
+    //   { name : '10SERGIPEEOFERTAS' },
+    //   { name : '20SERGIPEEOFERTAS' },
+    //   { name : '30SERGIPEEOFERTAS' },
+    //   { name : '40SERGIPEEOFERTAS' },
+    //   { name : '50SERGIPEEOFERTAS' },
+    //   { name : '60SERGIPEEOFERTAS' },
+    //   { name : '70SERGIPEEOFERTAS' },
+    //   { name : '80SERGIPEEOFERTAS' },
+    //   { name : '90SERGIPEEOFERTAS' },
+    //   { name : '100SERGIPEEOFERTAS' }
+    // ]
+
+    // this.mensagemAdicional = [
+    //   { name : "Promoção sujeita a alteração a qualquer momento" },
+    //   { name : "Compartilhe com seus Amigos" }
+    // ]
 
     this.produtoSevice.pegarProduto(this.idEditar,0).subscribe(response => {
       this.produto = response;
       this.id = response.id
+
+      if (this.produto.link_ofm === null) {
+        this.cupomOmc = false
+      }
+
+      console.log(this.produto)
 
       this.produtoFormGroup = this.formBuilder.group({
         titulo: [this.produto.titulo],
@@ -290,6 +355,7 @@ export class CadastrarProdutoComponent implements OnInit {
         link_se: [this.produto.link_se],
         link_ofm: [this.produto.link_ofm],
         cupom: [this.produto.cupom],
+        cupomOmc: [null],
         id_categoria: [this.produto.categoriaDto.categoria_id],
         loja: [this.produto.lojaResponseDto.id],
         copy: [this.produto.copy]
@@ -350,6 +416,18 @@ export class CadastrarProdutoComponent implements OnInit {
       parcelado = "sem juros"
     }
 
+    this.cuponsSE = [
+      { name : '10SERGIPEEOFERTAS' },
+      { name : '20SERGIPEEOFERTAS' },
+      { name : '30SERGIPEEOFERTAS' },
+      { name : '40SERGIPEEOFERTAS' },
+      { name : '50SERGIPEEOFERTAS' },
+      { name : '60SERGIPEEOFERTAS' },
+      { name : '70SERGIPEEOFERTAS' },
+      { name : '80SERGIPEEOFERTAS' },
+      { name : '90SERGIPEEOFERTAS' },
+      { name : '100SERGIPEEOFERTAS' }
+    ]
 
     this.produtoSevice.rasparProduto(url).subscribe(response => {
 

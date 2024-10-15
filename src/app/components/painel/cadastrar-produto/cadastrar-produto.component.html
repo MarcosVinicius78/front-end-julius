@@ -5,7 +5,7 @@
     <header>
       <h1 class="titulo-desktop">Cadastrar Produtos</h1>
       <span class="p-float-label">
-        <input class="scrape" pInputText id="url" formControlName="url"/>
+        <input class="scrape" pInputText id="url" formControlName="url" />
         <label htmlFor="Link do produto">Link do produto</label>
       </span>
       <!-- <input class="scrape" formControlName="url" type="text" placeholder="Link do produto"> -->
@@ -17,11 +17,11 @@
 
       <div class="titulo">
         <span class="p-float-label">
-          <input pInputText id="copy" formControlName="copy"/>
+          <input pInputText id="copy" formControlName="copy" />
           <label htmlFor="copy">Copy</label>
         </span>
         <span class="mt-4 p-float-label">
-          <input pInputText id="Titulo" formControlName="titulo"/>
+          <input pInputText id="Titulo" formControlName="titulo" />
           <label htmlFor="titulo">Titulo</label>
         </span>
       </div>
@@ -37,11 +37,16 @@
           <label htmlFor="preco">Preço</label>
         </span>
         <span>
-          <select class="dropdown text-primary-50 font-medium text-base" formControlName="freteVariacoes" name="freteVariacoes">
+          <select class="dropdown text-primary-50 font-medium text-base" formControlName="freteVariacoes"
+            name="freteVariacoes">
             <option value="">Selecione o Frete</option>
             <!-- <option value="Frete Grátis">Frete Grátis</option> -->
-            <option value="No Carrinho Selecione o *🏷️CUPOM de Frete Grátis* Acima de R$ 19,90 para Garantir o Frete Grátis!">Frete Grátis Shopee</option>
-            <option value="No Carrinho Selecione o *🏷️CUPOM de Frete Econômico* Acima de R$ 19,90 para Garantir o Frete Econômico!">Frete Econômico Shopee</option>
+            <option
+              value="No Carrinho Selecione o *🏷️CUPOM de Frete Grátis* Acima de R$ 19,90 para Garantir o Frete Grátis!">
+              Frete Grátis Shopee</option>
+            <option
+              value="No Carrinho Selecione o *🏷️CUPOM de Frete Econômico* Acima de R$ 19,90 para Garantir o Frete Econômico!">
+              Frete Econômico Shopee</option>
             <option value="*Frete Grátis* Algumas Regiões">Frete Grátis Algumas Regiões</option>
             <!-- <option value="Grátis Retirando na Loja">Grátis Retirando na Loja</option> -->
             <!-- <option value="Frete Econômico Ou Grátis Retirando na Loja">Frete Econômico Ou Grátis Retirando na Loja</option> -->
@@ -55,25 +60,29 @@
 
       <div class="link">
         <span class="p-float-label">
-          <input class="w-full" pInputText id="link" formControlName="link_se"/>
+          <input class="w-full" pInputText id="link" formControlName="link_se" />
           <label htmlFor="link">Link Sergipe Ofertas</label>
         </span>
       </div>
 
       <div class="link">
         <span class="p-float-label">
-          <input class="w-full" pInputText id="link" formControlName="link_ofm"/>
+          <input class="w-full" pInputText id="link" formControlName="link_ofm" />
           <label htmlFor="link">Link Oferta Mais Cupom</label>
         </span>
       </div>
 
       <div class="grupo">
-        <span>
-          <select class="dropdown w-11 text-primary-50 font-medium text-base" formControlName="mensagemAdicional" name="mensagemAdicional">
+        <span class="mensagemAdicional w-11 mr-4">
+          <!-- <select class="dropdown w-11 text-primary-50 font-medium text-base" formControlName="mensagemAdicional"
+            name="mensagemAdicional">
             <option value="">Selecione um Mensagem</option>
-            <option value="Promoção sujeita a alteração a qualquer momento">Promoção sujeita a alteração a qualquer momento</option>
+            <option value="Promoção sujeita a alteração a qualquer momento">Promoção sujeita a alteração a qualquer
+              momento</option>
             <option value="Compartilhe com seus Amigos">Compartilhe com seus Amigos</option>
-          </select>
+          </select> -->
+          <p-dropdown styleClass="w-full teste" [options]="mensagemAdicional" formControlName="mensagemAdicional" [(ngModel)]="mensagemSelecionada" placeholder="Mensagem" [editable]="true"
+            optionLabel="name" />
         </span>
         <span>
           <select class="dropdown w-11 text-primary-50 font-medium text-base" formControlName="loja" name="loja">
@@ -82,7 +91,8 @@
           </select>
         </span>
         <span>
-          <select class="dropdown w-full text-primary-50 font-medium text-base" formControlName="id_categoria" name="id_categoria">
+          <select class="dropdown w-full text-primary-50 font-medium text-base" formControlName="id_categoria"
+            name="id_categoria">
             <option value="">Selecione uma Categoria</option>
             <option *ngFor="let item of categorias" value="{{item.categoria_id}}">{{ item.nomeCategoria }}</option>
           </select>
@@ -101,17 +111,22 @@
                 <div *ngIf="true">
                   <img *ngIf="produto != undefined" [src]="imagemView ==  ''? scraperProduto.urlImagem : imagemView!"
                     alt="Imagem Site">
-                  <img *ngIf="produto.id != 0" [src]=" produto.imagem != ''? apiUrl+'/produto/download/'+produto.imagem : imagemView" alt="Selected Image">
+                  <img *ngIf="produto.id != 0"
+                    [src]=" produto.imagem != ''? apiUrl+'/produto/download/'+produto.imagem : imagemView"
+                    alt="Selected Image">
                 </div>
                 <div *ngIf="false">Selecionar Site</div>
               </div>
             </label>
 
             <label for="fileInputs">
-              <input formControlName="imgemSocial" name="imgemSocial" (change)="onFileChangeSocial($event)" id="fileInputs" type="file" #fileInputs>
+              <input formControlName="imgemSocial" name="imgemSocial" (change)="onFileChangeSocial($event)"
+                id="fileInputs" type="file" #fileInputs>
               <div id="file-input-label">
                 <div *ngIf="true">
-                  <img [src]="produto.imagemSocial != ''? apiUrl+'/produto/download-imagem-real/'+produto.imagemSocial : imagemViewSocial" alt="Imagem Social">
+                  <img
+                    [src]="produto.imagemSocial != ''? apiUrl+'/produto/download-imagem-real/'+produto.imagemSocial : imagemViewSocial"
+                    alt="Imagem Social">
                 </div>
                 <div *ngIf="false">Imagem Social</div>
               </div>
@@ -120,14 +135,18 @@
         </div>
 
         <div class="w-6">
-          <span class="p-float-label w-full">
-            <input class="w-full" pInputText id="cupom" formControlName="cupom"/>
+          <!-- <span class="p-float-label w-full">
+            <input class="w-full" pInputText id="cupom" formControlName="cupom" />
             <label htmlFor="Cupom">Cupom SE</label>
-          </span>
-          <span class="p-float-label w-full mt-5">
+          </span> -->
+          <p-dropdown styleClass="w-full" [options]="cuponsSE" formControlName="cupom" [(ngModel)]="cupomSelecionadoSE" placeholder="Cupom Sergipe Ofertas" [editable]="true"
+            optionLabel="name" />
+          <p-dropdown *ngIf="cupomOmc" styleClass="w-full mt-4" [options]="cuponsOMC" formControlName="cupomOmc" [(ngModel)]="cupomSelecionadoOMC" placeholder="Cupom Ofertas Mais Cupons" [editable]="true"
+            optionLabel="name" />
+          <!-- <span class="p-float-label w-full mt-5">
             <input class="w-full" pInputText id="descricao" formControlName="cupomOmc" />
             <label htmlFor="descricao">Cupom OMC</label>
-          </span>
+          </span> -->
           <!-- <span class="p-float-label w-full">
             <input class="w-full h-10rem mt-5" pInputText id="descricao" formControlName="descricao" />
             <label htmlFor="descricao">Descriçao</label>

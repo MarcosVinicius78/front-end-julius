@@ -74,6 +74,18 @@
     color: white;
   }
 
+  .mensagemAdicional{
+    display: block !important;
+  }
+
+  .p-dropdown-item{
+    background-color: unset;
+  }
+
+  .p-dropdown div input{
+    color: white;
+  }
+
   .scrape {
     min-width: 600px;
     height: 30px;
