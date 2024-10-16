@@ -6,23 +6,26 @@
   <div class="banners">
     <div>
       <h2>Banners</h2>
-      <input type="submit" (click)="abrirModal()" value="Adicionar Publicidade">
+      <input type="submit" (click)="abrirModal(0,'','')" value="Adicionar Publicidade">
     </div>
     <div>
       <table>
         <thead>
-          <th>id</th>
           <th>Imagem</th>
           <th>Nome</th>
+          <th>Opções</th>
           <th>Opções</th>
         </thead>
         <tbody *ngFor="let item of banners">
           <tr>
-            <td>{{ item.id }}</td>
+
             <td><img [src]="urlApi+'/banners/'+item.urlImagem" alt=""></td>
             <td class="nome">{{ item.nome }}</td>
-            <td class="opcoes">
-              <a (click)="apagarBanner(item.id)">Apagar</a>
+            <td class="apagar">
+              <i class="pi pi-trash" (click)="apagarBanner(item.id)"></i>
+            </td>
+            <td class="editar">
+              <i (click)="abrirModal(item.id, item.nome, item.link)" class="pi pi-pencil"></i>
             </td>
           </tr>
         </tbody>
@@ -56,15 +59,25 @@
 
   <form [formGroup]="bannerFomrGrupo">
     <div class="modal" *ngIf="modal" (click)="fecharModal()">
-      <div class="opcoes-reportar" (click)="impedirFechar($event)">
+      <div class="container" (click)="impedirFechar($event)">
         <div>
-          <label for="nome"></label>
-          <input type="text" name="nome" formControlName="nome">
+          <div>
+            <label for="nome"></label>
+            <input type="text" name="nome" formControlName="nome" placeholder="Nome">
+          </div>
+          <div>
+            <label for="link"></label>
+            <input type="text" name="nome" formControlName="link" placeholder="Link">
+          </div>
         </div>
         <div>
           <input type="file" (change)="onFileSelected($event)">
         </div>
-        <input type="submit" (click)="uploadImage()">
+        <div>
+          <input type="file" (change)="onFileSelectedMobile($event)">
+        </div>
+        <input *ngIf="idEditar === 0" type="submit"  (click)="uploadImage()">
+        <input *ngIf="idEditar !== 0" type="submit" (click)="editarBanner(idEditar)">
       </div>
     </div>
   </form>

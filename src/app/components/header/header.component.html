@@ -4,7 +4,7 @@
   <div class="flex justify-content-between align-items-center">
     <p-iconField iconPosition="left">
       <p-inputIcon styleClass="pi pi-search" />
-      <input [(ngModel)]="termoPesquisa" class="w-full" type="text" (keyup.enter)="pesquisar()" pInputText placeholder="Search" />
+      <input [(ngModel)]="termoPesquisa" class="w-full" type="search" (keyup.enter)="pesquisar()" pInputText placeholder="Search" />
     </p-iconField>
     <i (click)="abrirModalPesquisa()" class="pi pi-times"></i>
   </div>

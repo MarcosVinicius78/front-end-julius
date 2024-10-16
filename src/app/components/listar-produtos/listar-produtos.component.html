@@ -1,28 +1,36 @@
 <div class="section">
   <section>
+    <p-carousel *ngIf="links.banners.length != 0" [value]="links.banners" [numVisible]="1" [numScroll]="3" [circular]="true"
+      [responsiveOptions]="responsiveOptions" autoplayInterval="3000">
+      <ng-template let-item pTemplate="item">
+        <div class="surface-border border-round m-2 p-3">
+          <div class="">
+            <div class="relative mx-auto">
+              <a href="{{ item.link }}" target="_blank">
+                <img [src]="apiUrl+'/banners/'+item.urlImagem" [alt]="item.nome" class="w-full border-round desktop" />
+                <img [src]="apiUrl+'/banners/'+item.urlImagemMobile" [alt]="item.nome" class="w-full border-round mobile" />
+              </a>
+            </div>
+          </div>
+        </div>
+      </ng-template>
+    </p-carousel>
 
-    <div *ngIf="links.banners.length != 0" class="banner1">
+    <!-- <div *ngIf="links.banners.length != 0" class="banner1">
       <div class="banner">
 
-        <div  class="slideshow-container">
-          <a routerLink="/grupos" target="_blank">
+        <div class="slideshow-container">
+          <a routerLink="" target="_blank">
             <div class="mySlides fade">
-              <img *ngIf="links.banners.length != 0" [src]="apiUrl+'/banners/'+links.banners[0].urlImagem" class="h-10rem"
-                style="width:100%">
+              <img *ngIf="links.banners.length != 0" [src]="apiUrl+'/banners/'+links.banners[0].urlImagem"
+                class="h-10rem" style="width:100%">
             </div>
           </a>
-
-        <!-- Adicione mais slides conforme necessário -->
-
-          <!-- Botões de navegação -->
           <a class="prev" (click)="plusSlides(-1)">&#10094;</a>
           <a class="next" (click)="plusSlides(1)">&#10095;</a>
         </div>
-        <!-- <img class="banner-desktop" src="../../../assets/photo_2023-12-22_12-11-51.jpg" alt="banner"> -->
-        <!-- <img class="banner-mobile" src="../../../assets/ACOMPANHE AS PROMOÇÕES E DESCONTOS EM TEMPO REAL.png" alt=""> -->
       </div>
-
-    </div>
+    </div> -->
 
     <div class="titulo">
       <div class="pesquisa">
@@ -62,13 +70,16 @@
             </div>
             <div class="frete">
               <i *ngIf="item.freteVariacoes && item.freteVariacoes.length < 48" class="pi pi-truck"></i>
-              <p *ngIf="item.freteVariacoes && item.freteVariacoes.length < 48">{{ item.freteVariacoes.replaceAll('*','') }}</p>
+              <p *ngIf="item.freteVariacoes && item.freteVariacoes.length < 48">{{
+                item.freteVariacoes.replaceAll('*','') }}</p>
             </div>
             <a routerLink="/oferta/{{ item.id }}">
               <p id="preco">{{ item.preco }}</p>
             </a>
             <div class="ir-loja">
-              <a href="{{ item.link }}" (click)="abrirModal($event, item.cupom, item.imagem, item.titulo, item.link, item.freteVariacoes, item.id)" target="_blank">Pegar Promoção</a>
+              <a href="{{ item.link }}"
+                (click)="abrirModal($event, item.cupom, item.imagem, item.titulo, item.link, item.freteVariacoes, item.id)"
+                target="_blank">Pegar Promoção</a>
             </div>
           </div>
         </div>
@@ -166,14 +177,16 @@
       <div class="flex justify-content-end">
         <i class="pi pi-times cursor-pointer" (click)="fecharModal()"></i>
       </div>
-      <div routerLink="/oferta/{{ produtoModalDto.id }}" class="header-modal flex align-items-center justify-content-around">
+      <div routerLink="/oferta/{{ produtoModalDto.id }}"
+        class="header-modal flex align-items-center justify-content-around">
         <img [src]="apiUrl+'/produto/download/'+produtoModalDto.imagem" alt="imagem-produto">
         <p id="titulo-modal">{{ produtoModalDto.titulo }}</p>
       </div>
 
       <div class="info-modal">
         <p>Instruções Adicionais</p>
-        <P>{{ produtoModalDto.cupomInformacoes == null || produtoModalDto.cupomInformacoes == ''? produtoModalDto.frete : produtoModalDto.cupomInformacoes }}</P>
+        <P>{{ produtoModalDto.cupomInformacoes == null || produtoModalDto.cupomInformacoes == ''? produtoModalDto.frete
+          : produtoModalDto.cupomInformacoes }}</P>
       </div>
 
       <a href="{{produtoModalDto.link}}" target="_blank">Pegar Promoção</a>

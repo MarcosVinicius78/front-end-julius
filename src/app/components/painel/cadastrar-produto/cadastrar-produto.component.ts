@@ -94,6 +94,24 @@ export class CadastrarProdutoComponent implements OnInit {
       { name: '100OFERTASMAISCUPOM' },
     ]
 
+    this.resetarForm()
+
+    console.log(this.produtoFormGroup.get('cupom')?.value)
+
+    this.mensagemAdicional = [
+      { name: "Promoção sujeita a alteração a qualquer momento" },
+      { name: "Compartilhe com seus Amigos" }
+    ]
+
+    if (this.idEditar != undefined) {
+      this.pegarProduto();
+    }
+
+    this.listarLojas()
+    this.listarCategoria()
+  }
+
+  resetarForm(){
     this.produtoFormGroup = this.formBuilder.group({
       titulo: ['', [Validators.required]],
       preco: ['', [Validators.required]],
@@ -112,17 +130,6 @@ export class CadastrarProdutoComponent implements OnInit {
       copy: ['']
     })
 
-    this.mensagemAdicional = [
-      { name: "Promoção sujeita a alteração a qualquer momento" },
-      { name: "Compartilhe com seus Amigos" }
-    ]
-
-    if (this.idEditar != undefined) {
-      this.pegarProduto();
-    }
-
-    this.listarLojas()
-    this.listarCategoria()
   }
 
   onFileChange(event: any) {
@@ -216,7 +223,7 @@ export class CadastrarProdutoComponent implements OnInit {
       });
 
       this.imagemView = "";
-      this.produtoFormGroup.reset()
+      this.resetarForm()
 
       return;
     }
@@ -274,8 +281,6 @@ export class CadastrarProdutoComponent implements OnInit {
       console.log("teste aqui")
       parcelado = "sem juros"
     }
-
-    console.log(this.produtoFormGroup.get('cupom')?.value)
 
     const produto: any = {
       id: this.idEditar,

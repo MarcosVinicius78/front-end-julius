@@ -19,10 +19,13 @@ export class LinksBannersComponent implements OnInit {
 
   modal = false;
   selectedFile: File | null = null;
+  fileMobile: File | null = null;
 
   linksEBanners = new LinksBanner();
 
   banners: Banner[] = [];
+
+  idEditar: number = 0
 
   urlApi: string = environment.apiUrl;
 
@@ -47,13 +50,18 @@ export class LinksBannersComponent implements OnInit {
 
 
     this.bannerFomrGrupo = this.formBuilder.group({
-      nome: ['']
+      nome: [''],
+      link: ['']
     })
 
   }
 
   onFileSelected(event: any) {
     this.selectedFile = event.target.files[0];
+  }
+
+  onFileSelectedMobile(event: any) {
+    this.fileMobile = event.target.files[0];
   }
 
   salvarLinks() {
@@ -107,7 +115,15 @@ export class LinksBannersComponent implements OnInit {
     this.modal = false;
   }
 
-  abrirModal() {
+  abrirModal(id: number, nome: string, link: string) {
+    if (id !== 0) {
+      this.bannerFomrGrupo = this.formBuilder.group({
+        nome: [nome],
+        link: [link]
+      })
+    }
+
+    this.idEditar = id
     this.modal = true;
   }
 
@@ -116,14 +132,15 @@ export class LinksBannersComponent implements OnInit {
   }
 
   uploadImage() {
-    if (this.selectedFile) {
+    if (this.selectedFile && this.fileMobile) {
       const formData = new FormData();
       formData.append('file', this.selectedFile);
+      formData.append('fileMobile', this.fileMobile);
       formData.append('nome', this.bannerFomrGrupo.get(['nome'])?.value);
+      formData.append('link', this.bannerFomrGrupo.get(['link'])?.value);
 
       this.linkBannerService.uploadImage(formData).subscribe(
         response => {
-          console.log('Image uploaded successfully:', response);
           this.fecharModal()
           this.listarLinksEBanners()
         },
@@ -138,7 +155,19 @@ export class LinksBannersComponent implements OnInit {
 
   apagarBanner(id: number) {
     this.linkBannerService.apagarBanner(id).subscribe(response => {
-      this.listarLinksEBanners()
+      this.listarLinksEBanners();
     });
+  }
+
+  editarBanner(id: number) {
+
+    const nome = this.bannerFomrGrupo.get('nome')?.value
+    const link = this.bannerFomrGrupo.get('link')?.value
+
+    this.linkBannerService.editarBanner(id, this.selectedFile, this.fileMobile, nome, link).subscribe(response => {
+      // alert('Banner editado com sucesso');
+    });
+    this.listarLinksEBanners();
+    this.modal = false;
   }
 }

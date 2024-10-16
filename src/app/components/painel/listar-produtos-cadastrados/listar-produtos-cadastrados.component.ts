@@ -65,13 +65,13 @@ export class ListarProdutosCadastradosComponent implements OnInit {
     ];
 
     this.termoPesquisa.valueChanges
-    .pipe(
-      debounceTime(300),
-      switchMap((termo: string) => this.pesquisar(termo))
-    )
-    .subscribe(resultados => {
+      .pipe(
+        debounceTime(300),
+        switchMap((termo: string) => this.pesquisar(termo))
+      )
+      .subscribe(resultados => {
 
-    });
+      });
   }
 
   listarProdutos() {
@@ -88,7 +88,7 @@ export class ListarProdutosCadastradosComponent implements OnInit {
       this.produtoService.listarProduto(this.page, this.size).subscribe((response: any) => {
         this.produtos = response.content
       });
-    }else{
+    } else {
       this.pesquisar(this.palavra);
     }
   }
@@ -147,7 +147,7 @@ export class ListarProdutosCadastradosComponent implements OnInit {
     })
   }
 
-  gerarFeed(id: number){
+  gerarFeed(id: number) {
 
     console.log(this.selectedProducts);
 
@@ -178,7 +178,7 @@ export class ListarProdutosCadastradosComponent implements OnInit {
 
     if (valor === 1) {
       this.clipboard.copy(post);
-    }else{
+    } else {
       post = post.replace(/_/g, '__');
       post = post.replace(/\*/g, '**');
       this.clipboard.copy(post);
@@ -203,28 +203,35 @@ export class ListarProdutosCadastradosComponent implements OnInit {
 
     if (produto.freteVariacoes.includes("CUPOM")) {
       estruturaCompartilhamento += `*\u{1F525} ${produto.preco} (Frete Grátis)*\n`;
-    }else if(produto.parcelado && produto.parcelado.toLocaleLowerCase().includes("sem juros")){
+    } else if (produto.parcelado && produto.parcelado.toLocaleLowerCase().includes("sem juros")) {
       estruturaCompartilhamento += `*\u{1F525} ${produto.preco} (Parcelado)*\n`;
-    }else{
+    } else {
       estruturaCompartilhamento += `*\u{1F525} ${produto.preco}* à vista\n`;
     }
 
     if (produto.cupom && produto.cupom.length < 20) {
       estruturaCompartilhamento += `\u{1F39F} Use o Cupom: *${produto.cupom}*\n`;
-    }else if (produto.cupom){
+    } else if (produto.cupom) {
       estruturaCompartilhamento += `_\u{1F5E3} ${produto.cupom}_\n`;
     }
 
     if (isPlatformBrowser(this.platformId)) {
-        if (this.route.url === "/painel") {
-          estruturaCompartilhamento += `\n*\u{1F6D2} Confira Aqui:\u{1F447}*\n${window.location.href.replace("painel", '')}oferta/${produto.id}?r=1`;
-        } else {
-          estruturaCompartilhamento += `\n*\u{1F6D2} Confira Aqui:\u{1F447}*\n${window.location.href.replace("painel/listar-produtos", '')}oferta/${produto.id}?r=1`;
-        }
+
+
+      if (this.route.url === "/painel" && (produto.loja.nome_loja.includes("Amazon") || produto.loja.nome_loja.includes("Mercado"))) {
+        estruturaCompartilhamento += `\n*\u{1F6D2} Confira Aqui:\u{1F447}*\n${window.location.href.replace("painel", '')}oferta/${produto.id}`;
+        alert("d")
+      } else if( produto.loja.nome_loja.includes("Amazon") || produto.loja.nome_loja.includes("Mercado Livre")){
+        estruturaCompartilhamento += `\n*\u{1F6D2} Confira Aqui:\u{1F447}*\n${window.location.href.replace("painel/listar-produtos", '')}oferta/${produto.id}`;
+      }else if (this.route.url === "/painel") {
+        estruturaCompartilhamento += `\n*\u{1F6D2} Confira Aqui:\u{1F447}*\n${window.location.href.replace("painel", '')}oferta/${produto.id}?r=1`;
+      } else {
+        estruturaCompartilhamento += `\n*\u{1F6D2} Confira Aqui:\u{1F447}*\n${window.location.href.replace("painel/listar-produtos", '')}oferta/${produto.id}?r=1`;
+      }
 
     }
 
-    if(produto.freteVariacoes.includes("CUPOM")){
+    if (produto.freteVariacoes.includes("CUPOM")) {
       estruturaCompartilhamento += `\n\n\u{1F4E6} ${produto.freteVariacoes}`;
     }
 
@@ -260,6 +267,6 @@ export class ListarProdutosCadastradosComponent implements OnInit {
         // console.log(data)
       });
 
-      return this.produtos
+    return this.produtos
   }
 }

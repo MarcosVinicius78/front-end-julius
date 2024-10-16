@@ -13,7 +13,7 @@ import { environment } from 'src/environments/environment';
 @Component({
   selector: 'app-listar-produtos',
   templateUrl: './listar-produtos.component.html',
-  styleUrls: ['./listar-produtos.component.css']
+  styleUrls: ['./listar-produtos.component.scss']
 })
 export class ListarProdutosComponent implements OnInit {
   @ViewChild('swiper', { static: false }) swiper: any;
@@ -91,6 +91,7 @@ export class ListarProdutosComponent implements OnInit {
       this.listarPorCategoria();
       return
     }
+
 
     this.produtos = []
     this.produtosEmDestaque();
@@ -226,6 +227,7 @@ export class ListarProdutosComponent implements OnInit {
   pegarLinks() {
     this.linkBannerService.listarLinksEBanners().subscribe(response => {
       this.links = response;
+      console.log(response)
     });
   }
 

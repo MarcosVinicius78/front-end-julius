@@ -28,4 +28,18 @@ export class LinkBannerService {
   apagarBanner(id: number){
     return this.http.delete(`${this.apiUrl}/banners/${id}`)
   }
+
+  editarBanner(bannerId: number, file: File | null, fileMobile: File | null, nome: string, link: string){
+    const formData: FormData = new FormData();
+    if (file) {
+      formData.append('file', file);
+    }
+    if (fileMobile) {
+      formData.append('fileMobile', fileMobile);
+    }
+    formData.append('nome', nome);
+    formData.append('link', link);
+
+    return this.http.put(`${this.apiUrl}/banners/${bannerId}`, formData);
+  }
 }

@@ -81,11 +81,11 @@ table{
   align-items: center;
 }
 
-.opcoes-reportar {
+.container {
   background-color: #fff;
   padding: 20px;
-  width: 30%;
-  height: 30%;
+  width: 50%;
+  height: 50%;
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   position: relative;
@@ -95,17 +95,17 @@ table{
   align-items: center;
 }
 
-.opcoes-reportar div{
+.container div{
   height: 90px;
   display: flex;
   align-items: center;
 }
 
-.opcoes-reportar div:first-child input{
+.container div:first-child input{
   padding: 10px;
 }
 
-tbody tr td:nth-child(2) img{
+tbody tr td:nth-child(1) img{
   height: 80px;
   width: 100%;
   object-fit: contain;

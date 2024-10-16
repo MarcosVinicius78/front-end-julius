@@ -50,6 +50,7 @@ import { InputIconModule } from 'primeng/inputicon';
 import { IconFieldModule } from 'primeng/iconfield';
 import { InputSwitchModule } from 'primeng/inputswitch';
 import { PesquisaComponent } from './components/pesquisa/pesquisa.component';
+import { CarouselModule } from 'primeng/carousel';
 
 @NgModule({ declarations: [
         AppComponent,
@@ -99,6 +100,7 @@ import { PesquisaComponent } from './components/pesquisa/pesquisa.component';
         InputIconModule,
         IconFieldModule,
         InputSwitchModule,
+        CarouselModule,
         CardModule], providers: [
         {
             provide: HTTP_INTERCEPTORS,
