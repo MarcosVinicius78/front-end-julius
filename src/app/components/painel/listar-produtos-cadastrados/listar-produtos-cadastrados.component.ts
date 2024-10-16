@@ -220,7 +220,6 @@ export class ListarProdutosCadastradosComponent implements OnInit {
 
       if (this.route.url === "/painel" && (produto.loja.nome_loja.includes("Amazon") || produto.loja.nome_loja.includes("Mercado"))) {
         estruturaCompartilhamento += `\n*\u{1F6D2} Confira Aqui:\u{1F447}*\n${window.location.href.replace("painel", '')}oferta/${produto.id}`;
-        alert("d")
       } else if( produto.loja.nome_loja.includes("Amazon") || produto.loja.nome_loja.includes("Mercado Livre")){
         estruturaCompartilhamento += `\n*\u{1F6D2} Confira Aqui:\u{1F447}*\n${window.location.href.replace("painel/listar-produtos", '')}oferta/${produto.id}`;
       }else if (this.route.url === "/painel") {

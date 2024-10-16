@@ -34,7 +34,7 @@ export class BlankComponent implements OnInit {
         this.produtoService.pegarProduto(id,r).subscribe(response => {
           // Definir as meta tags aqui
           this.meta.updateTag({ name: 'og:title', content: response.titulo });
-          this.meta.updateTag({ name: 'og:description', content: response.descricao });
+          // this.meta.updateTag({ name: 'og:description', content: response.descricao });
           this.meta.updateTag({ name: 'og:image', content: `${environment.apiUrl}/produto/download-imagem-real/${response.imagemSocial}` });
 
           if (isPlatformBrowser(this.platformId)) {
