@@ -93,15 +93,13 @@ export class CadastrarProdutoComponent implements OnInit {
       { name: '90OFERTASMAISCUPOM' },
       { name: '100OFERTASMAISCUPOM' },
     ]
-
-    this.resetarForm()
-
-    console.log(this.produtoFormGroup.get('cupom')?.value)
-
     this.mensagemAdicional = [
       { name: "Promoção sujeita a alteração a qualquer momento" },
       { name: "Compartilhe com seus Amigos" }
     ]
+
+    this.resetarForm()
+
 
     if (this.idEditar != undefined) {
       this.pegarProduto();
@@ -327,24 +325,6 @@ export class CadastrarProdutoComponent implements OnInit {
 
   pegarProduto() {
 
-    // this.cuponsSE = [
-    //   { name : '10SERGIPEEOFERTAS' },
-    //   { name : '20SERGIPEEOFERTAS' },
-    //   { name : '30SERGIPEEOFERTAS' },
-    //   { name : '40SERGIPEEOFERTAS' },
-    //   { name : '50SERGIPEEOFERTAS' },
-    //   { name : '60SERGIPEEOFERTAS' },
-    //   { name : '70SERGIPEEOFERTAS' },
-    //   { name : '80SERGIPEEOFERTAS' },
-    //   { name : '90SERGIPEEOFERTAS' },
-    //   { name : '100SERGIPEEOFERTAS' }
-    // ]
-
-    // this.mensagemAdicional = [
-    //   { name : "Promoção sujeita a alteração a qualquer momento" },
-    //   { name : "Compartilhe com seus Amigos" }
-    // ]
-
     this.produtoSevice.pegarProduto(this.idEditar, 0).subscribe(response => {
       this.produto = response;
       this.id = response.id
@@ -353,12 +333,12 @@ export class CadastrarProdutoComponent implements OnInit {
         this.cupomOmc = false
       }
 
-      console.log(this.produto)
+      console.log(this.produto.parcelado)
 
       this.produtoFormGroup = this.formBuilder.group({
         titulo: [this.produto.titulo],
         preco: [this.produto.preco],
-        check: [this.produto.parcelado.includes("sem juros") ? true : false],
+        check: [this.produto.parcelado != null && this.produto.parcelado.includes("sem juros") ? true : false],
         freteVariacoes: [this.produto.freteVariacoes],
         mensagemAdicional: [this.produto.mensagemAdicional],
         descricao: [this.produto.descricao],

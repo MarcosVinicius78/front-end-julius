@@ -1,42 +1,31 @@
 <div class="section">
   <section>
-    <p-carousel *ngIf="links.banners.length != 0" [value]="links.banners" [numVisible]="1" [numScroll]="3" [circular]="true"
-      [responsiveOptions]="responsiveOptions" autoplayInterval="3000">
-      <ng-template let-item pTemplate="item">
-        <div class="surface-border border-round m-2 p-3">
-          <div class="">
-            <div class="relative mx-auto">
-              <a href="{{ item.link }}" target="_blank">
-                <img [src]="apiUrl+'/banners/'+item.urlImagem" [alt]="item.nome" class="w-full border-round desktop" />
-                <img [src]="apiUrl+'/banners/'+item.urlImagemMobile" [alt]="item.nome" class="w-full border-round mobile" />
-              </a>
+    <div *ngIf="links !== undefined">
+      <p-carousel [value]="links.banners" [numVisible]="1" [numScroll]="1" [circular]="true"
+        [responsiveOptions]="responsiveOptions" autoplayInterval="3000">
+        <ng-template let-item pTemplate="item">
+          <div class="surface-border border-round m-2 p-3">
+            <div class="">
+              <div class="relative mx-auto">
+                <a *ngIf="item.link" [href]="item.link" target="_blank">
+                  <img *ngIf="item.urlImagem" [src]="apiUrl+'/banners/'+item.urlImagem" [alt]="item.nome"
+                    class="w-full border-round desktop" />
+                  <img *ngIf="item.urlImagemMobile" [src]="apiUrl+'/banners/'+item.urlImagemMobile" [alt]="item.nome"
+                    class="w-full border-round mobile" />
+                </a>
+              </div>
             </div>
           </div>
-        </div>
-      </ng-template>
-    </p-carousel>
+        </ng-template>
+      </p-carousel>
+    </div>
 
-    <!-- <div *ngIf="links.banners.length != 0" class="banner1">
-      <div class="banner">
 
-        <div class="slideshow-container">
-          <a routerLink="" target="_blank">
-            <div class="mySlides fade">
-              <img *ngIf="links.banners.length != 0" [src]="apiUrl+'/banners/'+links.banners[0].urlImagem"
-                class="h-10rem" style="width:100%">
-            </div>
-          </a>
-          <a class="prev" (click)="plusSlides(-1)">&#10094;</a>
-          <a class="next" (click)="plusSlides(1)">&#10095;</a>
-        </div>
-      </div>
-    </div> -->
 
     <div class="titulo">
-      <div class="pesquisa">
-        <!-- <i class="pi pi-search" (click)="pesquisar()" role="button"></i> -->
+      <!-- <div class="pesquisa">
         <input type="search" [(ngModel)]="termoPesquisa" (keyup.enter)="pesquisar()" placeholder="Procurar Promoções">
-      </div>
+      </div> -->
       <div class="radar mb-2">
         <p>
           Radar de Ofertas
@@ -96,7 +85,7 @@
     </div>
 
     <div class="grupos">
-      <a *ngIf="links.links !== undefined" href="{{ links.links.whatsapp }}">
+      <a *ngIf="links !== undefined" href="{{ links.links.whatsapp }}">
         <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="25" height="25" viewBox="0 0 48 48">
           <path fill="#fff"
             d="M4.868,43.303l2.694-9.835C5.9,30.59,5.026,27.324,5.027,23.979C5.032,13.514,13.548,5,24.014,5c5.079,0.002,9.845,1.979,13.43,5.566c3.584,3.588,5.558,8.356,5.556,13.428c-0.004,10.465-8.522,18.98-18.986,18.98c-0.001,0,0,0,0,0h-0.008c-3.177-0.001-6.3-0.798-9.073-2.311L4.868,43.303z">
@@ -116,7 +105,7 @@
         </svg>
         WhatsApp
       </a>
-      <a *ngIf="links.links !== undefined" href="{{ links.links.telegram }}">
+      <a *ngIf="links !== undefined" href="{{ links.links.telegram }}">
         <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="25" height="25" viewBox="0 0 48 48">
           <path fill="#29b6f6" d="M24 4A20 20 0 1 0 24 44A20 20 0 1 0 24 4Z"></path>
           <path fill="#fff"
@@ -131,7 +120,7 @@
         </svg>
         Telegram
       </a>
-      <a *ngIf="links.links !== undefined" href="{{ links.links.instagram }}">
+      <a *ngIf="links !== undefined" href="{{ links.links.instagram }}">
         <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="25" height="25" viewBox="0 0 48 48">
           <radialGradient id="yOrnnhliCrdS2gy~4tD8ma_Xy10Jcu1L2Su_gr1" cx="19.38" cy="42.035" r="44.899"
             gradientUnits="userSpaceOnUse">
@@ -164,7 +153,7 @@
         </svg>
         Instagram
       </a>
-      <a *ngIf="links.links !== undefined" href="{{ 'mailto:' + links.links.email }}">FALE CONOSCO</a>
+      <a *ngIf="links !== undefined" href="{{ 'mailto:' + links.links.email }}">FALE CONOSCO</a>
     </div>
 
     <div class="exibir-rodape p-3 flex justify-content-center">

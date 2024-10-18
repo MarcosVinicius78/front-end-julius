@@ -63,7 +63,7 @@ export class BlogComponent {
   }
 
   pegarLinks(){
-    this.linkBannerService.listarLinksEBanners().subscribe(response => {
+    this.linkBannerService.listarLinksEBanners().then(response => {
       this.links = response;
     });
   }

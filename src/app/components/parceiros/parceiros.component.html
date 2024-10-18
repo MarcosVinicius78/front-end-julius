@@ -1,0 +1,19 @@
+<section>
+
+  <div class="box">
+    <div class="header">
+      <h1>Lojas Parceiras</h1>
+    </div>
+    <div class="grid">
+      <div *ngFor="let item of lojas" class="lojas">
+        <div class="card">
+          <img [src]="apiUrl+'/loja/mostar-imagem/'+item.urlImagem" alt="" srcset="">
+          <div class="info">
+            <p>{{ item.nome_loja }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</section>

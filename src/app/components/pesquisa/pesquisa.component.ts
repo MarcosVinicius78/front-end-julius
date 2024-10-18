@@ -35,12 +35,15 @@ export class PesquisaComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+
+    this.produtos = []
     this.pesquisar();
   }
 
   pesquisar() {
 
     const queryParams = this.router.queryParams.subscribe( params =>{
+      this.termoPesquisa = ""
       this.termoPesquisa = params['search'];
 
       this.isLoadingMore = true;

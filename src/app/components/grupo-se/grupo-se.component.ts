@@ -20,7 +20,7 @@ export class GrupoSeComponent implements OnInit {
   }
 
   pegarLinks(){
-    this.linkBannerService.listarLinksEBanners().subscribe(response => {
+    this.linkBannerService.listarLinksEBanners().then(response => {
       this.links = response;
       console.log(this.links.links.whatsapp)
     });

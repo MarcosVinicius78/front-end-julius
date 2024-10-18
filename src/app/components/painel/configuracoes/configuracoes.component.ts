@@ -1,19 +1,28 @@
+import { ScraperService } from './../../../service/painel/scraper.service';
+import { FormBuilder } from '@angular/forms';
 import { ProdutoService } from './../../../service/painel/produto.service';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { ScraperProduto } from 'src/app/dto/ScraperProduto';
 
 @Component({
   selector: 'app-configuracoes',
   templateUrl: './configuracoes.component.html',
   styleUrls: ['./configuracoes.component.scss']
 })
-export class ConfiguracoesComponent {
+export class ConfiguracoesComponent implements OnInit{
 
   imagemFile!: File;
   imagemView!: string;
 
+  check!: boolean
+
   constructor(
-    private produtoService: ProdutoService
+    private produtoService: ProdutoService,
+    private scraperService: ScraperService
   ) { }
+  ngOnInit(): void {
+    this.statusBot();
+  }
 
   onFileChange(event: any) {
     console.log(event.currentFiles)
@@ -33,6 +42,19 @@ export class ConfiguracoesComponent {
       alert("Story Salvo")
     }, err => {
 
+    })
+  }
+
+  ativarBot(){
+    this.scraperService.ativarBot(this.check).subscribe(response => {
+      // alert("bot ativado")
+    })
+  }
+
+  statusBot(){
+
+    this.scraperService.statusBot().subscribe(response => {
+      this.check = response
     })
   }
 }

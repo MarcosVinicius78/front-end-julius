@@ -82,7 +82,7 @@ export class FooterComponent implements OnInit{
   }
 
   pegarLinks(){
-    this.linkBannerService.listarLinksEBanners().subscribe(response => {
+    this.linkBannerService.listarLinksEBanners().then(response => {
       this.links = response;
     });
   }

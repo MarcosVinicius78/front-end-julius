@@ -1,11 +1,13 @@
 export class Banner {
 
+  id!: number
+  link!: string
+  nome!: string
+  urlImagem!: string
+  urlImagemMobile!: string
+
   constructor(
-    public id: number,
-    public link: string,
-    public nome: string,
-    public urlImagem: string,
-    public urlImagemMobile: string
+
   ) {
 
   }

@@ -1,3 +1,4 @@
+import { FormatRealPipe } from './../../../pipe/format-real.pipe';
 import { Component, Inject, OnInit, PLATFORM_ID } from '@angular/core';
 import { Router } from '@angular/router';
 import { MenuItem, Message, MessageService } from 'primeng/api';
@@ -8,6 +9,8 @@ import { isPlatformBrowser } from '@angular/common';
 import { FormControl } from '@angular/forms';
 import { debounceTime, map, switchMap } from 'rxjs';
 import { response } from 'express';
+import { environment } from 'src/environments/environment';
+import { MensagemService } from 'src/app/service/painel/mensagem.service';
 
 
 @Component({
@@ -29,6 +32,9 @@ export class ListarProdutosCadastradosComponent implements OnInit {
   number!: number
 
   produtos: Produtos[] = [];
+  produto = new Produtos();
+
+  apiUrl = environment.apiUrl;
 
   termoPesquisa = new FormControl();
   palavra: string = "";
@@ -38,11 +44,15 @@ export class ListarProdutosCadastradosComponent implements OnInit {
 
   openMenuId: number | null = null;
 
+  visible: boolean = false;
+
   constructor(
     private produtoService: ProdutoService,
     private route: Router,
     private messageService: MessageService,
     private clipboard: Clipboard,
+    private mensagemService: MensagemService,
+    // private formatRealPipe: FormatRealPipe,
     @Inject(PLATFORM_ID) private platformId: Object
   ) { }
 
@@ -149,8 +159,6 @@ export class ListarProdutosCadastradosComponent implements OnInit {
 
   gerarFeed(id: number) {
 
-    console.log(this.selectedProducts);
-
     this.produtoService.gerarFeed(id).subscribe(response => {
       if (isPlatformBrowser(this.platformId)) {
         // Cria um URL para a Blob response
@@ -174,7 +182,7 @@ export class ListarProdutosCadastradosComponent implements OnInit {
 
   copiarParaAreaTransferencia(produtos: Produtos, valor: number) {
 
-    let post = this.montarEstruturaCompartilhamento(produtos)
+    let post = this.montarEstruturaCompartilhamento(produtos, valor)
 
     if (valor === 1) {
       this.clipboard.copy(post);
@@ -186,8 +194,7 @@ export class ListarProdutosCadastradosComponent implements OnInit {
     this.messageService.add({ severity: 'success', detail: 'POST COPIADO' });
   }
 
-  montarEstruturaCompartilhamento(produto: Produtos) {
-
+  montarEstruturaCompartilhamento(produto: Produtos, site: number) {
 
     let estruturaCompartilhamento = "";
 
@@ -195,13 +202,15 @@ export class ListarProdutosCadastradosComponent implements OnInit {
       estruturaCompartilhamento += `*${produto.copy}*\n\n`
     }
 
-    if (produto.copy.length === 0 && produto.titulo.length > 55) {
+    if (site === 2 && (produto.titulo && produto.titulo.length > 55)) {
       estruturaCompartilhamento += `\u{1F4CC} ${produto.titulo.substring(0, 60)}...\n\n`;
-    } else if (produto.copy.length === 0) {
+    } else if (produto.copy === null) {
       estruturaCompartilhamento += `\u{1F4CC} ${produto.titulo}\n\n`;
     }
 
-    if (produto.freteVariacoes.includes("CUPOM")) {
+    // let preco = ""
+
+    if (produto.freteVariacoes && produto.freteVariacoes.includes("CUPOM")) {
       estruturaCompartilhamento += `*\u{1F525} ${produto.preco} (Frete Grátis)*\n`;
     } else if (produto.parcelado && produto.parcelado.toLocaleLowerCase().includes("sem juros")) {
       estruturaCompartilhamento += `*\u{1F525} ${produto.preco} (Parcelado)*\n`;
@@ -217,12 +226,14 @@ export class ListarProdutosCadastradosComponent implements OnInit {
 
     if (isPlatformBrowser(this.platformId)) {
 
-
-      if (this.route.url === "/painel" && (produto.loja.nome_loja.includes("Amazon") || produto.loja.nome_loja.includes("Mercado"))) {
+      // Verificando se produto.loja existe antes de acessar nome_loja
+      if (produto.loja && produto.loja.nome_loja && this.route.url === "/painel" &&
+        (produto.loja.nome_loja.includes("Amazon") || produto.loja.nome_loja.includes("Mercado"))) {
         estruturaCompartilhamento += `\n*\u{1F6D2} Confira Aqui:\u{1F447}*\n${window.location.href.replace("painel", '')}oferta/${produto.id}`;
-      } else if( produto.loja.nome_loja.includes("Amazon") || produto.loja.nome_loja.includes("Mercado Livre")){
+      } else if (produto.loja && produto.loja.nome_loja &&
+        (produto.loja.nome_loja.includes("Amazon") || produto.loja.nome_loja.includes("Mercado Livre"))) {
         estruturaCompartilhamento += `\n*\u{1F6D2} Confira Aqui:\u{1F447}*\n${window.location.href.replace("painel/listar-produtos", '')}oferta/${produto.id}`;
-      }else if (this.route.url === "/painel") {
+      } else if (this.route.url === "/painel") {
         estruturaCompartilhamento += `\n*\u{1F6D2} Confira Aqui:\u{1F447}*\n${window.location.href.replace("painel", '')}oferta/${produto.id}?r=1`;
       } else {
         estruturaCompartilhamento += `\n*\u{1F6D2} Confira Aqui:\u{1F447}*\n${window.location.href.replace("painel/listar-produtos", '')}oferta/${produto.id}?r=1`;
@@ -230,7 +241,7 @@ export class ListarProdutosCadastradosComponent implements OnInit {
 
     }
 
-    if (produto.freteVariacoes.includes("CUPOM")) {
+    if (produto.freteVariacoes && produto.freteVariacoes.includes("CUPOM")) {
       estruturaCompartilhamento += `\n\n\u{1F4E6} ${produto.freteVariacoes}`;
     }
 
@@ -267,5 +278,26 @@ export class ListarProdutosCadastradosComponent implements OnInit {
       });
 
     return this.produtos
+  }
+
+  showDialog(produto: Produtos) {
+    this.produto = produto;
+    this.visible = !this.visible;
+  }
+
+  enviarTelegram(mensagem: string, url: string) {
+
+    // mensagem = mensagem.replace(/_/g, '__');
+    // mensagem = mensagem.replace(/\*/g, '**');
+
+    const mensagemEnviar = {
+      mensagem: mensagem,
+      url: url
+    }
+
+    this.mensagemService.enviarTelegram(mensagemEnviar).subscribe(response => {
+      this.messageService.add({ severity: 'success', detail: 'ENVIADO PARA O TELEGRAM' });
+      this.visible =! this.visible;
+    });
   }
 }

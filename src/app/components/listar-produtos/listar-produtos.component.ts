@@ -1,9 +1,11 @@
+import { LinksBanner } from './../../dto/LinksBanner';
 import { Clipboard } from '@angular/cdk/clipboard';
 import { Component, HostListener, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import * as dateFns from 'date-fns';
-import { LinksBanner } from 'src/app/dto/LinksBanner';
+// import { LinksBanner } from 'src/app/dto/LinksBanner';
 import { ProdutoModalDto } from 'src/app/dto/produtoModalDto';
+import { Banner } from 'src/app/models/banner';
 import { Produtos } from 'src/app/models/produtos';
 import { AtivarRodapéService } from 'src/app/service/ativarRodapé.service';
 import { LinkBannerService } from 'src/app/service/painel/link-banner.service';
@@ -26,7 +28,8 @@ export class ListarProdutosComponent implements OnInit {
 
   idCategoria: number | undefined;
 
-  links = new LinksBanner();
+  links!: LinksBanner;
+  banners: Banner[] = []
 
 
   termoPesquisaAnterior: string = '';
@@ -40,18 +43,21 @@ export class ListarProdutosComponent implements OnInit {
   modal: boolean = false;
   produtoModalDto = new ProdutoModalDto();
 
-  responsiveOptions: any[] = [
+  responsiveOptions = [
     {
       breakpoint: '1024px',
-      numVisible: 5
+      numVisible: 3,
+      numScroll: 3
     },
     {
       breakpoint: '768px',
-      numVisible: 3
+      numVisible: 2,
+      numScroll: 2
     },
     {
       breakpoint: '560px',
-      numVisible: 1
+      numVisible: 1,
+      numScroll: 1
     }
   ];
 
@@ -73,10 +79,10 @@ export class ListarProdutosComponent implements OnInit {
       this.path = params.map(segment => segment.path).join(("/"));
     });
 
-    if (this.links.banners.length != 0) {
-      this.startSlideShow();
-      this.showSlides(this.slideIndex)
-    }
+    // if (this.links.banners.length != 0) {
+    //   this.startSlideShow();
+    //   this.showSlides(this.slideIndex)
+    // }
 
     this.pegarLinks()
 
@@ -225,11 +231,15 @@ export class ListarProdutosComponent implements OnInit {
   }
 
   pegarLinks() {
-    this.linkBannerService.listarLinksEBanners().subscribe(response => {
-      this.links = response;
-      console.log(response)
-    });
-  }
+    this.linkBannerService.listarLinksEBanners()
+        .then(response => {
+            this.links = response; // Atribua a resposta
+            console.log('Links e banners:', this.links); // Para depuração
+        })
+        .catch(error => {
+            console.error('Erro ao obter links e banners:', error);
+        });
+}
 
   plusSlides(n: number) {
     this.showSlides(this.slideIndex += n);

@@ -117,7 +117,7 @@
               </div>
               <div class="frete">
                 <i class="pi pi-truck"></i>
-                <p>{{ item.freteVariacoes.replace('*', '') }}</p>
+                <p>{{ item.freteVariacoes ? item.freteVariacoes.replace('*', '') : "" }}</p>
               </div>
               <p class="preco2">{{ item.preco }}</p>
               <div class="ver-promocao">

@@ -10,7 +10,7 @@ import { ActivatedRoute, ActivatedRouteSnapshot, Router } from '@angular/router'
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
-  styleUrls: ['./header.component.css'],
+  styleUrls: ['./header.component.scss'],
   animations: [
     trigger('categoria', [
       transition(':enter', [
@@ -81,7 +81,7 @@ export class HeaderComponent implements OnInit {
   }
 
   pegarLinks() {
-    this.linkBannerService.listarLinksEBanners().subscribe(response => {
+    this.linkBannerService.listarLinksEBanners().then(response => {
       this.links = response;
     });
   }
@@ -93,7 +93,9 @@ export class HeaderComponent implements OnInit {
   pesquisar(){
     // const queryParams = this.route.snapshot.queryParams
 
-    this.router.navigate(["/pesquisa"], { queryParams: { search: this.termoPesquisa } })
+    this.router.navigate(["/pesquisa"], { queryParams: { search: this.termoPesquisa } }).then(() => {
+      window.location.reload();  // Recarrega a página após a navegação
+    });
     this.modalPesquisa = false
   }
 }

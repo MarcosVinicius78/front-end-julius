@@ -26,64 +26,73 @@
 <header class="header">
   <div class="close" *ngIf="menuValue" (click)="openMenu()">
   </div>
-  <a class="icon-h1 flex" href="">
-    <!-- <img class="img-icon" src="../../../assets/413307893_685333763588479_6412520808455805246_n.jpg" alt="sergipe"> -->
-    <h1 routerLink="">SERGIPE OFERTAS</h1>
-  </a>
-  <div class="pesquisa">
-    <i (click)="abrirModalPesquisa()" class="pi pi-search pesquisa"></i>
-  </div>
-  <i class="menu-icon pi pi-bars" (click)="openMenu()"></i>
-  <nav class="desktop_menu" [class.mobile_menu]="menuValue">
-    <i (click)="openMenu()" class="fechar-menu pi pi-times p-2"></i>
-    <a (click)="openMenu()" class="mobile" routerLink="/">
-      <i class="pi pi-home mr-2 text-white-alpha-90 text-lg text-justify"></i>
-      Ofertas do Dia
-    </a>
-    <a (click)="openMenu()" routerLink="destaque">
-      <i class="mr-1 text-white-alpha-90 text-lg pi pi-star"></i>
-      Destaques
-    </a>
-    <a (click)="openMenu()" class="mobile" routerLink="/quem-somos">
-      <i class="pi pi-users mr-2 text-white-alpha-90 text-lg text-justify"></i>
-      Que Somos
-    </a>
-
-    <div>
-      <a (click)="toggleCategoria()" class="dropbtn flex align-items-center">
-        <i class="mr-2 text-white-alpha-90 text-lg pi pi-th-large"></i>
-        Categorias
-        <i class="ml-2 text-white-alpha-90 text-lg pi pi-chevron-down"></i>
+  <div class="flex">
+    <div class="flex">
+      <a class="icon-h1 flex" href="">
+        <!-- <img class="img-icon" src="../../../assets/413307893_685333763588479_6412520808455805246_n.jpg" alt="sergipe"> -->
+        <h1 routerLink="">SERGIPE OFERTAS</h1>
       </a>
-      <div *ngIf="abrirCategoria" @categoria id="categ" class="dropdown-content">
-        <a id="cat" *ngFor="let item of categorias" href="produtos-categoria/{{item.categoria_id}}">{{
-          item.nomeCategoria }}</a>
+      <div class="pesquisa">
+        <i (click)="abrirModalPesquisa()" class="pi pi-search pesquisa"></i>
       </div>
+      <i class="menu-icon pi pi-bars" (click)="openMenu()"></i>
+      <nav class="desktop_menu" [class.mobile_menu]="menuValue">
+        <i (click)="openMenu()" class="fechar-menu pi pi-times p-2"></i>
+        <a (click)="openMenu()" class="mobile" routerLink="/">
+          <i class="pi pi-home mr-2 text-white-alpha-90 text-lg text-justify"></i>
+          Ofertas do Dia
+        </a>
+        <a (click)="openMenu()" routerLink="destaque">
+          <i class="mr-1 text-white-alpha-90 text-lg pi pi-star"></i>
+          Destaques
+        </a>
+        <a (click)="openMenu()" class="mobile" routerLink="/quem-somos">
+          <i class="pi pi-users mr-2 text-white-alpha-90 text-lg text-justify"></i>
+          Que Somos
+        </a>
+
+        <div>
+          <a (click)="toggleCategoria()" class="dropbtn flex align-items-center">
+            <i class="mr-2 text-white-alpha-90 text-lg pi pi-th-large"></i>
+            Categorias
+            <i class="ml-2 text-white-alpha-90 text-lg pi pi-chevron-down"></i>
+          </a>
+          <div *ngIf="abrirCategoria" @categoria id="categ" class="dropdown-content">
+            <a id="cat" *ngFor="let item of categorias" href="produtos-categoria/{{item.categoria_id}}">{{
+              item.nomeCategoria }}</a>
+          </div>
+        </div>
+        <a (click)="openMenu()" class="flex align-items-center" routerLink="/grupos">
+          <i class="pi pi-whatsapp mr-2 text-white-alpha-90 text-lg text-justify"></i>
+          Grupos
+        </a>
+
+        <a class="desktop flex align-items-center" routerLink="/quem-somos">
+          <i class="pi pi-users mr-2 text-white-alpha-90 text-lg text-justify"></i>
+          Que Somos
+        </a>
+
+        <a (click)="openMenu()" class="flex align-items-center" routerLink="blog">
+          <i class="pi pi-comments mr-2 text-white-alpha-90 text-lg text-justify"></i>
+          Blog
+        </a>
+
+        <a (click)="openMenu()" class="flex align-items-center mobile" routerLink="parceiros">
+          <i class="pi pi-comments mr-2 text-white-alpha-90 text-lg text-justify"></i>
+          Parceiros
+        </a>
+
+
+        <hr class="mobile">
+        <a (click)="openMenu()" class="itens-header" routerLink="/politica-privacidade">Política de Privacidade</a>
+        <a (click)="openMenu()" class="itens-header" routerLink="termos-uso">Termos de Uso</a>
+        <a (click)="openMenu()" class="itens-header"
+        href="{{ links.links != undefined ? 'mailto:' + links.links.email : '#'}}">Fale Conosoco</a>
+      </nav>
     </div>
-    <a (click)="openMenu()" class="flex align-items-center" routerLink="/grupos">
-      <i class="pi pi-whatsapp mr-2 text-white-alpha-90 text-lg text-justify"></i>
-      Grupos
-    </a>
-
-    <a class="desktop flex align-items-center" routerLink="/quem-somos">
-      <i class="pi pi-users mr-2 text-white-alpha-90 text-lg text-justify"></i>
-      Que Somos
-    </a>
-
-    <a (click)="openMenu()" class="flex align-items-center" routerLink="blog">
-      <i class="pi pi-comments mr-2 text-white-alpha-90 text-lg text-justify"></i>
-      Blog
-    </a>
-
-    <!-- <p-iconField iconPosition="left">
+    <p-iconField class="w-6 desktop" iconPosition="left">
       <p-inputIcon styleClass="pi pi-search" />
-      <input [(ngModel)]="termoPesquisa" class="w-full" type="text" (keyup.enter)="pesquisar()" pInputText placeholder="Search" />
-    </p-iconField> -->
-
-    <hr class="mobile">
-    <a (click)="openMenu()" class="itens-header" routerLink="/politica-privacidade">Política de Privacidade</a>
-    <a (click)="openMenu()" class="itens-header" routerLink="termos-uso">Termos de Uso</a>
-    <a (click)="openMenu()" class="itens-header"
-      href="{{ links.links != undefined ? 'mailto:' + links.links.email : '#'}}">Fale Conosoco</a>
-  </nav>
+      <input [(ngModel)]="termoPesquisa" class="w-full desktop" type="text" (keyup.enter)="pesquisar()" pInputText placeholder="Search" />
+    </p-iconField>
+  </div>
 </header>

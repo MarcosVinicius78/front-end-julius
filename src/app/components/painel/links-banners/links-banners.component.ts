@@ -95,7 +95,7 @@ export class LinksBannersComponent implements OnInit {
   }
 
   listarLinksEBanners() {
-    this.linkBannerService.listarLinksEBanners().subscribe(response => {
+    this.linkBannerService.listarLinksEBanners().then(response => {
       this.linksEBanners = response;
 
       this.banners = response.banners

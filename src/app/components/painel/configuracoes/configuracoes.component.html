@@ -3,6 +3,8 @@
     <h1 class="text-primary-50">Configurações</h1>
   </header>
 
+  <p-inputSwitch (onChange)="ativarBot()" id="check" name="check" [(ngModel)]="check" />
+
   <p-fileUpload styleClass="mt-2" mode="basic" chooseLabel="Choose" name="demo[]" accept="image/*"
     (maxFileSize)="1000000000000" (onSelect)="onFileChange($event)"></p-fileUpload>
 

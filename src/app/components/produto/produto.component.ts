@@ -215,13 +215,12 @@ export class ProdutoComponent implements OnInit {
   }
 
   pegarLinks() {
-    this.linkBannerService.listarLinksEBanners().subscribe(response => {
+    this.linkBannerService.listarLinksEBanners().then(response => {
       this.links = response;
     });
   }
 
   abrirModalInfo(event: Event, cupom: string, img: string, titulo: string, link: string, frete: string, id: number) {
-    console.log(frete.length)
 
     if (cupom && cupom.length > 18 || frete && frete.length > 48) {
       this.produtoModalDto.id = id;

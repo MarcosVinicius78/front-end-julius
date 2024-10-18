@@ -51,6 +51,9 @@ import { IconFieldModule } from 'primeng/iconfield';
 import { InputSwitchModule } from 'primeng/inputswitch';
 import { PesquisaComponent } from './components/pesquisa/pesquisa.component';
 import { CarouselModule } from 'primeng/carousel';
+import { FormatRealPipe } from "./pipe/format-real.pipe";
+import { FormatTextPipe } from './pipe/format-text.pipe';
+import { ParceirosComponent } from './components/parceiros/parceiros.component';
 
 @NgModule({ declarations: [
         AppComponent,
@@ -78,30 +81,31 @@ import { CarouselModule } from 'primeng/carousel';
         CadastrarPromoComponent,
         PromosComponent,
         GrupoSeComponent,
-        PesquisaComponent
+        PesquisaComponent,
+        ParceirosComponent
     ],
     bootstrap: [AppComponent], imports: [BrowserModule,
-        AppRoutingModule,
-        FormsModule,
-        ReactiveFormsModule,
-        BrowserAnimationsModule,
-        ButtonModule,
-        TableModule,
-        ToastModule,
-        EditorModule,
-        FileUploadModule,
-        ToolbarModule,
-        PaginatorModule,
-        InputTextModule,
-        DropdownModule,
-        MessagesModule,
-        DialogModule,
-        PickListModule,
-        InputIconModule,
-        IconFieldModule,
-        InputSwitchModule,
-        CarouselModule,
-        CardModule], providers: [
+    AppRoutingModule,
+    FormsModule,
+    ReactiveFormsModule,
+    BrowserAnimationsModule,
+    ButtonModule,
+    TableModule,
+    ToastModule,
+    EditorModule,
+    FileUploadModule,
+    ToolbarModule,
+    PaginatorModule,
+    InputTextModule,
+    DropdownModule,
+    MessagesModule,
+    DialogModule,
+    PickListModule,
+    InputIconModule,
+    IconFieldModule,
+    InputSwitchModule,
+    CarouselModule,
+    CardModule,FormatRealPipe,FormatTextPipe], providers: [
         {
             provide: HTTP_INTERCEPTORS,
             useClass: RequireService,
