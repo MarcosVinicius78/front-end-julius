@@ -1,10 +1,49 @@
 .menu-lateral {
-  background-color: #163a4d;
+  background-color: #1c475e;
   width: 300px;
   height: 100%;
   // border-top-right-radius: 100px;
   // margin-right: 10px;
   padding: 15px 0 15px 15px;
+  border-radius: 10px;
+}
+
+.cadastrar-opcoes{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  height: 100%;
+}
+
+.cadastrar-opcoes ul{
+  padding: 20px;
+}
+
+.botao-cadastrar{
+  cursor: pointer;
+  text-transform: uppercase;
+  color: white;
+  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+}
+
+.box{
+  height: 100px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.box a{
+  text-decoration: none;
+  color: white;
+  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+}
+
+.container{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: calc(100% - 40px)
 }
 
 .sair{
@@ -40,7 +79,7 @@ header h1 a{
 
 .opcoes {
   margin: 0;
-  height: calc(100% - 70px);
+  height: calc(100% - 120px);
   list-style: none;
   display: flex;
   padding: 0;
@@ -63,16 +102,20 @@ header h1 a{
   margin: 0;
 }
 
-// .opcoes li a:hover {
-//   background-color: rgba(190, 190, 190, 0.623);
-//   color: black;
-//   transition: 50ms;
-//   border-radius: 10px;
-//   width: 100%;
-// }
+ul li i{
+  font-size: 16px !important;
+}
 
 .menu-icon {
   display: none;
+}
+
+li i{
+  color: white;
+}
+
+.box i{
+  font-size: 16px !important;
 }
 
 .active-link {

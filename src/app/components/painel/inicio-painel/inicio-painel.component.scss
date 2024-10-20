@@ -5,20 +5,26 @@
 }
 
 section{
-  background-color: #1c475e;
+  background-color: #163a4d;
   height: 100vh;
+  padding: 8px;
 }
 
 .inicio{
   display: block;
-  width: 80%;
-  margin-right: 20px;
+  width: 100%;
+  // margin-right: 20px;
   height: 100%;
   background-color: #1c475e;
   border-radius: 10px;
   overflow-y: auto;
   padding: 10px;
-  /* box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 15px 0px; */
+  // box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 15px 0px;
+}
+
+.box{
+  width: 100%;
+  padding: 0px 0px 0px 10px;
 }
 
 .sair{
@@ -68,5 +74,13 @@ a{
 
   header h1{
     font-size: 19px;
+  }
+
+  section{
+    padding: 0;
+  }
+
+  .box{
+    padding: 0;
   }
 }

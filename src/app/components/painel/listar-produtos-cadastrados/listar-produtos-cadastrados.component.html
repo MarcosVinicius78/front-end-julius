@@ -62,7 +62,6 @@
           </td>
           <td class="text-center">
             <input type="submit" (click)="gerarFeed(item.id)" class="feed" value="Gerar Feed">
-            <!-- <i class="cursor-pointer pi pi-copy" (click)="copiarParaAreaTransferencia(item)"></i> -->
           </td>
           <td class="text-center">
             <!-- <i class="pi pi-ellipsis-v"></i>
@@ -102,6 +101,7 @@
     <p>{{ produto.mensagemAdicional }}</p> -->
   </p-card>
   <div class="flex justify-content-center mt-3">
-    <p-button label="Enviar" (onClick)="enviarTelegram(montarEstruturaCompartilhamento(produto, 2), produto.imagemSocial)" />
+    <p-button label="Enviar"
+      (onClick)="enviarTelegram(montarEstruturaCompartilhamento(produto, 2), produto.imagemSocial)" />
   </div>
 </p-dialog>

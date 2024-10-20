@@ -11,6 +11,8 @@ export class MenuLateralComponent {
 
   menuAtivado: boolean = false;
 
+  menuCadastrar: boolean = false;
+
   constructor(
     private elementRef: ElementRef,
     private route: Router,
@@ -19,6 +21,10 @@ export class MenuLateralComponent {
 
   ativarMenu() {
     this.menuAtivado =! this.menuAtivado;
+  }
+
+  ativarMenuCadastrar(){
+    this.menuCadastrar =! this.menuCadastrar;
   }
 
   @HostListener('document:click', ['$event'])

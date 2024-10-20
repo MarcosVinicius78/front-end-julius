@@ -298,6 +298,9 @@ export class ListarProdutosCadastradosComponent implements OnInit {
     this.mensagemService.enviarTelegram(mensagemEnviar).subscribe(response => {
       this.messageService.add({ severity: 'success', detail: 'ENVIADO PARA O TELEGRAM' });
       this.visible =! this.visible;
+    }, err => {
+      this.messageService.add({ severity: 'success', detail: 'ERRO AO ENVIAR' });
+      this.visible =! this.visible;
     });
   }
 }

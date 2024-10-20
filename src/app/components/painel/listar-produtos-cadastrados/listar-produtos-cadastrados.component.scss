@@ -61,7 +61,7 @@
 
   .separar {
     margin-top: 10px;
-    height: calc(100% - 120px);
+    height: calc(100% - 90px);
   }
 
   .paginacao {
@@ -70,7 +70,8 @@
   }
 
   .p-paginator {
-    background-color: #154666;
+    background-color: #1c475e;
+    padding: 0;
   }
 
   .p-paginator-next {
@@ -86,16 +87,15 @@
   }
 
   .p-datatable .p-datatable-thead>tr>th {
-    background-color: #163a4d;
+    background-color: #1c475e;
     color: white;
   }
 
   .p-datatable .p-datatable-tbody>tr>td {
-    background-color: #163a4d;
+    background-color: #1c475e;
     color: white;
-    border: 1px solid #464646;
+    border: none;
     border-width: 0 0 1px 0;
-    // padding: 0
   }
 
   .p-datatable {
@@ -103,16 +103,12 @@
   }
 
   .p-datatable-wrapper {
-    height: 100%;
+    // height: 100%;
   }
 
 
   .p-datatable-tbody tr td:nth-child(5) {
     text-align: center;
-  }
-
-  .p-datatable-table {
-    // height: 100%;
   }
 
   .p-datatable-tbody tr td:nth-child(2) a {

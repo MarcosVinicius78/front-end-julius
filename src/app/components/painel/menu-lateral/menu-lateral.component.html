@@ -3,20 +3,65 @@
   <header>
     <h1><a routerLink="">SERGIPE OFERTAS</a></h1>
   </header>
-  <ul class="opcoes">
-    <li routerLinkActive="active-link"><a (click)="ativarMenu()" routerLinkActive="active-link" routerLink="/painel/listar-produtos">Listar Produtos</a></li>
-    <li routerLinkActive="active-link"><a (click)="ativarMenu()" routerLinkActive="active-link" routerLink="/painel/cadastrar-produtos">Cadastrar Produto</a></li>
-    <li routerLinkActive="active-link"><a (click)="ativarMenu()" routerLinkActive="active-link" routerLink="/painel/cadastrar-promo">Cadastrar Promo</a></li>
-    <li routerLinkActive="active-link"><a (click)="ativarMenu()" routerLinkActive="active-link" routerLink="/painel/cadastrar-categoria">Cadastrar Categoria</a></li>
-    <li routerLinkActive="active-link"><a (click)="ativarMenu()" routerLinkActive="active-link" routerLink="/painel/cadastrar-loja">Cadastrar Lojas</a></li>
-    <li routerLinkActive="active-link"><a (click)="ativarMenu()" routerLinkActive="active-link" routerLink="/painel/report">Reports</a></li>
-    <li routerLinkActive="active-link"><a (click)="ativarMenu()" routerLinkActive="active-link" routerLink="/painel/links-banners">Links e Banners</a></li>
-    <li routerLinkActive="active-link"><a (click)="ativarMenu()" routerLinkActive="active-link" routerLink="/painel/cadastrar-posts">Blog</a></li>
-    <li routerLinkActive="active-link"><a (click)="ativarMenu()" routerLinkActive="active-link" routerLink="/painel/configuracoes">Configurações</a></li>
-  </ul>
-  <div (click)="sair()" class="sair flex">
-    <p>Sair</p>
-    <i class="pi pi-sign-out"></i>
+  <div class="container">
+    <ul class="opcoes">
+      <li class="flex align-items-center" routerLinkActive="active-link">
+        <i  class="pi pi-list mr-2 text-2xl text-white-alpha-90"></i>
+        <a (click)="ativarMenu()" routerLinkActive="active-link" routerLink="/painel/listar-produtos">Listar Produtos</a>
+      </li>
+      <li>
+        <p class="botao-cadastrar" (click)="ativarMenuCadastrar()" routerLinkActive="active-link">
+          Cadastrar
+          <i class="pi pi-angle-right"></i>
+        </p>
+        <div class="cadastrar-opcoes" *ngIf="menuCadastrar">
+          <ul routerLinkActive="active-link">
+
+            <a (click)="ativarMenu()" routerLinkActive="active-link" routerLink="/painel/cadastrar-produtos">Cadastrar
+              Produto</a>
+          </ul>
+          <ul routerLinkActive="active-link">
+
+            <a (click)="ativarMenu()" routerLinkActive="active-link" routerLink="/painel/cadastrar-promo">Cadastrar
+              Promo</a>
+          </ul>
+          <ul routerLinkActive="active-link">
+
+            <a (click)="ativarMenu()" routerLinkActive="active-link" routerLink="/painel/cadastrar-categoria">Cadastrar
+              Categoria</a>
+          </ul>
+          <ul routerLinkActive="active-link">
+
+            <a (click)="ativarMenu()" routerLinkActive="active-link" routerLink="/painel/cadastrar-loja">Cadastrar Lojas</a>
+          </ul>
+        </div>
+      </li>
+
+      <li class="flex align-items-center" routerLinkActive="active-link">
+        <i routerLinkActive="active-link" class="pi pi-megaphone mr-2 text-2xl text-white-alpha-90"></i>
+        <a (click)="ativarMenu()" routerLinkActive="active-link" routerLink="/painel/report">Reports</a>
+      </li>
+      <li class="flex align-items-center" routerLinkActive="active-link">
+        <i  class="pi pi-objects-column mr-2 text-2xl text-white-alpha-90"></i>
+        <a (click)="ativarMenu()" routerLinkActive="active-link" routerLink="/painel/links-banners">Links e Banners</a>
+      </li>
+      <li class="flex align-items-center" routerLinkActive="active-link">
+        <i  class="pi pi-pen-to-square mr-2 text-2xl text-white-alpha-90"></i>
+        <a (click)="ativarMenu()" routerLinkActive="active-link" routerLink="/painel/cadastrar-posts">Blog</a>
+      </li>
+      <li class="flex" routerLinkActive="active-link">
+      </li>
+    </ul>
+    <div class="box">
+      <div class="flex align-items-center">
+        <i class="pi pi-cog mr-2 text-2xl text-white-alpha-90"></i>
+        <a (click)="ativarMenu()" routerLinkActive="active-link" routerLink="/painel/configuracoes">Configurações</a>
+      </div>
+      <div (click)="sair()" class="sair flex">
+        <p>Sair</p>
+        <i class="pi pi-sign-out"></i>
+      </div>
+    </div>
   </div>
 </div>
 <!-- <div *ngIf="menuAtivado" class="menu-lateral-mobile" [class.open]="menuAtivado">

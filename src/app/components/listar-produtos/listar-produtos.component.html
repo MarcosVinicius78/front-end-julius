@@ -34,45 +34,59 @@
     </div>
 
     <div class="container">
-      <div class="lista-de-produtos" *ngFor="let item of produtos">
-        <div class="card">
-          <div *ngIf="item.imagem != undefined" class="img">
-            <a routerLink="/oferta/{{ item.id }}">
-              <img [src]="apiUrl+'/produto/download/'+item.imagem" alt="{{ item.titulo }}">
-            </a>
-          </div>
+      <ng-container *ngFor="let item of produtos; let i = index">
 
-          <div class="loja" *ngIf="item.loja !== null">
-            <img [src]="apiUrl+'/loja/mostar-imagem/'+item.loja.urlImagem" alt="{{item.loja.nome_loja}}" />
-          </div>
 
-          <div class="info">
-            <p class="data">{{calculateElapsedTime(item.dataCriacao)}}</p>
-            <a routerLink="/oferta/{{ item.id }}">
-              <p class="nome-produto">{{ item.titulo }}</p>
-            </a>
-            <div (click)="copiarParaAreaTransferencia(item.cupom)" class="cupom">
-              <div>
-                <i *ngIf="item.cupom && item.cupom.length < 18" class="pi pi-copy"></i>
-                <p *ngIf="item.cupom && item.cupom.length < 18">Cupom: {{ item.cupom }}</p>
+        <div *ngIf="i === 4" class="card-convite">
+          <p>Economize Recebendo todas as Promoções Relâmpago em Tempo Real</p>
+          <a *ngIf="links !== undefined" [href]="links.links.whatsapp">
+            <i class="pi pi-whatsapp"></i>
+            Participar do Grupo
+          </a>
+        </div>
+
+        <div class="lista-de-produtos">
+          <div class="card">
+            <div *ngIf="item.imagem != undefined" class="img">
+              <a routerLink="/oferta/{{ item.id }}">
+                <img [src]="apiUrl+'/produto/download/'+item.imagem" alt="{{ item.titulo }}">
+              </a>
+            </div>
+
+            <div class="loja" *ngIf="item.loja !== null">
+              <img [src]="apiUrl+'/loja/mostar-imagem/'+item.loja.urlImagem" alt="{{item.loja.nome_loja}}" />
+            </div>
+
+            <div class="info">
+              <p class="data">{{calculateElapsedTime(item.dataCriacao)}}</p>
+              <a routerLink="/oferta/{{ item.id }}">
+                <p class="nome-produto">{{ item.titulo }}</p>
+              </a>
+              <div (click)="copiarParaAreaTransferencia(item.cupom)" class="cupom">
+                <div>
+                  <i *ngIf="item.cupom && item.cupom.length < 18" class="pi pi-copy"></i>
+                  <p *ngIf="item.cupom && item.cupom.length < 18">Cupom: {{ item.cupom }}</p>
+                </div>
+              </div>
+              <div class="frete">
+                <i *ngIf="item.freteVariacoes && item.freteVariacoes.length < 48" class="pi pi-truck"></i>
+                <p *ngIf="item.freteVariacoes && item.freteVariacoes.length < 48">{{
+                  item.freteVariacoes.replaceAll('*','') }}</p>
+              </div>
+              <a routerLink="/oferta/{{ item.id }}">
+                <p id="preco">{{ item.preco }}</p>
+              </a>
+              <div class="ir-loja">
+                <a href="{{ item.link }}"
+                  (click)="abrirModal($event, item.cupom, item.imagem, item.titulo, item.link, item.freteVariacoes, item.id)"
+                  target="_blank">Pegar Promoção</a>
               </div>
             </div>
-            <div class="frete">
-              <i *ngIf="item.freteVariacoes && item.freteVariacoes.length < 48" class="pi pi-truck"></i>
-              <p *ngIf="item.freteVariacoes && item.freteVariacoes.length < 48">{{
-                item.freteVariacoes.replaceAll('*','') }}</p>
-            </div>
-            <a routerLink="/oferta/{{ item.id }}">
-              <p id="preco">{{ item.preco }}</p>
-            </a>
-            <div class="ir-loja">
-              <a href="{{ item.link }}"
-                (click)="abrirModal($event, item.cupom, item.imagem, item.titulo, item.link, item.freteVariacoes, item.id)"
-                target="_blank">Pegar Promoção</a>
-            </div>
           </div>
+
+
         </div>
-      </div>
+      </ng-container>
     </div>
 
   </section>
