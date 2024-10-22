@@ -1,32 +1,57 @@
 section{
   display: flex;
   justify-content: space-around;
-  align-items: center;
-  height: calc(100% - 30px);
+  // align-items: center;
+  height: calc(100% - 42px);
 }
 
 h1{
   margin: 0;
+  padding-bottom: 10px;
 }
 
 .banners{
-  width: 750px;
-  height: 500px;
+  width: 65%;
+  height: 95%;
   border-radius: 10px;
-  background-color: rgb(245, 245, 245);
+  background-color: #217373;
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
   overflow-y: auto;
+  color: white;
+}
+
+.form-links{
+  width: 30%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  // background-color: white;
+  height: 60%;
+}
+
+.form-links input:nth-child(5){
+  border: none;
+  padding: 10px;
+  color: white;
+  border-radius: 10px;
+  cursor: pointer;
+  background-color: blue;
 }
 
 .links{
-  display: flex;
-  flex-direction: column;
-  justify-content: space-around;
-  height: 450px;
-  width: 350px;
+  width: 100%;
   align-items: center;
-  background-color: rgb(245, 245, 245);
-  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  color: white;
+}
+
+.links input{
+  margin-top: 5px;
+  background-color: #217373;
+  border: none;
+  width: 100%;
+  color: white;
+  padding: 20px;
+  border-radius: 10px;
 }
 
 .links div{
@@ -36,18 +61,6 @@ h1{
   align-items: center;
 }
 
-.links div input{
-  width: 85%;
-  padding: 10px;
-  border-radius: 5px;
-  border: none;
-  background-color: rgb(214, 214, 214);
-}
-
-.links input:last-child{
-  width: 50%;
-  padding: 7px;
-}
 
 table{
   width: 100%;

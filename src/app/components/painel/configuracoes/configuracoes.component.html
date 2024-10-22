@@ -2,11 +2,40 @@
   <header>
     <h1 class="text-primary-50">Configurações</h1>
   </header>
+  <div class="container">
+    <div class="artes-insta">
+      <div class="box">
+        <div class="storie">
+          <img [src]="api+'/produto/download/story.jpeg'" alt="storie">
+          <p>Arte para os Stories</p>
+        </div>
 
-  <p-inputSwitch (onChange)="ativarBot()" id="check" name="check" [(ngModel)]="check" />
+        <div class="feed">
+          <img [src]="api+'/produto/download/feed.jpeg'" alt="storie">
+          <p>Arte para o Feed de Ofertas</p>
+        </div>
+      </div>
 
-  <p-fileUpload styleClass="mt-2" mode="basic" chooseLabel="Choose" name="demo[]" accept="image/*"
-    (maxFileSize)="1000000000000" (onSelect)="onFileChange($event)"></p-fileUpload>
+      <div class="enviar">
 
-  <p-button (onClick)="salvarStory()" label="Submit"></p-button>
+
+        <p-fileUpload styleClass="mt-2" mode="basic" chooseLabel="Choose" name="demo[]" accept="image/*"
+        (maxFileSize)="1000000000000" (onSelect)="onFileChange($event)"></p-fileUpload>
+
+        <p-button (onClick)="salvarStory()" label="Submit"></p-button>
+      </div>
+
+      <p>Para fazer o envio de uma nova Arte, Precisa está com os seguintes nomes, story.jpeg & feed.jpeg</p>
+    </div>
+
+    <div class="robo">
+      <span>🤖</span>
+      <div>
+        <p> {{ check === true ? 'Robô ativado' : 'Robô destativado' }}</p>
+        <p-inputSwitch (onChange)="ativarBot()" id="check" name="check" [(ngModel)]="check" />
+      </div>
+    </div>
+  </div>
+
+
 </section>

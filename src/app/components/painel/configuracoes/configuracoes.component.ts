@@ -3,6 +3,7 @@ import { FormBuilder } from '@angular/forms';
 import { ProdutoService } from './../../../service/painel/produto.service';
 import { Component, OnInit } from '@angular/core';
 import { ScraperProduto } from 'src/app/dto/ScraperProduto';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-configuracoes',
@@ -13,6 +14,8 @@ export class ConfiguracoesComponent implements OnInit{
 
   imagemFile!: File;
   imagemView!: string;
+
+  api = environment.apiUrl;
 
   check!: boolean
 
