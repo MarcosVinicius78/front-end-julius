@@ -1,7 +1,8 @@
 :host ::ng-deep {
  section{
-    margin-top: 85px;
-    height: 100vh;
+  margin-bottom: 20px;
+    margin-top: 90px;
+    // height: 100vh;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -56,6 +57,7 @@
   @media screen and (max-width: 600px) {
 
     section{
+      margin-top: 70px;
       margin-bottom: 10px;
       height: auto;
     }
