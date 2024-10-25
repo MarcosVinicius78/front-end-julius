@@ -202,13 +202,11 @@ export class ListarProdutosCadastradosComponent implements OnInit {
       estruturaCompartilhamento += `*${produto.copy}*\n\n`
     }
 
-    if (site === 2 && (produto.titulo && produto.titulo.length > 55)) {
+    if ((site === 2 || site === 1) && (produto.titulo && produto.titulo.length > 55)) {
       estruturaCompartilhamento += `\u{1F4CC} ${produto.titulo.substring(0, 60)}...\n\n`;
     } else if (produto.copy === null) {
       estruturaCompartilhamento += `\u{1F4CC} ${produto.titulo}\n\n`;
     }
-
-    // let preco = ""
 
     if (produto.freteVariacoes && produto.freteVariacoes.includes("CUPOM")) {
       estruturaCompartilhamento += `*\u{1F525} ${produto.preco} (Frete Grátis)*\n`;

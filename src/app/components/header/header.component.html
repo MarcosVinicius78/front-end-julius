@@ -9,6 +9,23 @@
     <i (click)="abrirModalPesquisa()" class="pi pi-times"></i>
   </div>
 
+  <div class="pesquisas-recentes">
+    <p>Pesquisas Recentes</p>
+
+    <div>
+      <a href="/pesquisa?search={{item}}" *ngFor="let item of pesquisasRecentes">
+
+        {{ item }}
+
+      </a>
+
+    </div>
+
+
+  </div>
+
+  <hr>
+
   <div class="box">
     <p>Mais Buscados</p>
 
@@ -20,7 +37,6 @@
       <li><a href="/pesquisa?search=Iphone">Iphone</a></li>
     </ul>
   </div>
-
 </div>
 
 <header class="header">

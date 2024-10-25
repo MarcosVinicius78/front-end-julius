@@ -346,5 +346,29 @@
       text-decoration: none;
       text-transform: initial;
     }
+
+    .pesquisas-recentes div{
+      display: flex;
+      gap: 10px;
+      justify-content: space-around;
+      flex-wrap: wrap;
+      padding: 10px 0 10px 0;
+      justify-content: flex-start;
+    }
+
+    .pesquisas-recentes a{
+      background-color: #ddd;
+      padding: 5px;
+      text-decoration: none;
+      text-transform: initial;
+      color: black;
+      border-radius: 5px;
+    }
+
+    .pesquisas-recentes p{
+      font-weight: 700;
+    }
+
+
   }
 }

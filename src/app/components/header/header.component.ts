@@ -6,6 +6,7 @@ import { LinkBannerService } from 'src/app/service/painel/link-banner.service';
 import { LinksBanner } from 'src/app/dto/LinksBanner';
 import { animate, style, transition, trigger } from '@angular/animations';
 import { ActivatedRoute, ActivatedRouteSnapshot, Router } from '@angular/router';
+import { SearchStorageService } from 'src/app/service/search-storage.service';
 
 @Component({
   selector: 'app-header',
@@ -47,11 +48,13 @@ export class HeaderComponent implements OnInit {
 
   termoPesquisa: string = "";
 
+  pesquisasRecentes: string[] = [];
+
   constructor(
     private categoriaService: CategoriaService,
     private linkBannerService: LinkBannerService,
     private router: Router,
-    private route: ActivatedRoute
+    private pesquisaRecenteService: SearchStorageService
   ) { }
 
   ngOnInit() {
@@ -59,6 +62,8 @@ export class HeaderComponent implements OnInit {
       this.categorias = response;
       this.pegarLinks();
     });
+
+    this.carregarPesquisasRecentes();
   }
 
   toggleCategoria(): void {
@@ -91,11 +96,22 @@ export class HeaderComponent implements OnInit {
   }
 
   pesquisar(){
-    // const queryParams = this.route.snapshot.queryParams
+
+    if (this.termoPesquisa.trim() !== '') {
+      this.pesquisaRecenteService.adicionarPesquisa(this.termoPesquisa);
+      this.pesquisasRecentes = this.pesquisaRecenteService.pegarPesquisaRecente();
+    }
+
 
     this.router.navigate(["/pesquisa"], { queryParams: { search: this.termoPesquisa } }).then(() => {
       window.location.reload();  // Recarrega a página após a navegação
     });
     this.modalPesquisa = false
+  }
+
+  carregarPesquisasRecentes(){
+    this.pesquisasRecentes = this.pesquisaRecenteService.pegarPesquisaRecente();
+
+    console.log(this.pesquisasRecentes)
   }
 }
