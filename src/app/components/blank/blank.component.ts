@@ -1,3 +1,4 @@
+import { response } from 'express';
 import { isPlatformBrowser } from '@angular/common';
 import { Component, Inject, OnInit, PLATFORM_ID } from '@angular/core';
 import { Meta } from '@angular/platform-browser';
@@ -37,12 +38,28 @@ export class BlankComponent implements OnInit {
           // this.meta.updateTag({ name: 'og:description', content: response.descricao });
           this.meta.updateTag({ name: 'og:image', content: `${environment.apiUrl}/produto/download-imagem-real/${response.imagemSocial}` });
 
+          this.produto = response;
+
+          // Redirecionar para a URL final após definir as meta tags
           if (isPlatformBrowser(this.platformId)) {
             window.location.href = response.link_se;
           }
-          // Redirecionar para a URL final após definir as meta tags
         });
-      } else {
+      }else if(r === '2' && id){
+        this.produtoService.pegarProduto(id,r).subscribe(response => {
+          // Definir as meta tags aqui
+          this.meta.updateTag({ name: 'og:title', content: response.titulo });
+          // this.meta.updateTag({ name: 'og:description', content: response.descricao });
+          this.meta.updateTag({ name: 'og:image', content: `${environment.apiUrl}/produto/download-imagem-real/${response.imagemSocial}` });
+
+          this.produto = response;
+
+          // Redirecionar para a URL final após definir as meta tags
+          if (isPlatformBrowser(this.platformId)) {
+            window.location.href = response.descricao;
+          }
+        });
+      }else {
         // Redirecionar se os parâmetros não forem válidos
         this.router.navigate(['/']);
       }

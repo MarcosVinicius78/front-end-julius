@@ -13,6 +13,7 @@ export class Produtos {
   public mensagemAdicional!: string;
   public cupom!: string
   public link!: string
+  public linkOmc!: string;
   public imagem!: string
   public loja!: Loja
   public imagemSocial!: string

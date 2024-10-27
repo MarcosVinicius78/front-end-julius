@@ -21,10 +21,15 @@ export class RedirectGuardService implements CanActivate{
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
 
     const queryParams = route.queryParams;
-    if (queryParams && queryParams['r'] === '1') {
+    if (queryParams && queryParams['r'] === '1' || queryParams['r'] === '2') {
       // this.router.navigate(['/blank'], { queryParams: { id: route.params['id'] } });
 
-      this.router.navigate(['/blank'], { queryParams: { id: route.params['id'], r: '1' } });
+      if (queryParams['r'] === '2') {
+        this.router.navigate(['/blank'], { queryParams: { id: route.params['id'], r: '2' } });
+      }else{
+        this.router.navigate(['/blank'], { queryParams: { id: route.params['id'], r: '1' } });
+      }
+
 
 
       // Se o parâmetro 'r' for igual a 1, redirecione para o método no backend Spring Boot

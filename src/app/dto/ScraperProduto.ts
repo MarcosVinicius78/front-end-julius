@@ -5,4 +5,5 @@ export class ScraperProduto {
   urlProdutoSe: string = '';
   urlProdutoOfm: string = '';
   precoParcelado: string = '';
+  descricao: string = '';
 }

@@ -190,7 +190,9 @@ export class CadastrarProdutoComponent implements OnInit {
         id_categoria: this.produtoFormGroup.get('id_categoria')?.value,
         id_loja: this.produtoFormGroup.get('loja')?.value,
         imagem: [''],
-        copy: this.produtoFormGroup.get('copy')?.value
+        copy: this.produtoFormGroup.get('copy')?.value,
+        descricao: this.produtoFormGroup.get('descricao')?.value,
+        link: this.produtoFormGroup.get('link')?.value
       }
 
       this.produtoSevice.salvarProduto(produto).subscribe(response => {
@@ -294,7 +296,9 @@ export class CadastrarProdutoComponent implements OnInit {
       urlImagem: "",
       id_categoria: this.produtoFormGroup.get('id_categoria')?.value,
       id_loja: this.produtoFormGroup.get('loja')?.value,
-      copy: this.produtoFormGroup.get('copy')?.value
+      copy: this.produtoFormGroup.get('copy')?.value,
+      link: this.produtoFormGroup.get('link')?.value,
+      descricao: this.produtoFormGroup.get('descricao')?.value
     }
 
     if (this.imagemFile !== undefined || this.imagemFileSocial !== undefined) {
@@ -431,14 +435,16 @@ export class CadastrarProdutoComponent implements OnInit {
         mensagemAdicional: ['Promoção sujeita a alteração a qualquer momento'],
         freteVariacoes: [''],
         cupomOmc: [''],
-        link_se: [this.scraperProduto.urlProdutoSe],
-        link_ofm: [this.scraperProduto.urlProdutoOfm],
+        link_se: [this.scraperProduto.urlProdutoSe.includes('maga') ? '' : this.scraperProduto.urlProdutoSe],
+        link_ofm: [this.scraperProduto.urlProdutoOfm.includes('maga') ? '' : this.scraperProduto.urlProdutoOfm],
         cupom: [''],
         id_categoria: ['', [Validators.required]],
         loja: [loja, [Validators.required]],
         imgem: [''],
         imgemSocial: [''],
-        copy: ['']
+        copy: [''],
+        link: [this.scraperProduto.urlProdutoSe],
+        descricao: [this.scraperProduto.urlProdutoOfm]
       })
 
 

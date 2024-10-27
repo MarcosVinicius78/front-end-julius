@@ -117,6 +117,7 @@ export class ListarProdutosComponent implements OnInit {
       this.produtos = this.produtos.concat(response.content)
       this.page++;
       this.loading = false;
+      console.log(this.produtos)
     });
   }
 
