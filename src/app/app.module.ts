@@ -55,6 +55,8 @@ import { FormatRealPipe } from "./pipe/format-real.pipe";
 import { FormatTextPipe } from './pipe/format-text.pipe';
 import { ParceirosComponent } from './components/parceiros/parceiros.component';
 
+import { RouterModule } from '@angular/router';
+
 @NgModule({ declarations: [
         AppComponent,
         HeaderComponent,
@@ -95,6 +97,7 @@ import { ParceirosComponent } from './components/parceiros/parceiros.component';
     EditorModule,
     FileUploadModule,
     ToolbarModule,
+    RouterModule,
     PaginatorModule,
     InputTextModule,
     DropdownModule,

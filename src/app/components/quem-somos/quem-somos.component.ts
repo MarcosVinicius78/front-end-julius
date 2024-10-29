@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, ViewChild } from '@angular/core';
 
 @Component({
   selector: 'app-quem-somos',
@@ -8,5 +8,5 @@ import { Component } from '@angular/core';
   styleUrl: './quem-somos.component.css'
 })
 export class QuemSomosComponent {
-
+  
 }
