@@ -32,7 +32,7 @@ export class BlankComponent implements OnInit {
       const r = params['r'];
 
       if (r === '1' && id) {
-        this.produtoService.pegarProduto(id,r).subscribe(response => {
+        this.produtoService.pegarProduto(id, r).subscribe(response => {
           // Definir as meta tags aqui
           this.meta.updateTag({ name: 'og:title', content: response.titulo });
           // this.meta.updateTag({ name: 'og:description', content: response.descricao });
@@ -45,8 +45,8 @@ export class BlankComponent implements OnInit {
             window.location.href = response.link_se;
           }
         });
-      }else if(r === '2' && id){
-        this.produtoService.pegarProduto(id,r).subscribe(response => {
+      } else if (r === '2' && id) {
+        this.produtoService.pegarProduto(id, r).subscribe(response => {
           // Definir as meta tags aqui
           this.meta.updateTag({ name: 'og:title', content: response.titulo });
           // this.meta.updateTag({ name: 'og:description', content: response.descricao });
@@ -59,7 +59,7 @@ export class BlankComponent implements OnInit {
             window.location.href = response.descricao;
           }
         });
-      }else {
+      } else {
         // Redirecionar se os parâmetros não forem válidos
         this.router.navigate(['/']);
       }
