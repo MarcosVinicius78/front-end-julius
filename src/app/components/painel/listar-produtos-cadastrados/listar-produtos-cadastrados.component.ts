@@ -131,9 +131,11 @@ export class ListarProdutosCadastradosComponent implements OnInit {
     this.clipboard.copy(link);
   }
 
-  gerarStory(preco: string, titulo: string, urlImagem: string, frete: string, cupom: string, link: string) {
+  gerarStory(id: string, preco: string, titulo: string, urlImagem: string, frete: string, cupom: string, link: string) {
 
-    this.copiarParaAreaTransferenciaLink(link);
+    const baseUrl = window.location.href.replace(/painel(\/listar-produtos)?/, '');
+
+    this.copiarParaAreaTransferenciaLink(baseUrl + "/oferta/" + id + "?r=1");
 
     this.produtoService.gerarStory(preco, titulo, urlImagem, frete, cupom).subscribe(response => {
 
@@ -197,7 +199,7 @@ export class ListarProdutosCadastradosComponent implements OnInit {
   montarEstruturaCompartilhamento(produto: Produtos, site: number) {
     let estruturaCompartilhamento = "";
 
-    
+
     const adicionarTexto = (texto: string) => (estruturaCompartilhamento += texto + "\n\n");
 
     const montarTitulo = () => {

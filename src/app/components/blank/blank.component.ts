@@ -15,6 +15,8 @@ import { environment } from 'src/environments/environment';
 })
 export class BlankComponent implements OnInit {
 
+  instagram: boolean = false;
+
   produto = new ProdutoLoja();
 
   constructor(
@@ -26,7 +28,7 @@ export class BlankComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    // const id = this.route.queryParams['id']
+
     this.route.queryParams.subscribe(params => {
       const id = params['id'];
       const r = params['r'];
@@ -40,8 +42,13 @@ export class BlankComponent implements OnInit {
 
           this.produto = response;
 
-          // Redirecionar para a URL final após definir as meta tags
-          if (isPlatformBrowser(this.platformId)) {
+          const referrer = document.referrer;
+          if (referrer.includes('instagram')) {
+            this.instagram = true;
+            setTimeout(() => {
+              window.location.href = response.link_se;
+            }, 8000)
+          }else{
             window.location.href = response.link_se;
           }
         });
