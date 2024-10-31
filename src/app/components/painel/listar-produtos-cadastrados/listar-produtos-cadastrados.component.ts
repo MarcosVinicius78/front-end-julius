@@ -197,6 +197,7 @@ export class ListarProdutosCadastradosComponent implements OnInit {
   montarEstruturaCompartilhamento(produto: Produtos, site: number) {
     let estruturaCompartilhamento = "";
 
+    
     const adicionarTexto = (texto: string) => (estruturaCompartilhamento += texto + "\n\n");
 
     const montarTitulo = () => {
