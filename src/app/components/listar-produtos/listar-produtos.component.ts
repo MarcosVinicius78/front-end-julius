@@ -1,6 +1,7 @@
 import { LinksBanner } from './../../dto/LinksBanner';
 import { Clipboard } from '@angular/cdk/clipboard';
 import { Component, HostListener, OnInit, ViewChild } from '@angular/core';
+import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import * as dateFns from 'date-fns';
 // import { LinksBanner } from 'src/app/dto/LinksBanner';
@@ -70,7 +71,8 @@ export class ListarProdutosComponent implements OnInit {
     private linkBannerService: LinkBannerService,
     private route: ActivatedRoute,
     private clipboard: Clipboard,
-    private ativarRodape: AtivarRodapéService
+    private ativarRodape: AtivarRodapéService,
+    private sanitizer: DomSanitizer
   ) { }
 
   ngOnInit() {
@@ -102,6 +104,10 @@ export class ListarProdutosComponent implements OnInit {
     this.produtos = []
     this.produtosEmDestaque();
   }
+
+  getSafeUrl(url: string): SafeUrl {
+    return this.sanitizer.bypassSecurityTrustUrl(url);
+}
 
   listarPorCategoria() {
     this.produtoService.ProdutoPorCategoria(environment.site, this.idCategoria, this.page, this.size).subscribe(response => {
