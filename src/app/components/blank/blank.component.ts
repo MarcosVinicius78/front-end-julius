@@ -43,11 +43,11 @@ export class BlankComponent implements OnInit {
           this.produto = response;
 
           const referrer = document.referrer;
-          if (referrer.includes('instagram')) {
+          if (true) {
             this.instagram = true;
             setTimeout(() => {
               window.location.href = response.link_se;
-            }, 8000)
+            }, 800000)
           }else{
             window.location.href = response.link_se;
           }

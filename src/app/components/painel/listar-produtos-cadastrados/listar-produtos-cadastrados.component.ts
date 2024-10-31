@@ -135,7 +135,7 @@ export class ListarProdutosCadastradosComponent implements OnInit {
 
     const baseUrl = window.location.href.replace(/painel(\/listar-produtos)?/, '');
 
-    this.copiarParaAreaTransferenciaLink(baseUrl + "/oferta/" + id + "?r=1");
+    this.copiarParaAreaTransferenciaLink(baseUrl + "oferta/" + id + "?r=1");
 
     this.produtoService.gerarStory(preco, titulo, urlImagem, frete, cupom).subscribe(response => {
 

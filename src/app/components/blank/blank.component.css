@@ -1,15 +1,13 @@
 section{
-  padding: 15px;
+  padding: 10px;
+  display: flex;
 }
 
 p{
   padding: 10px;
 }
 
-section i:first-child{
-  padding: 10px;
-  position: fixed;
-  right: 20px;
+.seta{
   font-size: 35px;
 }
 
