@@ -59,6 +59,7 @@ export class ListarProdutosCadastradosComponent implements OnInit {
   ngOnInit(): void {
     this.listarProdutos();
 
+
     this.items = [
       {
         label: 'Apagar',
@@ -199,7 +200,6 @@ export class ListarProdutosCadastradosComponent implements OnInit {
   montarEstruturaCompartilhamento(produto: Produtos, site: number) {
     let estruturaCompartilhamento = "";
 
-
     const adicionarTexto = (texto: string) => (estruturaCompartilhamento += texto + "\n\n");
 
     const montarTitulo = () => {
@@ -237,14 +237,13 @@ export class ListarProdutosCadastradosComponent implements OnInit {
 
       const loja = produto.loja?.nome_loja?.toLowerCase() || "";
       const baseUrl = window.location.href.replace(/painel(\/listar-produtos)?/, '');
-
-      if ((this.route.url === "/painel" || this.route.url === "/painel/listar-produtos") && (loja.includes("maga") && produto.link.includes("one"))) {
-        adicionarTexto(`\u{1F6D2} Confira no Site Magalu:\u{1F447}\n${baseUrl}oferta/${produto.id}?r=2`);
-        adicionarTexto(`\u{1F6D2} Confira no App Magalu:\u{1F447}\n${baseUrl}oferta/${produto.id}?r=1`);
+      if ((this.route.url === "/painel" || this.route.url === "/painel/listar-produtos") && (produto.link && produto.descricao.includes("one"))) {
+        adicionarTexto(`*\u{1F6D2} Confira no Site Magalu:\u{1F447}*\n${baseUrl}oferta/${produto.id}?r=1`);
+        adicionarTexto(`*\u{1F6D2} Confira no App Magalu:\u{1F447}*\n${baseUrl}oferta/${produto.id}?r=2`);
       } else if (["amazon", "mercado livre"].some((nome) => loja.includes(nome))) {
-        adicionarTexto(`\u{1F6D2} Confira Aqui:\u{1F447}\n${baseUrl}oferta/${produto.id}`);
+        adicionarTexto(`*\u{1F6D2} Confira Aqui:\u{1F447}*\n${baseUrl}oferta/${produto.id}`);
       } else {
-        adicionarTexto(`\u{1F6D2} Confira Aqui:\u{1F447}\n${baseUrl}oferta/${produto.id}?r=1`);
+        adicionarTexto(`*\u{1F6D2} Confira Aqui:\u{1F447}*\n${baseUrl}oferta/${produto.id}?r=1`);
       }
     };
 

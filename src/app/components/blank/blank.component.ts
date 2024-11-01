@@ -41,6 +41,7 @@ export class BlankComponent implements OnInit {
           this.meta.updateTag({ name: 'og:image', content: `${environment.apiUrl}/produto/download-imagem-real/${response.imagemSocial}` });
 
           this.produto = response;
+          alert(this.produto.link_se);
 
           const referrer = document.referrer;
           if (referrer.includes('instagram')) {
@@ -60,6 +61,8 @@ export class BlankComponent implements OnInit {
           this.meta.updateTag({ name: 'og:image', content: `${environment.apiUrl}/produto/download-imagem-real/${response.imagemSocial}` });
 
           this.produto = response;
+
+          alert(this.produto.descricao);
 
           // Redirecionar para a URL final após definir as meta tags
           if (isPlatformBrowser(this.platformId)) {
