@@ -213,9 +213,9 @@ export class ListarProdutosCadastradosComponent implements OnInit {
     };
 
     const montarPreco = () => {
-      if (produto.freteVariacoes?.includes("CUPOM")) {
+      if (produto.freteVariacoes && produto.freteVariacoes.includes("CUPOM")) {
         adicionarTexto(`*\u{1F525} ${produto.preco} (Frete Grátis)*`);
-      } else if (produto.parcelado?.toLowerCase().includes("sem juros")) {
+      } else if (produto.parcelado && produto.parcelado.toLowerCase().includes("sem juros")) {
         adicionarTexto(`*\u{1F525} ${produto.preco} (Parcelado)*`);
       } else {
         adicionarTexto(`*\u{1F525} ${produto.preco}* à vista`);
@@ -237,7 +237,7 @@ export class ListarProdutosCadastradosComponent implements OnInit {
 
       const loja = produto.loja?.nome_loja?.toLowerCase() || "";
       const baseUrl = window.location.href.replace(/painel(\/listar-produtos)?/, '');
-      if ((this.route.url === "/painel" || this.route.url === "/painel/listar-produtos") && (produto.link && produto.descricao.includes("one"))) {
+      if ((this.route.url === "/painel" || this.route.url === "/painel/listar-produtos") && (produto.link && produto.descricao?.includes("one"))) {
         adicionarTexto(`*\u{1F6D2} Confira no Site Magalu:\u{1F447}*\n${baseUrl}oferta/${produto.id}?r=1`);
         adicionarTexto(`*\u{1F6D2} Confira no App Magalu:\u{1F447}*\n${baseUrl}oferta/${produto.id}?r=2`);
       } else if (["amazon", "mercado livre"].some((nome) => loja.includes(nome))) {
@@ -248,7 +248,7 @@ export class ListarProdutosCadastradosComponent implements OnInit {
     };
 
     const montarExtras = () => {
-      if (produto.freteVariacoes?.includes("CUPOM")) {
+      if (produto.freteVariacoes && produto.freteVariacoes.includes("CUPOM")) {
         adicionarTexto(`\u{1F4E6} ${produto.freteVariacoes}`);
       }
       if (produto.mensagemAdicional) {
@@ -264,6 +264,7 @@ export class ListarProdutosCadastradosComponent implements OnInit {
 
     return estruturaCompartilhamento.trim();
   }
+
 
   toggleMenu(productId: number) {
     if (this.openMenuId === productId) {
