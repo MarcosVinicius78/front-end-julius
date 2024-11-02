@@ -44,7 +44,8 @@ export class LinksBannersComponent implements OnInit {
         whatsapp: [''],
         telegram: [''],
         instagram: [],
-        email: ['']
+        email: [''],
+        outros: ['']
       });
     }
 
@@ -74,6 +75,7 @@ export class LinksBannersComponent implements OnInit {
         telegram: this.linksFormGrupo.get(['telegram'])?.value,
         instagram: this.linksFormGrupo.get(['instagram'])?.value,
         email: this.linksFormGrupo.get(['email'])?.value,
+        outros: this.linksFormGrupo.get(['outros'])?.value,
         siteId: environment.site
       };
     } else {
@@ -83,9 +85,12 @@ export class LinksBannersComponent implements OnInit {
         telegram: this.linksFormGrupo.get(['telegram'])?.value,
         instagram: this.linksFormGrupo.get(['instagram'])?.value,
         email: this.linksFormGrupo.get(['email'])?.value,
+        outros: this.linksFormGrupo.get(['outros'])?.value,
         siteId: environment.site
       };
     }
+
+    console.log(links)
 
     this.linkBannerService.salvarLinks(links).subscribe(response => {
       this.messageService.add({ severity: 'success', detail: 'Salvo' });
@@ -105,7 +110,8 @@ export class LinksBannersComponent implements OnInit {
           whatsapp: this.linksEBanners.links.whatsapp,
           telegram: this.linksEBanners.links.telegram,
           instagram: this.linksEBanners.links.instagram,
-          email: this.linksEBanners.links.email
+          email: this.linksEBanners.links.email,
+          outros: this.linksEBanners.links.outros
         });
       }
     })

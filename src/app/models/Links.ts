@@ -4,6 +4,7 @@ export class Links {
   telegram: string = ""
   instagram: string = ""
   email: string = ""
+  outros: string = ""
 
   constructor(
   ) {

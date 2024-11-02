@@ -7,6 +7,8 @@ import { Action } from 'rxjs/internal/scheduler/Action';
 import { ProdutoLoja } from 'src/app/dto/ProdutoLoja';
 import { ProdutoService } from 'src/app/service/painel/produto.service';
 import { environment } from 'src/environments/environment';
+import { LinkBannerService } from 'src/app/service/painel/link-banner.service';
+import { LinksBanner } from 'src/app/dto/LinksBanner';
 
 @Component({
   selector: 'app-blank',
@@ -15,16 +17,17 @@ import { environment } from 'src/environments/environment';
 })
 export class BlankComponent implements OnInit {
 
-  instagram: boolean = false;
-
   produto = new ProdutoLoja();
+
+  links!: LinksBanner
 
   constructor(
     private route: ActivatedRoute,
     private router: Router,
     private meta: Meta,
     private produtoService: ProdutoService,
-    @Inject(PLATFORM_ID) private platformId: Object
+    @Inject(PLATFORM_ID) private platformId: Object,
+    private linksService: LinkBannerService
   ) { }
 
   ngOnInit(): void {
@@ -42,15 +45,7 @@ export class BlankComponent implements OnInit {
 
           this.produto = response;
 
-          const referrer = document.referrer;
-          if (referrer.includes('instagram')) {
-            this.instagram = true;
-            setTimeout(() => {
-              window.location.href = response.link_se;
-            }, 8000)
-          }else{
-            window.location.href = response.link_se;
-          }
+          window.location.href = response.link_se;
         });
       } else if (r === '2' && id) {
         this.produtoService.pegarProduto(id, r).subscribe(response => {
@@ -66,7 +61,13 @@ export class BlankComponent implements OnInit {
             window.location.href = response.descricao;
           }
         });
-      } else {
+      } else if(r === '3' && id){
+
+        this.linksService.listarLinksEBanners().then(response => {
+          window.location.href = response.links.outros;
+        })
+
+      }else{
         // Redirecionar se os parâmetros não forem válidos
         this.router.navigate(['/']);
       }

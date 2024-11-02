@@ -20,25 +20,17 @@ export class RedirectGuardService implements CanActivate{
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
 
-    const queryParams = route.queryParams;
-    if (queryParams && queryParams['r'] === '1' || queryParams['r'] === '2') {
-      // this.router.navigate(['/blank'], { queryParams: { id: route.params['id'] } });
+      const queryParams = route.queryParams;
+      const routeId = route.params['id'] || environment.site;
 
-      if (queryParams['r'] === '2') {
-        this.router.navigate(['/blank'], { queryParams: { id: route.params['id'], r: '2' } });
-      }else{
-        this.router.navigate(['/blank'], { queryParams: { id: route.params['id'], r: '1' } });
+      if (queryParams && ['1', '2', '3'].includes(queryParams['r'])) {
+        // Navegação com base no valor de 'r'
+        this.router.navigate(['/blank'], { queryParams: { id: routeId, r: queryParams['r'] } });
+
+        return false; // Evita a renderização do componente Angular
       }
 
+      return true; // Permite a ativação da rota normalmente
 
-
-      // Se o parâmetro 'r' for igual a 1, redirecione para o método no backend Spring Boot
-      // if (isPlatformBrowser(this.platformId)) {
-      //   window.location.href = `${this.apiUrl}/produto/${route.params['id']}?r=1`;
-      // }
-      return false; // Retorne false para evitar a renderização do componente Angular
-    } else {
-      return true; // Permita a ativação da rota normalmente
-    }
   }
 }

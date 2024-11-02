@@ -1,3 +1,4 @@
+import { Categoria } from "./categoria";
 import { Loja } from "./loja";
 
 export class Produtos {
@@ -19,5 +20,6 @@ export class Produtos {
   public imagemSocial!: string
   public copy!: string;
   public promocaoEncerrada!: boolean;
+  public categoria!: Categoria;
   constructor() { }
 }
