@@ -11,6 +11,10 @@ import { debounceTime, map, switchMap } from 'rxjs';
 import { response } from 'express';
 import { environment } from 'src/environments/environment';
 import { MensagemService } from 'src/app/service/painel/mensagem.service';
+import { Categoria } from 'src/app/models/categoria';
+import { Loja } from 'src/app/models/loja';
+import { LojaService } from 'src/app/service/painel/loja.service';
+import { CategoriaService } from 'src/app/service/painel/categoria.service';
 
 
 @Component({
@@ -39,6 +43,11 @@ export class ListarProdutosCadastradosComponent implements OnInit {
   termoPesquisa = new FormControl();
   palavra: string = "";
 
+  idCategoria: string = ""
+
+  categorias!: Categoria[];
+  lojas!: Loja[];
+
   // produto!: Produtos;
   selectedProducts!: Produtos;
 
@@ -52,13 +61,16 @@ export class ListarProdutosCadastradosComponent implements OnInit {
     private messageService: MessageService,
     private clipboard: Clipboard,
     private mensagemService: MensagemService,
-    // private formatRealPipe: FormatRealPipe,
+    private lojaService: LojaService,
+    private categoriaService: CategoriaService,
     @Inject(PLATFORM_ID) private platformId: Object
   ) { }
 
   ngOnInit(): void {
     this.listarProdutos();
 
+    this.listarLojas();
+    this.listarCategoria()
 
     this.items = [
       {
@@ -95,6 +107,14 @@ export class ListarProdutosCadastradosComponent implements OnInit {
   changePage(page: any) {
     this.page = page.page
 
+    if (this.idCategoria !== "") {
+      this.produtoService.ProdutoPorCategoria(environment.site, this.idCategoria, this.page, this.size).subscribe(response => {
+        this.produtos = response;
+        this.page++
+      });
+      return;
+    }
+
     if (this.palavra === "") {
       this.produtoService.listarProduto(this.page, this.size).subscribe((response: any) => {
         this.produtos = response.content
@@ -102,6 +122,30 @@ export class ListarProdutosCadastradosComponent implements OnInit {
     } else {
       this.pesquisar(this.palavra);
     }
+  }
+
+  listarLojas() {
+    this.lojaService.listarLojas().subscribe(response => {
+      this.lojas = response
+    });
+  }
+
+  listarCategoria() {
+    this.categoriaService.listarCategoria().subscribe(response => {
+      this.categorias = response;
+    })
+  }
+
+  listarPorCategoria(event: Event) {
+
+    this.produtos = [];
+
+    const id = (event.target as HTMLSelectElement).value;
+
+    this.produtoService.ProdutoPorCategoria(environment.site, id, this.page, this.size).subscribe(response => {
+      this.produtos = this.produtos.concat(response);
+      this.page++
+    });
   }
 
   apagarProduto(id: number, urlImagem: string, imagemSocial: string) {

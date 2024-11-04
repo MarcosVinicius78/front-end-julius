@@ -3,12 +3,23 @@
     <div>
       <h1>Produtos Cadastrados</h1>
     </div>
-    <p-iconField iconPosition="left">
-      <!-- <p-inputIcon styleClass="pi pi-search" /> -->
+    <!-- <p-iconField iconPosition="left">
       <input [formControl]="termoPesquisa" type="text" pInputText />
-    </p-iconField>
+    </p-iconField> -->
 
-    
+    <div class="dropdown-buttons">
+      <select class="dropdown w-11 text-primary-50 font-medium text-base" name="loja">
+        <option value="">Selecione uma Loja</option>
+        <option *ngFor="let item of lojas" value="{{item.id}}">{{ item.nome_loja }}</option>
+      </select>
+
+      <select (change)="listarPorCategoria($event)" class="dropdown w-full text-primary-50 font-medium text-base" [(ngModel)]="idCategoria"
+        name="id_categoria">
+        <option value="">Selecione uma Categoria</option>
+        <option *ngFor="let item of categorias" value="{{item.categoria_id}}">{{ item.nomeCategoria }}</option>
+      </select>
+    </div>
+
     <i class="pi pi-trash" (click)="apagarVariosProdutos()"></i>
   </header>
 
@@ -19,6 +30,7 @@
           <th class="text-center" style="width: 4rem">
             <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
           </th>
+          <th>Foto</th>
           <th>Titulo</th>
           <th>Preço</th>
           <th>Loja</th>
@@ -39,7 +51,12 @@
             <p-tableCheckbox [value]="item"></p-tableCheckbox>
           </td>
           <td>
-            <a href="/painel/atualizar-produtos/{{item.id}}">
+            <a routerLink="/painel/atualizar-produtos/{{item.id}}">
+              <img [src]="apiUrl+'/produto/download-imagem-real/'+item.imagemSocial" alt="imagemSocial">
+            </a>
+          </td>
+          <td>
+            <a [href]="item.link" target="_blank">
               {{item.titulo}}
             </a>
           </td>
@@ -101,7 +118,9 @@
     <p>{{ produto.mensagemAdicional }}</p> -->
   </p-card>
   <div class="flex justify-content-center mt-3">
-    <p-button label="Enviar"
+    <p-button label="WhatsApp"
+      (onClick)="copiarParaAreaTransferencia(produto, 1)" />
+    <p-button label="Telegram"
       (onClick)="enviarTelegram(montarEstruturaCompartilhamento(produto, 2), produto.imagemSocial)" />
   </div>
 </p-dialog>
