@@ -61,7 +61,7 @@
 
   .separar {
     margin-top: 10px;
-    height: calc(100% - 90px);
+    // height: calc(100% - 90px);
   }
 
   .paginacao {
@@ -314,6 +314,14 @@
     }
 
     header input {
+      display: none;
+    }
+
+    header i{
+      display: none;
+    }
+
+    .dropdown-buttons{
       display: none;
     }
 

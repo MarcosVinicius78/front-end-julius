@@ -117,8 +117,8 @@
     <p>{{ produto.freteVariacoes }}</p>
     <p>{{ produto.mensagemAdicional }}</p> -->
   </p-card>
-  <div class="flex justify-content-center mt-3">
-    <p-button label="WhatsApp"
+  <div class="flex justify-content-center justify-content-around mt-3">
+    <p-button class="bg-primary" label="WhatsApp"
       (onClick)="copiarParaAreaTransferencia(produto, 1)" />
     <p-button label="Telegram"
       (onClick)="enviarTelegram(montarEstruturaCompartilhamento(produto, 2), produto.imagemSocial)" />
