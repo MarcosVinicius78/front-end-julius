@@ -59,7 +59,7 @@ export class HeaderComponent implements OnInit {
 
   ngOnInit() {
     this.categoriaService.listarCategoria().subscribe(response => {
-      this.categorias = response;
+      this.categorias = response.content;
       this.pegarLinks();
     });
 

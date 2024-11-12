@@ -132,7 +132,8 @@ export class ListarProdutosCadastradosComponent implements OnInit {
 
   listarCategoria() {
     this.categoriaService.listarCategoria().subscribe(response => {
-      this.categorias = response;
+      this.categorias = response.content;
+      this.totalPage = response.totalPages
     })
   }
 

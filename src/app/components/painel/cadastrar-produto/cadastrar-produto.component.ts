@@ -125,7 +125,8 @@ export class CadastrarProdutoComponent implements OnInit {
       loja: ['', [Validators.required]],
       imgem: [''],
       imgemSocial: [''],
-      copy: ['']
+      copy: [''],
+      link: ['']
     })
 
   }
@@ -174,8 +175,6 @@ export class CadastrarProdutoComponent implements OnInit {
         parcelado = "sem juros"
       }
 
-      console.log(this.produtoFormGroup.get('cupom')?.value)
-
       const produto: any = {
         titulo: this.produtoFormGroup.get('titulo')?.value,
         preco: this.produtoFormGroup.get('preco')?.value,
@@ -194,6 +193,8 @@ export class CadastrarProdutoComponent implements OnInit {
         descricao: this.produtoFormGroup.get('descricao')?.value,
         link: this.produtoFormGroup.get('link')?.value
       }
+
+      console.log(produto)
 
       this.produtoSevice.salvarProduto(produto).subscribe(response => {
 
@@ -323,7 +324,7 @@ export class CadastrarProdutoComponent implements OnInit {
 
   listarCategoria() {
     this.categoriaService.listarCategoria().subscribe(response => {
-      this.categorias = response;
+      this.categorias = response.content;
     })
   }
 
@@ -337,7 +338,7 @@ export class CadastrarProdutoComponent implements OnInit {
         this.cupomOmc = false
       }
 
-      console.log(this.produto.parcelado)
+      console.log(this.produto)
 
       this.produtoFormGroup = this.formBuilder.group({
         titulo: [this.produto.titulo],
