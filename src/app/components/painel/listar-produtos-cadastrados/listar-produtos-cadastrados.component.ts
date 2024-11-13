@@ -67,10 +67,10 @@ export class ListarProdutosCadastradosComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.listarCategoria()
     this.listarProdutos();
 
     this.listarLojas();
-    this.listarCategoria()
 
     this.items = [
       {
@@ -109,7 +109,7 @@ export class ListarProdutosCadastradosComponent implements OnInit {
 
     if (this.idCategoria !== "") {
       this.produtoService.ProdutoPorCategoria(environment.site, this.idCategoria, this.page, this.size).subscribe(response => {
-        this.produtos = response;
+        this.produtos = response.content;
         this.page++
       });
       return;
@@ -133,7 +133,9 @@ export class ListarProdutosCadastradosComponent implements OnInit {
   listarCategoria() {
     this.categoriaService.listarCategoria().subscribe(response => {
       this.categorias = response.content;
-      this.totalPage = response.totalPages
+      // if (this.idCategoria !== "") {
+      //   this.totalPage = response.totalPages
+      // }
     })
   }
 
@@ -144,8 +146,8 @@ export class ListarProdutosCadastradosComponent implements OnInit {
     const id = (event.target as HTMLSelectElement).value;
 
     this.produtoService.ProdutoPorCategoria(environment.site, id, this.page, this.size).subscribe(response => {
-      this.produtos = this.produtos.concat(response);
-      this.page++
+      this.produtos = response.content;
+      this.totalPage = response.totalPages;
     });
   }
 

@@ -57,36 +57,25 @@ export class BlankComponent implements OnInit {
         window.location.href = this.links.links.outros
       }else if(r === '2'){
         window.location.href = this.links.links.whatsapp
+      }else if(r === '3'){
+        window.location.href = this.links.links.outros
       }
     })
   }
 
   redirecionarProdutos(r: any, id: string) {
-    if (r === '1' && id) {
-      this.produtoService.pegarProduto(id, r).subscribe(response => {
-        // Definir as meta tags aqui
-        this.meta.updateTag({ name: 'og:title', content: response.titulo });
-        // this.meta.updateTag({ name: 'og:description', content: response.descricao });
-        this.meta.updateTag({ name: 'og:image', content: `${environment.apiUrl}/produto/download-imagem-real/${response.imagemSocial}` });
+    this.produtoService.pegarProduto(id, r).subscribe(response => {
+      // Definir as meta tags aqui
+      this.meta.updateTag({ name: 'og:title', content: response.titulo });
+      // this.meta.updateTag({ name: 'og:description', content: response.descricao });
+      this.meta.updateTag({ name: 'og:image', content: `${environment.apiUrl}/produto/download-imagem-real/${response.imagemSocial}` });
 
-        this.produto = response;
 
+      if (r === '1') {
         window.location.href = response.link_se;
-      });
-    } else if (r === '2' && id) {
-      this.produtoService.pegarProduto(id, r).subscribe(response => {
-        // Definir as meta tags aqui
-        this.meta.updateTag({ name: 'og:title', content: response.titulo });
-        // this.meta.updateTag({ name: 'og:description', content: response.descricao });
-        this.meta.updateTag({ name: 'og:image', content: `${environment.apiUrl}/produto/download-imagem-real/${response.imagemSocial}` });
-
-        this.produto = response;
-
-        // Redirecionar para a URL final após definir as meta tags
-        if (isPlatformBrowser(this.platformId)) {
-          window.location.href = response.descricao;
-        }
-      });
-    }
+      }else if(r === '2'){
+        window.location.href = response.descricao;
+      }
+    });
   }
 }
