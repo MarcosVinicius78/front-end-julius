@@ -23,10 +23,17 @@ export class RedirectGuardService implements CanActivate{
       const queryParams = route.queryParams;
       const routeId = route.params['id'] || environment.site;
 
-      if (queryParams && ['1', '2', '3'].includes(queryParams['r'])) {
+      const currentRoute = route.url.map(segment => segment.path).join('/');
+
+      if (queryParams && ['1', '2'].includes(queryParams['r']) && currentRoute.includes('oferta')) {
+
         // Navegação com base no valor de 'r'
         this.router.navigate(['/blank'], { queryParams: { id: routeId, r: queryParams['r'] } });
 
+        return false; // Evita a renderização do componente Angular
+      }else if(currentRoute.includes('grupos') && ['1', '2', '3'].includes(queryParams['r']) && queryParams){
+
+        this.router.navigate(['/blank'], { queryParams: { rota: currentRoute, r: queryParams['r'] } });
         return false; // Evita a renderização do componente Angular
       }
 

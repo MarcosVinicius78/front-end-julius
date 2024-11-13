@@ -263,7 +263,7 @@ export class ListarProdutosCadastradosComponent implements OnInit {
       } else if (produto.parcelado && produto.parcelado.toLowerCase().includes("sem juros")) {
         adicionarTexto(`*\u{1F525} ${produto.preco} (Parcelado)*`);
       } else {
-        adicionarTexto(`*\u{1F525} ${produto.preco}* à vista`);
+        adicionarTexto(`*\u{1F525} A Partir de: ${produto.preco}*`);
       }
     };
 
