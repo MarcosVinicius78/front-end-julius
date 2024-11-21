@@ -136,6 +136,7 @@ li i{
   }
   .open{
     left: 0;
+    top: 0;
     width: 60%;
     z-index: 1000;
   }
@@ -149,12 +150,20 @@ li i{
   }
 
   .menu-icon {
-    display: block;
-    font-size: 30px;
+    display: flex;
+    // justify-content: space-between;
+    padding: 10px;
+    align-items: center;
+  }
+
+  .menu-icon i{
+    padding: 10px;
     color: white;
-    position: absolute;
-    top: 12px;
-    left: 20px;
+  }
+
+  .menu-icon a{
+    color: white;
+    text-decoration: none;
   }
 
   .opcoes{
