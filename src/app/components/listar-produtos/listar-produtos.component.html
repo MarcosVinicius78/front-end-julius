@@ -71,8 +71,9 @@
               <div class="frete">
                 <i *ngIf="item.freteVariacoes && item.freteVariacoes.length < 48" class="pi pi-truck"></i>
                 <p *ngIf="item.freteVariacoes && item.freteVariacoes.length < 48">{{
-                    !item.loja.nome_loja.includes('Shopee') ?
-                    item.freteVariacoes.replaceAll('*','') : 'Frete Grátis Algumas Regiões' }}</p>
+                    item.loja.nome_loja.includes('Shopee') ?
+                    'Frete Grátis Algumas Regiões' :
+                    item.freteVariacoes.replaceAll('*','') }}</p>
               </div>
               <a routerLink="/oferta/{{ item.id }}">
                 <p id="preco">{{ item.preco }}</p>
