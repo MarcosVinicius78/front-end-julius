@@ -78,7 +78,7 @@
               item.nomeCategoria }}</a>
           </div>
         </div>
-        <a (click)="openMenu()" class="flex align-items-center" [href]="links.links.outros" target="_blank">
+        <a (click)="openMenu()" class="flex align-items-center" *ngIf="links.links !== undefined" [href]="links.links.outros" target="_blank">
           <i class="pi pi-whatsapp mr-2 text-white-alpha-90 text-lg text-justify"></i>
           Grupos
         </a>
