@@ -32,6 +32,7 @@ export class ListarProdutosComponent implements OnInit {
   links!: LinksBanner;
   banners: Banner[] = []
 
+  convite: number = 4
 
   termoPesquisaAnterior: string = '';
   termoPesquisa: string = '';
@@ -100,7 +101,6 @@ export class ListarProdutosComponent implements OnInit {
       return
     }
 
-
     this.produtos = []
     this.produtosEmDestaque();
   }
@@ -110,8 +110,9 @@ export class ListarProdutosComponent implements OnInit {
 }
 
   listarPorCategoria() {
+    this.loading = true;
     this.produtoService.ProdutoPorCategoria(environment.site, this.idCategoria, this.page, this.size).subscribe(response => {
-      this.produtos = this.produtos.concat(response);
+      this.produtos = this.produtos.concat(response.content);
       this.page++
       this.loading = false
     });
@@ -123,7 +124,6 @@ export class ListarProdutosComponent implements OnInit {
       this.produtos = this.produtos.concat(response.content)
       this.page++;
       this.loading = false;
-      console.log(this.produtos)
     });
   }
 

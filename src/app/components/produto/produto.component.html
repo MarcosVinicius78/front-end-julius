@@ -56,13 +56,15 @@
 
             <div class="frete mt-3 mb-2">
               <i *ngIf="produto.freteVariacoes && produto.freteVariacoes.length < 48" class="pi pi-truck"></i>
-              <p *ngIf="produto.freteVariacoes && produto.freteVariacoes.length < 48">{{ produto.freteVariacoes.replaceAll('*','') }}</p>
+              <p *ngIf="produto.freteVariacoes && produto.freteVariacoes.length < 48">{{
+                produto.freteVariacoes.replaceAll('*','') }}</p>
             </div>
 
             <div class="ir-loja">
-              <a href="{{ produto.link_se }}"
-                (click)="abrirModalInfo($event, produto.cupom, produto.imagem, produto.titulo, produto.link_se, produto.freteVariacoes, produto.id)"
-                target="_blank">Ir a Loja</a>
+              <a href="{{ produto.link_se }}" target="_blank">Pegar Promoção</a>
+            </div>
+            <div *ngIf="produto.descricao !== null && verificarSePassaram24Horas(produto.dataCriacao)" class="ir-loja-app">
+              <a href="{{ produto.descricao }}" target="_blank">Pegar Promoção no app</a>
             </div>
           </div>
         </div>
@@ -141,10 +143,6 @@
           <div class="opcoes-botoes flex w-full h-7rem justify-content-around">
             <p-button styleClass="w-full" (click)="reportar(produto.id, 'oferta')" label="Reportar Oferta"
               [raised]="true" severity="warning"></p-button>
-            <!-- <button (click)="reportar(produto.id, 'oferta')">Reportar Oferta</button> -->
-            <p-button styleClass="w-full" (click)="reportar(produto.id, 'cupom')" label="Reportar Cupom" [raised]="true"
-              severity="warning"></p-button>
-            <!-- <button (click)="reportar(produto.id, 'cupom')">Reportar Cupom</button> -->
           </div>
         </div>
       </div>

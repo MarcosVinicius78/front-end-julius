@@ -26,6 +26,9 @@ import { AtivarRodapéService } from 'src/app/service/ativarRodapé.service';
 })
 export class ProdutoComponent implements OnInit {
 
+  dataBase!: Date; // Data base que será comparada
+  podeExibir: boolean = false; // Controla a exibição do elemento
+
   modal = false;
 
   page = 0;
@@ -67,6 +70,8 @@ export class ProdutoComponent implements OnInit {
     this.id = this.route.snapshot.paramMap.get('id')!;
     this.pegarProduto();
 
+    this.dataBase = new Date();
+
     this.pegarLinks();
   }
 
@@ -81,6 +86,15 @@ export class ProdutoComponent implements OnInit {
     }, err => {
       this.listarProdutos()
     });
+  }
+
+  verificarSePassaram24Horas(dataBase: string) {
+    let data = new Date(dataBase);
+    const agora = new Date(); // Data atual
+    const diffHoras = (agora.getTime() - data.getTime()) / (1000 * 60 * 60); // Diferença em horas
+    this.podeExibir = diffHoras < 24; // Define se ainda não se passaram 24 horas
+    console.log(this.podeExibir)
+    return this.podeExibir;
   }
 
   private setProductMetaTags(productName: string, productDescription: string, productImageUrl: string): void {

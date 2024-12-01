@@ -37,7 +37,7 @@
       <ng-container *ngFor="let item of produtos; let i = index">
 
 
-        <div *ngIf="i === 4" class="card-convite">
+        <div *ngIf="i === 4 || (i > 4 && (i - 4) % 12 === 0)" class="card-convite">
           <p>Economize Recebendo todas as Promoções Relâmpago em Tempo Real</p>
           <a *ngIf="links !== undefined" [href]="links.links.whatsapp">
             <i class="pi pi-whatsapp"></i>
@@ -71,14 +71,14 @@
               <div class="frete">
                 <i *ngIf="item.freteVariacoes && item.freteVariacoes.length < 48" class="pi pi-truck"></i>
                 <p *ngIf="item.freteVariacoes && item.freteVariacoes.length < 48">{{
-                  item.freteVariacoes.replaceAll('*','') }}</p>
+                    !item.loja.nome_loja.includes('Shopee') ?
+                    item.freteVariacoes.replaceAll('*','') : 'Frete Grátis Algumas Regiões' }}</p>
               </div>
               <a routerLink="/oferta/{{ item.id }}">
                 <p id="preco">{{ item.preco }}</p>
               </a>
               <div class="ir-loja">
                 <a [href]="getSafeUrl(item.link)"
-                  (click)="abrirModal($event, item.cupom, item.imagem, item.titulo, item.link, item.freteVariacoes, item.id)"
                   target="_blank">Pegar Promoção</a>
               </div>
             </div>
