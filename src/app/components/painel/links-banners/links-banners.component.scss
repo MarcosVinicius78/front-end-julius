@@ -114,8 +114,16 @@ table{
   align-items: center;
 }
 
+.container div:first-child{
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
+}
+
 .container div:first-child input{
   padding: 10px;
+  border: none;
+  background-color: #bababa;
 }
 
 tbody tr td:nth-child(1) img{

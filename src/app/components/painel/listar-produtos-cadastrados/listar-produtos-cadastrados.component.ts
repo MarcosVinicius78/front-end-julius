@@ -265,7 +265,7 @@ export class ListarProdutosCadastradosComponent implements OnInit {
       } else if (produto.parcelado && produto.parcelado.toLowerCase().includes("sem juros")) {
         adicionarTexto(`*\u{1F525} ${produto.preco} (Parcelado)*`);
       } else {
-        adicionarTexto(`*\u{1F449}A Partir de: ${produto.preco}\u{1F525}*`);
+        adicionarTexto(`*\u{1F449}A Partir de ${produto.preco}\u{1F525}*`);
       }
     };
 
@@ -281,17 +281,8 @@ export class ListarProdutosCadastradosComponent implements OnInit {
 
     const montarLink = () => {
       if (!isPlatformBrowser(this.platformId)) return;
-
-      const loja = produto.loja?.nome_loja?.toLowerCase() || "";
-      const baseUrl = window.location.href.replace(/painel(\/listar-produtos)?/, '');
-      adicionarTexto(`\n*\u{1F6D2} Confira Aqui:\u{1F447}*\n${baseUrl}oferta/${produto.id}\n`);
-      // if ((this.route.url === "/painel" || this.route.url === "/painel/listar-produtos") && (produto.link && produto.descricao?.includes("one"))) {
-      //   adicionarTexto(`*\u{1F6D2} Confira no Site Magalu:\u{1F447}*\n${baseUrl}oferta/${produto.id}?r=1`);
-      //   adicionarTexto(`*\u{1F6D2} Confira no App Magalu:\u{1F447}*\n${baseUrl}oferta/${produto.id}?r=2`);
-      // } else if (["amazon", "mercado livre"].some((nome) => loja.includes(nome))) {
-      // } else {
-      //   adicionarTexto(`*\u{1F6D2} Confira Aqui:\u{1F447}*\n${baseUrl}oferta/${produto.id}?r=1`);
-      // }
+        const baseUrl = window.location.href.replace(/painel(\/listar-produtos)?/, '');
+        adicionarTexto(`\n*\u{1F6D2} Confira Aqui:\u{1F447}*\n${baseUrl}oferta/${produto.id}\n`);
     };
 
     const montarExtras = () => {

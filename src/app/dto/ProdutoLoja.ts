@@ -21,5 +21,6 @@ export class ProdutoLoja{
   imagemSocial: string = "";
   copy: string = "";
   promocaoEncerrada!: boolean;
+  nomeColaborador: string = "";
 
 }

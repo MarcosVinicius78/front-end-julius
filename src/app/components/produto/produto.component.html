@@ -4,7 +4,7 @@
 </div>
 <section>
   <div class="container">
-    <div class="flex">
+    <div class="flex-cont">
       <div class="produto">
 
         <article *ngIf="produto == undefined" class="promocao-apagada">
@@ -86,6 +86,13 @@
             <div>
               <p>Promoção da loja:</p>
               <p>{{ produto.lojaResponseDto.nome_loja }}</p>
+            </div>
+            <div class="flex align-items-center">
+              <i class="pi pi-user p-2"></i>
+              <div>
+                <p>Postado por:</p>
+                <p>{{ produto.nomeColaborador }}</p>
+              </div>
             </div>
           </div>
         </div>
