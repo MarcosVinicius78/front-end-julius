@@ -42,11 +42,6 @@ export class BlankComponent implements OnInit {
       } else if (rota === 'grupos') {
         this.redirecionarGrupos(r)
       }
-
-      // }else{
-        //   // Redirecionar se os parâmetros não forem válidos
-        // this.router.navigate(['/']);
-      // }
     });
   }
 
@@ -72,7 +67,7 @@ export class BlankComponent implements OnInit {
 
 
       if (r === '1') {
-        window.location.href = response.link_se;
+        window.location.href = response.link_ofm;
       }else if(r === '2'){
         window.location.href = response.descricao;
       }
