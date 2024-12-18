@@ -70,8 +70,6 @@ export class ProdutoComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.registrarAcessoOfertas()
-
     this.id = this.route.snapshot.paramMap.get('id')!;
     this.pegarProduto();
 
@@ -100,6 +98,7 @@ export class ProdutoComponent implements OnInit {
       this.listarProdutos()
       this.setProductMetaTags(this.produto.titulo, this.produto.descricao, "");
 
+      this.registrarAcessoOfertas()
     }, err => {
       this.listarProdutos()
     });
