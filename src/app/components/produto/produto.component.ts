@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit, PLATFORM_ID } from '@angular/core';
+import { Component, inject, Inject, OnInit, PLATFORM_ID } from '@angular/core';
 import { Meta } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ProdutoService } from 'src/app/service/painel/produto.service';
@@ -18,6 +18,7 @@ import { environment } from 'src/environments/environment';
 import { ProdutoLoja } from 'src/app/dto/ProdutoLoja';
 import { ProdutoModalDto } from 'src/app/dto/produtoModalDto';
 import { AtivarRodapéService } from 'src/app/service/ativarRodapé.service';
+import { AnaliseService } from 'src/app/service/painel/analise.service';
 
 @Component({
   selector: 'app-produto',
@@ -52,6 +53,8 @@ export class ProdutoComponent implements OnInit {
   modalInfo: boolean = false;
   produtoModalDto = new ProdutoModalDto();
 
+  analiseService = inject(AnaliseService)
+
   constructor(
     private metaService: MetaService,
     private route: ActivatedRoute,
@@ -67,12 +70,26 @@ export class ProdutoComponent implements OnInit {
 
   ngOnInit(): void {
 
+    this.registrarAcessoOfertas()
+
     this.id = this.route.snapshot.paramMap.get('id')!;
     this.pegarProduto();
 
     this.dataBase = new Date();
 
     this.pegarLinks();
+  }
+
+  registrarAcessoOfertas() {
+    if (!sessionStorage.getItem('acessoRegistrado')) {
+      this.analiseService.registrarEvento('ACESSO_OFERTAS', 'Página de Ofertas').subscribe(() => {
+        sessionStorage.setItem('acessoRegistrado', 'true');
+      });
+    }
+  }
+
+  registrarCliqueBotao() {
+    this.analiseService.registrarEvento('CLIQUE_BOTAO', 'Botão Principal').subscribe();
   }
 
   pegarProduto() {

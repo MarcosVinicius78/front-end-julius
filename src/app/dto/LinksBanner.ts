@@ -3,7 +3,7 @@ import { Banner } from "../models/banner"
 
 export class LinksBanner {
 
-  links!: Links;
+  links: Links = new Links;
   banners: Banner[] = []
 
   constructor() {

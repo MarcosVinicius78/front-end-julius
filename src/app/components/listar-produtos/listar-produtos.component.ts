@@ -1,3 +1,4 @@
+import { AnaliseService } from './../../service/painel/analise.service';
 import { LinksBanner } from './../../dto/LinksBanner';
 import { Clipboard } from '@angular/cdk/clipboard';
 import { Component, HostListener, OnInit, ViewChild } from '@angular/core';
@@ -29,7 +30,7 @@ export class ListarProdutosComponent implements OnInit {
 
   idCategoria: number | undefined;
 
-  links!: LinksBanner;
+  links: LinksBanner = new LinksBanner;
   banners: Banner[] = []
 
   convite: number = 4
@@ -73,7 +74,8 @@ export class ListarProdutosComponent implements OnInit {
     private route: ActivatedRoute,
     private clipboard: Clipboard,
     private ativarRodape: AtivarRodapéService,
-    private sanitizer: DomSanitizer
+    private sanitizer: DomSanitizer,
+    private analiseService: AnaliseService
   ) { }
 
   ngOnInit() {
@@ -82,10 +84,7 @@ export class ListarProdutosComponent implements OnInit {
       this.path = params.map(segment => segment.path).join(("/"));
     });
 
-    // if (this.links.banners.length != 0) {
-    //   this.startSlideShow();
-    //   this.showSlides(this.slideIndex)
-    // }
+    this.registrarAcessoSistema()
 
     this.pegarLinks()
 
@@ -105,9 +104,17 @@ export class ListarProdutosComponent implements OnInit {
     this.produtosEmDestaque();
   }
 
+  registrarAcessoSistema() {
+    if (!sessionStorage.getItem('acessoRegistradoHome')) {
+      this.analiseService.registrarEvento('ACESSO_SISTEMA').subscribe(() => {
+        sessionStorage.setItem('acessoRegistradoHome', 'true');
+      });
+    }
+  }
+
   getSafeUrl(url: string): SafeUrl {
     return this.sanitizer.bypassSecurityTrustUrl(url);
-}
+  }
 
   listarPorCategoria() {
     this.loading = true;
@@ -239,14 +246,13 @@ export class ListarProdutosComponent implements OnInit {
 
   pegarLinks() {
     this.linkBannerService.listarLinksEBanners()
-        .then(response => {
-            this.links = response; // Atribua a resposta
-            console.log('Links e banners:', this.links); // Para depuração
-        })
-        .catch(error => {
-            console.error('Erro ao obter links e banners:', error);
-        });
-}
+      .then(response => {
+        this.links = response; // Atribua a resposta
+      })
+      .catch(error => {
+        console.error('Erro ao obter links e banners:', error);
+      });
+  }
 
   plusSlides(n: number) {
     this.showSlides(this.slideIndex += n);

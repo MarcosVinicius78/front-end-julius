@@ -54,6 +54,7 @@ import { CarouselModule } from 'primeng/carousel';
 import { FormatRealPipe } from "./pipe/format-real.pipe";
 import { FormatTextPipe } from './pipe/format-text.pipe';
 import { ParceirosComponent } from './components/parceiros/parceiros.component';
+import { ChartModule } from 'primeng/chart';
 
 import { RouterModule } from '@angular/router';
 
@@ -84,7 +85,7 @@ import { RouterModule } from '@angular/router';
         PromosComponent,
         GrupoSeComponent,
         PesquisaComponent,
-        ParceirosComponent
+        ParceirosComponent,
     ],
     bootstrap: [AppComponent], imports: [BrowserModule,
     AppRoutingModule,
@@ -92,6 +93,7 @@ import { RouterModule } from '@angular/router';
     ReactiveFormsModule,
     BrowserAnimationsModule,
     ButtonModule,
+    ChartModule,
     TableModule,
     ToastModule,
     EditorModule,

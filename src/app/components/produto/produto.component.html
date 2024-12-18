@@ -61,12 +61,12 @@
             </div>
 
             <div class="ir-loja">
-              <a href="{{ produto.link_se }}" target="_blank">Pegar Promoção</a>
+              <a (click)="registrarCliqueBotao()" href="{{ produto.link_se }}" target="_blank">Pegar Promoção</a>
             </div>
             <div
-              *ngIf="produto.lojaResponseDto.nome_loja.includes('Magazine Luiza') && produto.descricao !== null && verificarSePassaram24Horas(produto.dataCriacao)"
+              *ngIf="produto.lojaResponseDto.nome_loja?.includes('Magazine Luiza') && produto.descricao !== null && verificarSePassaram24Horas(produto.dataCriacao)"
               class="ir-loja-app">
-              <a href="{{ produto.descricao }}" target="_blank">Pegar Promoção no app</a>
+              <a (click)="registrarCliqueBotao()" href="{{ produto.descricao }}" target="_blank">Pegar Promoção no app</a>
             </div>
           </div>
         </div>

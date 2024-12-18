@@ -1,0 +1,29 @@
+<div class="grid">
+  <!-- Linha Superior -->
+  <div class="col-3">
+    <div class="bg-white border-round p-2 shadow-2">
+      <!-- Conteúdo do quadrado -->
+      <p-chart type="bar" height="315px" [data]="procentagemData" [options]="basicOptions" />
+    </div>
+  </div>
+  <div class="col-9">
+    <div class="bg-white border-round p-2 shadow-2">
+      <!-- Conteúdo do retângulo -->
+      <p-chart type="line" height="315px" [data]="data" [options]="options"/>
+    </div>
+  </div>
+
+  <!-- Linha Inferior -->
+  <div class="col-9">
+    <div style="height: 325px;" class="bg-white border-round p-2 shadow-2">
+      <!-- Conteúdo do retângulo -->
+      <!-- <p-chart type="bar" height="315px" [data]="basicData" [options]="basicOptions" /> -->
+    </div>
+  </div>
+  <div class="col-3">
+    <div class="flex align-items-center justify-content-center text-3xl flex-column h-full bg-white border-round p-2 shadow-2">
+      <p>Total de Acessos</p>
+      <p>{{ estatisticas!['totalAcessosSistema'] }}</p>
+    </div>
+  </div>
+</div>

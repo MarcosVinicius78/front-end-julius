@@ -26,6 +26,7 @@ import { CadastrarPromoComponent } from './components/painel/cadastrar-promo/cad
 import { PromosComponent } from './components/promos/promos.component';
 import { PesquisaComponent } from './components/pesquisa/pesquisa.component';
 import { ParceirosComponent } from './components/parceiros/parceiros.component';
+import { RelatoriosComponent } from './components/painel/relatorios/relatorios.component';
 
 const routes: Routes = [
   {
@@ -43,6 +44,7 @@ const routes: Routes = [
       { path: 'cadastrar-posts/:id', component: CadastrarPostsComponent },
       { path: 'lista-posts', component: ListaDePostsComponent },
       { path: 'configuracoes', component: ConfiguracoesComponent },
+      { path: 'relatorios', component: RelatoriosComponent },
     ], data: { hideHeader: false, hideFooter: false }, canActivate: [AuthRouteguard]
   },
   { path: 'login', component: LoginComponent },
