@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { Meta, Title } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { LinksBanner } from 'src/app/dto/LinksBanner';
@@ -7,6 +7,7 @@ import { LinkBannerService } from 'src/app/service/painel/link-banner.service';
 import { PromosService } from 'src/app/service/painel/promos.service';
 import { environment } from 'src/environments/environment';
 import { Clipboard } from '@angular/cdk/clipboard';
+import { AnaliseService } from 'src/app/service/painel/analise.service';
 
 @Component({
   selector: 'app-promos',
@@ -22,6 +23,8 @@ export class PromosComponent implements OnInit {
   id!: string;
 
   produtos!: ProdutosPromo[];
+
+  analiseService = inject(AnaliseService)
 
   constructor(
     private promosService: PromosService,
@@ -41,6 +44,7 @@ export class PromosComponent implements OnInit {
     this.promosService.pegarPromo(this.id).subscribe(response => {
       this.produtos = response.produtoResponseDto
       this.setProductMetaTags(response.copyPromo, "Ofertas", response.urlImagem)
+      this.registrarAcessoSistema()
     })
   }
 
@@ -56,6 +60,14 @@ export class PromosComponent implements OnInit {
 
     this.addPreloadLink(`${this.apiUrl}/promos/download-imagem-promo/${productImageUrl}`)
 
+  }
+
+  registrarAcessoSistema() {
+    if (!sessionStorage.getItem('acessoRegistradoHome')) {
+      this.analiseService.registrarEvento('ACESSO_SISTEMA').subscribe(() => {
+        sessionStorage.setItem('acessoRegistradoHome', 'true');
+      });
+    }
   }
 
   addPreloadLink(href: string): void {

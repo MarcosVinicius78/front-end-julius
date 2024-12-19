@@ -1,7 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { LinksBanner } from 'src/app/dto/LinksBanner';
 import { PostDTO, PostDTOGeral, PostsLista } from 'src/app/dto/postDTO';
+import { AnaliseService } from 'src/app/service/painel/analise.service';
 import { LinkBannerService } from 'src/app/service/painel/link-banner.service';
 import { PostService } from 'src/app/service/painel/post.service';
 import { environment } from 'src/environments/environment';
@@ -22,6 +23,8 @@ export class BlogComponent {
 
   id!: string;
 
+  analiseService = inject(AnaliseService)
+
   constructor(
     private postService: PostService,
     private router: ActivatedRoute,
@@ -38,9 +41,18 @@ export class BlogComponent {
     }
   }
 
+  registrarAcessoSistema() {
+    if (!sessionStorage.getItem('acessoRegistradoHome')) {
+      this.analiseService.registrarEvento('ACESSO_SISTEMA').subscribe(() => {
+        sessionStorage.setItem('acessoRegistradoHome', 'true');
+      });
+    }
+  }
+
   listarPosts(){
     this.postService.listarPosts().subscribe(response => {
       this.posts = response
+      this.registrarAcessoSistema()
     })
   }
 

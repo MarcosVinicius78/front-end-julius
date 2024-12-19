@@ -25,4 +25,8 @@ export class AnaliseService {
   obterPorcentagemCliquesNaoCliques(): Observable<any> {
     return this.http.get<any>(`${this.apiUrl}/eventos/porcentagem-cliques-nao-cliques`);
   }
+
+  obterAcessosSemana(): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}/eventos/acessos-semana`);
+  }
 }

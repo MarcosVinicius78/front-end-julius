@@ -83,6 +83,10 @@ export class ProdutoComponent implements OnInit {
       this.analiseService.registrarEvento('ACESSO_OFERTAS', 'Página de Ofertas').subscribe(() => {
         sessionStorage.setItem('acessoRegistrado', 'true');
       });
+
+      this.analiseService.registrarEvento('ACESSO_SISTEMA').subscribe(() => {
+        sessionStorage.setItem('acessoRegistradoHome', 'true');
+      });
     }
   }
 
