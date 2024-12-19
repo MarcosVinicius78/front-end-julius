@@ -59,12 +59,12 @@ export class RelatoriosComponent {
 
     this.analiseService.obterPorcentagemCliquesNaoCliques().subscribe(data => {
       this.porcentagens = data;
+      this.analiseService.obterAcessosSemana().subscribe(data => {
+        this.estSemana = data
+        this.initChart();
+      })
     });
 
-    this.analiseService.obterAcessosSemana().subscribe(data => {
-      this.estSemana = data
-      this.initChart();
-    })
   }
 
   initChart() {
