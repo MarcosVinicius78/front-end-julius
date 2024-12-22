@@ -28,18 +28,23 @@
               Promoção Encerrada
             </div>
             <img [src]="apiUrl+'/produto/download/'+produto.imagem" alt="">
+            <div class="absolute bottom-0 right-0 mr-4">
+              <img class="w-3rem border-round-3xl lg:hidden" *ngIf="produto.lojaResponseDto.urlImagem"
+                [src]="apiUrl+'/loja/mostar-imagem/'+produto.lojaResponseDto.urlImagem"
+                alt="{{ produto.lojaResponseDto.nome_loja }}">
+            </div>
           </div>
-          <div>
-            <p class="mob">Promoção da loja: {{ produto.lojaResponseDto.nome_loja }}</p>
-            <p class="data">há {{calculateElapsedTime(produto.dataCriacao)}}</p>
-          </div>
+
 
           <div class="informaçoes">
             <div>
-              <h2 [class.promo-encerrada-cor]="produto.promocaoEncerrada" class="titulo">{{ produto.titulo }}</h2>
+              <h2 *ngIf="produto.promocaoEncerrada" [class.promo-encerrada-cor]="produto.promocaoEncerrada"
+                class="titulo">{{ produto.titulo + ' [ENCERRADA]' }}</h2>
+              <h2 *ngIf="!produto.promocaoEncerrada" [class.promo-encerrada-cor]="produto.promocaoEncerrada"
+                class="titulo">{{ produto.titulo }}</h2>
               <p class="data-none">há {{calculateElapsedTime(produto.dataCriacao)}}</p>
             </div>
-            <p [class.promo-encerrada-cor]="produto.promocaoEncerrada" class="preco">{{ produto.preco }}</p>
+            <p [class.promo-encerrada-cor]="produto.promocaoEncerrada" class="preco pt-2 pb-2">{{ produto.preco }}</p>
 
             <div (click)="copiarParaAreaTransferencia()" *ngIf="produto.cupom && produto.cupom.length < 20"
               class="cupom">
@@ -54,48 +59,75 @@
               </div>
             </div>
 
-            <div class="frete mt-3 mb-2">
-              <i *ngIf="produto.freteVariacoes && produto.freteVariacoes.length < 48" class="pi pi-truck"></i>
-              <p *ngIf="produto.freteVariacoes && produto.freteVariacoes.length < 48">{{
+            <!-- <div class="frete">
+              <i *ngIf="produto.freteVariacoes && produto.freteVariacoes.length < 48" class="pt-2 pb-2 pi pi-truck"></i>
+              <p *ngIf="produto.freteVariacoes && produto.freteVariacoes.length < 48" class="pt-2 pb-2">{{
                 produto.freteVariacoes.replaceAll('*','') }}</p>
-            </div>
+            </div> -->
 
             <div class="ir-loja">
+              <div class="flex sm:w-full md:w-6 justify-content-start mb-2 align-items-center">
+                <i class="pi pi-verified text-sm mr-1 p-1 bg-green-800 border-round-3xl text-white"></i>
+
+                <div class="flex justify-content-between align-items-center w-full">
+                  <div class="block w-full">
+                    <p class="w-full text-xs">Promoção verificada por:</p>
+                    <div class="flex align-items-center">
+                      <p class="font-bold text-base w-2rem">{{ produto.nomeColaborador }}</p>
+                      <i class="pi pi-user text-sm ml-2"></i>
+                    </div>
+                  </div>
+
+                  <p class=" w-full sm:hidden text-right">há {{calculateElapsedTime(produto.dataCriacao)}}</p>
+                </div>
+              </div>
               <a (click)="registrarCliqueBotao()" href="{{ produto.link_se }}" target="_blank">Pegar Promoção</a>
             </div>
             <div
               *ngIf="produto.lojaResponseDto.nome_loja?.includes('Magazine Luiza') && produto.descricao !== null && verificarSePassaram24Horas(produto.dataCriacao)"
               class="ir-loja-app">
-              <a (click)="registrarCliqueBotao()" href="{{ produto.descricao }}" target="_blank">Pegar Promoção no app</a>
+              <a (click)="registrarCliqueBotao()" href="{{ produto.descricao }}" target="_blank">Pegar Promoção no
+                app</a>
             </div>
           </div>
         </div>
 
         <hr class="linha-estilizada">
 
-        <div *ngIf="produto" class="outras-info">
-          <button class="report" (click)="abrirModal()">Reportar</button>
-          <button (click)="shares()" class="comp">
-            <i class="pi pi-share-alt mr-2"></i>
-            Compartilhar
-          </button>
-          <div class="loja">
-            <img *ngIf="produto.lojaResponseDto.urlImagem"
+        <div *ngIf="produto" class="flex justify-content-between p-2">
+          <div class="flex justify-content-around w-full lg:w-4">
+            <div (click)="abrirModal()"
+              class="flex align-items-center justify-content-center bg-gray-300 lg:w-6 sm:w-5 p-2 border-round-2xl">
+              <i class="pi pi-megaphone"></i>
+              <p class="text-base ml-2">Reportar</p>
+            </div>
+
+            <div class="flex align-items-center justify-content-center ml-2 bg-green-500  lg:w-6 sm:w-5 p-2 border-round-2xl"
+              (click)="shares()">
+              <i class="pi pi-whatsapp text-white"></i>
+              <p class="text-base ml-2 text-white">Compartilhar</p>
+            </div>
+          </div>
+          <div class="w-9 hidden lg:flex">
+            <img class="w-2rem" *ngIf="produto.lojaResponseDto.urlImagem"
               [src]="apiUrl+'/loja/mostar-imagem/'+produto.lojaResponseDto.urlImagem"
               alt="{{ produto.lojaResponseDto.nome_loja }}">
             <div>
-              <p>Promoção da loja:</p>
-              <p>{{ produto.lojaResponseDto.nome_loja }}</p>
-            </div>
-            <div class="flex align-items-center">
-              <i class="pi pi-user p-2"></i>
-              <div>
-                <p>Postado por:</p>
-                <p>{{ produto.nomeColaborador }}</p>
-              </div>
+              <p class="text-xs">Promoção da loja:</p>
+              <p class="text-xs">{{ produto.lojaResponseDto.nome_loja }}</p>
             </div>
           </div>
         </div>
+      </div>
+
+      <div class="bg-white border-round shadow-1 mt-2 p-3">
+        <p class="font-bold">
+          ✍ Dica Sergipe Ofertas
+        </p>
+        <p class="text-justify">
+          Promoções e Cupons esgotam Rápido! Divulgamos Ofertas, o controle de estoque e valor são feitos pelas lojas.
+          A Oferta Esgotou? Clique em Reportar para que possamos remover.
+        </p>
       </div>
 
       <div class="convite-mobile">

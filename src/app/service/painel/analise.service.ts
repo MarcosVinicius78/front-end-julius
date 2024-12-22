@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/internal/Observable';
 import { environment } from 'src/environments/environment';
@@ -26,7 +26,20 @@ export class AnaliseService {
     return this.http.get<any>(`${this.apiUrl}/eventos/porcentagem-cliques-nao-cliques`);
   }
 
-  obterAcessosSemana(): Observable<any> {
-    return this.http.get<any>(`${this.apiUrl}/eventos/acessos-semana`);
+  obterAcessosSemana(inicioSemana: string, fimSemana: string): Observable<any> {
+
+    const params = new HttpParams()
+      .set('inicioSemana', inicioSemana)
+      .set('fimSemana', fimSemana);
+
+    return this.http.get<any>(`${this.apiUrl}/eventos/acessos-semana`, { params });
+  }
+
+  buscarEventosPorDia(data: string) {
+
+    const params = new HttpParams()
+      .set('data', data);
+
+    return this.http.get<any>(`${this.apiUrl}/eventos/buscar-por-dia`, { params });
   }
 }

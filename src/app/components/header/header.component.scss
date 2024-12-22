@@ -266,6 +266,12 @@
 
     .fechar-menu {
       display: block;
+      border: 1px solid black;
+      background-color: white;
+      width: max-content;
+      border-radius: 50%;
+      margin-top: 10px;
+      margin-left: 10px;
     }
 
     .desktop_menu {

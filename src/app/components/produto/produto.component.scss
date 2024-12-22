@@ -151,6 +151,7 @@ section {
   -webkit-box-orient: vertical;
   overflow: hidden;
   text-overflow: ellipsis;
+  margin: 0;
 }
 
 .informaçoes div:first-child p {
@@ -271,6 +272,7 @@ p {
   display: flex;
   flex-direction: column;
   justify-content: space-around;
+  padding: 15px;
 }
 
 .ver-promocoes {
@@ -308,26 +310,6 @@ p {
 
 .info {
   display: flex;
-}
-
-.loja {
-  display: flex;
-  margin-left: 10px;
-  height: 40px;
-  align-items: center;
-}
-
-.loja p {
-  font-size: 13px;
-  margin: 3px;
-}
-
-.loja img {
-  margin-right: 10px;
-  width: 40px;
-  height: 38px;
-  border-radius: 50%;
-  object-fit: contain;
 }
 
 .convite {
@@ -382,21 +364,6 @@ p {
   color: #b1b1b1 !important;
 }
 
-.outras-info {
-  display: flex;
-  margin-bottom: 10px;
-}
-
-.report {
-  cursor: pointer;
-  background-color: rgb(202, 202, 202);
-  height: 40px;
-  width: 120px;
-  border-radius: 15px;
-  border: none;
-  margin-left: 10px;
-}
-
 .comp {
   cursor: pointer;
   display: flex;
@@ -412,7 +379,8 @@ p {
 
 .ir-loja {
   display: flex;
-  justify-content: flex-end;
+  // justify-content: flex-end;
+  justify-content: space-between;
 }
 
 .mob {
@@ -596,15 +564,6 @@ button img {
   display: -webkit-box;
 }
 
-.outras-info div:first-child {
-  display: flex;
-  align-items: center;
-}
-
-.outras-info div:first-child p {
-  font-size: 20px;
-}
-
 .convite-mobile {
   display: none;
 }
@@ -667,7 +626,7 @@ button img {
   .produto {
     width: 100%;
     margin-top: 0;
-    padding: 21px;
+    padding: 10px;
   }
 
   .preco {
@@ -751,6 +710,7 @@ button img {
   .ir-loja {
     display: flex;
     justify-content: center;
+    flex-direction: column;
   }
 
   .ir-loja a {
@@ -774,29 +734,6 @@ button img {
 
   .grid-item {
     max-width: 47%;
-  }
-
-  .loja p {
-    display: none;
-  }
-
-  .outras-info {
-    align-items: center;
-    margin-top: 10px;
-    justify-content: space-between;
-  }
-
-  .loja {
-    display: none;
-  }
-
-  .loja img {
-    /* display: none; */
-    position: relative;
-    bottom: 210px;
-    left: 30px;
-    width: 45px;
-    height: 45px;
   }
 
   .titulo {

@@ -2,130 +2,12 @@
   height: 100vh;
   width: 100%;
   display: flex;
-}
-
-.container .info{
-  width: 50%;
-  height: 100%;
-  position: relative;
-  background-color: #ffa012;
-  display: flex;
-  flex-direction: column;
+  margin-top: 90px;
   justify-content: center;
-  align-items: center;
-}
-
-.float-icon-info {
-  font-size: 100px;
-  position: absolute;
-  color: #0000003f;
-}
-
-#tag1{
-  top: 50px;
-  right: 50px;
-}
-
-#tag2{
-  left: 50px;
-}
-
-#cupom1{
-  top: 40px;
-  left: 30%;
-}
-
-#cupom2{
-  bottom: 50px;
-  right: 20%;
-}
-
-#por1{
-  top: 50%px;
-  right: 50px;
-}
-
-#por2{
-  left: 30px;
-  bottom: 50px;
-}
-
-.logo{
-  position: absolute;
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
-  box-shadow: rgba(129, 84, 13, 0.12) 0px 2px 4px 0px, rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;
-  animation: float 3s ease-in-out infinite;
-}
-
-.loja-amzon{
-  top: 180px;
-  right: 70px;
-}
-
-.loja-shopee{
-  top: 150px;
-  left: 50px;
-}
-.loja-meli{
-  bottom: 50px;
-  left: 200px;
-}
-.loja-casas{
-  top: 20px;
-}
-.loja-costa{
-  bottom: 220px;
-  right: 100px;
-}
-
-
-@keyframes float {
-  0%, 100% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(-10px);
-  }
-}
-
-.info article{
-  /* background-color: aqua; */
-  height: 80%;
-  width: 80%;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-around;
-  align-items: center;
-}
-
-.info article h1{
-  color: white;
-  font-size: 40px;
-}
-
-.info article p{
-  color: white;
-  text-align: center;
-}
-
-.info article a{
-  padding: 10px;
-  background-color: brown;
-  color: white;
-  text-decoration: none;
-  border-radius: 10px;
-}
-
-article img{
-  width: 70%;
-  height: 70%;
-  border-radius: 50%;
 }
 
 section {
-  height: 100vh;
+  height: 100%;
   width: 50%;
   padding: 10px;
   display: flex;
@@ -134,17 +16,16 @@ section {
 }
 
 .retangulo{
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
   width: 100%;
   height: 30%;
   border-radius: 10px;
   background-color: rgb(224, 224, 224);
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-}
-
-.retangulo {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  padding: 5px;
 }
 
 .retangulo p{
@@ -152,7 +33,7 @@ section {
   width: 90%;
   font-size: 17px;
   color: rgb(0, 0, 0);
-  text-align: center;
+  text-align: justify;
 }
 
 h2{
@@ -160,60 +41,17 @@ h2{
   text-transform: uppercase;
   text-align: center;
   font-size: 28px;
+  margin: 0;
 }
 
 @media screen and (max-width: 720px){
 
   .container{
-    display: block;
+    margin-top: 60px;
   }
-
-  .container .info{
-    width: 100%;
-  }
-
-  .info article{
-    height: 70%;
-    width: 90%;
-  }
-
-  .info article img{
-    width: 100%;
-    height: 65%;
-  }
-
-  .float-icon-info {
-    font-size: 50px;
-  }
-
-  .loja-amzon{
-    top: 100px;
-    right: 40px;
-  }
-
-  .loja-shopee{
-    top: 60px;
-    left: 30px;
-  }
-  .loja-meli{
-    bottom: 40px;
-    left: 150px;
-  }
-  .loja-casas{
-    top: 400px;
-    left: 20px;
-  }
-  .loja-costa{
-    bottom: 280px;
-    right: 20px;
-  }
-
 
   section{
     width: 100%;
-    /* flex-direction: column;
-    height: calc(100dvh);
-    justify-content: space-between; */
   }
 
   h2{

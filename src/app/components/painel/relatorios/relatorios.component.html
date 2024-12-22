@@ -9,21 +9,33 @@
   <div class="col-9">
     <div class="bg-white border-round p-2 shadow-2">
       <!-- Conteúdo do retângulo -->
-      <p-chart type="line" height="315px" [data]="data" [options]="options"/>
+      <p-chart type="line" height="315px" [data]="data" [options]="options" />
+
+      <p-calendar [(ngModel)]="rangeDates" (onSelect)="buscarDadosPorData()" selectionMode="range" [readonlyInput]="true" />
     </div>
   </div>
 
   <!-- Linha Inferior -->
-  <div class="col-9">
-    <div style="height: 325px;" class="bg-white border-round p-2 shadow-2">
+  <div class="col-3">
+    <div style="height: 325px;" class="bg-white border-round text-center p-2 shadow-2">
       <!-- Conteúdo do retângulo -->
-      <p-chart height="315px" type="bar" [data]="ofertasVsBotao" [options]="ofertasVsBotaoOptions"/>
+      <!-- <p-chart height="315px" type="bar" [data]="ofertasVsBotao" [options]="ofertasVsBotaoOptions" /> -->
+      <p-calendar (onSelect)="buscarDadosPorDia()" [(ngModel)]="date"/>
+      <div class="bg-white shadow-3 flex flex-column justify-content-center w-full mt-3 h-7rem border-round">
+        <p class="font-bold text-xl">Acessos na Pagina</p>
+        <p class="text-2xl">{{ acessoPagina }}</p>
+      </div>
+      <div class="bg-white shadow-3 w-full mt-3 h-7rem flex flex-column justify-content-center border-round">
+        <p class="font-bold text-xl">Cliques no Botao</p>
+        <p class="text-2xl">{{ acessoBotao }}</p>
+      </div>
     </div>
   </div>
   <div class="col-3">
-    <div class="flex align-items-center justify-content-center text-3xl flex-column h-full bg-white border-round p-2 shadow-2">
+    <div
+      class="flex align-items-center justify-content-center text-3xl flex-column h-full bg-white border-round p-2 shadow-2">
       <p>Total de Acessos</p>
-      <p>{{ estatisticas!['totalAcessosSistema'] }}</p>
+      <p>{{ totalAcessoSistema }}</p>
     </div>
   </div>
 </div>

@@ -57,7 +57,7 @@ const routes: Routes = [
   { path: 'blog', component: BlogComponent, data: { hideHeader: true, hideFooter: true } },
   { path: 'politica-privacidade', component: PoliticaPrivacidadeComponent, data: { hideHeader: true, hideFooter: true } },
   { path: 'termos-uso', component: TermosUsoComponent, data: { hideHeader: true, hideFooter: true } },
-  { path: 'quem-somos', component: QuemSomosComponent, data: { hideHeader: false, hideFooter: false } },
+  { path: 'quem-somos', component: QuemSomosComponent, data: { hideHeader: true, hideFooter: true } },
   { path: 'parceiros', component: ParceirosComponent, data: { hideHeader: true, hideFooter: true } },
   { path: 'promos/:id', component: PromosComponent, data: { hideHeader: true, hideFooter: true } },
   { path: 'blog/:id', component: BlogComponent, data: { hideHeader: true, hideFooter: true } },
