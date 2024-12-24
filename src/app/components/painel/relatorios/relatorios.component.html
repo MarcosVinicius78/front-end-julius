@@ -1,33 +1,33 @@
 <div class="grid">
   <!-- Linha Superior -->
   <div class="col-3">
-    <div class="bg-white border-round p-2 shadow-2">
+    <div class="bg-white border-round h-auto p-2 shadow-2">
       <!-- Conteúdo do quadrado -->
-      <p-chart type="bar" height="315px" [data]="procentagemData" [options]="basicOptions" />
+      <p-chart type="bar" height="35vh" [data]="procentagemData" [options]="basicOptions" />
+      <p-calendar placeholder="Escolha os dias" [(ngModel)]="rangeDates" (onSelect)="buscarDadosPorData()" selectionMode="range" [readonlyInput]="true" />
     </div>
   </div>
   <div class="col-9">
-    <div class="bg-white border-round p-2 shadow-2">
+    <div class="bg-white border-round h-auto p-2 shadow-2">
       <!-- Conteúdo do retângulo -->
-      <p-chart type="line" height="315px" [data]="data" [options]="options" />
+      <p-chart  type="line" height="35vh" [data]="data" [options]="options" />
 
-      <p-calendar [(ngModel)]="rangeDates" (onSelect)="buscarDadosPorData()" selectionMode="range" [readonlyInput]="true" />
+      <p-calendar placeholder="Escolha os dias" [(ngModel)]="rangeDates" (onSelect)="buscarDadosPorData()" selectionMode="range" [readonlyInput]="true" />
     </div>
   </div>
 
   <!-- Linha Inferior -->
   <div class="col-3">
     <div style="height: 325px;" class="bg-white border-round text-center p-2 shadow-2">
-      <!-- Conteúdo do retângulo -->
-      <!-- <p-chart height="315px" type="bar" [data]="ofertasVsBotao" [options]="ofertasVsBotaoOptions" /> -->
-      <p-calendar (onSelect)="buscarDadosPorDia()" [(ngModel)]="date"/>
-      <div class="bg-white shadow-3 flex flex-column justify-content-center w-full mt-3 h-7rem border-round">
-        <p class="font-bold text-xl">Acessos na Pagina</p>
-        <p class="text-2xl">{{ acessoPagina }}</p>
+      <p>Cliques na pagina de ofertas e no botao</p>
+      <p-calendar (onSelect)="buscarDadosPorDia()" placeholder="Escolha um dia" [(ngModel)]="date"/>
+      <div class="bg-white shadow-3 flex flex-column justify-content-center w-full mt-3 h-5rem border-round">
+        <p class="font-bold text-2xl">{{ acessoPagina }}</p>
+        <p class="text-sm">Acessos na Pagina</p>
       </div>
-      <div class="bg-white shadow-3 w-full mt-3 h-7rem flex flex-column justify-content-center border-round">
-        <p class="font-bold text-xl">Cliques no Botao</p>
-        <p class="text-2xl">{{ acessoBotao }}</p>
+      <div class="bg-white shadow-3 w-full mt-3 h-5rem flex flex-column justify-content-center border-round">
+        <p class="font-bold text-2xl">{{ acessoBotao }}</p>
+        <p class="text-sm">Cliques no Botao</p>
       </div>
     </div>
   </div>

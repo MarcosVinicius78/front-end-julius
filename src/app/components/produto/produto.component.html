@@ -46,29 +46,15 @@
             </div>
             <p [class.promo-encerrada-cor]="produto.promocaoEncerrada" class="preco pt-2 pb-2">{{ produto.preco }}</p>
 
-            <div (click)="copiarParaAreaTransferencia()" *ngIf="produto.cupom && produto.cupom.length < 20"
-              class="cupom">
-              <div>
-                <div class="align-items-center">
-                  <p class="text-base w-full">CUPOM: {{ produto.cupom }}</p>
-                </div>
-                <div class="copiar">
-                  <i class="pi pi-copy text-base"></i>
-                  <p class="text-base">COPIAR</p>
-                </div>
-              </div>
-            </div>
-
             <!-- <div class="frete">
               <i *ngIf="produto.freteVariacoes && produto.freteVariacoes.length < 48" class="pt-2 pb-2 pi pi-truck"></i>
               <p *ngIf="produto.freteVariacoes && produto.freteVariacoes.length < 48" class="pt-2 pb-2">{{
                 produto.freteVariacoes.replaceAll('*','') }}</p>
             </div> -->
 
-            <div class="ir-loja">
+            <div class="flex justify-content-between lg:flex-row flex-column">
               <div class="flex sm:w-full md:w-6 justify-content-start mb-2 align-items-center">
                 <i class="pi pi-verified text-sm mr-1 p-1 bg-green-800 border-round-3xl text-white"></i>
-
                 <div class="flex justify-content-between align-items-center w-full">
                   <div class="block w-full">
                     <p class="w-full text-xs">Promoção verificada por:</p>
@@ -77,16 +63,23 @@
                       <i class="pi pi-user text-sm ml-2"></i>
                     </div>
                   </div>
-
                   <p class=" w-full sm:hidden text-right">há {{calculateElapsedTime(produto.dataCriacao)}}</p>
                 </div>
               </div>
-              <a (click)="registrarCliqueBotao()" href="{{ produto.link_se }}" target="_blank">Pegar Promoção</a>
+
+              <div (click)="copiarParaAreaTransferencia()" *ngIf="produto.cupom && produto.cupom.length < 20"
+                class="bg-gray-200 flex justify-content-center w-full lg:w-4 lg:h-auto p-3 lg:p-1 border-round align-items-center">
+                <p class="text-sm">Copiar Cupom: {{ produto.cupom }}</p>
+                <i class="pi pi-copy ml-1 text-sm"></i>
+              </div>
             </div>
-            <div
-              *ngIf="produto.lojaResponseDto.nome_loja?.includes('Magazine Luiza') && produto.descricao !== null && verificarSePassaram24Horas(produto.dataCriacao)"
-              class="ir-loja-app">
-              <a (click)="registrarCliqueBotao()" href="{{ produto.descricao }}" target="_blank">Pegar Promoção no
+
+
+            <div class="flex align-items-end h-6 flex-column">
+              <a class="btn_principal w-full w-full mt-2 lg:w-4 p-3 text-base h-4 text-center capitalize border-round no-underline text-white"
+                (click)="registrarCliqueBotao()" href="{{ produto.link_se }}" target="_blank">Pegar Promoção</a>
+              <a class="bg-blue-400 w-full lg:w-4 mt-2 p-3 text-base lg:p-3 text-center capitalize border-round no-underline text-white" *ngIf="produto.lojaResponseDto.nome_loja?.includes('Magazine Luiza') && produto.descricao !== null && verificarSePassaram24Horas(produto.dataCriacao)"
+                (click)="registrarCliqueBotao()" href="{{ produto.descricao }}" target="_blank">Pegar Promoção no
                 app</a>
             </div>
           </div>
@@ -102,7 +95,8 @@
               <p class="text-base ml-2">Reportar</p>
             </div>
 
-            <div class="flex align-items-center justify-content-center ml-2 bg-green-500  lg:w-6 sm:w-5 p-2 border-round-2xl"
+            <div
+              class="flex align-items-center justify-content-center ml-2 bg-green-500  lg:w-6 sm:w-5 p-2 border-round-2xl"
               (click)="shares()">
               <i class="pi pi-whatsapp text-white"></i>
               <p class="text-base ml-2 text-white">Compartilhar</p>
