@@ -31,7 +31,7 @@ export class PostService {
   }
 
   atualizarPost(post: any){
-    return this.http.put(`${this.apiUrl}/post`, post);
+    return this.http.put<PostDTOGeral>(`${this.apiUrl}/post`, post);
   }
 
   apagarPost(id: number, urlImagem: string){

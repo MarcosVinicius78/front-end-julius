@@ -9,7 +9,7 @@
   <div class="w-full mt-5">
     <span class="p-float-label">
       <input [(ngModel)]="titulo" class="w-8" pInputText id="precoParcelado" />
-      <label htmlFor="precoParcelado">Preço Parcelado</label>
+      <label htmlFor="precoParcelado">Titulo da Postagem</label>
     </span>
   </div>
 
@@ -23,11 +23,15 @@
         <label for="fileInput">
           <div class="file-upload-container">
             <input type="file" id="fileInput" (change)="onFileSelected($event)" accept="image/*" #fileInput>
-            <div class="image-preview" *ngIf="imageUrl">
-              <img [src]="imageUrl" alt="Imagem Selecionada">
+            <div class="image-preview" *ngIf="(imageUrl !== undefined && imageUrl !== null) || (post !== undefined && post.urlImagem !== undefined)">
+              <img
+                [src]="imageUrl ? imageUrl : apiUrl + '/post/download/' + post!.urlImagem"
+                alt="Imagem Selecionada"
+              >
             </div>
           </div>
         </label>
+
 
 
       </div>

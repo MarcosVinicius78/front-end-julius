@@ -21,7 +21,7 @@ export class CadastrarPostsComponent implements OnInit {
   id: number = 0;
   idEditar!: string;
 
-  imagemFile!: File;
+  imagemFile!: File | undefined;
   imageUrl!: string;
   fileForm!: FormGroup;
 
@@ -59,7 +59,7 @@ export class CadastrarPostsComponent implements OnInit {
 
   salvarPost() {
 
-    if (this.titulo !== "" && this.text !== undefined && this.idEditar === null) {
+    if (this.titulo !== "" && this.text !== undefined && this.idEditar === null && this.imagemFile !== undefined) {
 
       const post: any = {
         titulo: this.titulo,
@@ -89,6 +89,7 @@ export class CadastrarPostsComponent implements OnInit {
       }
 
       this.atualizarPost(post);
+      return
     }
 
     this.messageService.add({ severity: 'warn', summary: 'Warn', detail: 'Informe os Campos' });
@@ -97,8 +98,10 @@ export class CadastrarPostsComponent implements OnInit {
 
   atualizarPost(post: any) {
     this.postService.atualizarPost(post).subscribe(response => {
+      // this.post = response
+      this.salvarImagem(parseInt(this.idEditar));
+      // this.imagemFile = undefined
       this.messageService.add({ severity: 'success', detail: 'Post Atualizado' });
-      console.log(response);
     }, err=> {
       this.messageService.add({ severity: 'error', detail: 'Erro ao Atualizar' });
 
@@ -111,12 +114,12 @@ export class CadastrarPostsComponent implements OnInit {
 
     const formData = new FormData();
 
-    formData.append("file", this.imagemFile);
+    formData.append("file", this.imagemFile!);
     formData.append("id", `${id}`);
 
     this.postService.salvarImagem(formData).subscribe(response => {
-      this.messageService.add({ severity: 'success', detail: 'Post Salvo' });
-      this.imageUrl = ""
+      this.messageService.add({ severity: 'success', detail: 'Imagem Salva' });
+      // this.imageUrl = ""
     }, err => {
       this.messageService.add({ severity: 'error', detail: 'Erro ao Salvar Imagem' });
       console.log(err)

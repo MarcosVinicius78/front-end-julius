@@ -4,7 +4,8 @@
   <div class="flex justify-content-between align-items-center">
     <p-iconField iconPosition="left">
       <p-inputIcon styleClass="pi pi-search" />
-      <input [(ngModel)]="termoPesquisa" class="w-full" type="search" (keyup.enter)="pesquisar()" pInputText placeholder="Faça Sua Busca" />
+      <input [(ngModel)]="termoPesquisa" class="w-full" type="search" (keyup.enter)="pesquisar()" pInputText
+        placeholder="Faça Sua Busca" />
     </p-iconField>
     <i (click)="abrirModalPesquisa()" class="pi pi-times"></i>
   </div>
@@ -53,16 +54,16 @@
       </div>
       <i class="menu-icon pi pi-bars" (click)="openMenu()"></i>
       <nav class="desktop_menu" [class.mobile_menu]="menuValue">
-        <i (click)="openMenu()" class="fechar-menu pi pi-times p-2"></i>
-        <a (click)="openMenu()" class="mobile" routerLink="/">
+        <i (click)="closeMenu()" class="fechar-menu pi pi-times p-2"></i>
+        <a (click)="closeMenu()" class="mobile" routerLink="/">
           <i class="pi pi-home mr-2 text-white-alpha-90 text-lg text-justify"></i>
           Ofertas do Dia
         </a>
-        <a (click)="openMenu()" routerLink="destaque">
+        <a (click)="closeMenu()" routerLink="destaque">
           <i class="mr-1 text-white-alpha-90 text-lg pi pi-star"></i>
           Destaques
         </a>
-        <a (click)="openMenu()" class="mobile" routerLink="/quem-somos">
+        <a (click)="closeMenu()" class="mobile" routerLink="/quem-somos">
           <i class="pi pi-users mr-2 text-white-alpha-90 text-lg text-justify"></i>
           Que Somos
         </a>
@@ -78,7 +79,8 @@
               item.nomeCategoria }}</a>
           </div>
         </div>
-        <a (click)="openMenu()" class="flex align-items-center" *ngIf="links.links !== undefined" [href]="links.links.outros" target="_blank">
+        <a (click)="closeMenu()" class="flex align-items-center" *ngIf="links.links !== undefined"
+          [href]="links.links.outros" target="_blank">
           <i class="pi pi-whatsapp mr-2 text-white-alpha-90 text-lg text-justify"></i>
           Grupos
         </a>
@@ -88,27 +90,28 @@
           Que Somos
         </a>
 
-        <a (click)="openMenu()" class="flex align-items-center" routerLink="blog">
+        <a (click)="closeMenu()" class="flex align-items-center" routerLink="blog">
           <i class="pi pi-comments mr-2 text-white-alpha-90 text-lg text-justify"></i>
           Blog
         </a>
 
-        <a (click)="openMenu()" class="flex align-items-center mobile" routerLink="parceiros">
+        <a (click)="closeMenu()" class="flex align-items-center mobile" routerLink="parceiros">
           <i class="pi pi-comments mr-2 text-white-alpha-90 text-lg text-justify"></i>
           Parceiros
         </a>
 
 
         <hr class="mobile">
-        <a (click)="openMenu()" class="itens-header" routerLink="/politica-privacidade">Política de Privacidade</a>
-        <a (click)="openMenu()" class="itens-header" routerLink="termos-uso">Termos de Uso</a>
-        <a (click)="openMenu()" class="itens-header"
-        href="{{ links.links != undefined ? 'mailto:' + links.links.email : '#'}}">Fale Conosoco</a>
+        <a (click)="closeMenu()" class="itens-header" routerLink="/politica-privacidade">Política de Privacidade</a>
+        <a (click)="closeMenu()" class="itens-header" routerLink="termos-uso">Termos de Uso</a>
+        <a (click)="closeMenu()" class="itens-header"
+          href="{{ links.links != undefined ? 'mailto:' + links.links.email : '#'}}">Fale Conosoco</a>
       </nav>
     </div>
     <p-iconField class="w-6 desktop" iconPosition="left">
       <p-inputIcon styleClass="pi pi-search" />
-      <input [(ngModel)]="termoPesquisa" class="w-full desktop" type="text" (keyup.enter)="pesquisar()" pInputText placeholder="Faça Sua Busca" />
+      <input [(ngModel)]="termoPesquisa" class="w-full desktop" type="text" (keyup.enter)="pesquisar()" pInputText
+        placeholder="Faça Sua Busca" />
     </p-iconField>
   </div>
 </header>

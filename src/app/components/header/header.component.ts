@@ -35,9 +35,9 @@ import { SearchStorageService } from 'src/app/service/search-storage.service';
 })
 export class HeaderComponent implements OnInit {
 
-  menuValue:boolean=false;
-  abrirCategoria:boolean=false;
-  menu_icon :string ='pi pi-bars';
+  menuValue: boolean = false;
+  abrirCategoria: boolean = false;
+  menu_icon: string = 'pi pi-bars';
   links = new LinksBanner();
 
   sidebarVisible: boolean = false;
@@ -63,26 +63,26 @@ export class HeaderComponent implements OnInit {
       this.pegarLinks();
     });
 
+    console.log(this.menuValue)
+
     this.carregarPesquisasRecentes();
   }
 
   toggleCategoria(): void {
-      // const dropdown = document.getElementById('categ');
-      // if (dropdown) {
-      //   dropdown.classList.toggle('show');
-      // }
-    this.abrirCategoria =! this.abrirCategoria
+    // const dropdown = document.getElementById('categ');
+    // if (dropdown) {
+    //   dropdown.classList.toggle('show');
+    // }
+    this.abrirCategoria = !this.abrirCategoria
 
   }
 
-  openMenu(){
-    this.menuValue =! this.menuValue ;
-    console.log("aqui")
+  openMenu() {
+    this.menuValue = !this.menuValue;
     this.menu_icon = this.menuValue ? 'pi pi-times' : 'pi pi-bars';
   }
-   closeMenu() {
+  closeMenu() {
     this.menuValue = false;
-    // this.menu_icon = 'bi bi-list';
   }
 
   pegarLinks() {
@@ -91,11 +91,11 @@ export class HeaderComponent implements OnInit {
     });
   }
 
-  abrirModalPesquisa(){
-    this.modalPesquisa =! this.modalPesquisa
+  abrirModalPesquisa() {
+    this.modalPesquisa = !this.modalPesquisa
   }
 
-  pesquisar(){
+  pesquisar() {
 
     if (this.termoPesquisa.trim() !== '') {
       this.pesquisaRecenteService.adicionarPesquisa(this.termoPesquisa);
@@ -109,7 +109,7 @@ export class HeaderComponent implements OnInit {
     this.modalPesquisa = false
   }
 
-  carregarPesquisasRecentes(){
+  carregarPesquisasRecentes() {
     this.pesquisasRecentes = this.pesquisaRecenteService.pegarPesquisaRecente();
 
     console.log(this.pesquisasRecentes)
