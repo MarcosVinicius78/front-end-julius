@@ -110,6 +110,12 @@
     flex-direction: column;
   }
 
+  .text-overlay p:last-child{
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+  }
+
   .text-overlay h2 {
     margin-bottom: 10px;
     /* Espaçamento inferior para o título */

@@ -6,14 +6,13 @@
   <div class="banners">
     <div>
       <h2>Banners</h2>
-      <input type="submit" (click)="abrirModal(0,'','')" value="Adicionar Publicidade">
+      <input class="cursor-pointer" type="submit" (click)="abrirModal(0,'','')" value="Adicionar Publicidade">
     </div>
     <div>
       <table>
         <thead>
           <th>Imagem</th>
           <th>Nome</th>
-          <th>Opções</th>
           <th>Opções</th>
         </thead>
         <tbody *ngFor="let item of banners">
@@ -22,10 +21,7 @@
             <td><img [src]="urlApi+'/banners/'+item.urlImagem" alt=""></td>
             <td class="nome">{{ item.nome }}</td>
             <td class="apagar">
-              <i class="pi pi-trash" (click)="apagarBanner(item.id)"></i>
-            </td>
-            <td class="editar">
-              <i (click)="abrirModal(item.id, item.nome, item.link)" class="pi pi-pencil"></i>
+              <i class="pi pi-trash cursor-pointer" (click)="apagarBanner(item.id)"></i>
             </td>
           </tr>
         </tbody>
@@ -59,30 +55,79 @@
       <input type="text" formControlName="outros" name="outros">
     </div>
 
-    <input type="submit" value="Salvar">
+    <input class="mt-2" type="submit" value="Salvar">
   </form>
 
   <form [formGroup]="bannerFomrGrupo">
     <div class="modal" *ngIf="modal" (click)="fecharModal()">
       <div class="container" (click)="impedirFechar($event)">
-        <div>
-          <div>
-            <label for="nome"></label>
-            <input type="text" name="nome" formControlName="nome" placeholder="Nome">
+        <div class="h-full flex flex-column justify-content-around">
+          <div class="flex justify-content-around w-full">
+            <div>
+              <label for="nome"></label>
+              <input class="bg-black-alpha-10 border-round border-none p-3" type="text" name="nome"
+                formControlName="nome" placeholder="Nome do Banner">
+            </div>
+            <div>
+              <label for="link"></label>
+              <input class="bg-black-alpha-10 border-round border-none p-3" type="text" name="nome"
+                formControlName="link" placeholder="Link para Redirecionar">
+            </div>
           </div>
-          <div>
-            <label for="link"></label>
-            <input type="text" name="nome" formControlName="link" placeholder="Link">
+          <div class="mt-2 flex justify-content-center flex-column gap-4">
+
+            <div>
+              <label for="imageUploadDesktop"
+                     class="block w-full border-dashed border-gray-200 border-round h-10rem cursor-pointer">
+                <ng-container *ngIf="imageUrlDesktop; else placeholderDesktop">
+                  <img [src]="imageUrlDesktop"
+                       alt="Imagem Desktop selecionada"
+                       class="w-full h-10rem"
+                       style="object-fit: contain;" />
+                </ng-container>
+                <ng-template #placeholderDesktop>
+                  <span class="flex align-items-center h-full justify-content-center">
+                    Selecione uma imagem <strong>1366 x 300</strong> para Desktop
+                  </span>
+                </ng-template>
+              </label>
+              <input type="file"
+                     id="imageUploadDesktop"
+                     (change)="onFileSelectedDesktop($event)"
+                     accept="image/*"
+                     style="display: none;" />
+            </div>
+
+            <div class="flex justify-content-center">
+              <label for="imageUploadMobile"
+                     class="block text-center w-5 border-dashed border-gray-200 border-round h-10rem cursor-pointer">
+                <ng-container *ngIf="imageUrlMobile; else placeholderMobile">
+                  <img [src]="imageUrlMobile"
+                       alt="Imagem Mobile selecionada"
+                       class="w-auto h-10rem"
+                       style="object-fit: contain;" />
+                </ng-container>
+                <ng-template #placeholderMobile>
+                  <span class="flex align-items-center h-full justify-content-center">
+                    Selecione uma imagem <strong>414 x 212</strong> para Mobile
+                  </span>
+                </ng-template>
+              </label>
+              <input type="file"
+                     id="imageUploadMobile"
+                     (change)="onFileSelectedMobile($event)"
+                     accept="image/*"
+                     style="display: none;" />
+            </div>
+          </div>
+
+          <div class="flex justify-content-center">
+            <input class="cursor-pointer p-3 m-1 border-none bg-blue-400 text-white border-round w-2"
+              *ngIf="idEditar === 0" type="submit" (click)="uploadImage()">
+            <input class="cursor-pointer p-3 m-1 border-none bg-blue-400 text-white border-round w-2"
+              *ngIf="idEditar !== 0" type="submit" (click)="editarBanner(idEditar)">
           </div>
         </div>
-        <div>
-          <input type="file" (change)="onFileSelected($event)">
-        </div>
-        <div>
-          <input type="file" (change)="onFileSelectedMobile($event)">
-        </div>
-        <input *ngIf="idEditar === 0" type="submit"  (click)="uploadImage()">
-        <input *ngIf="idEditar !== 0" type="submit" (click)="editarBanner(idEditar)">
       </div>
     </div>
   </form>

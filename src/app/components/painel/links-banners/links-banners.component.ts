@@ -25,7 +25,10 @@ export class LinksBannersComponent implements OnInit {
 
   banners: Banner[] = [];
 
-  idEditar: number = 0
+  idEditar: number = 0;
+
+  imageUrlDesktop: string | ArrayBuffer | null = null;
+  imageUrlMobile: string | ArrayBuffer | null = null;
 
   urlApi: string = environment.apiUrl;
 
@@ -39,7 +42,7 @@ export class LinksBannersComponent implements OnInit {
 
     this.listarLinksEBanners();
 
-    if (this.linksEBanners.links == undefined) {
+    if (this.linksEBanners.links) {
       this.linksFormGrupo = this.formBuilder.group({
         whatsapp: [''],
         telegram: [''],
@@ -57,12 +60,37 @@ export class LinksBannersComponent implements OnInit {
 
   }
 
-  onFileSelected(event: any) {
-    this.selectedFile = event.target.files[0];
+  onFileSelectedDesktop(event: Event): void {
+    const input = event.target as HTMLInputElement;
+
+    if (input.files && input.files[0]) {
+      const file = input.files[0];
+      const reader = new FileReader();
+
+      this.selectedFile = file;
+
+      reader.onload = (e) => {
+        this.imageUrlDesktop = e.target?.result ?? null;
+      };
+
+      reader.readAsDataURL(file);
+    }
   }
 
-  onFileSelectedMobile(event: any) {
-    this.fileMobile = event.target.files[0];
+  onFileSelectedMobile(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    if (input.files && input.files[0]) {
+      const file = input.files[0];
+      const reader = new FileReader();
+
+      this.fileMobile = file;
+
+      reader.onload = (e) => {
+        this.imageUrlMobile = e.target?.result ?? null;
+      };
+
+      reader.readAsDataURL(file);
+    }
   }
 
   salvarLinks() {
@@ -89,8 +117,6 @@ export class LinksBannersComponent implements OnInit {
         siteId: environment.site
       };
     }
-
-    console.log(links)
 
     this.linkBannerService.salvarLinks(links).subscribe(response => {
       this.messageService.add({ severity: 'success', detail: 'Salvo' });

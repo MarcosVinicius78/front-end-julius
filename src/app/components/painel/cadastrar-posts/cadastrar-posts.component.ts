@@ -99,7 +99,9 @@ export class CadastrarPostsComponent implements OnInit {
   atualizarPost(post: any) {
     this.postService.atualizarPost(post).subscribe(response => {
       // this.post = response
-      this.salvarImagem(parseInt(this.idEditar));
+      if (this.imagemFile) {
+        this.salvarImagem(parseInt(this.idEditar));
+      }
       // this.imagemFile = undefined
       this.messageService.add({ severity: 'success', detail: 'Post Atualizado' });
     }, err=> {
