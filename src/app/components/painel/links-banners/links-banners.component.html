@@ -62,15 +62,15 @@
     <div class="modal" *ngIf="modal" (click)="fecharModal()">
       <div class="container" (click)="impedirFechar($event)">
         <div class="h-full flex flex-column justify-content-around">
-          <div class="flex justify-content-around w-full">
+          <div class="flex flex-column lg:flex-row justify-content-around w-full">
             <div>
               <label for="nome"></label>
-              <input class="bg-black-alpha-10 border-round border-none p-3" type="text" name="nome"
+              <input class="bg-black-alpha-10 border-round border-none w-full p-3" type="text" name="nome"
                 formControlName="nome" placeholder="Nome do Banner">
             </div>
             <div>
               <label for="link"></label>
-              <input class="bg-black-alpha-10 border-round border-none p-3" type="text" name="nome"
+              <input class="bg-black-alpha-10 border-round border-none w-full sm:mt-2 lg:mt-0 p-3" type="text" name="nome"
                 formControlName="link" placeholder="Link para Redirecionar">
             </div>
           </div>
@@ -100,11 +100,11 @@
 
             <div class="flex justify-content-center">
               <label for="imageUploadMobile"
-                     class="block text-center w-5 border-dashed border-gray-200 border-round h-10rem cursor-pointer">
+                     class="block text-center sm:w-9 lg:w-5 border-dashed border-gray-200 border-round h-10rem cursor-pointer">
                 <ng-container *ngIf="imageUrlMobile; else placeholderMobile">
                   <img [src]="imageUrlMobile"
                        alt="Imagem Mobile selecionada"
-                       class="w-auto h-10rem"
+                       class="lg:w-auto sm:w-9 h-10rem"
                        style="object-fit: contain;" />
                 </ng-container>
                 <ng-template #placeholderMobile>
@@ -122,10 +122,8 @@
           </div>
 
           <div class="flex justify-content-center">
-            <input class="cursor-pointer p-3 m-1 border-none bg-blue-400 text-white border-round w-2"
+            <input class="cursor-pointer p-3 m-1 border-none bg-blue-400 text-white border-round sm:w-auto lg:w-2"
               *ngIf="idEditar === 0" type="submit" (click)="uploadImage()">
-            <input class="cursor-pointer p-3 m-1 border-none bg-blue-400 text-white border-round w-2"
-              *ngIf="idEditar !== 0" type="submit" (click)="editarBanner(idEditar)">
           </div>
         </div>
       </div>
