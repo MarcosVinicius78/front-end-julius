@@ -1,38 +1,33 @@
 <div class="card">
-  <header class="flex justify-content-between">
+  <header class="flex justify-content-around">
     <h1 class="text-white-alpha-90">Criar Post para Blog</h1>
 
     <a routerLink="/painel/lista-posts">
       <p-button label="Ver Posts"></p-button>
     </a>
+    <button pButton pRipple label="Publicar" (click)="salvarPost()" class="p-button-success mt-2"></button>
   </header>
-  <div class="w-full mt-5">
-    <span class="p-float-label">
-      <input [(ngModel)]="titulo" class="w-8" pInputText id="precoParcelado" />
+  <div class="flex justify-content-center mt-2">
+    <label for="imageUploadMobile"
+      class="block text-center w-8 border-dashed border-gray-200 border-round h-18rem cursor-pointer">
+      <ng-container *ngIf="imageUrl; else placeholderMobile">
+        <img [src]="imageUrl" alt="Imagem Mobile selecionada" class="w-full h-18rem" style="object-fit: contain;" />
+      </ng-container>
+      <ng-template #placeholderMobile>
+        <span class="flex align-items-center h-full text-white justify-content-center">
+          Selecione uma imagem <strong class="ml-1">918 x 280</strong>
+        </span>
+      </ng-template>
+    </label>
+    <input type="file" id="imageUploadMobile" (change)="onFileSelected($event)" accept="image/*"
+      style="display: none;" />
+  </div>
+  <div class="mt-4">
+    <span class="w-full p-float-label">
+      <input [(ngModel)]="titulo" class="w-full" pInputText id="precoParcelado" />
       <label htmlFor="precoParcelado">Titulo da Postagem</label>
     </span>
   </div>
-
-  <div class="mt-5 flex justify-content-between w-full">
-    <p-editor [(ngModel)]="text"></p-editor>
-    <article class="w-4 mt-3 flex flex-column align-items-center">
-      <div class="w-9 flex justify-content-center">
-        <button pButton pRipple label="Publicar" (click)="salvarPost()" class="p-button-success w-9 "></button>
-      </div>
-      <div class="mt-7 flex justify-content-center">
-        <label for="fileInput">
-          <div class="file-upload-container">
-            <input type="file" id="fileInput" (change)="onFileSelected($event)" accept="image/*" #fileInput>
-            <div class="image-preview" *ngIf="(imageUrl !== undefined && imageUrl !== null) || (post !== undefined && post.urlImagem !== undefined)">
-              <img
-                [src]="imageUrl ? imageUrl : apiUrl + '/post/download/' + post!.urlImagem"
-                alt="Imagem Selecionada"
-              >
-            </div>
-          </div>
-        </label>
-      </div>
-    </article>
-  </div>
+  <p-editor styleClass="w-full mt-2 h-28rem" [(ngModel)]="text"></p-editor>
 </div>
 <p-toast></p-toast>

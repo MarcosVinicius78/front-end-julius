@@ -1,19 +1,19 @@
-header h1{
+header h1 {
   padding: 10px;
   font-size: 23px;
 }
 
-.container{
+.container {
   display: flex;
   height: 100%;
   justify-content: space-around;
 }
 
-section{
+section {
   height: calc(100% - 55px);
 }
 
-.artes-insta{
+.artes-insta {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -25,7 +25,7 @@ section{
   // justify-content: center;
 }
 
-.artes-insta p:last-child{
+.artes-insta p:last-child {
   color: white;
   text-align: center;
   width: 80%;
@@ -33,25 +33,25 @@ section{
   padding: 5px;
 }
 
-.artes-insta .feed{
+.artes-insta .feed {
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
-.artes-insta .storie{
+.artes-insta .storie {
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
-.container .artes-insta .feed img:first-child{
+.container .artes-insta .feed img:first-child {
   width: 350px;
   height: 350px;
   border-radius: 5px;
 }
 
-.container .artes-insta .storie img:first-child{
+.container .artes-insta .storie img:first-child {
   width: 250px;
   height: 95%;
   border-radius: 5px;
@@ -65,13 +65,13 @@ section{
   align-items: center;
 }
 
-.robo span{
+.robo span {
   border-radius: 10px 0 0 10px;
   background-color: #217373;
   font-size: 60px;
 }
 
-.robo div{
+.robo div {
   padding: 10px;
   display: flex;
   flex-direction: column;
@@ -79,12 +79,12 @@ section{
   justify-content: space-around;
 }
 
-.robo div p{
+.robo div p {
   font-size: 20px;
   color: white;
 }
 
-.robo{
+.robo {
   background-color: #84B026;
   width: 30%;
   height: 100px;
@@ -92,9 +92,36 @@ section{
   display: flex;
 }
 
-.enviar{
+.enviar {
   width: 100%;
   display: flex;
   justify-content: space-around;
   align-items: center;
+}
+
+
+@media screen and (max-width: 720px) {
+  .container {
+    flex-direction: column-reverse;
+  }
+
+  .box {
+    flex-direction: column;
+    height: auto;
+  }
+
+  .artes-insta {
+    width: 100%;
+    height: auto;
+  }
+
+  .robo{
+    width: 100%;
+    margin-bottom: 10px;
+  }
+
+  .container .artes-insta .feed img:first-child {
+    width: 250px;
+    // height: 95%;
+  }
 }
