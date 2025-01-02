@@ -5,6 +5,11 @@
     // height: 450px;
   }
 
+
+  .card{
+    height: 100%;
+  }
+
   .p-editor-content .ql-editor {
     background-color: #184c78;
     color: white;
@@ -47,5 +52,14 @@
     width: 100%;
     height: 100%;
     object-fit: cover;
+  }
+
+
+  @media screen and (max-width: 720px) {
+
+    .p-editor-content{
+      height: 22rem;
+    }
+
   }
 }

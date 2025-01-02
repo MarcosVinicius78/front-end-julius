@@ -18,6 +18,7 @@ export class ConfiguracoesComponent implements OnInit{
   api = environment.apiUrl;
 
   check!: boolean
+  tempoDoRobo!: number
 
   constructor(
     private produtoService: ProdutoService,
@@ -25,6 +26,7 @@ export class ConfiguracoesComponent implements OnInit{
   ) { }
   ngOnInit(): void {
     this.statusBot();
+    this.buscarTempoRobo()
   }
 
   onFileChange(event: any) {
@@ -48,9 +50,21 @@ export class ConfiguracoesComponent implements OnInit{
     })
   }
 
+  mudarTempoDoRobo(){
+    this.scraperService.mudarTempoDoRobo(this.tempoDoRobo).subscribe(response => {
+      
+    })
+  }
+
+  buscarTempoRobo(){
+    this.scraperService.buscarTempoDoRobo().subscribe(response => {
+      this.tempoDoRobo = response;
+    })
+  }
+
   ativarBot(){
     this.scraperService.ativarBot(this.check).subscribe(response => {
-      // alert("bot ativado")
+
     })
   }
 

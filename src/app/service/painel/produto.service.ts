@@ -53,6 +53,11 @@ export class ProdutoService {
     return this.http.get<any>(`${this.apiUrl}/produto/por-categoria`, { params })
   }
 
+  buscarProdutoPorLoja(site: number, lojaid: any, page: number, size: number){
+    const params = new HttpParams().set('lojaId', lojaid.toString()).set('page', page.toString()).set('size', size.toString()).set('site', site);
+    return this.http.get<any>(`${this.apiUrl}/produto/por-loja`, { params })
+  }
+
   apagarVariosProdutos(produtosSelecionados: Produtos) {
     return this.http.post<number>(`${this.apiUrl}/produto/apagar-varios`, produtosSelecionados)
   }
@@ -85,7 +90,7 @@ export class ProdutoService {
   }
 
   listarDestaques(page: number, size: number){
-    return this.http.get<PordutosPage>(`${this.apiUrl}/produto/destaque?page=${page}&size=${size}`);
+    return this.http.get<PordutosPage>(`${this.apiUrl}/produto/destaque?site=${environment.site}&page=${page}&size=${size}`);
   }
 }
 

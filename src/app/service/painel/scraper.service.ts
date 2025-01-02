@@ -21,4 +21,12 @@ export class ScraperService {
   statusBot(): Observable<boolean>{
     return this.http.get<boolean>(`${this.apiUrl}/scraper/statusBot`);
   }
+
+  mudarTempoDoRobo(tempo: number){
+    return this.http.get(`${this.apiUrl}/scraper/mudar-tempo-do-robo?tempo=${tempo}`);
+  }
+
+  buscarTempoDoRobo(){
+    return this.http.get<number>(`${this.apiUrl}/scraper/buscar-tempo-do-robo`);
+  }
 }

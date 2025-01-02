@@ -20,7 +20,7 @@
 
 
         <p-fileUpload styleClass="mt-2" mode="basic" chooseLabel="Choose" name="demo[]" accept="image/*"
-        (maxFileSize)="1000000000000" (onSelect)="onFileChange($event)"></p-fileUpload>
+          (maxFileSize)="1000000000000" (onSelect)="onFileChange($event)"></p-fileUpload>
 
         <p-button (onClick)="salvarStory()" label="Submit"></p-button>
       </div>
@@ -28,11 +28,24 @@
       <p>Para fazer o envio de uma nova Arte, Precisa está com os seguintes nomes, story.jpeg & feed.jpeg</p>
     </div>
 
-    <div class="robo">
-      <span>🤖</span>
-      <div>
-        <p> {{ check === true ? 'Robô ativado' : 'Robô destativado' }}</p>
-        <p-inputSwitch (onChange)="ativarBot()" id="check" name="check" [(ngModel)]="check" />
+    <div class="flex flex-column gap-2">
+      <div class="robo">
+        <span>🤖</span>
+        <div>
+          <p> {{ check === true ? 'Robô ativado' : 'Robô destativado' }}</p>
+          <p-inputSwitch (onChange)="ativarBot()" id="check" name="check" [(ngModel)]="check" />
+        </div>
+      </div>
+
+      <div class="bg-blue-400 h-6rem border-round flex">
+        <div class="bg-white w-4 h-full border-round-left">
+          <span class="text-7xl">⌚</span>
+        </div>
+        <div class="p-2 flex flex-column justify-content-around">
+          <p>Tempo do Robô</p>
+          <input class="w-full h-2rem" (change)="mudarTempoDoRobo()" [(ngModel)]="tempoDoRobo" placeholder="Informe o Tempo" type="text"
+            pInputText />
+        </div>
       </div>
     </div>
   </div>

@@ -44,6 +44,7 @@ export class ListarProdutosCadastradosComponent implements OnInit {
   palavra: string = "";
 
   idCategoria: string = ""
+  idLoja: string = ""
 
   categorias!: Categoria[];
   lojas!: Loja[];
@@ -54,6 +55,19 @@ export class ListarProdutosCadastradosComponent implements OnInit {
   openMenuId: number | null = null;
 
   visible: boolean = false;
+
+  visualiarDropdowncategoria: boolean = false
+  visualiarDropdownLoja: boolean = false
+  visualiarCampoPesquisa: boolean = true
+
+  isFiltroVisible: boolean = false;
+  filtroSelecionado: string | null = null;
+
+  filtros = [
+    { label: 'Categoria', value: 'CATEGORIA' },
+    { label: 'Loja', value: 'LOJA' },
+    { label: 'Pesquisar', value: 'PESQUISA' },
+  ];
 
   constructor(
     private produtoService: ProdutoService,
@@ -115,6 +129,14 @@ export class ListarProdutosCadastradosComponent implements OnInit {
       return;
     }
 
+    if (this.idLoja !== "") {
+      this.produtoService.buscarProdutoPorLoja(environment.site, this.idLoja, this.page, this.size).subscribe(response => {
+        this.produtos = response.content;
+        this.page++
+      });
+      return;
+    }
+
     if (this.palavra === "") {
       this.produtoService.listarProduto(this.page, this.size).subscribe((response: any) => {
         this.produtos = response.content
@@ -143,9 +165,21 @@ export class ListarProdutosCadastradosComponent implements OnInit {
 
     this.produtos = [];
 
-    const id = (event.target as HTMLSelectElement).value;
+    this.idCategoria = (event.target as HTMLSelectElement).value;
 
-    this.produtoService.ProdutoPorCategoria(environment.site, id, this.page, this.size).subscribe(response => {
+    this.produtoService.ProdutoPorCategoria(environment.site, this.idCategoria, this.page, this.size).subscribe(response => {
+      this.produtos = response.content;
+      this.totalPage = response.totalPages;
+    });
+  }
+
+  listarPorLoja(event: Event) {
+
+    this.produtos = [];
+
+    this.idLoja = (event.target as HTMLSelectElement).value;
+
+    this.produtoService.buscarProdutoPorLoja(environment.site, this.idLoja, this.page, this.size).subscribe(response => {
       this.produtos = response.content;
       this.totalPage = response.totalPages;
     });
@@ -205,6 +239,28 @@ export class ListarProdutosCadastradosComponent implements OnInit {
     }, err => {
       this.messageService.add({ severity: 'error', detail: 'Erro ao Gerar Storie' });
     })
+  }
+
+  toggleFiltro() {
+    this.isFiltroVisible = !this.isFiltroVisible;
+  }
+
+  filtrar(filtro: string){
+    this.toggleFiltro();
+
+    this.visualiarDropdowncategoria = false;
+    this.visualiarCampoPesquisa = false;
+    this.visualiarDropdownLoja = false;
+
+    if(filtro.match("CATEGORIA")){
+      this.visualiarDropdowncategoria = true;
+      this.visualiarCampoPesquisa = false;
+    }else if(filtro.match("LOJA")){
+      this.visualiarDropdownLoja = true;
+      this.visualiarCampoPesquisa = false;
+    }else{
+      this.visualiarCampoPesquisa = true;
+    }
   }
 
   gerarFeed(id: number) {

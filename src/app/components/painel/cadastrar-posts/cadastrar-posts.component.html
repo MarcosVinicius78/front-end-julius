@@ -1,17 +1,17 @@
 <div class="card">
-  <header class="flex justify-content-around">
+  <header class="flex justify-content-around flex-column lg:flex-row">
     <h1 class="text-white-alpha-90">Criar Post para Blog</h1>
 
-    <a routerLink="/painel/lista-posts">
+    <a class="hidden lg:block" routerLink="/painel/lista-posts">
       <p-button label="Ver Posts"></p-button>
     </a>
-    <button pButton pRipple label="Publicar" (click)="salvarPost()" class="p-button-success mt-2"></button>
+    <button pButton pRipple label="Publicar" (click)="salvarPost()" class="p-button-success mt-2 hidden lg:block"></button>
   </header>
   <div class="flex justify-content-center mt-2">
     <label for="imageUploadMobile"
-      class="block text-center w-8 border-dashed border-gray-200 border-round h-18rem cursor-pointer">
+      class="block text-center w-11 lg:w-8 border-dashed border-gray-200 border-round h-6rem lg:h-18rem cursor-pointer">
       <ng-container *ngIf="imageUrl; else placeholderMobile">
-        <img [src]="imageUrl" alt="Imagem Mobile selecionada" class="w-full h-18rem" style="object-fit: contain;" />
+        <img [src]="imageUrl" alt="Imagem Mobile selecionada" class="w-full h-6rem lg:h-18rem" style="object-fit: contain;" />
       </ng-container>
       <ng-template #placeholderMobile>
         <span class="flex align-items-center h-full text-white justify-content-center">
@@ -28,6 +28,12 @@
       <label htmlFor="precoParcelado">Titulo da Postagem</label>
     </span>
   </div>
-  <p-editor styleClass="w-full mt-2 h-28rem" [(ngModel)]="text"></p-editor>
+  <p-editor styleClass="w-full mt-5 lg:h-28rem" [(ngModel)]="text"></p-editor>
+  <div class="flex align-items-center justify-content-around mt-2">
+    <a class="lg:hidden block" routerLink="/painel/lista-posts">
+      <p-button label="Ver Posts"></p-button>
+    </a>
+    <button pButton pRipple label="Publicar" (click)="salvarPost()" class="p-button-success lg:hidden block"></button>
+  </div>
 </div>
 <p-toast></p-toast>

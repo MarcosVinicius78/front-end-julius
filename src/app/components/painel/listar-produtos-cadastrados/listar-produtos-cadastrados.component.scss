@@ -6,6 +6,7 @@
   header {
     display: flex;
     justify-content: space-around;
+    align-items: center;
   }
 
   header i {
@@ -30,7 +31,7 @@
   }
 
   .p-inputtext {
-    width: 360px;
+    // width: 360px;
   }
 
   .p-card-header img{
@@ -165,6 +166,7 @@
     border-color: #225a76;
     display: flex;
     align-items: center;
+    border-radius: 10px;
   }
 
   .dropdown-buttons{
