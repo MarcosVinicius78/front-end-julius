@@ -67,7 +67,7 @@ export class BlankComponent implements OnInit {
 
 
       if (r === '1') {
-        window.location.href = response.link_ofm;
+        window.location.href = response.link_se;
       }else if(r === '2'){
         window.location.href = response.descricao;
       }
