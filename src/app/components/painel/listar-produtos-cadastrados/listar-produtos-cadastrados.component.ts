@@ -15,6 +15,7 @@ import { Categoria } from 'src/app/models/categoria';
 import { Loja } from 'src/app/models/loja';
 import { LojaService } from 'src/app/service/painel/loja.service';
 import { CategoriaService } from 'src/app/service/painel/categoria.service';
+import { ScraperService } from 'src/app/service/painel/scraper.service';
 
 
 @Component({
@@ -55,6 +56,7 @@ export class ListarProdutosCadastradosComponent implements OnInit {
   openMenuId: number | null = null;
 
   visible: boolean = false;
+  linkCurto!: boolean
 
   visualiarDropdowncategoria: boolean = false
   visualiarDropdownLoja: boolean = false
@@ -77,12 +79,15 @@ export class ListarProdutosCadastradosComponent implements OnInit {
     private mensagemService: MensagemService,
     private lojaService: LojaService,
     private categoriaService: CategoriaService,
-    @Inject(PLATFORM_ID) private platformId: Object
+    @Inject(PLATFORM_ID) private platformId: Object,
+    private scravperService: ScraperService
   ) { }
 
   ngOnInit(): void {
     this.listarCategoria()
     this.listarProdutos();
+
+    this.statusLinkCurto()
 
     this.listarLojas();
 
@@ -109,6 +114,12 @@ export class ListarProdutosCadastradosComponent implements OnInit {
       .subscribe(resultados => {
 
       });
+  }
+
+  statusLinkCurto() {
+    this.scravperService.statusLinkCurto().subscribe(res => {
+      this.linkCurto = res;
+    })
   }
 
   listarProdutos() {
@@ -245,20 +256,20 @@ export class ListarProdutosCadastradosComponent implements OnInit {
     this.isFiltroVisible = !this.isFiltroVisible;
   }
 
-  filtrar(filtro: string){
+  filtrar(filtro: string) {
     this.toggleFiltro();
 
     this.visualiarDropdowncategoria = false;
     this.visualiarCampoPesquisa = false;
     this.visualiarDropdownLoja = false;
 
-    if(filtro.match("CATEGORIA")){
+    if (filtro.match("CATEGORIA")) {
       this.visualiarDropdowncategoria = true;
       this.visualiarCampoPesquisa = false;
-    }else if(filtro.match("LOJA")){
+    } else if (filtro.match("LOJA")) {
       this.visualiarDropdownLoja = true;
       this.visualiarCampoPesquisa = false;
-    }else{
+    } else {
       this.visualiarCampoPesquisa = true;
     }
   }
@@ -307,7 +318,7 @@ export class ListarProdutosCadastradosComponent implements OnInit {
 
     const montarTitulo = () => {
       if (produto.copy) {
-        adicionarTexto(`*${produto.copy}\n*`);
+        adicionarTexto(`*${produto.copy}*\n`);
       } else if (site === 2 || site === 1) {
         adicionarTexto(`\u{1F4CC} ${produto.titulo?.substring(0, 60) ?? ''}...\n`);
       } else {
@@ -337,8 +348,14 @@ export class ListarProdutosCadastradosComponent implements OnInit {
 
     const montarLink = () => {
       if (!isPlatformBrowser(this.platformId)) return;
+
+      if (this.linkCurto) {
+        const baseUrl = window.location.href.replace(/painel(\/listar-produtos)?/, '');
+        adicionarTexto(`\n*\u{1F6D2} Confira Aqui:\u{1F447}*\n${baseUrl}oferta/${produto.id}?r=1\n`);
+      }else{
         const baseUrl = window.location.href.replace(/painel(\/listar-produtos)?/, '');
         adicionarTexto(`\n*\u{1F6D2} Confira Aqui:\u{1F447}*\n${baseUrl}oferta/${produto.id}\n`);
+      }
     };
 
     const montarExtras = () => {

@@ -28,14 +28,14 @@
       <p>Para fazer o envio de uma nova Arte, Precisa está com os seguintes nomes, story.jpeg & feed.jpeg</p>
     </div>
 
-    <div class="flex flex-column gap-2">
+    <div class="flex flex-column gap-2 mb-2">
       <div class="robo">
         <span>🤖</span>
         <div>
           <p> {{ check === true ? 'Robô ativado' : 'Robô destativado' }}</p>
           <p-inputSwitch (onChange)="ativarBot()" id="check" name="check" [(ngModel)]="check" />
         </div>
-        
+
       </div>
 
       <div class="bg-blue-400 h-6rem border-round flex">
@@ -46,6 +46,16 @@
           <p>Tempo do Robô</p>
           <input class="w-full h-2rem" (change)="mudarTempoDoRobo()" [(ngModel)]="tempoDoRobo" placeholder="Informe o Tempo" type="text"
             pInputText />
+        </div>
+      </div>
+
+      <div class="bg-orange-300 h-6rem border-round flex">
+        <div class="bg-white w-4 h-full border-round-left">
+          <span class="text-7xl">🔗</span>
+        </div>
+        <div class="p-2 flex flex-column justify-content-around">
+          <p>Ativar Link curto</p>
+          <p-inputSwitch (onChange)="ativarLinkCurto()" id="check" name="check" [(ngModel)]="linkAtivado" />
         </div>
       </div>
     </div>

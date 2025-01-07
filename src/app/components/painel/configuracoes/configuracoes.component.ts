@@ -18,6 +18,7 @@ export class ConfiguracoesComponent implements OnInit{
   api = environment.apiUrl;
 
   check!: boolean
+  linkAtivado!: boolean
   tempoDoRobo!: number
 
   constructor(
@@ -27,6 +28,19 @@ export class ConfiguracoesComponent implements OnInit{
   ngOnInit(): void {
     this.statusBot();
     this.buscarTempoRobo()
+    this.statusLinkCurto()
+  }
+
+  ativarLinkCurto(){
+    this.scraperService.ativarLinkCurto(this.linkAtivado).subscribe(res => {
+
+    });
+  }
+
+  statusLinkCurto(){
+    this.scraperService.statusLinkCurto().subscribe(res => {
+      this.linkAtivado = res;
+    });
   }
 
   onFileChange(event: any) {
@@ -52,7 +66,7 @@ export class ConfiguracoesComponent implements OnInit{
 
   mudarTempoDoRobo(){
     this.scraperService.mudarTempoDoRobo(this.tempoDoRobo).subscribe(response => {
-      
+
     })
   }
 

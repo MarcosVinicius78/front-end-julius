@@ -29,4 +29,12 @@ export class ScraperService {
   buscarTempoDoRobo(){
     return this.http.get<number>(`${this.apiUrl}/scraper/buscar-tempo-do-robo`);
   }
+
+  ativarLinkCurto(valor: boolean){
+    return this.http.get(`${this.apiUrl}/scraper/ativar-link-curto?valor=${valor}`)
+  }
+
+  statusLinkCurto(){
+    return this.http.get<boolean>(`${this.apiUrl}/scraper/status-link_curto`)
+  }
 }
