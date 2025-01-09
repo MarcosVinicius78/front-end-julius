@@ -54,13 +54,13 @@
 
             <div class="flex justify-content-between lg:flex-row flex-column">
               <div class="flex sm:w-full md:w-6 justify-content-start mb-2 align-items-center">
-                <i class="pi pi-verified text-sm mr-1 p-1 bg-green-800 border-round-3xl text-white"></i>
+                <i class="pi pi-verified text-sm mr-1 p-1 bg-green-500 border-round-3xl text-white"></i>
                 <div class="flex justify-content-between align-items-center w-full">
                   <div class="block w-full">
                     <p class="w-full text-xs">Promoção verificada por:</p>
                     <div class="flex align-items-center">
-                      <p class="font-bold text-base w-2rem">{{ produto.nomeColaborador }}</p>
-                      <i class="pi pi-user text-sm ml-2"></i>
+                      <p class="font-bold text-base w-auto">{{ produto.nomeColaborador }}</p>
+                      <i class="pi pi-user text-sm"></i>
                     </div>
                   </div>
                   <p class=" w-full sm:hidden text-right">há {{calculateElapsedTime(produto.dataCriacao)}}</p>
@@ -126,7 +126,7 @@
 
       <div class="convite-mobile">
         <p>Economize Recebendo todas as Promoções Relâmpago em Tempo Real</p>
-        <a *ngIf="links.links != undefined" href="{{ links.links.whatsapp }}">PARTICIPAR DO GRUPO</a>
+        <a class="bg-green-500" *ngIf="links.links != undefined" href="{{ links.links.whatsapp }}">PARTICIPAR DO GRUPO</a>
       </div>
 
       <div class="msg">

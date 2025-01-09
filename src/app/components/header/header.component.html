@@ -11,7 +11,7 @@
   </div>
 
   <div class="pesquisas-recentes">
-    <p>Pesquisas Recentes</p>
+    <p class="mt-2">Pesquisas Recentes</p>
 
     <div>
       <a href="/pesquisa?search={{item}}" *ngFor="let item of pesquisasRecentes">
@@ -65,7 +65,7 @@
         </a>
         <a (click)="closeMenu()" class="mobile" routerLink="/quem-somos">
           <i class="pi pi-users mr-2 text-white-alpha-90 text-lg text-justify"></i>
-          Que Somos
+          Quem Somos
         </a>
 
         <div>
@@ -85,9 +85,9 @@
           Grupos
         </a>
 
-        <a class="desktop flex align-items-center" routerLink="/quem-somos">
+        <a class="desktop flex align-items-center" routerLink="/parceiros">
           <i class="pi pi-users mr-2 text-white-alpha-90 text-lg text-justify"></i>
-          Que Somos
+          Parceiros
         </a>
 
         <a (click)="closeMenu()" class="flex align-items-center" routerLink="blog">

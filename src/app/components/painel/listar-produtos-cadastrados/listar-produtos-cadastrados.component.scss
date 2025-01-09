@@ -316,7 +316,8 @@
     }
 
     header input {
-      display: none;
+      // display: none;
+      width: 100% !important;
     }
 
     header i{
@@ -327,9 +328,10 @@
       display: none;
     }
 
-    header div {
-      width: 100%;
+    header h1 {
       text-align: center;
+      margin: 0;
+      display: none;
     }
   }
 }

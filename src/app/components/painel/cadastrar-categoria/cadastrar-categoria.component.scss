@@ -4,6 +4,7 @@
     justify-content: space-around;
     align-items: center;
     height: 100%;
+    width: 100%;
   }
 
   .cadastrar {
@@ -153,5 +154,21 @@
 
   label {
     color: white;
+  }
+
+  @media screen and (max-width: 720px) {
+    .car-categorias{
+      flex-direction: column-reverse;
+      height: 100%;
+    }
+
+    .cadastrar{
+      width: 100%;
+      margin-bottom: 15px;
+    }
+
+    .p-datatable-wrapper{
+      height: auto !important;
+    }
   }
 }
