@@ -7,14 +7,15 @@ export class ProdutoLoja{
   titulo: string = ""
   preco: string = ""
   parcelado: string = ""
-  descricao: string = ""
-  link_se: string = ""
-  link_ofm: string = ""
   cupom: string = ""
   tituloPequeno: string = ""
   mensagemAdicional: string = ""
   freteVariacoes: string = ""
   lojaResponseDto = new  Loja()
+  linkSiteOmc?: string
+  linkAppOmc?: string
+  linkSiteSe?: string
+  linkAppSe?: string
   categoriaDto = new Categoria("");
   imagem!: any
   dataCriacao!: string

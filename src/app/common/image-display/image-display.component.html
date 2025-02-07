@@ -1,0 +1,19 @@
+<label class="text-black-alpha-90 flex align-items-center justify-content-center cursor-pointer" 
+       [for]="'fileInput-' + uniqueId">
+    <div class="w-13rem h-13rem bg-white border-round flex align-items-center justify-content-center position-relative">
+        <!-- Input escondido -->
+        <input type="file" (change)="onFileChange($event)" [id]="'fileInput-' + uniqueId" hidden>
+
+        <!-- Ícone + Texto se não houver imagem -->
+        <div *ngIf="!localImage && !serverUrl && !externalUrl" class="text-center">
+            <i class="pi pi-cloud-upload text-gray-500 text-4xl"></i> <!-- Ícone -->
+            <p class="text-gray-500 mt-2">Selecionar Imagem</p> <!-- Texto -->
+        </div>
+
+        <!-- Imagem -->
+        <img *ngIf="localImage || serverUrl || externalUrl" 
+            [src]="localImage || serverUrl || externalUrl"
+            [alt]="localImage ? 'Imagem Local' : (serverUrl ? 'Imagem Servidor' : 'Imagem Externa')"
+            class="w-full h-full border-round imagem object-cover">
+    </div>
+</label>

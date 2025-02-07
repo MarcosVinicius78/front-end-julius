@@ -58,7 +58,7 @@
           </td>
           <td>
             <a routerLink="/painel/atualizar-produtos/{{item.id}}">
-              <img [src]="apiUrl+'/produto/download-imagem-real/'+item.imagemSocial" alt="imagemSocial">
+              <img [src]="imagemServiceService.getImagemUrl(item.imagemSocial, 'produtos-real')" alt="imagemSocial">
             </a>
           </td>
           <td>
@@ -118,10 +118,6 @@
       <img alt="Card" [src]="apiUrl+'/produto/download/'+produto.imagem" />
     </ng-template>
     <p [innerHTML]="montarEstruturaCompartilhamento(produto, 2) | formatText"></p>
-
-    <!-- <p>{{ produto.cupom }}</p>
-    <p>{{ produto.freteVariacoes }}</p>
-    <p>{{ produto.mensagemAdicional }}</p> -->
   </p-card>
   <div class="flex justify-content-center justify-content-around mt-3">
     <p-button class="bg-primary" label="WhatsApp" (onClick)="copiarParaAreaTransferencia(produto, 1)" />

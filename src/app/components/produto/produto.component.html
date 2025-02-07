@@ -27,10 +27,10 @@
             <div *ngIf="produto.promocaoEncerrada" class="promo-encerrada">
               Promoção Encerrada
             </div>
-            <img [src]="apiUrl+'/produto/download/'+produto.imagem" alt="">
+            <img [src]="imagemService.getImagemUrl(produto.imagem, 'produtos')" alt="">
             <div class="absolute bottom-0 right-0 mr-4">
               <img class="w-3rem border-round-3xl lg:hidden" *ngIf="produto.lojaResponseDto.urlImagem"
-                [src]="apiUrl+'/loja/mostar-imagem/'+produto.lojaResponseDto.urlImagem"
+                [src]="imagemService.getImagemUrl(produto.lojaResponseDto.urlImagem, 'lojas')"
                 alt="{{ produto.lojaResponseDto.nome_loja }}">
             </div>
           </div>
@@ -77,9 +77,10 @@
 
             <div class="flex align-items-end h-6 flex-column">
               <a class="btn_principal w-full w-full mt-2 lg:w-4 p-3 text-base h-4 text-center capitalize border-round no-underline text-white"
-                (click)="registrarCliqueBotao()" href="{{ produto.link_se }}" target="_blank">Pegar Promoção</a>
-              <a class="bg-blue-400 w-full lg:w-4 mt-2 p-3 text-base lg:p-3 text-center capitalize border-round no-underline text-white" *ngIf="produto.lojaResponseDto.nome_loja?.includes('Magazine Luiza') && produto.descricao !== null && verificarSePassaram24Horas(produto.dataCriacao)"
-                (click)="registrarCliqueBotao()" href="{{ produto.descricao }}" target="_blank">Pegar Promoção no
+                (click)="registrarCliqueBotao()" href="{{ produto.linkSiteSe }}" target="_blank">Pegar Promoção</a>
+              <a class="bg-blue-400 w-full lg:w-4 mt-2 p-3 text-base lg:p-3 text-center capitalize border-round no-underline text-white"
+                *ngIf="produto.linkAppSe?.includes('onelink') && verificarSePassaram24Horas(produto.dataCriacao)"
+                (click)="registrarCliqueBotao()" href="{{ produto.linkAppSe }}" target="_blank">Pegar Promoção no
                 app</a>
             </div>
           </div>
@@ -103,8 +104,8 @@
             </div>
           </div>
           <div class="w-9 hidden lg:flex">
-            <img class="w-2rem" *ngIf="produto.lojaResponseDto.urlImagem"
-              [src]="apiUrl+'/loja/mostar-imagem/'+produto.lojaResponseDto.urlImagem"
+            <img class="w-2rem h-2rem border-round-3xl ml-2 mr-2" *ngIf="produto.lojaResponseDto.urlImagem"
+              [src]="imagemService.getImagemUrl(produto.lojaResponseDto.urlImagem, 'lojas')"
               alt="{{ produto.lojaResponseDto.nome_loja }}">
             <div>
               <p class="text-xs">Promoção da loja:</p>
@@ -126,7 +127,8 @@
 
       <div class="convite-mobile">
         <p>Economize Recebendo todas as Promoções Relâmpago em Tempo Real</p>
-        <a class="bg-green-500" *ngIf="links.links != undefined" href="{{ links.links.whatsapp }}">PARTICIPAR DO GRUPO</a>
+        <a class="bg-green-500" *ngIf="links.links != undefined" href="{{ links.links.whatsapp }}">PARTICIPAR DO
+          GRUPO</a>
       </div>
 
       <div class="msg">
@@ -135,33 +137,7 @@
 
       <div class="produtos-categorias">
         <div *ngFor="let item of produtos" class="grid-item">
-          <div class="card">
-            <div>
-              <img [src]="apiUrl+'/produto/download/'+item.imagem" alt="">
-            </div>
-            <div class="info-cat">
-              <p class="data">{{calculateElapsedTime(item.dataCriacao)}}</p>
-              <p class="nome-produto">
-                <a href="/oferta/{{item.id}}">
-                  {{ item.titulo }}
-                </a>
-              </p>
-              <div class="cupom-categoria">
-                <div>
-                  <i *ngIf="item.cupom" class="pi pi-copy text-base"></i>
-                  <p class="ml-2" *ngIf="item.cupom">Cupom: {{ item.cupom }}</p>
-                </div>
-              </div>
-              <div class="frete">
-                <i class="pi pi-truck"></i>
-                <p>{{ item.freteVariacoes ? item.freteVariacoes.replace('*', '') : "" }}</p>
-              </div>
-              <p class="preco2">{{ item.preco }}</p>
-              <div class="ver-promocao">
-                <a href="{{ item.link }}" target="_blank">Pegar Promoção</a>
-              </div>
-            </div>
-          </div>
+          <app-produto-card [item]="item"></app-produto-card>
         </div>
       </div>
 
@@ -217,7 +193,7 @@
         <i class="pi pi-times cursor-pointer" (click)="fecharModal()"></i>
       </div>
       <div class="header-modal">
-        <img [src]="apiUrl+'/produto/download/'+produtoModalDto.imagem" alt="imagem-produto">
+        <img [src]="imagemService.getImagemUrl(produtoModalDto.imagem, 'produtos')" alt="imagem-produto">
         <p id="titulo-modal">{{ produtoModalDto.titulo }}</p>
       </div>
 

@@ -10,6 +10,7 @@ import { LojaService } from 'src/app/service/painel/loja.service';
 import { ProdutoService } from 'src/app/service/painel/produto.service';
 import { environment } from 'src/environments/environment';
 import { ScraperProduto } from './../../../dto/ScraperProduto';
+import { ImagemServiceService } from 'src/app/service/painel/imagem-service.service';
 
 @Component({
   selector: 'app-cadastrar-produto',
@@ -61,7 +62,8 @@ export class CadastrarProdutoComponent implements OnInit {
     private lojaService: LojaService,
     private categoriaService: CategoriaService,
     private router: ActivatedRoute,
-    private messageService: MessageService
+    private messageService: MessageService,
+    public imagemService: ImagemServiceService
   ) { }
 
   ngOnInit(): void {
@@ -109,7 +111,7 @@ export class CadastrarProdutoComponent implements OnInit {
     this.listarCategoria()
   }
 
-  resetarForm(){
+  resetarForm() {
     this.produtoFormGroup = this.formBuilder.group({
       titulo: ['', [Validators.required]],
       preco: ['', [Validators.required]],
@@ -131,100 +133,95 @@ export class CadastrarProdutoComponent implements OnInit {
 
   }
 
-  onFileChange(event: any) {
-    this.imagemFile = event.target.files[0]
-
-    if (this.produto != undefined && this.produto.imagem != undefined) {
-      this.produto.imagem = "";
+  onFileChange(event: File): void {
+    if (event) {
+      this.imagemFile = event;
+      const reader = new FileReader();
+      reader.onload = () => this.imagemView = reader.result as string; // Atualiza apenas imagemView
+      reader.readAsDataURL(event);
     }
-
-    const reader = new FileReader();
-
-    reader.onload = (e) => {
-      this.imagemView = reader.result as string;
-    }
-
-    reader.readAsDataURL(this.imagemFile);
   }
 
-  onFileChangeSocial(event: any) {
-    this.imagemFileSocial = event.target.files[0]
-
-    if (this.produto !== undefined) {
-      this.produto.imagemSocial = ""
+  onFileChangeSocial(event: any): void {
+    if (event) {
+      this.imagemFileSocial = event
+      const reader = new FileReader();
+      reader.onload = () => this.imagemViewSocial = reader.result as string; // Atualiza apenas imagemViewSocial
+      reader.readAsDataURL(event);
     }
+  }
 
-    const reader = new FileReader();
+  private montarProduto(): any {
+    return {
+      id: this.idEditar,
+      copy: this.produtoFormGroup.get('copy')?.value,
+      titulo: this.produtoFormGroup.get('titulo')?.value,
+      preco: this.produtoFormGroup.get('preco')?.value,
+      precoParcelado: this.produtoFormGroup.get('check')?.value ? "sem juros" : "",
+      freteVariacoes: this.produtoFormGroup.get('freteVariacoes')?.value,
+      mensagemAdicional: this.extrairValor('mensagemAdicional'),
+      linkSe: this.produtoFormGroup.get('link_se')?.value,
+      linkOmc: this.produtoFormGroup.get('link_ofm')?.value,
+      cupomSe: this.extrairValor("cupom"),
+      cupomOmc: this.extrairValor("cupomOmc"),
+      urlImagem: this.scraperProduto.urlImagem,
+      idCategoria: this.produtoFormGroup.get('id_categoria')?.value,
+      idLoja: this.produtoFormGroup.get('loja')?.value,
+      descricao: this.produtoFormGroup.get('descricao')?.value,
+      link: this.produtoFormGroup.get('link')?.value
+    };
+  }
 
-    reader.onload = (e) => {
-      this.imagemViewSocial = reader.result as string;
-    }
+  private extrairValor(campo: string): any {
+    const valor = this.produtoFormGroup.get(campo)?.value;
+    return valor && typeof valor === 'object' && 'name' in valor ? valor.name : valor;
+  }
 
-    reader.readAsDataURL(this.imagemFileSocial);
+  private resetarDados(): void {
+    Object.assign(this.scraperProduto, {
+      urlImagem: '',
+      urlProdutoSe: '',
+      urlProdutoOfm: ''
+    });
+
+    this.imagemViewSocial = '';
+    this.imagemFile = {} as File;
+    this.imagemFileSocial = {} as File;
+    this.imagemView = '';
+
+    this.resetarForm();
   }
 
   salvarProduto() {
 
-    this.id = parseInt(this.idEditar)
-
-    let parcelado = "";
+    
 
     if (this.idEditar == null && !this.produtoFormGroup.invalid) {
-
-      if (this.produtoFormGroup.get('check')?.value === true) {
-        parcelado = "sem juros"
+      const temImagem = this.scraperProduto.urlImagem || this.imagemFile || this.imagemFileSocial;
+      if (!temImagem) {
+        this.messageService.add({ severity: 'warn', detail: 'É necessário selecionar pelo menos uma imagem!' });
+        return;
       }
 
-      const produto: any = {
-        titulo: this.produtoFormGroup.get('titulo')?.value,
-        preco: this.produtoFormGroup.get('preco')?.value,
-        precoParcelado: parcelado,
-        freteVariacoes: this.produtoFormGroup.get('freteVariacoes')?.value,
-        mensagemAdicional: this.produtoFormGroup.get('mensagemAdicional')?.value['name'] === undefined ? this.produtoFormGroup.get('mensagemAdicional')?.value : this.produtoFormGroup.get('mensagemAdicional')?.value['name'],
-        link_se: this.produtoFormGroup.get('link_se')?.value,
-        link_ofm: this.produtoFormGroup.get('link_ofm')?.value,
-        cupom: this.produtoFormGroup.get('cupom')?.value === undefined || this.produtoFormGroup.get('cupom')?.value.length > 1 ? this.produtoFormGroup.get('cupom')?.value : this.produtoFormGroup.get('cupom')?.value['name'],
-        cupomOmc: this.produtoFormGroup.get('cupomOmc')?.value === undefined || this.produtoFormGroup.get('cupomOmc')?.value.length > 1 ? this.produtoFormGroup.get('cupomOmc')?.value : this.produtoFormGroup.get('cupomOmc')?.value['name'],
-        urlImagem: this.scraperProduto.urlImagem,
-        id_categoria: this.produtoFormGroup.get('id_categoria')?.value,
-        id_loja: this.produtoFormGroup.get('loja')?.value,
-        imagem: [''],
-        copy: this.produtoFormGroup.get('copy')?.value,
-        descricao: this.produtoFormGroup.get('descricao')?.value,
-        link: this.produtoFormGroup.get('link')?.value
-      }
+      const produto = this.montarProduto();
 
-      console.log(produto)
+      this.produtoSevice.salvarProduto(produto).subscribe({
+        next: response => {
+          this.id = response.id;
+          this.idOmc = response.idOmc;
 
-      this.produtoSevice.salvarProduto(produto).subscribe(response => {
+          if (this.imagemFile || this.imagemFileSocial) {
+            this.salvarImagem();
+          }
 
-        this.id = response.id;
-        this.idOmc = response.idOmc
-
-        if (this.scraperProduto.urlImagem === '' && this.imagemFile !== undefined) {
-
-          this.salvarImagem();
+          this.resetarDados();
+          this.messageService.add({ severity: 'success', detail: 'Produto Salvo' });
+        },
+        error: err => {
+          console.error(err);
+          this.messageService.add({ severity: 'error', detail: 'Erro ao salvar' });
         }
-
-        if (this.imagemFileSocial !== undefined) {
-          this.salvarImagem();
-        }
-
-        this.scraperProduto.urlImagem = '';
-        this.scraperProduto.urlProdutoSe = '';
-        this.scraperProduto.urlProdutoOfm = '';
-        this.imagemViewSocial = '';
-        this.imagemFile = {} as File;
-        this.imagemFileSocial = {} as File;
-
-        this.messageService.add({ severity: 'success', detail: 'Produto Salvo' });
-      }, err => {
-        console.log(err.status);
-        this.messageService.add({ severity: 'error', detail: 'Erro ao salvar' });
       });
-
-      this.imagemView = "";
-      this.resetarForm()
 
       return;
     }
@@ -247,73 +244,34 @@ export class CadastrarProdutoComponent implements OnInit {
   salvarImagem() {
     const formData = new FormData();
     formData.append("id", `${this.id}`);
-    formData.append("idOmc", `${this.idOmc}`);
 
-    console.log(this.idOmc)
-    if (this.scraperProduto.urlImagem === '') {
-      formData.append("file", this.imagemFile)
-      formData.append("fileSocial", this.imagemFileSocial)
-    }
+    formData.append("urlImagem", this.imagemFile);
+    formData.append("urlImagemReal", this.imagemFileSocial);
 
-    if (this.scraperProduto.urlImagem !== '' && this.imagemFileSocial !== undefined) {
-      formData.append("fileSocial", this.imagemFileSocial)
-    }
-
-    if (this.produto.id != 0) {
-      formData.append("urlImagem", this.produto.imagem);
-      formData.append("urlImagemReal", this.produto.imagemSocial);
-    }
-
-    this.produtoSevice.salvarImagem(formData).subscribe(response => {
-
-      this.messageService.add({ severity: 'success', detail: 'Imagem Salva!' });
-      return
-    }, err => {
-      console.log(err);
-      this.messageService.add({ severity: 'error', detail: 'Erro ao Salvar Imagem' });
-    });
+    this.imagemService.salvarImagem(formData).subscribe({
+      next: () => this.messageService.add({ severity: 'success', detail: 'Imagem Salva!' }),
+      error: (error) => this.messageService.add({ severity: 'error', detail: 'Erro ao Salvar Imagem' })
+    })
   }
 
   atualizarProduto() {
 
-    let parcelado = "";
+    const produto = this.montarProduto();
 
-    if (this.produtoFormGroup.get('check')?.value === true) {
-      console.log("teste aqui")
-      parcelado = "sem juros"
-    }
+    console.log(produto);
 
-    const produto: any = {
-      id: this.idEditar,
-      titulo: this.produtoFormGroup.get('titulo')?.value,
-      preco: this.produtoFormGroup.get('preco')?.value,
-      precoParcelado: parcelado,
-      freteVariacoes: this.produtoFormGroup.get('freteVariacoes')?.value,
-      mensagemAdicional: this.produtoFormGroup.get('mensagemAdicional')?.value['name'] === undefined ? this.produtoFormGroup.get('mensagemAdicional')?.value : this.produtoFormGroup.get('mensagemAdicional')?.value['name'],
-      link_se: this.produtoFormGroup.get('link_se')?.value,
-      link_ofm: this.produtoFormGroup.get('link_ofm')?.value,
-      cupom: this.produtoFormGroup.get('cupom')?.value === null || this.produtoFormGroup.get('cupom')?.value.length > 1 ? this.produtoFormGroup.get('cupom')?.value : this.produtoFormGroup.get('cupom')?.value['name'],
-      cupomOmc: this.produtoFormGroup.get('cupomOmc')?.value === null || this.produtoFormGroup.get('cupomOmc')?.value.length > 1 ? this.produtoFormGroup.get('cupomOmc')?.value : this.produtoFormGroup.get('cupomOmc')?.value['name'],
-      urlImagem: "",
-      id_categoria: this.produtoFormGroup.get('id_categoria')?.value,
-      id_loja: this.produtoFormGroup.get('loja')?.value,
-      copy: this.produtoFormGroup.get('copy')?.value,
-      link: this.produtoFormGroup.get('link')?.value,
-      descricao: this.produtoFormGroup.get('descricao')?.value
-    }
-
-    if (this.imagemFile !== undefined || this.imagemFileSocial !== undefined) {
+    if (this.imagemFile || this.imagemFileSocial) {
       this.salvarImagem();
     }
 
-    this.produtoSevice.atualizarProduto(produto).subscribe(response => {
-      this.messageService.add({ severity: 'success', detail: 'Produto Atualizado!' });
-    }, err => {
-      this.messageService.add({ severity: 'error', detail: 'Error ao Atualizado!' });
+    this.produtoSevice.atualizarProduto(produto).subscribe({
+      next: () => {
+        this.messageService.add({ severity: 'success', detail: 'Produto Atualizado!' });
+      },
+      error: () => this.messageService.add({ severity: 'error', detail: 'Error ao Atualizado!' })
     });
 
     return
-
   }
 
   listarLojas() {
@@ -330,132 +288,84 @@ export class CadastrarProdutoComponent implements OnInit {
 
   pegarProduto() {
 
-    this.produtoSevice.pegarProduto(this.idEditar, 0).subscribe(response => {
-      this.produto = response;
-      this.id = response.id
+    this.produtoSevice.pegarProduto(this.idEditar, 0).subscribe({
+      next: (response) => {
+        this.produto = response;
+        this.id = response.id
 
-      if (this.produto.link_ofm === null) {
-        this.cupomOmc = false
-      }
+        if (this.produto.linkSiteOmc === null) {
+          this.cupomOmc = false
+        }
 
-      console.log(this.produto)
+        this.produtoFormGroup = this.formBuilder.group({
+          titulo: [this.produto.titulo],
+          preco: [this.produto.preco],
+          check: [this.produto.parcelado != null && this.produto.parcelado.includes("sem juros") ? true : false],
+          freteVariacoes: [this.produto.freteVariacoes],
+          mensagemAdicional: [this.produto.mensagemAdicional],
+          descricao: [this.produto.linkAppSe],
+          link_se: [this.produto.linkSiteSe],
+          link_ofm: [this.produto.linkSiteOmc],
+          cupom: [this.produto.cupom],
+          cupomOmc: [null],
+          id_categoria: [this.produto.categoriaDto.categoria_id],
+          loja: [this.produto.lojaResponseDto.id],
+          copy: [this.produto.copy]
+        })
 
-      this.produtoFormGroup = this.formBuilder.group({
-        titulo: [this.produto.titulo],
-        preco: [this.produto.preco],
-        check: [this.produto.parcelado != null && this.produto.parcelado.includes("sem juros") ? true : false],
-        freteVariacoes: [this.produto.freteVariacoes],
-        mensagemAdicional: [this.produto.mensagemAdicional],
-        descricao: [this.produto.descricao],
-        link_se: [this.produto.link_se],
-        link_ofm: [this.produto.link_ofm],
-        cupom: [this.produto.cupom],
-        cupomOmc: [null],
-        id_categoria: [this.produto.categoriaDto.categoria_id],
-        loja: [this.produto.lojaResponseDto.id],
-        copy: [this.produto.copy]
-      })
-
-    }, err => {
-      console.log(err);
-      this.messageService.add({ severity: 'error', detail: 'Erro ao Recuperar Dados' });
+      },
+      error: () => this.messageService.add({ severity: 'error', detail: 'Erro ao Recuperar Dados' })
     });
   }
 
   rasparProduto(url: string) {
+    let loja = this.lojas.find(element =>
+      url.includes(element.nome_loja.toLowerCase().replace(' ', ''))
+    )?.id || "";
 
-    let loja: String = "";
-
-    this.lojas.forEach(element => {
-      if (url.includes(element.nome_loja.toLowerCase().replace(' ', ''))) {
-        loja = element.id;
-      }
-    });
-
-    if (loja == "" && url.includes("amz")) {
-      this.lojas.forEach(element => {
-        if (element.nome_loja.toLowerCase().includes("amazon")) {
-          loja = element.id;
-        }
-      });
+    if (!loja) {
+      const palavrasChave = ["amz", "shopee", "mercado"];
+      loja = this.lojas.find(element =>
+        palavrasChave.some(chave => url.includes(chave) && element.nome_loja.toLowerCase().includes(chave))
+      )?.id || "";
     }
 
-    if (loja == "" && url.includes("shopee")) {
-      this.lojas.forEach(element => {
-        if (element.nome_loja.toLowerCase().includes("shopee")) {
-          loja = element.id;
-        }
-      });
+    // Tratamento especial para "magazine"
+    if (!loja) {
+      loja = this.lojas.find(element =>
+        element.nome_loja.toLowerCase().includes("magazine")
+      )?.id || "";
     }
 
-    if (loja == "" && url.includes("mercado")) {
-      this.lojas.forEach(element => {
-        if (element.nome_loja.toLowerCase().includes("mercado")) {
-          loja = element.id;
-        }
-      });
-    }
-
-    if (loja === "") {
-      this.lojas.forEach(element => {
-        if (element.nome_loja.toLowerCase().includes("magazine")) {
-          loja = element.id;
-        }
-      });
-    }
-
-    let parcelado = "";
-
-    if (this.produtoFormGroup.get('check')?.value === true) {
-      console.log("teste aqui")
-      parcelado = "sem juros"
-    }
-
-    this.cuponsSE = [
-      { name: '10SERGIPEEOFERTAS' },
-      { name: '20SERGIPEEOFERTAS' },
-      { name: '30SERGIPEEOFERTAS' },
-      { name: '40SERGIPEEOFERTAS' },
-      { name: '50SERGIPEEOFERTAS' },
-      { name: '60SERGIPEEOFERTAS' },
-      { name: '70SERGIPEEOFERTAS' },
-      { name: '80SERGIPEEOFERTAS' },
-      { name: '90SERGIPEEOFERTAS' },
-      { name: '100SERGIPEEOFERTAS' }
-    ]
+    this.cuponsSE = Array.from({ length: 10 }, (_, i) => ({ name: `${(i + 1) * 10}SERGIPEEOFERTAS` }));
 
     this.produtoSevice.rasparProduto(url).subscribe(response => {
-
       this.scraperProduto = response;
 
       this.produtoFormGroup = this.formBuilder.group({
         url: [''],
-        titulo: [this.scraperProduto.nomeProduto, [Validators.required]],
-        check: [response.precoParcelado.includes("sem juros") ? true : false],
-        preco: [this.scraperProduto.precoProduto, [Validators.required]],
+        titulo: [response.nomeProduto, [Validators.required]],
+        check: [response.precoParcelado.includes("sem juros")],
+        preco: [response.precoProduto, [Validators.required]],
         mensagemAdicional: ['Promoção sujeita a alteração a qualquer momento'],
         freteVariacoes: [''],
         cupomOmc: [''],
-        link_se: [this.scraperProduto.urlProdutoSe],
-        link_ofm: [this.scraperProduto.urlProdutoOfm],
+        link_se: [response.urlProdutoSe],
+        link_ofm: [response.urlProdutoOfm],
         cupom: [''],
         id_categoria: ['', [Validators.required]],
         loja: [loja, [Validators.required]],
         imgem: [''],
         imgemSocial: [''],
         copy: [''],
-        link: [this.scraperProduto.urlProdutoSe],
-        descricao: [this.scraperProduto.urlProdutoOfm]
-      })
-
+        link: [response.urlProdutoSe],
+        descricao: [response.urlProdutoOfm]
+      });
 
       this.imagemView = "";
       this.imagemViewSocial = "";
     }, err => {
-      console.log(err)
       this.messageService.add({ severity: 'error', detail: 'Erro no Link' });
     });
   }
-
-
 }

@@ -8,6 +8,7 @@ import { PromosService } from 'src/app/service/painel/promos.service';
 import { environment } from 'src/environments/environment';
 import { Clipboard } from '@angular/cdk/clipboard';
 import { AnaliseService } from 'src/app/service/painel/analise.service';
+import { ImagemServiceService } from 'src/app/service/painel/imagem-service.service';
 
 @Component({
   selector: 'app-promos',
@@ -31,7 +32,8 @@ export class PromosComponent implements OnInit {
     private route: ActivatedRoute,
     private meta: Meta,
     private linkBannerService: LinkBannerService,
-    private clipboard: Clipboard
+    private clipboard: Clipboard,
+    public imagemService: ImagemServiceService
   ) { }
 
   ngOnInit() {

@@ -1,0 +1,46 @@
+<div class="bg-white border-round shadow-2 p-2">
+    <div *ngIf="item.imagem" class="relative flex justify-content-center">
+      <a [routerLink]="'/oferta/' + item.id">
+        <img [src]="imagemService.getImagemUrl(item.imagem, 'produtos')" alt="{{ item.titulo }}"
+             class="border-round w-full h-11rem imagem-hover">
+      </a>
+      <img [src]="imagemService.getImagemUrl(item.imagemLoja, 'lojas')" alt="{{ item.nomeLoja }}"
+           class="w-2rem h-2rem border-circle absolute right-0 mr-2 bottom-0 mb-2">
+    </div>
+  
+  
+    <div *ngIf="item" class="flex align-items-center gap-2 mb-2">
+      <p class="text-xs text-500">{{ calculateElapsedTime(item.dataCriacao) }}</p>
+    </div>
+  
+    <a [routerLink]="'/oferta/' + item.id" class="block h-2rem no-underline">
+      <p class="text-800 font-medium capitalize text-sm line-clamp-2">
+        {{ item.titulo }}
+      </p>
+    </a>
+  
+    <div *ngIf="item.cupom" (click)="copiarParaAreaTransferencia(item.cupom)" class="flex mt-2 h-1rem">
+      <i *ngIf="item.cupom.length < 18" class="pi pi-copy text-xs text-gray-500"></i>
+      <p *ngIf="item.cupom.length < 18" class="text-xs text-700">Cupom: {{ item.cupom }}</p>
+    </div>
+  
+    <div class="h-1rem mt-2" *ngIf="!item.cupom"></div>
+  
+    <div *ngIf="item.freteVariacoes" class="flex align-items-center gap-2 mt-1 text-xs text-500">
+      <i *ngIf="item.freteVariacoes.length < 48" class="pi pi-truck text-xs"></i>
+      <p class="text-overflow-ellipsis white-space-nowrap overflow-hidden">{{ item.nomeLoja.includes('Shopee')
+        ? 'Frete Grátis Algumas Regiões' : item.freteVariacoes.replaceAll('*', '') }}</p>
+    </div>
+  
+    <a [routerLink]="'/oferta/' + item.id" class="no-underline block mt-2">
+      <p class="text-xl font-bold text-orange-900">{{ item.preco }}</p>
+    </a>
+  
+    <div class="mt-2">
+      <a [href]="getSafeUrl(item.link)" target="_blank"
+         class="block cor-sergipe text-white text-center py-2 no-underline border-round font-semibold hover:bg-orange-400 transition-colors">
+        Pegar Promoção
+      </a>
+    </div>
+  </div>
+  

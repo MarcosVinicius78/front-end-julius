@@ -19,6 +19,7 @@ import { ProdutoLoja } from 'src/app/dto/ProdutoLoja';
 import { ProdutoModalDto } from 'src/app/dto/produtoModalDto';
 import { AtivarRodapéService } from 'src/app/service/ativarRodapé.service';
 import { AnaliseService } from 'src/app/service/painel/analise.service';
+import { ImagemServiceService } from 'src/app/service/painel/imagem-service.service';
 
 @Component({
   selector: 'app-produto',
@@ -64,8 +65,7 @@ export class ProdutoComponent implements OnInit {
     private clipboard: Clipboard,
     private linkBannerService: LinkBannerService,
     @Inject(PLATFORM_ID) private platformId: Object,
-    private ativarRodape: AtivarRodapéService,
-    private router: Router
+    public imagemService: ImagemServiceService
   ) { }
 
   ngOnInit(): void {
@@ -100,7 +100,7 @@ export class ProdutoComponent implements OnInit {
 
       this.produto = response;
       this.listarProdutos()
-      this.setProductMetaTags(this.produto.titulo, this.produto.descricao, "");
+      this.setProductMetaTags(this.produto.titulo, this.produto.linkSiteSe!, "");
 
       this.registrarAcessoOfertas()
     }, err => {
@@ -113,7 +113,6 @@ export class ProdutoComponent implements OnInit {
     const agora = new Date(); // Data atual
     const diffHoras = (agora.getTime() - data.getTime()) / (1000 * 60 * 60); // Diferença em horas
     this.podeExibir = diffHoras < 24; // Define se ainda não se passaram 24 horas
-    console.log(this.podeExibir)
     return this.podeExibir;
   }
 

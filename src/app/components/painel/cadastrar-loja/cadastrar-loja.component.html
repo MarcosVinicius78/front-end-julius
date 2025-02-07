@@ -15,7 +15,7 @@
     </ng-template>
     <ng-template pTemplate="body" let-loja>
       <tr>
-        <td><img *ngIf="loja.urlImagem != null" [src]="apiurl+'/loja/mostar-imagem/'+loja.urlImagem" [alt]="loja.nome_loja" width="100"
+        <td><img *ngIf="loja.urlImagem != null" [src]="imagemService.getImagemUrl(loja.urlImagem, 'lojas')" [alt]="loja.nome_loja" width="100"
             class="shadow-4" /></td>
         <td>{{loja.nome_loja}}</td>
         <td>

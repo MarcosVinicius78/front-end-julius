@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Loja } from 'src/app/models/loja';
+import { ImagemServiceService } from 'src/app/service/painel/imagem-service.service';
 import { LojaService } from 'src/app/service/painel/loja.service';
 import { environment } from 'src/environments/environment';
 
@@ -15,7 +16,8 @@ export class ParceirosComponent implements OnInit {
   apiUrl = environment.apiUrl
 
   constructor(
-    private lojaService: LojaService
+    private lojaService: LojaService,
+    public imagemService: ImagemServiceService
   ) { }
 
   ngOnInit() {

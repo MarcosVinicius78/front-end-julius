@@ -1,3 +1,4 @@
+import { ImagemServiceService } from './../../../service/painel/imagem-service.service';
 import { FormatRealPipe } from './../../../pipe/format-real.pipe';
 import { Component, Inject, OnInit, PLATFORM_ID } from '@angular/core';
 import { Router } from '@angular/router';
@@ -80,7 +81,8 @@ export class ListarProdutosCadastradosComponent implements OnInit {
     private lojaService: LojaService,
     private categoriaService: CategoriaService,
     @Inject(PLATFORM_ID) private platformId: Object,
-    private scravperService: ScraperService
+    private scravperService: ScraperService,
+    public imagemServiceService: ImagemServiceService
   ) { }
 
   ngOnInit(): void {

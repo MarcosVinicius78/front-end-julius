@@ -5,9 +5,9 @@
   <div class="w-7 lista-de-produtos">
     <div class="" *ngFor="let item of produtos">
       <p-card styleClass="flex align-items-center">
-        <ng-template styleClass="w-8" pTemplate="header">
+        <ng-template styleClass="" pTemplate="header">
           <a routerLink="/oferta/{{ item.id }}">
-            <img alt="Card" [src]="apiUrl+'/produto/download/'+item.urlImagem" />
+            <img alt="Card" [src]="imagemService.getImagemUrl(item.urlImagem, 'produtos')" />
           </a>
         </ng-template>
         <div class="info flex flex-column justify-content-between">
@@ -36,7 +36,7 @@
 
           <div class="flex justify-content-end ir-loja">
             <a href="{{item.link}}">
-              <p-button label="Pegar" styleClass="w-full" />
+              <p-button label="Pegar Promoção" styleClass="w-full" />
             </a>
           </div>
         </div>
@@ -44,7 +44,7 @@
           <hr class="linha-estilizada footer">
           <div class="info-footer footer flex align-items-center">
             <div class="loja mr-2">
-              <img [src]="apiUrl+'/loja/mostar-imagem/'+item.urlLoja">
+              <img [src]="imagemService.getImagemUrl(item.urlLoja, 'lojas')">
             </div>
             <div>
               <p>Vendido Por:</p>

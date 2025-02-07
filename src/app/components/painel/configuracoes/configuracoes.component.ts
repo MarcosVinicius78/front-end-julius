@@ -4,6 +4,7 @@ import { ProdutoService } from './../../../service/painel/produto.service';
 import { Component, OnInit } from '@angular/core';
 import { ScraperProduto } from 'src/app/dto/ScraperProduto';
 import { environment } from 'src/environments/environment';
+import { ImagemServiceService } from 'src/app/service/painel/imagem-service.service';
 
 @Component({
   selector: 'app-configuracoes',
@@ -23,7 +24,8 @@ export class ConfiguracoesComponent implements OnInit{
 
   constructor(
     private produtoService: ProdutoService,
-    private scraperService: ScraperService
+    private scraperService: ScraperService,
+    public imagemService: ImagemServiceService
   ) { }
   ngOnInit(): void {
     this.statusBot();

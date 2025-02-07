@@ -7,7 +7,7 @@
     <div class="grid">
       <div *ngFor="let item of lojas" class="lojas">
         <div class="card">
-          <img [src]="apiUrl+'/loja/mostar-imagem/'+item.urlImagem" alt="" srcset="">
+          <img [src]="imagemService.getImagemUrl(item.urlImagem, 'lojas')" alt="" srcset="">
           <div class="info">
             <p>{{ item.nome_loja }}</p>
           </div>

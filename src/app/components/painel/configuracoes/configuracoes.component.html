@@ -6,12 +6,13 @@
     <div class="artes-insta">
       <div class="box">
         <div class="storie">
-          <img [src]="api+'/produto/download/story.jpeg'" alt="storie">
+          <!-- <img [src]="api+'/produto/download/story.jpeg'" alt="storie"> -->
+          <img [src]="imagemService.getImagemUrl('story.jpeg', 'produtos')" alt="storie">
           <p>Arte para os Stories</p>
         </div>
 
         <div class="feed">
-          <img [src]="api+'/produto/download/feed.jpeg'" alt="storie">
+          <img [src]="imagemService.getImagemUrl('feed.jpeg', 'produtos')" alt="storie">
           <p>Arte para o Feed de Ofertas</p>
         </div>
       </div>

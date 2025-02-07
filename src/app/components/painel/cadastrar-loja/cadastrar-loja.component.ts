@@ -4,6 +4,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Loja } from 'src/app/models/loja';
 import { environment } from 'src/environments/environment';
 import { MessageService } from 'primeng/api';
+import { ImagemServiceService } from 'src/app/service/painel/imagem-service.service';
 
 @Component({
   selector: 'app-cadastrar-loja',
@@ -34,7 +35,8 @@ export class CadastrarLojaComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private lojaService: LojaService,
-    private messageService: MessageService
+    private messageService: MessageService,
+    public imagemService: ImagemServiceService
   ) { }
 
   ngOnInit(): void {

@@ -8,9 +8,7 @@
         <input class="scrape" pInputText id="url" formControlName="url" />
         <label htmlFor="Link do produto">Link do produto</label>
       </span>
-      <!-- <input class="scrape" formControlName="url" type="text" placeholder="Link do produto"> -->
-      <!-- <button (click)="rasparProduto()">PESQUISAR</button> -->
-      <input class="botao-cadastrar" type="submit">
+      <input class="botao-cadastrar cursor-pointer" type="submit">
     </header>
 
     <div class="formulario">
@@ -53,8 +51,6 @@
             <option value="Frete Grátis Prime">Frete Grátis Prime</option>
             <!-- <option value="Frete Econômico">Frete Econômico</option> -->
           </select>
-          <!-- <p-dropdown styleClass="dropdown" [options]="frete" name="freteVariacoes" formControlName="freteVariacoes" optionLabel="name" [showClear]="true"
-            placeholder="Escolha o Frete"></p-dropdown> -->
         </span>
       </div>
 
@@ -74,15 +70,8 @@
 
       <div class="grupo2 grupo">
         <span class="mensagemAdicional w-11 mr-4">
-          <!-- <select class="dropdown w-11 text-primary-50 font-medium text-base" formControlName="mensagemAdicional"
-            name="mensagemAdicional">
-            <option value="">Selecione um Mensagem</option>
-            <option value="Promoção sujeita a alteração a qualquer momento">Promoção sujeita a alteração a qualquer
-              momento</option>
-            <option value="Compartilhe com seus Amigos">Compartilhe com seus Amigos</option>
-          </select> -->
-          <p-dropdown styleClass="w-full teste" [options]="mensagemAdicional" formControlName="mensagemAdicional" [(ngModel)]="mensagemSelecionada" placeholder="Mensagem" [editable]="true"
-            optionLabel="name" />
+          <p-dropdown styleClass="w-full teste" [options]="mensagemAdicional" formControlName="mensagemAdicional"
+            [(ngModel)]="mensagemSelecionada" placeholder="Mensagem" [editable]="true" optionLabel="name" />
         </span>
         <span>
           <select class="dropdown w-11 text-primary-50 font-medium text-base" formControlName="loja" name="loja">
@@ -96,8 +85,7 @@
             <option value="">Selecione uma Categoria</option>
             <option *ngFor="let item of categorias" value="{{item.categoria_id}}">{{ item.nomeCategoria }}</option>
           </select>
-          <!-- <p-dropdown styleClass="dropdown w-full" [options]="categorias" formControlName="id_categoria" name="id_categoria" optionLabel="nome_categoria" [showClear]="true"
-            placeholder="Escolha a Categoria"></p-dropdown> -->
+  
         </span>
       </div>
 
@@ -105,52 +93,29 @@
         <div class="felx w-6">
           <h2>Imagem</h2>
           <div id="imagens">
-            <label for="fileInput">
-              <input formControlName="imgem" (change)="onFileChange($event)" id="fileInput" type="file" #fileInput>
-              <div id="file-input-label">
-                <div *ngIf="true">
-                  <img *ngIf="produto != undefined" [src]="imagemView ==  ''? scraperProduto.urlImagem : imagemView!"
-                    alt="Imagem Site">
-                  <img *ngIf="produto.id != 0"
-                    [src]=" produto.imagem != ''? apiUrl+'/produto/download/'+produto.imagem : imagemView"
-                    alt="Selected Image">
-                </div>
-                <div *ngIf="false">Selecionar Site</div>
-              </div>
-            </label>
+            <div id="imagens">
+              <!-- Imagem Principal -->
+              <app-image-display [externalUrl]="scraperProduto.urlImagem"
+                [serverUrl]="produto.imagem ? imagemService.getImagemUrl(produto.imagem, 'produtos') : ''"
+                [localImage]="imagemView" (imageSelected)="onFileChange($event)">
+              </app-image-display>
 
-            <label for="fileInputs">
-              <input formControlName="imgemSocial" name="imgemSocial" (change)="onFileChangeSocial($event)"
-                id="fileInputs" type="file" #fileInputs>
-              <div id="file-input-label">
-                <div *ngIf="true">
-                  <img
-                    [src]="produto.imagemSocial != ''? apiUrl+'/produto/download-imagem-real/'+produto.imagemSocial : imagemViewSocial"
-                    alt="Imagem Social">
-                </div>
-                <div *ngIf="false">Imagem Social</div>
-              </div>
-            </label>
+              <!-- Imagem Social -->
+              <app-image-display [externalUrl]="scraperProduto.urlImagem"
+                [serverUrl]="produto.imagemSocial ? imagemService.getImagemUrl(produto.imagemSocial, 'produtos-real') : ''"
+                [localImage]="imagemViewSocial" (imageSelected)="onFileChangeSocial($event)">
+              </app-image-display>
+            </div>
           </div>
+
         </div>
 
         <div class="w-6">
-          <!-- <span class="p-float-label w-full">
-            <input class="w-full" pInputText id="cupom" formControlName="cupom" />
-            <label htmlFor="Cupom">Cupom SE</label>
-          </span> -->
-          <p-dropdown styleClass="w-full" [options]="cuponsSE" formControlName="cupom" [(ngModel)]="cupomSelecionadoSE" placeholder="Cupom Sergipe Ofertas" [editable]="true"
+          <p-dropdown styleClass="w-full" [options]="cuponsSE" formControlName="cupom" [(ngModel)]="cupomSelecionadoSE"
+            placeholder="Cupom Sergipe Ofertas" [editable]="true" optionLabel="name" />
+          <p-dropdown *ngIf="cupomOmc" styleClass="w-full mt-4" [options]="cuponsOMC" formControlName="cupomOmc"
+            [(ngModel)]="cupomSelecionadoOMC" placeholder="Cupom Ofertas Mais Cupons" [editable]="true"
             optionLabel="name" />
-          <p-dropdown *ngIf="cupomOmc" styleClass="w-full mt-4" [options]="cuponsOMC" formControlName="cupomOmc" [(ngModel)]="cupomSelecionadoOMC" placeholder="Cupom Ofertas Mais Cupons" [editable]="true"
-            optionLabel="name" />
-          <!-- <span class="p-float-label w-full mt-5">
-            <input class="w-full" pInputText id="descricao" formControlName="cupomOmc" />
-            <label htmlFor="descricao">Cupom OMC</label>
-          </span> -->
-          <!-- <span class="p-float-label w-full">
-            <input class="w-full h-10rem mt-5" pInputText id="descricao" formControlName="descricao" />
-            <label htmlFor="descricao">Descriçao</label>
-          </span> -->
         </div>
       </div>
     </div>

@@ -67,9 +67,9 @@ export class BlankComponent implements OnInit {
 
 
       if (r === '1') {
-        window.location.href = response.link_se;
+        window.location.href = response.linkSiteSe!;
       }else if(r === '2'){
-        window.location.href = response.descricao;
+        window.location.href = response.linkAppSe!;
       }
     });
   }

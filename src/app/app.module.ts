@@ -57,6 +57,8 @@ import { ParceirosComponent } from './components/parceiros/parceiros.component';
 import { ChartModule } from 'primeng/chart';
 
 import { RouterModule } from '@angular/router';
+import { ImageDisplayComponent } from "./common/image-display/image-display.component";
+import { ProdutoCardComponent } from './common/produto-card/produto-card.component';
 
 @NgModule({ declarations: [
         AppComponent,
@@ -83,9 +85,11 @@ import { RouterModule } from '@angular/router';
         MenuOpcoesComponent,
         CadastrarPromoComponent,
         PromosComponent,
+        ProdutoCardComponent,
         GrupoSeComponent,
         PesquisaComponent,
         ParceirosComponent,
+        ImageDisplayComponent
     ],
     bootstrap: [AppComponent], imports: [BrowserModule,
     AppRoutingModule,
@@ -110,7 +114,7 @@ import { RouterModule } from '@angular/router';
     IconFieldModule,
     InputSwitchModule,
     CarouselModule,
-    CardModule,FormatRealPipe,FormatTextPipe], providers: [
+    CardModule, FormatRealPipe, FormatTextPipe], providers: [
         {
             provide: HTTP_INTERCEPTORS,
             useClass: RequireService,

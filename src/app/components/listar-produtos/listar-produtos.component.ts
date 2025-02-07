@@ -5,7 +5,6 @@ import { Component, HostListener, OnInit, ViewChild } from '@angular/core';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import * as dateFns from 'date-fns';
-// import { LinksBanner } from 'src/app/dto/LinksBanner';
 import { ProdutoModalDto } from 'src/app/dto/produtoModalDto';
 import { Banner } from 'src/app/models/banner';
 import { Produtos } from 'src/app/models/produtos';
@@ -13,6 +12,8 @@ import { AtivarRodapéService } from 'src/app/service/ativarRodapé.service';
 import { LinkBannerService } from 'src/app/service/painel/link-banner.service';
 import { ProdutoService } from 'src/app/service/painel/produto.service';
 import { environment } from 'src/environments/environment';
+import { ImagemServiceService } from 'src/app/service/painel/imagem-service.service';
+import { IProdutoResponseDto } from 'src/app/dto/IProdutoResponseDto';
 
 @Component({
   selector: 'app-listar-produtos',
@@ -24,7 +25,7 @@ export class ListarProdutosComponent implements OnInit {
 
   apiUrl: string = environment.apiUrl
 
-  produtos: Produtos[] = [];
+  produtos: IProdutoResponseDto[] = [];
 
   text: string = 'tesrte'
 
@@ -42,9 +43,6 @@ export class ListarProdutosComponent implements OnInit {
   pagePesquisa = 0;
   size = 12;
   slideIndex = 1;
-
-  modal: boolean = false;
-  produtoModalDto = new ProdutoModalDto();
 
   responsiveOptions = [
     {
@@ -75,7 +73,8 @@ export class ListarProdutosComponent implements OnInit {
     private clipboard: Clipboard,
     private ativarRodape: AtivarRodapéService,
     private sanitizer: DomSanitizer,
-    private analiseService: AnaliseService
+    private analiseService: AnaliseService,
+    public imagemService: ImagemServiceService
   ) { }
 
   ngOnInit() {
@@ -117,7 +116,7 @@ export class ListarProdutosComponent implements OnInit {
   }
 
   listarPorCategoria() {
-    this.loading = true;
+    // this.loading = true;
     this.produtoService.ProdutoPorCategoria(environment.site, this.idCategoria, this.page, this.size).subscribe(response => {
       this.produtos = this.produtos.concat(response.content);
       this.page++
@@ -286,24 +285,6 @@ export class ListarProdutosComponent implements OnInit {
 
   copiarParaAreaTransferencia(cupom: string) {
     this.clipboard.copy(cupom);
-  }
-
-  abrirModal(event: Event, cupom: string, img: string, titulo: string, link: string, frete: string, id: number) {
-
-    if (cupom && cupom.length > 18 || frete && frete.length > 48) {
-      this.produtoModalDto.id = id;
-      this.produtoModalDto.titulo = titulo;
-      this.produtoModalDto.imagem = img;
-      this.produtoModalDto.cupomInformacoes = cupom;
-      this.produtoModalDto.link = link;
-      this.produtoModalDto.frete = frete
-      event.preventDefault();
-      this.modal = true;
-    }
-  }
-
-  fecharModal() {
-    this.modal = false
   }
 
   produtosEmDestaque() {

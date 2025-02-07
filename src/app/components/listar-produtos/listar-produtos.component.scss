@@ -4,8 +4,9 @@
     display: flex;
     justify-content: center;
     min-height: 100vh;
-    width: 75%;
+    width: 80%;
     margin: 0 auto;
+    gap: 60px;
   }
 
   section {
@@ -174,105 +175,7 @@
     color: white;
     text-align: center;
     background-color: red;
-  }
-
-  .modal-informacao {
-    width: 100%;
-    height: 100vh;
-    position: fixed;
-    top: 0px;
-    left: 0px;
-    display: flex;
-    z-index: 1000;
-    -webkit-box-pack: center;
-    justify-content: center;
-    -webkit-box-align: center;
-    align-items: center;
-    overflow-y: auto;
-  }
-
-  .backgroud-modal {
-    width: 100%;
-    height: 100vh;
-    position: fixed;
-    top: 0px;
-    left: 0px;
-    display: flex;
-    z-index: 1000;
-    -webkit-box-pack: center;
-    justify-content: center;
-    -webkit-box-align: center;
-    align-items: center;
-    overflow-y: auto;
-    background: rgba(0, 0, 0, 0.8);
-    cursor: pointer;
-  }
-
-  .header-modal img {
-    width: 100px;
-    height: 100px;
-  }
-
-  #titulo-modal {
-    width: 60%;
-    height: 45%;
-    -webkit-box-align: center;
-    align-items: center;
-    font-size: 18px;
-    font-weight: 600;
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
-
-  .info-modal {
-    margin-top: 5px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    height: 30%;
-    justify-content: space-around;
-  }
-
-  .info-modal p:last-child {
-    text-align: center;
-    font-size: 15px;
-    width: 80%;
-  }
-
-  .info-modal p:first-child {
-    font-size: 20px;
-    font-weight: 600;
-  }
-
-  .conteudo-modal {
-    z-index: 10010;
-    width: 378px;
-    height: 350px;
-    padding: 10px;
-    /* background: transparent; */
-    background-color: white;
-    border-radius: 11px;
-    position: relative;
-    overflow: hidden;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-  }
-
-  .conteudo-modal a:last-child {
-    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-    font-size: 18px;
-    background-color: aqua;
-    display: block;
-    padding: 7px;
-    color: white;
-    background-color: #F0A11F;
-    border-radius: 5px;
-    text-align: center;
-  }
+  }   
 
   .nome-produto {
     white-space: nowrap;
@@ -572,11 +475,6 @@
       box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
       position: relative;
       justify-content: space-around;
-    }
-
-    .conteudo-modal {
-      width: 90%;
-      height: 50%;
     }
 
     .frete {

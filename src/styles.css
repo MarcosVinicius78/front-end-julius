@@ -14,11 +14,8 @@ body {
   background-color: rgb(238, 238, 238);
 }
 
-@font-face {
-  font-family: "SergipeOfertas";
-  src: url("./assets/font/ace-sans-black.otf");
-  font-weight: normal;
-  font-style: normal;
+.cor-sergipe{
+  background-color: #f0a11f;
 }
 
 /* Estilo da barra de rolagem */

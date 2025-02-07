@@ -1,6 +1,7 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { IProdutoResponseDto } from 'src/app/dto/IProdutoResponseDto';
 import { ProdutoLoja } from 'src/app/dto/ProdutoLoja';
 import { ScraperProduto } from 'src/app/dto/ScraperProduto';
 import { Produtos } from 'src/app/models/produtos';
@@ -11,7 +12,6 @@ import { environment } from 'src/environments/environment';
 })
 export class ProdutoService {
 
-
   apiUrl = environment.apiUrl;
 
   constructor(private http: HttpClient) { }
@@ -19,10 +19,6 @@ export class ProdutoService {
   salvarProduto(produto: any) {
 
     return this.http.post<Produtos>(`${this.apiUrl}/produto/salvar`, produto);
-  }
-
-  salvarImagem(formData: FormData) {
-    return this.http.post(`${this.apiUrl}/produto/upload`, formData);
   }
 
   listarProduto(page: number, size: number): Observable<any> {
@@ -95,7 +91,7 @@ export class ProdutoService {
 }
 
 interface PordutosPage {
-  content: Produtos[],
+  content: IProdutoResponseDto[],
   totalElements: number,
   totalPages: number
 }

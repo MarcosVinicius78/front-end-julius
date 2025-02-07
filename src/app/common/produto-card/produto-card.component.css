@@ -1,0 +1,15 @@
+.line-clamp-2 {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .imagem-hover {
+    object-fit: contain;
+    transition: transform 0.3s ease-in-out; /* Animação suave */
+  }
+  
+  .imagem-hover:hover {
+    transform: scale(1.03); /* Aplica um zoom de 10% */
+  } 

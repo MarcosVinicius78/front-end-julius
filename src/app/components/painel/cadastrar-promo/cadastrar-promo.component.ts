@@ -74,9 +74,8 @@ export class CadastrarPromoComponent implements OnInit {
 
   listarPromo() {
     this.promoService.listarPromos(this.pagePromo, this.sizePromo).subscribe(response => {
-
-      this.totalPagepromo = response.totalPages
       this.promosProdutos = response.content
+      this.totalPagepromo = response.totalPages
     });
   }
 
@@ -95,8 +94,6 @@ export class CadastrarPromoComponent implements OnInit {
   }
 
   salvarPromo() {
-
-    console.log(this.produtosSelecionadoGroup.invalid)
 
     if (this.targetProducts.length !== 0 && !this.produtosSelecionadoGroup.invalid) {
 
@@ -118,15 +115,15 @@ export class CadastrarPromoComponent implements OnInit {
 
           this.modal = false
           this.salvarImagem(response.idPromo)
-          this.listarPromo()
           this.idEditar = 0
           this.produtosSelecionadoGroup.reset()
+          this.messageService.add({ severity: 'success', summary: 'success', detail: 'Promocoes Salvas' });
+          this.listarPromo()
           return
         })
       }
       this.atualizarPromo()
     }
-    console.log("aqui")
     this.messageService.add({ severity: 'warn', summary: 'warn', detail: 'Informe os Campos' });
   }
 
