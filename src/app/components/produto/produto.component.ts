@@ -123,7 +123,8 @@ export class ProdutoComponent implements OnInit {
     this.meta.addTag({ property: 'og:image:height', content: "500" });
     this.meta.updateTag({ name: 'description', content: "Promoções do Dia" });
     this.meta.updateTag({ property: 'og:title', content: productName });
-    this.meta.updateTag({ property: 'og:image', content: `${this.apiUrl}/produto/download-imagem-real/${this.produto.imagemSocial}` });
+    this.meta.updateTag({ property: 'og:image', content: this.imagemService.getImagemUrl(this.produto.imagemSocial, "produtos-real") });
+    // this.meta.updateTag({ property: 'og:image', content: `${this.apiUrl}/produto/download-imagem-real/${this.produto.imagemSocial}` });
 
   }
 

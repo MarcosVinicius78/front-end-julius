@@ -9,6 +9,7 @@ import { ProdutoService } from 'src/app/service/painel/produto.service';
 import { environment } from 'src/environments/environment';
 import { LinkBannerService } from 'src/app/service/painel/link-banner.service';
 import { LinksBanner } from 'src/app/dto/LinksBanner';
+import { ImagemServiceService } from 'src/app/service/painel/imagem-service.service';
 
 @Component({
   selector: 'app-blank',
@@ -27,7 +28,8 @@ export class BlankComponent implements OnInit {
     private meta: Meta,
     private produtoService: ProdutoService,
     @Inject(PLATFORM_ID) private platformId: Object,
-    private linksService: LinkBannerService
+    private linksService: LinkBannerService,
+    public imagemService: ImagemServiceService
   ) { }
 
   ngOnInit(): void {
@@ -63,7 +65,7 @@ export class BlankComponent implements OnInit {
       // Definir as meta tags aqui
       this.meta.updateTag({ name: 'og:title', content: response.titulo });
       // this.meta.updateTag({ name: 'og:description', content: response.descricao });
-      this.meta.updateTag({ name: 'og:image', content: `${environment.apiUrl}/produto/download-imagem-real/${response.imagemSocial}` });
+      this.meta.updateTag({ name: 'og:image', content: this.imagemService.getImagemUrl(this.produto.imagemSocial, "produtos-real") });
 
 
       if (r === '1') {
