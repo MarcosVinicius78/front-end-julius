@@ -65,7 +65,7 @@ export class BlankComponent implements OnInit {
       // Definir as meta tags aqui
       this.meta.updateTag({ name: 'og:title', content: response.titulo });
       // this.meta.updateTag({ name: 'og:description', content: response.descricao });
-      this.meta.updateTag({ name: 'og:image', content: this.imagemService.getImagemUrl(this.produto.imagemSocial, "produtos-real") });
+      this.meta.updateTag({ name: 'og:image', content: this.imagemService.getImagemUrl(response.imagemSocial, "produtos-real") });
 
 
       if (r === '1') {

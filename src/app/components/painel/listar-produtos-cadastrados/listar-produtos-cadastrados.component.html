@@ -115,7 +115,7 @@
 <p-dialog header="Confirmar Informações" [modal]="true" [(visible)]="visible" [style]="{ width: '25rem' }">
   <p-card header="{{ produto.titulo }}" [style]="{ width: '360px' }">
     <ng-template pTemplate="header">
-      <img alt="Card" [src]="apiUrl+'/produto/download/'+produto.imagem" />
+      <img alt="Card" [src]="this.imagemServiceService.getImagemUrl(produto.imagemSocial, 'produtos-real')" />
     </ng-template>
     <p [innerHTML]="montarEstruturaCompartilhamento(produto, 2) | formatText"></p>
   </p-card>
