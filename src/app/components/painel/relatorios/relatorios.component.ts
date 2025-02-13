@@ -153,14 +153,14 @@ export class RelatoriosComponent {
       ? this.date.toISOString().split('T')[0]
       : this.formatarDataLocal(new Date());
 
-    this.analiseService.buscarEventosPorDia(dataFormatada!, "ACESSO_OFERTAS").subscribe(response => {
+    this.analiseService.buscarEventosPorDia(dataFormatada!, "ACESSO_SISTEMA").subscribe(response => {
       this.eventoQuantidadeGeral = response
     })
   }
 
   buscarDadosPorDia() {
 
-    
+
   }
 
   private formatarDataLocal(data: Date): string {
