@@ -1,0 +1,12 @@
+.line-clamp-2 {
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .overflow-container {
+    max-height: 600px; /* Altura máxima antes da rolagem */
+    overflow-y: auto; /* Habilita rolagem vertical */
+    border: 1px solid #ddd; /* Opcional: borda para visualização */
+}

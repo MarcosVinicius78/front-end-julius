@@ -1,41 +1,73 @@
-<div class="grid">
-  <!-- Linha Superior -->
-  <div class="col-3">
-    <div class="bg-white border-round h-auto p-2 shadow-2">
-      <!-- Conteúdo do quadrado -->
-      <p-chart type="bar" height="35vh" [data]="procentagemData" [options]="basicOptions" />
-      <p-calendar placeholder="Escolha os dias" [(ngModel)]="rangeDates" (onSelect)="buscarDadosPorData()" selectionMode="range" [readonlyInput]="true" />
-    </div>
-  </div>
-  <div class="col-9">
-    <div class="bg-white border-round h-auto p-2 shadow-2">
-      <!-- Conteúdo do retângulo -->
-      <p-chart  type="line" height="35vh" [data]="data" [options]="options" />
+<div>
+  <div class="">
+    <p-calendar (onSelect)="buscarDadosPorDia()" placeholder="Escolha um dia" [(ngModel)]="date" />
 
-      <p-calendar placeholder="Escolha os dias" [(ngModel)]="rangeDates" (onSelect)="buscarDadosPorData()" selectionMode="range" [readonlyInput]="true" />
+    <div class="flex mt-2 gap-2">
+      <div class="h-7rem w-full justify-content-between flex flex-column border-round bg-white shadow-3 p-2">
+        <p class="text-sm">Acessos na Pagina do Produto</p>
+        <div class="flex align-items-center justify-content-between">
+          <!-- <p class="font-bold text-2xl">{{ acessoPagina }}</p> -->
+          <!-- <p class="font-bold text-2xl">{{ acessoPagina }}</p> -->
+          <p class="font-bold text-2xl">{{ eventoQuantidadeAcessoAPagina.quantidadeNoDia }}</p>
+          <p [class]="eventoQuantidadeAcessoAPagina!.quantidadeNoDia! > eventoQuantidadeAcessoAPagina!.quantidadeDiaAnterior! ? 'font-bold text-base text-red-600' : 'font-bold text-base text-green-600'">{{ eventoQuantidadeAcessoAPagina!.quantidadeDiaAnterior! }}</p>
+        </div>
+      </div>
+
+      <div class="w-full justify-content-between flex flex-column border-round bg-white shadow-3 p-2">
+        <p class="text-sm">Cliques no Botao "Pegar Promocao"</p>
+        <div class="flex align-items-center justify-content-between">
+          <!-- <p class="font-bold text-2xl">{{ acessoBotao }}</p> -->
+          <!-- <p class="font-bold text-2xl">{{ acessoBotao }}</p> -->
+          <p class="font-bold text-2xl">{{ eventoQuantidadeCliquesNoBotao!.quantidadeNoDia! }}</p>
+          <p [class]="eventoQuantidadeCliquesNoBotao!.quantidadeNoDia! > eventoQuantidadeCliquesNoBotao!.quantidadeDiaAnterior! ? 'font-bold text-base text-red-600' : 'font-bold text-base text-green-600'">{{ eventoQuantidadeCliquesNoBotao!.quantidadeDiaAnterior! }}</p>
+        </div>
+      </div>
+
+      <div class="w-full justify-content-between flex flex-column border-round bg-white shadow-3 p-2">
+        <p class="text-sm">Acessos no Link curto</p>
+        <div class="flex align-items-center justify-content-between">
+          <!-- <p class="font-bold text-2xl">{{ acessoBotao }}</p> -->
+          <!-- <p class="font-bold text-2xl">{{ acessoBotao }}</p> -->
+          <p class="font-bold text-2xl">{{ eventoQuantidadeLinkCurto!.quantidadeNoDia! }}</p>
+          <p [class]="eventoQuantidadeLinkCurto!.quantidadeNoDia! > eventoQuantidadeLinkCurto!.quantidadeDiaAnterior! ? 'font-bold text-base text-red-600' : 'font-bold text-base text-green-600'">{{ eventoQuantidadeLinkCurto!.quantidadeDiaAnterior! }}</p>
+        </div>
+      </div>
+
+      <div class="w-full flex flex-column align-items-center justify-content-center border-round bg-white shadow-3">
+        <p>Total de Acessos</p>
+        <p class="font-bold text-2xl">{{ eventoQuantidadeGeral.quantidadeNoDia }}</p>
+      </div>
     </div>
   </div>
 
-  <!-- Linha Inferior -->
-  <div class="col-3">
-    <div style="height: 325px;" class="bg-white border-round text-center p-2 shadow-2">
-      <p>Cliques na pagina de ofertas e no botao</p>
-      <p-calendar (onSelect)="buscarDadosPorDia()" placeholder="Escolha um dia" [(ngModel)]="date"/>
-      <div class="bg-white shadow-3 flex flex-column justify-content-center w-full mt-3 h-5rem border-round">
-        <p class="font-bold text-2xl">{{ acessoPagina }}</p>
-        <p class="text-sm">Acessos na Pagina</p>
-      </div>
-      <div class="bg-white shadow-3 w-full mt-3 h-5rem flex flex-column justify-content-center border-round">
-        <p class="font-bold text-2xl">{{ acessoBotao }}</p>
-        <p class="text-sm">Cliques no Botao</p>
+  <div class="flex gap-2 w-full mt-2">
+    <div class="w-8">
+      <div class="bg-white border-round h-auto p-2 shadow-2">
+        <!-- Conteúdo do retângulo -->
+        <p-chart type="line" height="28vh" [data]="data" [options]="options" />
+
+        <p-calendar placeholder="Escolha os dias" [(ngModel)]="rangeDates" (onSelect)="buscarDadosPorData()"
+          selectionMode="range" [readonlyInput]="true" />
       </div>
     </div>
-  </div>
-  <div class="col-3">
-    <div
-      class="flex align-items-center justify-content-center text-3xl flex-column h-full bg-white border-round p-2 shadow-2">
-      <p>Total de Acessos</p>
-      <p>{{ totalAcessoSistema }}</p>
+
+    <div class="w-4 overflow-container">
+      <p-table class="w-full" [value]="produtos">
+        <ng-template pTemplate="caption">
+          <div class="flex align-items-center justify-content-between">
+            Top Produtos
+          </div>
+        </ng-template>
+        <ng-template pTemplate="body" let-product>
+          <tr>
+            <td><img [src]="imagemService.getImagemUrl(product.urlImagem, 'produtos')" [alt]="product.name" width="100"
+                class="shadow-4"></td>
+            <td class="line-clamp-2">{{ product.nomeProduto }}</td>
+            <td>{{ product.totalEventos }}</td>
+          </tr>
+        </ng-template>
+      </p-table>
     </div>
   </div>
+
 </div>

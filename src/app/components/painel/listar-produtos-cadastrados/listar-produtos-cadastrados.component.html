@@ -6,7 +6,8 @@
     <input *ngIf="visualiarCampoPesquisa" class="w-5 h-2rem" [formControl]="termoPesquisa"
       placeholder="Pesquise um Produto" type="text" pInputText />
 
-    <select (change)="listarPorLoja($event)" *ngIf="visualiarDropdownLoja" class="dropdown w-5 text-primary-50 font-medium text-base" name="loja">
+    <select (change)="listarPorLoja($event)" *ngIf="visualiarDropdownLoja"
+      class="dropdown w-5 text-primary-50 font-medium text-base" name="loja">
       <option value="">Selecione uma Loja</option>
       <option *ngFor="let item of lojas" value="{{item.id}}">{{ item.nome_loja }}</option>
     </select>
@@ -58,7 +59,8 @@
           </td>
           <td>
             <a routerLink="/painel/atualizar-produtos/{{item.id}}">
-              <img [src]="imagemServiceService.getImagemUrl(item.imagemSocial, 'produtos-real')" alt="imagemSocial">
+              <app-image-display [serverUrl]="imagemServiceService.getImagemUrl(item.imagemSocial, 'produtos-real')" />
+              <!-- <img [src]="" alt="imagemSocial"> -->
             </a>
           </td>
           <td>

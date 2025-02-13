@@ -125,9 +125,12 @@ export class ListarProdutosCadastradosComponent implements OnInit {
   }
 
   listarProdutos() {
-    this.produtoService.listarProduto(this.page, this.size).subscribe(response => {
-      this.produtos = this.produtos.concat(response.content)
-      this.totalPage = response.totalPages
+    this.produtoService.listarProduto(this.page, this.size).subscribe({ 
+      next: (res) => {
+        this.produtos = this.produtos.concat(res.content)
+        this.totalPage = res.totalPages
+        console.log(res)
+      }
     });
   }
 

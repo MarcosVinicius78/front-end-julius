@@ -84,10 +84,16 @@ export class ProdutoComponent implements OnInit {
         sessionStorage.setItem('acessoRegistrado', 'true');
       });
 
+      this.registrarEventoDoproduto(this.produto.id);
+
       this.analiseService.registrarEvento('ACESSO_SISTEMA').subscribe(() => {
         sessionStorage.setItem('acessoRegistradoHome', 'true');
       });
     }
+  }
+
+  registrarEventoDoproduto(id: number) {
+    this.analiseService.registrarEventoDoProduto(id, 'ACESSO_PRODUTO', 'link curto').subscribe();
   }
 
   registrarCliqueBotao() {
@@ -96,16 +102,17 @@ export class ProdutoComponent implements OnInit {
 
   pegarProduto() {
 
-    this.produtoService.pegarProduto(this.id, 0).subscribe(response => {
+    this.produtoService.pegarProduto(this.id, 0).subscribe({
+      next: (response) => {
+        this.produto = response;
+        this.listarProdutos()
+        this.setProductMetaTags(this.produto.titulo, this.produto.linkSiteSe!, "");
 
-      this.produto = response;
-      this.listarProdutos()
-      this.setProductMetaTags(this.produto.titulo, this.produto.linkSiteSe!, "");
-
-      this.registrarAcessoOfertas()
-    }, err => {
-      this.listarProdutos()
-    });
+        this.registrarAcessoOfertas()
+      }, error: () => {
+        this.listarProdutos()
+      }
+    })
   }
 
   verificarSePassaram24Horas(dataBase: string) {

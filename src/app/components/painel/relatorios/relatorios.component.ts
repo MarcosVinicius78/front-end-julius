@@ -4,20 +4,21 @@ import { ChangeDetectorRef, Component, inject, PLATFORM_ID } from '@angular/core
 import { ChartModule } from 'primeng/chart';
 import { FormsModule } from '@angular/forms';
 import { CalendarModule } from 'primeng/calendar';
+import { TableModule } from 'primeng/table';
+import { ProdutosComMaisCliques } from 'src/app/dto/ProdutoComMaisClique';
+import { ImagemServiceService } from 'src/app/service/painel/imagem-service.service';
+import { EventoQuantidadePorTipo } from 'src/app/dto/evento/EventoQuantidadePorTipo';
 
 @Component({
   selector: 'app-relatorios',
   standalone: true,
-  imports: [ChartModule, FormsModule, CalendarModule],
+  imports: [ChartModule, FormsModule, CalendarModule, TableModule],
   templateUrl: './relatorios.component.html',
   styleUrl: './relatorios.component.css'
 })
 export class RelatoriosComponent {
 
   basicData: any;
-  procentagemData: any;
-
-  basicOptions: any;
 
   data: any;
 
@@ -48,6 +49,8 @@ export class RelatoriosComponent {
     Sunday: number;
   };
 
+  produtos: ProdutosComMaisCliques[] = [];
+
   porcentagens!: { porcentagemCliques: number; porcentagemNaoCliques: number };
 
   date: Date | undefined;
@@ -55,14 +58,27 @@ export class RelatoriosComponent {
   acessoPagina: string = "";
   acessoBotao: string = "";
 
+  eventoQuantidadeLinkCurto: EventoQuantidadePorTipo = {}
+  eventoQuantidadeAcessoAPagina: EventoQuantidadePorTipo = {}
+  eventoQuantidadeCliquesNoBotao: EventoQuantidadePorTipo = {}
+  eventoQuantidadeGeral: EventoQuantidadePorTipo = {}
+
   constructor(
-    private cd: ChangeDetectorRef
+    private cd: ChangeDetectorRef,
+    public imagemService: ImagemServiceService
   ) { }
 
   ngOnInit() {
+
     this.obterEstatisticas()
-    this.buscarDadosPorDia()
+    
+    this.buscarDadosGeral()
+    this.buscarDadosDaPagina()
+    this.buscarDadosDoBotao()
+    this.buscarDadosDoLinkCurto()
+
     this.buscarDadosPorData()
+    this.listarProdutosComMaisCliques()
   }
 
   obterEstatisticas() {
@@ -77,6 +93,14 @@ export class RelatoriosComponent {
 
   }
 
+  listarProdutosComMaisCliques() {
+    this.analiseService.listarProdutosComMaisCliques().subscribe({
+      next: (res) => {
+        this.produtos = res.content
+      }
+    })
+  }
+
   initChart() {
     if (isPlatformBrowser(this.platformId)) {
       const documentStyle = getComputedStyle(document.documentElement);
@@ -86,24 +110,56 @@ export class RelatoriosComponent {
 
       this.graficosDaSemana(documentStyle, textColor, textColorSecondary, surfaceBorder)
 
-      this.porcentagemGraficos(documentStyle, textColor, textColorSecondary, surfaceBorder)
-
       this.acessosOfertasVsBotao(documentStyle, textColor, textColorSecondary, surfaceBorder)
 
       this.cd.markForCheck()
     }
   }
 
-  buscarDadosPorDia() {
+  buscarDadosDaPagina() {
     const dataFormatada = this.date
       ? this.date.toISOString().split('T')[0]
       : this.formatarDataLocal(new Date());
 
-    this.analiseService.buscarEventosPorDia(dataFormatada!).subscribe(response => {
-      this.acessoPagina = response['ACESSO_OFERTAS']
-      this.acessoBotao = response['CLIQUE_BOTAO']
-      console.log(response)
+      console.log(dataFormatada)
+
+    this.analiseService.buscarEventosPorDia(dataFormatada!, "ACESSO_OFERTAS").subscribe({
+      next: (res) => this.eventoQuantidadeAcessoAPagina = res
     })
+  }
+
+  buscarDadosDoBotao() {
+    const dataFormatada = this.date
+      ? this.date.toISOString().split('T')[0]
+      : this.formatarDataLocal(new Date());
+
+    this.analiseService.buscarEventosPorDia(dataFormatada!, "CLIQUE_BOTAO").subscribe({
+      next: (res) => console.log(res)
+    })
+  }
+
+  buscarDadosDoLinkCurto() {
+    const dataFormatada = this.date
+      ? this.date.toISOString().split('T')[0]
+      : this.formatarDataLocal(new Date());
+
+    this.analiseService.buscarEventosPorDia(dataFormatada!, "ACESSO_LINK_CURTO").subscribe({
+      next: (res) => this.eventoQuantidadeLinkCurto= res
+    })
+  }
+
+  buscarDadosGeral() {
+    const dataFormatada = this.date
+      ? this.date.toISOString().split('T')[0]
+      : this.formatarDataLocal(new Date());
+
+    this.analiseService.buscarEventosPorDia(dataFormatada!, "ACESSO_OFERTAS").subscribe(response => {
+      this.eventoQuantidadeGeral = response
+    })
+  }
+
+  buscarDadosPorDia() {
+
   }
 
   private formatarDataLocal(data: Date): string {
@@ -205,48 +261,6 @@ export class RelatoriosComponent {
           }
         }
       }
-    };
-  }
-
-  porcentagemGraficos(documentStyle: any, textColor: any, textColorSecondary: any, surfaceBorder: any) {
-    this.procentagemData = {
-      labels: ['Cliques', 'Não Cliques'],
-      datasets: [
-        {
-          label: 'Cliques no Botão Pegar Promoção',
-          data: [this.porcentagens?.porcentagemNaoCliques, this.porcentagens?.porcentagemCliques],
-          backgroundColor: [
-            'rgba(249, 115, 22, 0.2)',
-            'rgba(6, 182, 212, 0.2)',
-          ],
-          borderColor: ['rgb(249, 115, 22)', 'rgb(6, 182, 212)'],
-          borderWidth: 1,
-        },
-      ],
-    }
-
-    this.basicOptions = {
-      scales: {
-        x: {
-          ticks: {
-            color: textColorSecondary,
-          },
-          grid: {
-            color: surfaceBorder,
-          },
-        },
-        y: {
-          beginAtZero: true,
-          ticks: {
-            color: textColorSecondary,
-          },
-          grid: {
-            color: surfaceBorder,
-          },
-        },
-      },
-      responsive: true,
-      maintainAspectRatio: false,
     };
   }
 

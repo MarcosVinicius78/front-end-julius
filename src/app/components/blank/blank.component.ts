@@ -1,6 +1,6 @@
 import { response } from 'express';
 import { isPlatformBrowser } from '@angular/common';
-import { Component, Inject, OnInit, PLATFORM_ID } from '@angular/core';
+import { Component, inject, Inject, OnInit, PLATFORM_ID } from '@angular/core';
 import { Meta } from '@angular/platform-browser';
 import { ActivatedRoute, ActivatedRouteSnapshot, Router } from '@angular/router';
 import { Action } from 'rxjs/internal/scheduler/Action';
@@ -10,6 +10,7 @@ import { environment } from 'src/environments/environment';
 import { LinkBannerService } from 'src/app/service/painel/link-banner.service';
 import { LinksBanner } from 'src/app/dto/LinksBanner';
 import { ImagemServiceService } from 'src/app/service/painel/imagem-service.service';
+import { AnaliseService } from 'src/app/service/painel/analise.service';
 
 @Component({
   selector: 'app-blank',
@@ -21,6 +22,8 @@ export class BlankComponent implements OnInit {
   produto = new ProdutoLoja();
 
   links!: LinksBanner
+
+  analiseService = inject(AnaliseService)
 
   constructor(
     private route: ActivatedRoute,
@@ -67,6 +70,8 @@ export class BlankComponent implements OnInit {
       // this.meta.updateTag({ name: 'og:description', content: response.descricao });
       this.meta.updateTag({ name: 'og:image', content: this.imagemService.getImagemUrl(response.imagemSocial, "produtos-real") });
 
+      this.registrarAcesso();
+      this.registrarEventoDoproduto(response.id);
 
       if (r === '1') {
         window.location.href = response.linkSiteSe!;
@@ -75,4 +80,13 @@ export class BlankComponent implements OnInit {
       }
     });
   }
+
+  registrarAcesso() {
+    this.analiseService.registrarEvento('ACESSO_LINK_CURTO', 'link curto').subscribe();
+  }
+  
+  registrarEventoDoproduto(id: number) {
+    this.analiseService.registrarEventoDoProduto(id, 'ACESSO_PRODUTO', 'link PRODUTO').subscribe();
+  }
+
 }
