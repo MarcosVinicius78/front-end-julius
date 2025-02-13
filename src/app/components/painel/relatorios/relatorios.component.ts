@@ -160,6 +160,7 @@ export class RelatoriosComponent {
 
   buscarDadosPorDia() {
 
+    
   }
 
   private formatarDataLocal(data: Date): string {
