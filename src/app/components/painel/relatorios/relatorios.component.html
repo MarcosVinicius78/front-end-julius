@@ -3,46 +3,49 @@
     <p-calendar (onSelect)="buscarDadosPorDia()" placeholder="Escolha um dia" [(ngModel)]="date" />
 
     <div class="flex mt-2 gap-2">
-      <div class="h-7rem w-full justify-content-between flex flex-column border-round bg-white shadow-3 p-2">
-        <p class="text-sm">Acessos na Pagina do Produto</p>
-        <div class="flex align-items-center justify-content-between">
-          <!-- <p class="font-bold text-2xl">{{ acessoPagina }}</p> -->
-          <!-- <p class="font-bold text-2xl">{{ acessoPagina }}</p> -->
-          <p class="font-bold text-2xl">{{ eventoQuantidadeAcessoAPagina.quantidadeNoDia }}</p>
-          <p [class]="eventoQuantidadeAcessoAPagina!.quantidadeNoDia! > eventoQuantidadeAcessoAPagina!.quantidadeDiaAnterior! ? 'font-bold text-base text-red-600' : 'font-bold text-base text-green-600'">{{ eventoQuantidadeAcessoAPagina!.quantidadeDiaAnterior! }}</p>
+      <div class="h-7rem w-full justify-content-between flex flex-column border-round cor-painel shadow-3 p-2">
+        <p class="text-sm text-white-alpha-90">Acessos na Pagina do Produto</p>
+        <div class="flex text-white-alpha-90 align-items-center justify-content-between">
+          <p class="font-bold text-2xl text-white-alpha-90">{{ eventoQuantidadeAcessoAPagina.quantidadeNoDia }}</p>
+          <p
+            [class]="eventoQuantidadeAcessoAPagina!.quantidadeNoDia! > eventoQuantidadeAcessoAPagina!.quantidadeDiaAnterior! ? 'font-bold text-base text-red-600' : 'font-bold text-base text-green-600'">
+            {{ eventoQuantidadeAcessoAPagina!.quantidadeDiaAnterior! }}</p>
         </div>
       </div>
 
-      <div class="w-full justify-content-between flex flex-column border-round bg-white shadow-3 p-2">
-        <p class="text-sm">Cliques no Botao "Pegar Promocao"</p>
-        <div class="flex align-items-center justify-content-between">
-          <!-- <p class="font-bold text-2xl">{{ acessoBotao }}</p> -->
-          <!-- <p class="font-bold text-2xl">{{ acessoBotao }}</p> -->
-          <p class="font-bold text-2xl">{{ eventoQuantidadeCliquesNoBotao!.quantidadeNoDia! }}</p>
-          <p [class]="eventoQuantidadeCliquesNoBotao!.quantidadeNoDia! > eventoQuantidadeCliquesNoBotao!.quantidadeDiaAnterior! ? 'font-bold text-base text-red-600' : 'font-bold text-base text-green-600'">{{ eventoQuantidadeCliquesNoBotao!.quantidadeDiaAnterior! }}</p>
+      <div class="w-full justify-content-between flex flex-column border-round cor-painel shadow-3 p-2">
+        <p class="text-sm text-white-alpha-90">Cliques no Botao "Pegar Promocao"</p>
+        <div class="flex text-white-alpha-90 align-items-center justify-content-between">
+          <p class="font-bold text-2xl text-white-alpha-90">{{ eventoQuantidadeCliquesNoBotao!.quantidadeNoDia! }}</p>
+          <p
+            [class]="eventoQuantidadeCliquesNoBotao!.quantidadeNoDia! > eventoQuantidadeCliquesNoBotao!.quantidadeDiaAnterior! ? 'font-bold text-base text-red-600' : 'font-bold text-base text-green-600'">
+            {{ eventoQuantidadeCliquesNoBotao!.quantidadeDiaAnterior! }}</p>
         </div>
       </div>
 
-      <div class="w-full justify-content-between flex flex-column border-round bg-white shadow-3 p-2">
-        <p class="text-sm">Acessos no Link curto</p>
-        <div class="flex align-items-center justify-content-between">
-          <!-- <p class="font-bold text-2xl">{{ acessoBotao }}</p> -->
-          <!-- <p class="font-bold text-2xl">{{ acessoBotao }}</p> -->
-          <p class="font-bold text-2xl">{{ eventoQuantidadeLinkCurto!.quantidadeNoDia! }}</p>
-          <p [class]="eventoQuantidadeLinkCurto!.quantidadeNoDia! > eventoQuantidadeLinkCurto!.quantidadeDiaAnterior! ? 'font-bold text-base text-red-600' : 'font-bold text-base text-green-600'">{{ eventoQuantidadeLinkCurto!.quantidadeDiaAnterior! }}</p>
+      <div class="w-full justify-content-between flex flex-column border-round cor-painel shadow-3 p-2">
+        <p class="text-sm text-white-alpha-90">Acessos no Link curto</p>
+        <div class="flex text-white-alpha-90 align-items-center justify-content-between">
+          <p class="font-bold text-white-alpha-90 text-2xl">{{ eventoQuantidadeLinkCurto!.quantidadeNoDia! }}</p>
+          <p
+            [class]="eventoQuantidadeLinkCurto!.quantidadeNoDia! > eventoQuantidadeLinkCurto!.quantidadeDiaAnterior! ? 'font-bold text-base text-red-600' : 'font-bold text-base text-green-600'">
+            {{ eventoQuantidadeLinkCurto!.quantidadeDiaAnterior! }}</p>
         </div>
       </div>
 
-      <div class="w-full flex flex-column align-items-center justify-content-center border-round bg-white shadow-3">
-        <p>Total de Acessos</p>
-        <p class="font-bold text-2xl">{{ eventoQuantidadeGeral.quantidadeNoDia }}</p>
+      <div
+        class="w-full gap-2 flex flex-column align-items-center justify-content-center border-round cor-painel shadow-3">
+        <p class="text-white-alpha-90">Total de Acessos</p>
+        <p class="font-bold text-white-alpha-90 text-2xl">{{ eventoQuantidadeGeral.totalDeEventos }}</p>
+        <p class="text-xs text-white-alpha-90">Desde: {{ eventoQuantidadeGeral.primeiroAcesso | date: 'dd/MM/yyyy' }}
+        </p>
       </div>
     </div>
   </div>
 
   <div class="flex gap-2 w-full mt-2">
     <div class="w-8">
-      <div class="bg-white border-round h-auto p-2 shadow-2">
+      <div class="cor-painel border-round h-auto p-2 shadow-2">
         <!-- Conteúdo do retângulo -->
         <p-chart type="line" height="28vh" [data]="data" [options]="options" />
 
@@ -51,20 +54,23 @@
       </div>
     </div>
 
-    <div class="w-4 overflow-container">
-      <p-table class="w-full" [value]="produtos">
+    <div class="w-4 overflow-container cor-painel">
+      <p-table class="w-full cor-painel" [value]="produtos">
         <ng-template pTemplate="caption">
           <div class="flex align-items-center justify-content-between">
             Top Produtos
           </div>
         </ng-template>
         <ng-template pTemplate="body" let-product>
-          <tr>
-            <td><img [src]="imagemService.getImagemUrl(product.urlImagem, 'produtos')" [alt]="product.name" width="100"
-                class="shadow-4"></td>
-            <td class="line-clamp-2">{{ product.nomeProduto }}</td>
-            <td>{{ product.totalEventos }}</td>
-          </tr>
+          <div class="flex p-3 align-content-center">
+            <img [src]="imagemService.getImagemUrl(product.urlImagem, 'produtos')" [alt]="product.name" width="100"
+              class="shadow-4">
+            <div class="flex flex-column align-items-center gap-3 justify-items-center">
+              <p class="text-white-alpha-90 font-bold">Quantidade de Cliques:  {{ product.totalEventos }}</p>
+              <p class="line-clamp-2 justify-items-center text-white-alpha-90">{{
+                product.nomeProduto }}</p>
+            </div>
+          </div>
         </ng-template>
       </p-table>
     </div>

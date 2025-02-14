@@ -8,13 +8,16 @@ import { TableModule } from 'primeng/table';
 import { ProdutosComMaisCliques } from 'src/app/dto/ProdutoComMaisClique';
 import { ImagemServiceService } from 'src/app/service/painel/imagem-service.service';
 import { EventoQuantidadePorTipo } from 'src/app/dto/evento/EventoQuantidadePorTipo';
+import { TotalDeAcessos } from 'src/app/dto/evento/TotalDeAcessos';
+import { DatePipe } from '@angular/common';
+
 
 @Component({
   selector: 'app-relatorios',
   standalone: true,
-  imports: [ChartModule, FormsModule, CalendarModule, TableModule],
+  imports: [ChartModule, FormsModule, CalendarModule, DatePipe, TableModule],
   templateUrl: './relatorios.component.html',
-  styleUrl: './relatorios.component.css'
+  styleUrl: './relatorios.component.scss'
 })
 export class RelatoriosComponent {
 
@@ -61,7 +64,7 @@ export class RelatoriosComponent {
   eventoQuantidadeLinkCurto: EventoQuantidadePorTipo = {}
   eventoQuantidadeAcessoAPagina: EventoQuantidadePorTipo = {}
   eventoQuantidadeCliquesNoBotao: EventoQuantidadePorTipo = {}
-  eventoQuantidadeGeral: EventoQuantidadePorTipo = {}
+  eventoQuantidadeGeral: TotalDeAcessos = {}
 
   constructor(
     private cd: ChangeDetectorRef,
@@ -104,13 +107,13 @@ export class RelatoriosComponent {
   initChart() {
     if (isPlatformBrowser(this.platformId)) {
       const documentStyle = getComputedStyle(document.documentElement);
-      const textColor = documentStyle.getPropertyValue('--p-text-color');
-      const textColorSecondary = documentStyle.getPropertyValue('--p-text-muted-color');
-      const surfaceBorder = documentStyle.getPropertyValue('--p-content-border-color');
+      const textColor = documentStyle.getPropertyValue('--blue-50');
+      const textColorSecondary = documentStyle.getPropertyValue('--blue-50');
+      const surfaceBorder = documentStyle.getPropertyValue('');
 
       this.graficosDaSemana(documentStyle, textColor, textColorSecondary, surfaceBorder)
 
-      this.acessosOfertasVsBotao(documentStyle, textColor, textColorSecondary, surfaceBorder)
+      // this.acessosOfertasVsBotao(documentStyle, textColor, textColorSecondary, surfaceBorder)
 
       this.cd.markForCheck()
     }
@@ -120,8 +123,6 @@ export class RelatoriosComponent {
     const dataFormatada = this.date
       ? this.date.toISOString().split('T')[0]
       : this.formatarDataLocal(new Date());
-
-      console.log(dataFormatada)
 
     this.analiseService.buscarEventosPorDia(dataFormatada!, "ACESSO_OFERTAS").subscribe({
       next: (res) => this.eventoQuantidadeAcessoAPagina = res
@@ -134,7 +135,7 @@ export class RelatoriosComponent {
       : this.formatarDataLocal(new Date());
 
     this.analiseService.buscarEventosPorDia(dataFormatada!, "CLIQUE_BOTAO").subscribe({
-      next: (res) => console.log(res)
+      next: (res) => this.eventoQuantidadeCliquesNoBotao = res
     })
   }
 
@@ -153,7 +154,7 @@ export class RelatoriosComponent {
       ? this.date.toISOString().split('T')[0]
       : this.formatarDataLocal(new Date());
 
-    this.analiseService.buscarEventosPorDia(dataFormatada!, "ACESSO_SISTEMA").subscribe(response => {
+    this.analiseService.totalDeAcessosNoSitema().subscribe(response => {
       this.eventoQuantidadeGeral = response
     })
   }
@@ -215,55 +216,6 @@ export class RelatoriosComponent {
     fimSemana.setDate(hoje.getDate() + (6 - diaDaSemana)); // Vai até sábado
     return this.formatarDataLocalDateTime(fimSemana, false);
   }
-  acessosOfertasVsBotao(documentStyle: any, textColor: any, textColorSecondary: any, surfaceBorder: any) {
-    this.ofertasVsBotao = {
-      labels: ['Página', 'Botão'],
-      datasets: [
-        {
-          label: 'My First dataset',
-          backgroundColor: documentStyle.getPropertyValue('--p-cyan-500'),
-          borderColor: documentStyle.getPropertyValue('--p-cyan-500'),
-          data: [this.estatisticas['totalAcessosOfertas'], this.estatisticas['totalCliquesBotao']]
-        },
-      ]
-    };
-
-    this.ofertasVsBotaoOptions = {
-      indexAxis: 'y',
-      maintainAspectRatio: false,
-      aspectRatio: 0.8,
-      plugins: {
-        legend: {
-          labels: {
-            color: textColor
-          }
-        }
-      },
-      scales: {
-        x: {
-          ticks: {
-            color: textColorSecondary,
-            font: {
-              weight: 500
-            }
-          },
-          grid: {
-            color: surfaceBorder,
-            drawBorder: false
-          }
-        },
-        y: {
-          ticks: {
-            color: textColorSecondary
-          },
-          grid: {
-            color: surfaceBorder,
-            drawBorder: false
-          }
-        }
-      }
-    };
-  }
 
   graficosDaSemana(documentStyle: any, textColor: any, textColorSecondary: any, surfaceBorder: any) {
     this.data = {
@@ -274,7 +226,7 @@ export class RelatoriosComponent {
           data: [this.estSemana?.Monday, this.estSemana?.Tuesday, this.estSemana?.Wednesday, this.estSemana?.Thursday,
           this.estSemana?.Friday, this.estSemana?.Saturday, this.estSemana?.Sunday],
           fill: false,
-          borderColor: documentStyle.getPropertyValue('--p-gray-500'),
+          borderColor: documentStyle.getPropertyValue('--blue-500'),
           tension: 0.4
         }
       ]

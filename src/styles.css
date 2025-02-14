@@ -18,6 +18,10 @@ body {
   background-color: #f0a11f;
 }
 
+.cor-painel {
+  background-color: #216083;
+}
+
 /* Estilo da barra de rolagem */
 ::-webkit-scrollbar {
   width: 6px; /* Largura da barra de rolagem */

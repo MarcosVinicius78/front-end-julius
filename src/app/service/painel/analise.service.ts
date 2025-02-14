@@ -2,6 +2,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/internal/Observable';
 import { EventoQuantidadePorTipo } from 'src/app/dto/evento/EventoQuantidadePorTipo';
+import { TotalDeAcessos } from 'src/app/dto/evento/TotalDeAcessos';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
@@ -44,6 +45,10 @@ export class AnaliseService {
       .set('fimSemana', fimSemana);
 
     return this.http.get<any>(`${this.apiUrl}/eventos/acessos-semana`, { params });
+  }
+
+  totalDeAcessosNoSitema(){
+    return this.http.get<TotalDeAcessos>(`${this.apiUrl}/eventos/total-de-acessos`);
   }
 
   buscarEventosPorDia(data: string, tipoEvento: string) {

@@ -72,6 +72,9 @@ export class BlankComponent implements OnInit {
 
       this.registrarAcesso();
       this.registrarEventoDoproduto(response.id);
+      this.analiseService.registrarEvento('ACESSO_SISTEMA').subscribe(() => {
+        // sessionStorage.setItem('acessoRegistradoHome', 'true');
+      });
 
       if (r === '1') {
         window.location.href = response.linkSiteSe!;
