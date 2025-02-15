@@ -10,6 +10,8 @@ import { ImagemServiceService } from 'src/app/service/painel/imagem-service.serv
 import { EventoQuantidadePorTipo } from 'src/app/dto/evento/EventoQuantidadePorTipo';
 import { TotalDeAcessos } from 'src/app/dto/evento/TotalDeAcessos';
 import { DatePipe } from '@angular/common';
+import { TotalDeAcessosPorLoja } from 'src/app/dto/evento/TotalDeAcessosPorLoja';
+import { TotalDeAcessosPorCategoria } from 'src/app/dto/evento/TotalDeAcessosPorCategoria';
 
 
 @Component({
@@ -66,6 +68,9 @@ export class RelatoriosComponent {
   eventoQuantidadeCliquesNoBotao: EventoQuantidadePorTipo = {}
   eventoQuantidadeGeral: TotalDeAcessos = {}
 
+  acessosPorLoja: TotalDeAcessosPorLoja[] = [];
+  acessosPorCategoria: TotalDeAcessosPorCategoria[] = [];
+
   constructor(
     private cd: ChangeDetectorRef,
     public imagemService: ImagemServiceService
@@ -79,6 +84,9 @@ export class RelatoriosComponent {
     this.buscarDadosDaPagina()
     this.buscarDadosDoBotao()
     this.buscarDadosDoLinkCurto()
+
+    this.totalDeAcessosPorLoja();
+    this.totalDeAcessosPorCategoria();
 
     this.buscarDadosPorData()
     this.listarProdutosComMaisCliques()
@@ -101,6 +109,20 @@ export class RelatoriosComponent {
       next: (res) => {
         this.produtos = res.content
       }
+    })
+  }
+
+  totalDeAcessosPorCategoria() {
+    this.analiseService.totalDeAcessosPorCategoria().subscribe({
+      next: (res) => this.acessosPorCategoria = res,
+      error: (error) => console.log(error)
+    })
+  }
+
+  totalDeAcessosPorLoja() {
+    this.analiseService.totalDeAcessosPorLoja().subscribe({
+      next: (res) => this.acessosPorLoja = res,
+      error: (error) => console.log(error)
     })
   }
 

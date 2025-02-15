@@ -52,6 +52,42 @@
         <p-calendar placeholder="Escolha os dias" [(ngModel)]="rangeDates" (onSelect)="buscarDadosPorData()"
           selectionMode="range" [readonlyInput]="true" />
       </div>
+
+      <div class="flex mt-2 gap-3">
+        <p-table class="w-full overflow-container cor-painel" [value]="acessosPorCategoria">
+          <ng-template pTemplate="caption">
+            <div class="flex align-items-center justify-content-between">
+              Categorias mais acessadas
+            </div>
+          </ng-template>
+          <ng-template pTemplate="body" let-product>
+            <div class="flex p-3 align-content-center">
+              <div class="flex align-items-center gap-3 justify-items-center">
+                <p class="text-white-alpha-90 font-bold">{{ product.nomeCategoria }}</p>
+                <p class="line-clamp-2 justify-items-center text-white-alpha-90">{{
+                  product.totalAcessos }}</p>
+              </div>
+            </div>
+          </ng-template>
+        </p-table>
+
+        <p-table class="w-full overflow-container cor-painel" [value]="acessosPorLoja">
+          <ng-template pTemplate="caption">
+            <div class="flex align-items-center justify-content-between">
+              Lojas mais acessadas
+            </div>
+          </ng-template>
+          <ng-template pTemplate="body" let-product>
+            <div class="flex p-3 align-content-center">
+              <div class="flex align-items-center gap-3 justify-items-center">
+                <p class="text-white-alpha-90 font-bold">{{ product.nomeLoja }}:</p>
+                <p class="line-clamp-2 justify-items-center text-white-alpha-90">{{
+                  product.totalAcessos }}</p>
+              </div>
+            </div>
+          </ng-template>
+        </p-table>
+      </div>
     </div>
 
     <div class="w-4 overflow-container cor-painel">

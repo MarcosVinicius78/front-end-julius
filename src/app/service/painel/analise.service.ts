@@ -1,8 +1,10 @@
+import { TotalDeAcessosPorCategoria } from './../../dto/evento/TotalDeAcessosPorCategoria';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/internal/Observable';
 import { EventoQuantidadePorTipo } from 'src/app/dto/evento/EventoQuantidadePorTipo';
 import { TotalDeAcessos } from 'src/app/dto/evento/TotalDeAcessos';
+import { TotalDeAcessosPorLoja } from 'src/app/dto/evento/TotalDeAcessosPorLoja';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
@@ -58,5 +60,13 @@ export class AnaliseService {
       .set('tipoEvento', tipoEvento);
 
     return this.http.get<EventoQuantidadePorTipo>(`${this.apiUrl}/eventos/buscar-por-dia`, { params });
+  }
+
+  totalDeAcessosPorLoja() {
+    return this.http.get<TotalDeAcessosPorLoja[]>(`${this.apiUrl}/eventos/total-de-acessos-por-loja`);
+  }
+
+  totalDeAcessosPorCategoria() {
+    return this.http.get<TotalDeAcessosPorCategoria[]>(`${this.apiUrl}/eventos/total-de-acessos-por-categoria`);
   }
 }
