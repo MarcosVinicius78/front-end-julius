@@ -118,10 +118,12 @@ export class CadastrarProdutoComponent implements OnInit {
       check: [false],
       mensagemAdicional: ['Promoção sujeita a alteração a qualquer momento'],
       freteVariacoes: [''],
-      cupomOmc: [''],
-      link_se: [''],
-      link_ofm: [''],
+      linkSe: [''],
+      linkSeApp: [''],
+      linkOmc: [''],
+      linkOmcApp: [''],
       cupom: [''],
+      cupomOmc: [''],
       url: [''],
       id_categoria: ['', [Validators.required]],
       loja: ['', [Validators.required]],
@@ -160,8 +162,10 @@ export class CadastrarProdutoComponent implements OnInit {
       precoParcelado: this.produtoFormGroup.get('check')?.value ? "sem juros" : "",
       freteVariacoes: this.produtoFormGroup.get('freteVariacoes')?.value,
       mensagemAdicional: this.extrairValor('mensagemAdicional'),
-      linkSe: this.produtoFormGroup.get('link_se')?.value,
-      linkOmc: this.produtoFormGroup.get('link_ofm')?.value,
+      linkSe: this.produtoFormGroup.get('linkSe')?.value,
+      linkSeApp: this.produtoFormGroup.get('linkSeApp')?.value,
+      linkOmc: this.produtoFormGroup.get('linkOmc')?.value,
+      linkOmcApp: this.produtoFormGroup.get('linkOmcApp')?.value,
       cupomSe: this.extrairValor("cupom"),
       cupomOmc: this.extrairValor("cupomOmc"),
       urlImagem: this.scraperProduto.urlImagem,
@@ -193,8 +197,6 @@ export class CadastrarProdutoComponent implements OnInit {
   }
 
   salvarProduto() {
-
-    
 
     if (this.idEditar == null && !this.produtoFormGroup.invalid) {
       const temImagem = this.scraperProduto.urlImagem || this.imagemFile || this.imagemFileSocial;
@@ -303,9 +305,10 @@ export class CadastrarProdutoComponent implements OnInit {
           check: [this.produto.parcelado != null && this.produto.parcelado.includes("sem juros") ? true : false],
           freteVariacoes: [this.produto.freteVariacoes],
           mensagemAdicional: [this.produto.mensagemAdicional],
-          descricao: [this.produto.linkAppSe],
-          link_se: [this.produto.linkSiteSe],
-          link_ofm: [this.produto.linkSiteOmc],
+          linkSe: [this.produto.linkSiteSe],
+          linkSeApp: [this.produto.linkAppSe],
+          linkOmc: [this.produto.linkSiteOmc],
+          linkOmcApp: [this.produto.linkAppOmc],
           cupom: [this.produto.cupom],
           cupomOmc: [null],
           id_categoria: [this.produto.categoriaDto.categoria_id],
@@ -350,15 +353,16 @@ export class CadastrarProdutoComponent implements OnInit {
         mensagemAdicional: ['Promoção sujeita a alteração a qualquer momento'],
         freteVariacoes: [''],
         cupomOmc: [''],
-        link_se: [response.urlProdutoSe],
-        link_ofm: [response.urlProdutoOfm],
+        linkSe: [response.urlProdutoSe],
+        linkSeApp: [''],
+        linkOmc: [response.urlProdutoOfm],
+        linkOmcApp: [''],
         cupom: [''],
         id_categoria: ['', [Validators.required]],
         loja: [loja, [Validators.required]],
         imgem: [''],
         imgemSocial: [''],
         copy: [''],
-        link: [response.urlProdutoSe],
         descricao: [response.urlProdutoOfm]
       });
 
