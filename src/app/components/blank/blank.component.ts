@@ -71,6 +71,11 @@ export class BlankComponent implements OnInit {
       this.meta.updateTag({ name: 'og:image', content: this.imagemService.getImagemUrl(response.imagemSocial, "produtos-real") });
 
       this.registrarAcesso();
+      if (response.promocaoEncerrada) {
+        this.router.navigate([`oferta/${response.id}`])
+        return;
+      }
+
       this.registrarEventoDoproduto(response.id);
       this.analiseService.registrarEvento('ACESSO_SISTEMA').subscribe(() => {
         // sessionStorage.setItem('acessoRegistradoHome', 'true');
