@@ -1,6 +1,6 @@
 import { Component, HostListener, OnInit } from '@angular/core';
 import { ActivatedRoute, ActivatedRouteSnapshot, Router } from '@angular/router';
-import { Produtos } from 'src/app/models/produtos';
+import { Produto } from 'src/app/models/produtos';
 import { ProdutoService } from 'src/app/service/painel/produto.service';
 import { environment } from 'src/environments/environment';
 import * as dateFns from 'date-fns';
@@ -25,7 +25,7 @@ export class PesquisaComponent implements OnInit {
 
   modal: boolean = false;
 
-  produtos: Produtos[] = [];
+  produtos: Produto[] = [];
   produtoModalDto = new ProdutoModalDto();
 
   constructor(

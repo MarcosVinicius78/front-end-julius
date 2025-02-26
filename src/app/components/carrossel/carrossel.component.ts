@@ -1,5 +1,5 @@
 import { Component, ElementRef, Input, Renderer2, ViewChild } from '@angular/core';
-import { Produtos } from 'src/app/models/produtos';
+import { Produto } from 'src/app/models/produtos';
 import { ProdutoService } from 'src/app/service/painel/produto.service';
 import { environment } from 'src/environments/environment';
 
@@ -19,7 +19,7 @@ export class CarrosselComponent {
   page = 0;
   size = 10;
 
-  produtos: Produtos[] = [];
+  produtos: Produto[] = [];
 
   apiUrl: string = environment.apiUrl;
 

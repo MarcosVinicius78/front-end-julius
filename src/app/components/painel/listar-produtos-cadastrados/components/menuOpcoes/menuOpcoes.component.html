@@ -8,11 +8,11 @@
     </div>
     <div class="flex">
       <i class="text-gray-900 pi pi-trash"></i>
-      <button class="text-base font-medium w-full border-none text-gray-900" (click)="apagarProduto(product.id,product.imagem, product.imagemSocial)">APAGAR</button>
+      <button class="text-base font-medium w-full border-none text-gray-900" (click)="apagarProduto(product.id!,product.imagem!, product.imagemSocial!)">APAGAR</button>
     </div>
     <div class="flex">
       <i class="text-gray-900 pi pi-megaphone flex align-items-center"></i>
-      <button (click)="encerrarPromocao(product.promocaoEncerrada ? false : true, product.id)" class="text-base font-medium w-full border-none text-gray-900">{{product.promocaoEncerrada ? "Ativar Promoção" : "Encerrar Promoção"}}</button>
+      <button (click)="encerrarPromocao(product.promocaoEncerrada ? false : true, product.id!)" class="text-base font-medium w-full border-none text-gray-900">{{product.promocaoEncerrada ? "Ativar Promoção" : "Encerrar Promoção"}}</button>
     </div>
   </div>
 </div>

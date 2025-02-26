@@ -40,7 +40,7 @@
           <th>Foto</th>
           <th>Titulo</th>
           <th>Preço</th>
-          <th>Loja</th>
+          <!-- <th>Loja</th> -->
           <th>Story</th>
           <th>
             <img src="../../../../assets/img/whatsapp.png" alt="whatsapp">
@@ -69,11 +69,11 @@
             </a>
           </td>
           <td>{{item.preco}}</td>
-          <td>
+          <!-- <td>
             <span *ngIf="item.loja != null">
               {{item.loja.nome_loja}}
             </span>
-          </td>
+          </td> -->
           <td>
             <i (click)="gerarStory(item.id,item.preco, item.titulo, item.imagemSocial, item.freteVariacoes, item.cupom, item.link)"
               class="story pi pi-image"></i>
@@ -114,16 +114,18 @@
 <p-toast></p-toast>
 
 
-<p-dialog header="Confirmar Informações" [modal]="true" [(visible)]="visible" [style]="{ width: '25rem' }">
-  <p-card header="{{ produto.titulo }}" [style]="{ width: '360px' }">
-    <ng-template pTemplate="header">
-      <img alt="Card" [src]="this.imagemServiceService.getImagemUrl(produto.imagemSocial, 'produtos-real')" />
+@if (produto !== undefined){
+  <p-dialog header="Confirmar Informações" [modal]="true" [(visible)]="visible" [style]="{ width: '25rem' }">
+    <p-card header="{{ produto.titulo! }}" [style]="{ width: '360px' }">
+      <ng-template pTemplate="header">
+      <img alt="Card" [src]="this.imagemServiceService.getImagemUrl(produto.imagemSocial!, 'produtos-real')" />
     </ng-template>
-    <p [innerHTML]="montarEstruturaCompartilhamento(produto, 2) | formatText"></p>
+    <p [innerHTML]="estruturaCompartilhamento | formatText"></p>
   </p-card>
   <div class="flex justify-content-center justify-content-around mt-3">
     <p-button class="bg-primary" label="WhatsApp" (onClick)="copiarParaAreaTransferencia(produto, 1)" />
     <p-button label="Telegram"
-      (onClick)="enviarTelegram(montarEstruturaCompartilhamento(produto, 2), produto.imagemSocial)" />
-  </div>
-</p-dialog>
+      (onClick)="enviarTelegram(estruturaCompartilhamento, produto.imagemSocial!)" />
+    </div>
+  </p-dialog>
+}

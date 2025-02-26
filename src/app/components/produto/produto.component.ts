@@ -11,7 +11,7 @@ import { isPlatformBrowser } from '@angular/common';
 import * as dateFns from 'date-fns';
 import { Message } from 'primeng/api';
 import { LinksBanner } from 'src/app/dto/LinksBanner';
-import { Produtos } from 'src/app/models/produtos';
+import { Produto } from 'src/app/models/produtos';
 import { MetaService } from 'src/app/service/meta.service';
 import { LinkBannerService } from 'src/app/service/painel/link-banner.service';
 import { environment } from 'src/environments/environment';
@@ -45,7 +45,7 @@ export class ProdutoComponent implements OnInit {
   mostrarDialogCompartilhar = false;
   redesSociais = ['Facebook', 'Twitter', 'Instagram', 'WhatsApp'];
 
-  produtos: Produtos[] = [];
+  produtos: Produto[] = [];
 
   produto = new ProdutoLoja();
 

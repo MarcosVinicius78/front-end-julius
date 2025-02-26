@@ -1,6 +1,6 @@
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
-import { Produtos } from 'src/app/models/produtos';
+import { Produto } from 'src/app/models/produtos';
 import { PrmomsProdutos, ProdutosPromo, PromoSalvar } from 'src/app/models/promos';
 import { ProdutoService } from 'src/app/service/painel/produto.service';
 import { PromosService } from 'src/app/service/painel/promos.service';
@@ -35,8 +35,8 @@ export class CadastrarPromoComponent implements OnInit {
   imagemFile!: File;
   imagemView!: string;
 
-  sourceProducts!: Produtos[];
-  targetProducts!: Produtos[];
+  sourceProducts!: Produto[];
+  targetProducts!: Produto[];
 
   promoSalvar!: PromoSalvar
   promosProdutos!: PrmomsProdutos[];
@@ -108,7 +108,7 @@ export class CadastrarPromoComponent implements OnInit {
       if (this.idEditar === undefined || this.idEditar === 0) {
 
         this.targetProducts.forEach(item => {
-          this.promoSalvar.idProdutos.push(item.id)
+          this.promoSalvar.idProdutos.push(item.id!)
         })
 
         this.promoService.salvarPromo(this.promoSalvar).subscribe(response => {
@@ -143,7 +143,7 @@ export class CadastrarPromoComponent implements OnInit {
   atualizarPromo() {
 
     this.targetProducts.forEach(response => {
-      this.promoSalvar.idProdutos.push(response.id)
+      this.promoSalvar.idProdutos.push(response.id!)
     })
 
     this.promoSalvar.id = this.idEditar
@@ -171,7 +171,24 @@ export class CadastrarPromoComponent implements OnInit {
     this.listarProdutosModal();
 
     produtosEditar.forEach(response => {
-      const produtos = new Produtos()
+      const produtos: Produto = {
+        id: 0,
+        titulo: '',
+        copy: '',
+        preco: '',
+        parcelado: '',
+        cupom: '',
+        link: '',
+        freteVariacoes: '',
+        mensagemAdicional: '',
+        promocaoEncerrada: false,
+        dataCriacao: new Date,
+        imagem: '',
+        imagemSocial: '',
+        imagemLoja: '',
+        nomeLoja: '',
+        descricao: ''
+      }
 
       produtos.id = response.id;
       produtos.titulo = response.titulo;

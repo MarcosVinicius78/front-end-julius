@@ -3,7 +3,7 @@ import { FormatRealPipe } from './../../../pipe/format-real.pipe';
 import { Component, Inject, OnInit, PLATFORM_ID } from '@angular/core';
 import { Router } from '@angular/router';
 import { MenuItem, Message, MessageService } from 'primeng/api';
-import { Produtos } from 'src/app/models/produtos';
+import { Produto } from 'src/app/models/produtos';
 import { ProdutoService } from 'src/app/service/painel/produto.service';
 import { Clipboard } from '@angular/cdk/clipboard';
 import { isPlatformBrowser } from '@angular/common';
@@ -37,8 +37,8 @@ export class ListarProdutosCadastradosComponent implements OnInit {
 
   number!: number
 
-  produtos: Produtos[] = [];
-  produto = new Produtos();
+  produtos: Produto[] = [];
+  produto!: Produto;
 
   apiUrl = environment.apiUrl;
 
@@ -52,12 +52,14 @@ export class ListarProdutosCadastradosComponent implements OnInit {
   lojas!: Loja[];
 
   // produto!: Produtos;
-  selectedProducts!: Produtos;
+  selectedProducts!: Produto;
 
   openMenuId: number | null = null;
 
   visible: boolean = false;
   linkCurto!: boolean
+
+  estruturaCompartilhamento: string = "";
 
   visualiarDropdowncategoria: boolean = false
   visualiarDropdownLoja: boolean = false
@@ -125,11 +127,11 @@ export class ListarProdutosCadastradosComponent implements OnInit {
   }
 
   listarProdutos() {
-    this.produtoService.listarProduto(this.page, this.size).subscribe({ 
+    this.produtoService.listarProduto(this.page, this.size).subscribe({
       next: (res) => {
         this.produtos = this.produtos.concat(res.content)
+        console.log(this.produtos)
         this.totalPage = res.totalPages
-        console.log(res)
       }
     });
   }
@@ -302,9 +304,8 @@ export class ListarProdutosCadastradosComponent implements OnInit {
     })
   }
 
-  copiarParaAreaTransferencia(produtos: Produtos, valor: number) {
-
-    let post = this.montarEstruturaCompartilhamento(produtos, valor)
+  async copiarParaAreaTransferencia(produtos: Produto, valor: number) {
+    let post = await this.montarEstruturaCompartilhamento(produtos, valor); // ✅ Aguarda a montagem da estrutura
 
     if (valor === 1) {
       this.clipboard.copy(post);
@@ -313,10 +314,12 @@ export class ListarProdutosCadastradosComponent implements OnInit {
       post = post.replace(/\*/g, '**');
       this.clipboard.copy(post);
     }
+
     this.messageService.add({ severity: 'success', detail: 'POST COPIADO' });
   }
 
-  montarEstruturaCompartilhamento(produto: Produtos, site: number) {
+
+  async montarEstruturaCompartilhamento(produto: Produto, site: number) {
     let estruturaCompartilhamento = "";
 
     const adicionarTexto = (texto: string) => (estruturaCompartilhamento += texto + "\n");
@@ -351,17 +354,42 @@ export class ListarProdutosCadastradosComponent implements OnInit {
       }
     };
 
-    const montarLink = () => {
+    const montarLink = async () => {
       if (!isPlatformBrowser(this.platformId)) return;
 
+      const baseUrl = window.location.href.replace(/painel(\/listar-produtos)?/, '');
+
+
       if (this.linkCurto) {
-        const baseUrl = window.location.href.replace(/painel(\/listar-produtos)?/, '');
-        adicionarTexto(`\n*\u{1F6D2} Confira Aqui:\u{1F447}*\n${baseUrl}oferta/${produto.id}?r=1\n`);
-      }else{
+        if (produto.nomeLoja?.toLowerCase().includes("magazine luiza")) {
+          await mostrarLinkCurtoApp(baseUrl);
+        }else {
+          adicionarTexto(`\n*\u{1F6D2} Confira Aqui:\u{1F447}*\n${baseUrl}oferta/${produto.id}?r=1\n`);
+        }
+      } else {
         const baseUrl = window.location.href.replace(/painel(\/listar-produtos)?/, '');
         adicionarTexto(`\n*\u{1F6D2} Confira Aqui:\u{1F447}*\n${baseUrl}oferta/${produto.id}\n`);
       }
     };
+
+    const mostrarLinkCurtoApp = async (baseUrl: string) => {
+      return new Promise<void>((resolve) => {
+        this.produtoService.pegarProduto(produto.id, 0).subscribe({
+          next: (res) => {
+            if (res.linkAppSe?.includes("onelink")) {
+              adicionarTexto(`\n*\u{1F6D2} Confira no Site Magalu:\u{1F447}*\n${baseUrl}oferta/${produto.id}?r=1\n`);
+              adicionarTexto(`*\u{1F6D2} Confira no App Magalu:\u{1F447}*\n${baseUrl}oferta/${produto.id}?r=2\n`);
+            } else {
+              adicionarTexto(`\n*\u{1F6D2} Confira Aqui:\u{1F447}*\n${baseUrl}oferta/${produto.id}?r=1\n`);
+            }
+            resolve(); // Libera a execução
+          },
+          error: () => resolve() // Mesmo com erro, libera a execução
+        });
+      });
+    };
+
+
 
     const montarExtras = () => {
       if (produto.freteVariacoes && produto.freteVariacoes.includes("CUPOM")) {
@@ -375,7 +403,7 @@ export class ListarProdutosCadastradosComponent implements OnInit {
     montarTitulo();
     montarPreco();
     montarCupom();
-    montarLink();
+    await montarLink();
     montarExtras();
 
     return estruturaCompartilhamento.trim();
@@ -410,8 +438,9 @@ export class ListarProdutosCadastradosComponent implements OnInit {
     return this.produtos
   }
 
-  showDialog(produto: Produtos) {
+  async showDialog(produto: Produto) {
     this.produto = produto;
+    this.estruturaCompartilhamento = await this.montarEstruturaCompartilhamento(produto, 2);
     this.visible = !this.visible;
   }
 

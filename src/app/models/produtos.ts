@@ -1,25 +1,22 @@
 import { Categoria } from "./categoria";
 import { Loja } from "./loja";
 
-export class Produtos {
-
-  public id!: number
-  public idOmc!: number
-  public titulo!: string
-  public preco!: string
-  public parcelado!: string
-  public descricao!: string
-  public dataCriacao!: string;
-  public freteVariacoes!: string;
-  public mensagemAdicional!: string;
-  public cupom!: string
-  public link!: string
-  public linkOmc!: string;
-  public imagem!: string
-  public loja!: Loja
-  public imagemSocial!: string
-  public copy!: string;
-  public promocaoEncerrada!: boolean;
-  public categoria!: Categoria;
-  constructor() { }
+export interface Produto {
+  id?: number;
+  titulo?: string;
+  copy?: string;
+  preco?: string;
+  parcelado?: string;
+  cupom?: string;
+  link?: string;
+  freteVariacoes?: string;
+  mensagemAdicional?: string;
+  promocaoEncerrada?: boolean;
+  dataCriacao?: Date;
+  imagem?: string;
+  imagemSocial?: string;
+  imagemLoja?: string;
+  nomeLoja?: string;
+  descricao?: string;
 }
+

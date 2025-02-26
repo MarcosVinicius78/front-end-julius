@@ -1,6 +1,6 @@
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { Component, ElementRef, EventEmitter, Input, OnInit, Output, Renderer2, ViewChild } from '@angular/core';
-import { Produtos } from 'src/app/models/produtos';
+import { Produto } from 'src/app/models/produtos';
 import { ListarProdutosCadastradosComponent } from '../../listar-produtos-cadastrados.component';
 import { ProdutoService } from 'src/app/service/painel/produto.service';
 import { MessageService } from 'primeng/api';
@@ -31,7 +31,7 @@ import { MessageService } from 'primeng/api';
 })
 export class MenuOpcoesComponent implements OnInit {
 
-  @Input() product!: Produtos;
+  @Input() product!: Produto;
   @Input() menuOpen: boolean = false;
   @Output() toggleMenu = new EventEmitter<void>();
   @ViewChild('menu') menuElement!: ElementRef;

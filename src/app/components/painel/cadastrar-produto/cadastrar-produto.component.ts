@@ -39,7 +39,7 @@ export class CadastrarProdutoComponent implements OnInit {
 
   categorias!: Categoria[];
   id: number = 0;
-  idOmc: number = 0;
+  // idOmc: number = 0;
   idEditar!: string;
 
   link!: string;
@@ -209,8 +209,8 @@ export class CadastrarProdutoComponent implements OnInit {
 
       this.produtoSevice.salvarProduto(produto).subscribe({
         next: response => {
-          this.id = response.id;
-          this.idOmc = response.idOmc;
+          this.id = response.id!;
+          // this.idOmc = response.idOmc;
 
           if (this.imagemFile || this.imagemFileSocial) {
             this.salvarImagem();
@@ -327,9 +327,9 @@ export class CadastrarProdutoComponent implements OnInit {
     )?.id || "";
 
     if (!loja) {
-      const palavrasChave = ["amz", "shopee", "mercado"];
+      const palavrasChave = ["amazon", "shopee", "mercado", "amzn"];
       loja = this.lojas.find(element =>
-        palavrasChave.some(chave => url.includes(chave) && element.nome_loja.toLowerCase().includes(chave))
+        palavrasChave.some(chave => url.includes(chave))
       )?.id || "";
     }
 

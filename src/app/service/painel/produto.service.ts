@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { IProdutoResponseDto } from 'src/app/dto/IProdutoResponseDto';
 import { ProdutoLoja } from 'src/app/dto/ProdutoLoja';
 import { ScraperProduto } from 'src/app/dto/ScraperProduto';
-import { Produtos } from 'src/app/models/produtos';
+import { Produto } from 'src/app/models/produtos';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
@@ -18,7 +18,7 @@ export class ProdutoService {
 
   salvarProduto(produto: any) {
 
-    return this.http.post<Produtos>(`${this.apiUrl}/produto/salvar`, produto);
+    return this.http.post<Produto>(`${this.apiUrl}/produto/salvar`, produto);
   }
 
   listarProduto(page: number, size: number): Observable<any> {
@@ -54,7 +54,7 @@ export class ProdutoService {
     return this.http.get<any>(`${this.apiUrl}/produto/por-loja`, { params })
   }
 
-  apagarVariosProdutos(produtosSelecionados: Produtos) {
+  apagarVariosProdutos(produtosSelecionados: Produto) {
     return this.http.post<number>(`${this.apiUrl}/produto/apagar-varios`, produtosSelecionados)
   }
 
