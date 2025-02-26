@@ -1,26 +1,29 @@
-<section>
+<section class="login-container">
   <div class="card-login">
     <header>
-      <h1>Login</h1>
+      <h1>Bem-vindo</h1>
+      <p>Faça login para continuar</p>
     </header>
 
     <form [formGroup]="userForm" (ngSubmit)="login()">
       <div class="inputs">
-        <div class="email">
+        <div class="input-group">
           <label for="email">E-mail</label>
-          <input formControlName="email" type="email">
+          <input formControlName="email" type="email" placeholder="Digite seu e-mail">
         </div>
-        <div class="senha" style="position: relative;">
+
+        <div class="input-group senha">
           <label for="senha">Senha</label>
-          <input [type]="showPassword ? 'text' : 'password'" formControlName="senha">
-          <button type="button" (click)="togglePasswordVisibility()"
-            style="position: absolute; right: 5px; top: 70%; transform: translateY(-50%); background: none; border: none; cursor: pointer;">
+          <input [type]="showPassword ? 'text' : 'password'" formControlName="senha" placeholder="Digite sua senha">
+          <button type="button" (click)="togglePasswordVisibility()" class="toggle-password">
             <i [class]="showPassword ? 'pi pi-eye-slash' : 'pi pi-eye'"></i>
           </button>
         </div>
-        <div class="senha-errada" *ngIf="senhaErrada">
-          <p>Usuario ou senha Incorreto</p>
+
+        <div *ngIf="senhaErrada">
+          <p class="senha-errada">Usuário ou senha incorretos</p>
         </div>
+
         <div class="btn">
           <input type="submit" value="Entrar">
         </div>

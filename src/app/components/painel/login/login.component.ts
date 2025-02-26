@@ -46,9 +46,7 @@ export class LoginComponent implements OnInit {
         this.route.navigate(['painel']);
       }
     }, err => {
-      if (err.status === 401) {
-        this.senhaErrada = true;
-      }
+      this.senhaErrada = true;
     })
 
   }
