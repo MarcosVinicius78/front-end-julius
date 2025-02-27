@@ -14,6 +14,10 @@ export class ImagemServiceService {
     getImagemUrl(local: string, imagem: string): string {
       return `${this.apiUrl}/imagem/download/${local}/${imagem}`;
     }
+    
+    baixarImagem(local: string, imagem: string) {
+      return this.http.get(`${this.apiUrl}/imagem/baixar-imagem/${imagem}/${local}`, { responseType: 'blob', observe: 'response' });
+    }
 
     salvarImagem(formData: FormData) {
       return this.http.post(`${this.apiUrl}/imagem/upload`, formData);

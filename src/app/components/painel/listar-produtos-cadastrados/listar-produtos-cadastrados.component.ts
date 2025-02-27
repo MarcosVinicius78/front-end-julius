@@ -312,6 +312,29 @@ export class ListarProdutosCadastradosComponent implements OnInit {
     })
   }
 
+  baixarImagem(local: string, imagem: string) {
+
+    this.imagemServiceService.baixarImagem(imagem, local).subscribe(response => {
+      if (isPlatformBrowser(this.platformId)) {
+        // Cria um URL para a Blob response
+        const url = window.URL.createObjectURL(response.body!);
+
+        // Cria um link temporário e simula um clique para iniciar o download
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = "teste";
+        document.body.appendChild(link);
+        link.click();
+
+        // Limpa o URL criado
+        window.URL.revokeObjectURL(url);
+        document.body.removeChild(link);
+      }
+    }, err => {
+      this.messageService.add({ severity: 'error', detail: 'Erro ao Gerar Storie' });
+    })
+  }
+
   async copiarParaAreaTransferencia(produtos: Produto, valor: number) {
     let post = await this.montarEstruturaCompartilhamento(produtos, valor); // ✅ Aguarda a montagem da estrutura
 
@@ -376,6 +399,7 @@ export class ListarProdutosCadastradosComponent implements OnInit {
         }
       } else if(this.linkSemDominio) {
         if(produto.nomeLoja?.toLowerCase().includes("mercado") || produto.nomeLoja?.toLowerCase().includes("amazon") || produto.nomeLoja?.toLowerCase().includes("shop")) {
+          this.baixarImagem(produto.imagemSocial!, "produtos-real")
           adicionarTexto(`\n*\u{1F6D2} Confira Aqui:\u{1F447}*\n${produto.link}\n`);
         } else if(produto.nomeLoja?.toLowerCase().includes("magazine luiza")) {
           await mostrarLinkCurtoApp(baseUrl);
