@@ -237,18 +237,10 @@
       height: 50px;
     }
 
-    .p-datatable-tbody tr td:nth-child(5) {
-      display: none;
-    }
-
     .p-datatable-tbody tr td:nth-child(4) {
       display: none;
     }
-
-    .p-datatable-thead th:nth-child(5) {
-      display: none;
-    }
-
+    
     .p-datatable-tbody tr td:nth-child(9) {
       display: none;
     }
@@ -278,6 +270,14 @@
     }
 
     .p-datatable-tbody tr td:nth-child(8) {
+      display: none;
+    }
+
+    .p-datatable-thead th:nth-child(6) {
+      display: none;
+    }
+
+    .p-datatable-tbody tr td:nth-child(6) {
       display: none;
     }
 

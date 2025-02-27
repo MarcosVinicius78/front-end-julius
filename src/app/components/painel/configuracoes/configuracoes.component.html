@@ -59,6 +59,16 @@
           <p-inputSwitch (onChange)="ativarLinkCurto()" id="check" name="check" [(ngModel)]="linkAtivado" />
         </div>
       </div>
+
+      <div class="bg-orange-300 h-6rem border-round flex">
+        <div class="bg-white w-4 h-full border-round-left">
+          <span class="text-7xl">🔗</span>
+        </div>
+        <div class="p-2 flex flex-column justify-content-around">
+          <p>Ativar Link sem dominio</p>
+          <p-inputSwitch (onChange)="ativarLinkSemDominio()" id="check" name="check" [(ngModel)]="linkSemDominioAtivado" />
+        </div>
+      </div>
     </div>
   </div>
 

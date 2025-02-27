@@ -20,6 +20,7 @@ export class ConfiguracoesComponent implements OnInit{
 
   check!: boolean
   linkAtivado!: boolean
+  linkSemDominioAtivado!: boolean
   tempoDoRobo!: number
 
   constructor(
@@ -31,17 +32,26 @@ export class ConfiguracoesComponent implements OnInit{
     this.statusBot();
     this.buscarTempoRobo()
     this.statusLinkCurto()
+    this.statusLinkSemDominio()
   }
 
   ativarLinkCurto(){
-    this.scraperService.ativarLinkCurto(this.linkAtivado).subscribe(res => {
-
-    });
+    this.scraperService.ativarLinkCurto(this.linkAtivado).subscribe();
   }
 
   statusLinkCurto(){
     this.scraperService.statusLinkCurto().subscribe(res => {
       this.linkAtivado = res;
+    });
+  }
+
+  ativarLinkSemDominio(){
+    this.scraperService.ativarLinkSemDominio(this.linkSemDominioAtivado).subscribe();
+  }
+
+  statusLinkSemDominio(){
+    this.scraperService.statusLinkSemDominio().subscribe(res => {
+      this.linkSemDominioAtivado = res;
     });
   }
 

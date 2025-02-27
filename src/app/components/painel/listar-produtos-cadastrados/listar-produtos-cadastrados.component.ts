@@ -58,6 +58,7 @@ export class ListarProdutosCadastradosComponent implements OnInit {
 
   visible: boolean = false;
   linkCurto!: boolean
+  linkSemDominio!: boolean
 
   estruturaCompartilhamento: string = "";
 
@@ -91,7 +92,8 @@ export class ListarProdutosCadastradosComponent implements OnInit {
     this.listarCategoria()
     this.listarProdutos();
 
-    this.statusLinkCurto()
+    this.statusLinkCurto();
+    this.statusLinkSemDominio();
 
     this.listarLojas();
 
@@ -124,6 +126,12 @@ export class ListarProdutosCadastradosComponent implements OnInit {
     this.scravperService.statusLinkCurto().subscribe(res => {
       this.linkCurto = res;
     })
+  }
+
+  statusLinkSemDominio(){
+    this.scravperService.statusLinkSemDominio().subscribe(res => {
+      this.linkSemDominio = res;
+    });
   }
 
   listarProdutos() {
@@ -366,10 +374,20 @@ export class ListarProdutosCadastradosComponent implements OnInit {
         }else {
           adicionarTexto(`\n*\u{1F6D2} Confira Aqui:\u{1F447}*\n${baseUrl}oferta/${produto.id}?r=1\n`);
         }
+      } else if(this.linkSemDominio) {
+        if(produto.nomeLoja?.toLowerCase().includes("mercado") || produto.nomeLoja?.toLowerCase().includes("amazon") || produto.nomeLoja?.toLowerCase().includes("shop")) {
+          adicionarTexto(`\n*\u{1F6D2} Confira Aqui:\u{1F447}*\n${produto.link}\n`);
+        } else if(produto.nomeLoja?.toLowerCase().includes("magazine luiza")) {
+          await mostrarLinkCurtoApp(baseUrl);
+        }else{
+          adicionarTexto(`\n*\u{1F6D2} Confira Aqui:\u{1F447}*\n${baseUrl}oferta/${produto.id}?r=1\n`);
+        }
       } else {
         const baseUrl = window.location.href.replace(/painel(\/listar-produtos)?/, '');
         adicionarTexto(`\n*\u{1F6D2} Confira Aqui:\u{1F447}*\n${baseUrl}oferta/${produto.id}\n`);
       }
+
+
     };
 
     const mostrarLinkCurtoApp = async (baseUrl: string) => {

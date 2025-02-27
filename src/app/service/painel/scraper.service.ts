@@ -37,4 +37,12 @@ export class ScraperService {
   statusLinkCurto(){
     return this.http.get<boolean>(`${this.apiUrl}/scraper/status-link_curto`)
   }
+
+  ativarLinkSemDominio(valor: boolean){
+    return this.http.get(`${this.apiUrl}/scraper/ativar-link-sem-dominio?valor=${valor}`)
+  }
+
+  statusLinkSemDominio(){
+    return this.http.get<boolean>(`${this.apiUrl}/scraper/status-link-sem-dominio`)
+  }
 }
