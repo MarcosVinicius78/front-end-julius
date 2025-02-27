@@ -399,7 +399,9 @@ export class ListarProdutosCadastradosComponent implements OnInit {
         }
       } else if(this.linkSemDominio) {
         if(produto.nomeLoja?.toLowerCase().includes("mercado") || produto.nomeLoja?.toLowerCase().includes("amazon") || produto.nomeLoja?.toLowerCase().includes("shop")) {
-          this.baixarImagem(produto.imagemSocial!, "produtos-real")
+          if(site !== 2) {
+            this.baixarImagem(produto.imagemSocial!, "produtos-real")
+          }
           adicionarTexto(`\n*\u{1F6D2} Confira Aqui:\u{1F447}*\n${produto.link}\n`);
         } else if(produto.nomeLoja?.toLowerCase().includes("magazine luiza")) {
           await mostrarLinkCurtoApp(baseUrl);
