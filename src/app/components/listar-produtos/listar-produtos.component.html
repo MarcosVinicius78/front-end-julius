@@ -24,6 +24,13 @@
       <!-- <div class="pesquisa">
         <input type="search" [(ngModel)]="termoPesquisa" (keyup.enter)="pesquisar()" placeholder="Procurar Promoções">
       </div> -->
+
+      <div class="bg-white scroll-container shadow-1 lg:hidden flex gap-2 border-round p-3">
+        @for (item of acessosPorCategoria; track $index) {
+          <a href="produtos-categoria/{{item.categoriaId}}" class="bg-gray-300 border-round whitespace-nowrap inline-flex min-w-max p-1">{{ item.nomeCategoria }}</a>
+        }
+      </div>
+
       <div class="radar mb-2">
         <p>
           Radar de Ofertas

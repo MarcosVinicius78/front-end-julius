@@ -28,17 +28,15 @@ export class AnaliseService {
     });
   }
 
-  obterEstatisticas(): Observable<any> {
-    return this.http.get<any>(`${this.apiUrl}/eventos/estatisticas`);
-  }
-
   obterPorcentagemCliquesNaoCliques(): Observable<any> {
     return this.http.get<any>(`${this.apiUrl}/eventos/porcentagem-cliques-nao-cliques`);
   }
 
-  listarProdutosComMaisCliques() {
-    return this.http.get<any>(`${this.apiUrl}/eventos/listar-produtos-com-mais-cliques`);
+  listarProdutosComMaisCliques(termo?: string) {
+    const termoFinal = termo ?? "";
+    return this.http.get<any>(`${this.apiUrl}/eventos/listar-produtos-com-mais-cliques?termo=${encodeURIComponent(termoFinal)}`);
   }
+  
 
   obterAcessosSemana(inicioSemana: string, fimSemana: string): Observable<any> {
 
@@ -49,10 +47,12 @@ export class AnaliseService {
     return this.http.get<any>(`${this.apiUrl}/eventos/acessos-semana`, { params });
   }
 
+  //usando
   totalDeAcessosNoSitema(){
     return this.http.get<TotalDeAcessos>(`${this.apiUrl}/eventos/total-de-acessos`);
   }
 
+  //usando
   buscarEventosPorDia(data: string, tipoEvento: string) {
 
     const params = new HttpParams()

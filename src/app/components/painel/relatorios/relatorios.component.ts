@@ -12,12 +12,15 @@ import { TotalDeAcessos } from 'src/app/dto/evento/TotalDeAcessos';
 import { DatePipe } from '@angular/common';
 import { TotalDeAcessosPorLoja } from 'src/app/dto/evento/TotalDeAcessosPorLoja';
 import { TotalDeAcessosPorCategoria } from 'src/app/dto/evento/TotalDeAcessosPorCategoria';
+import { InputIconModule } from 'primeng/inputicon';
+import { IconFieldModule } from 'primeng/iconfield';
+import { InputTextModule } from 'primeng/inputtext';
 
 
 @Component({
   selector: 'app-relatorios',
   standalone: true,
-  imports: [ChartModule, FormsModule, CalendarModule, DatePipe, TableModule],
+  imports: [ChartModule, FormsModule, CalendarModule, DatePipe, TableModule, InputIconModule, IconFieldModule, InputTextModule],
   templateUrl: './relatorios.component.html',
   styleUrl: './relatorios.component.scss'
 })
@@ -36,8 +39,6 @@ export class RelatoriosComponent {
   inicioSemana: string = "";
   fimSemana: string = "";
   rangeDates!: Date[];
-
-  totalAcessoSistema: string = "";
 
   platformId = inject(PLATFORM_ID);
 
@@ -63,6 +64,8 @@ export class RelatoriosComponent {
   acessoPagina: string = "";
   acessoBotao: string = "";
 
+  termoPesquisa: string | null = null;
+
   eventoQuantidadeLinkCurto: EventoQuantidadePorTipo = {}
   eventoQuantidadeAcessoAPagina: EventoQuantidadePorTipo = {}
   eventoQuantidadeCliquesNoBotao: EventoQuantidadePorTipo = {}
@@ -77,8 +80,6 @@ export class RelatoriosComponent {
   ) { }
 
   ngOnInit() {
-
-    this.obterEstatisticas()
     
     this.buscarDadosGeral()
     this.buscarDadosDaPagina()
@@ -88,24 +89,21 @@ export class RelatoriosComponent {
     this.totalDeAcessosPorLoja();
     this.totalDeAcessosPorCategoria();
 
-    this.buscarDadosPorData()
-    this.listarProdutosComMaisCliques()
+    this.buscarDadosPorData();
+    this.listarProdutosComMaisCliques();
+
   }
 
-  obterEstatisticas() {
-    this.analiseService.obterEstatisticas().subscribe(response => {
-      this.totalAcessoSistema = response['totalAcessosSistema']
+  pesquisar() {
+    this.analiseService.listarProdutosComMaisCliques(this.termoPesquisa!).subscribe({
+      next: (res) => {
+        this.produtos = res.content
+      }
     })
-
-    this.analiseService.obterPorcentagemCliquesNaoCliques().subscribe(data => {
-      this.porcentagens = data;
-      this.initChart()
-    });
-
   }
 
   listarProdutosComMaisCliques() {
-    this.analiseService.listarProdutosComMaisCliques().subscribe({
+    this.analiseService.listarProdutosComMaisCliques(this.termoPesquisa!).subscribe({
       next: (res) => {
         this.produtos = res.content
       }
@@ -182,8 +180,7 @@ export class RelatoriosComponent {
   }
 
   buscarDadosPorDia() {
-
-
+    console.log(this.date)
   }
 
   private formatarDataLocal(data: Date): string {

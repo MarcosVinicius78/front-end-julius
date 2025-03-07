@@ -39,7 +39,7 @@ export class CadastrarCategoriaComponent implements OnInit {
     if (this.id === undefined && !this.categoriaFormGroup.invalid) {
       const categoria = new Categoria(this.categoriaFormGroup.get(['nome_categoria'])?.value)
 
-      this.categoriaService.salvarCategoria(categoria.nomeCategoria).subscribe(response => {
+      this.categoriaService.salvarCategoria(categoria).subscribe(response => {
 
         this.categorias.push(response);
         this.categoriaFormGroup.reset()

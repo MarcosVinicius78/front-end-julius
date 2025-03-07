@@ -391,6 +391,13 @@
       display: block;
     }
 
+    .scroll-container {
+      overflow-x: auto; /* Permite rolagem horizontal */
+      white-space: nowrap; /* Impede a quebra de linha */
+      -ms-overflow-style: none; /* Remove a barra de rolagem no Edge/IE */
+      scrollbar-width: none; /* Remove a barra de rolagem no Firefox */
+    }
+
     .card-convite{
       flex-basis: 98%;
       // padding: 20px;

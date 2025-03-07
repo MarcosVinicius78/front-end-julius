@@ -12,6 +12,7 @@ import { ProdutoService } from 'src/app/service/painel/produto.service';
 import { environment } from 'src/environments/environment';
 import { ImagemServiceService } from 'src/app/service/painel/imagem-service.service';
 import { IProdutoResponseDto } from 'src/app/dto/IProdutoResponseDto';
+import { TotalDeAcessosPorCategoria } from 'src/app/dto/evento/TotalDeAcessosPorCategoria';
 
 @Component({
   selector: 'app-listar-produtos',
@@ -60,6 +61,8 @@ export class ListarProdutosComponent implements OnInit {
     }
   ];
 
+  acessosPorCategoria: TotalDeAcessosPorCategoria[] = [];
+
   loading = false;
 
   path!: string;
@@ -82,6 +85,8 @@ export class ListarProdutosComponent implements OnInit {
     });
 
     this.registrarAcessoSistema()
+
+    this.totalDeAcessosPorCategoria();
 
     this.pegarLinks()
 
@@ -111,6 +116,13 @@ export class ListarProdutosComponent implements OnInit {
 
   getSafeUrl(url: string): SafeUrl {
     return this.sanitizer.bypassSecurityTrustUrl(url);
+  }
+
+  totalDeAcessosPorCategoria() {
+    this.analiseService.totalDeAcessosPorCategoria().subscribe({
+      next: (res) => this.acessosPorCategoria = res,
+      error: (error) => console.log(error)
+    })
   }
 
   listarPorCategoria() {

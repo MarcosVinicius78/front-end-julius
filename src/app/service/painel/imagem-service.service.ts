@@ -22,4 +22,8 @@ export class ImagemServiceService {
     salvarImagem(formData: FormData) {
       return this.http.post(`${this.apiUrl}/imagem/upload`, formData);
     }
+    
+    salvarImagemSemProduto(formData: FormData) {
+      return this.http.post(`${this.apiUrl}/imagem/salvar-imagem`, formData);
+    }
 }

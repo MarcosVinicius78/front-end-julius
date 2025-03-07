@@ -5,11 +5,13 @@ import { Component, OnInit } from '@angular/core';
 import { ScraperProduto } from 'src/app/dto/ScraperProduto';
 import { environment } from 'src/environments/environment';
 import { ImagemServiceService } from 'src/app/service/painel/imagem-service.service';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-configuracoes',
   templateUrl: './configuracoes.component.html',
-  styleUrls: ['./configuracoes.component.scss']
+  styleUrls: ['./configuracoes.component.scss'],
+  providers: [MessageService]
 })
 export class ConfiguracoesComponent implements OnInit{
 
@@ -24,10 +26,11 @@ export class ConfiguracoesComponent implements OnInit{
   tempoDoRobo!: number
 
   constructor(
-    private produtoService: ProdutoService,
     private scraperService: ScraperService,
-    public imagemService: ImagemServiceService
+    public imagemService: ImagemServiceService,
+    private messageService: MessageService,
   ) { }
+
   ngOnInit(): void {
     this.statusBot();
     this.buscarTempoRobo()
@@ -67,12 +70,13 @@ export class ConfiguracoesComponent implements OnInit{
   salvarStory() {
 
     const formData = new FormData();
-    formData.append('file', this.imagemFile);
+    formData.append('urlImagem', this.imagemFile);
+    formData.append('caminho', "produtos");
 
-    this.produtoService.salvarStory(formData).subscribe(response => {
-      alert("Story Salvo")
-    }, err => {
-
+    this.imagemService.salvarImagemSemProduto(formData).subscribe(response => {
+      this.messageService.add({ severity: 'success', detail: 'Imagem salva' });
+    }, () => {
+      this.messageService.add({ severity: 'error', detail: 'Erro ao salvar imagem' });
     })
   }
 

@@ -95,6 +95,11 @@
         <ng-template pTemplate="caption">
           <div class="flex align-items-center justify-content-between">
             Top Produtos
+            <p-iconField iconPosition="left">
+              <p-inputIcon styleClass="pi pi-search" />
+              <input [(ngModel)]="termoPesquisa" class="w-full" type="search" (keyup.enter)="pesquisar()" pInputText
+                placeholder="Faça Sua Busca" />
+            </p-iconField>
           </div>
         </ng-template>
         <ng-template pTemplate="body" let-product>
