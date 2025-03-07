@@ -1,5 +1,5 @@
 <div class="section">
-  <section>
+  <section class="">
     <div *ngIf="links !== undefined">
       <p-carousel [value]="links.banners" [numVisible]="1" [numScroll]="1" [circular]="true"
         [responsiveOptions]="responsiveOptions" autoplayInterval="3000">
@@ -20,25 +20,31 @@
       </p-carousel>
     </div>
 
-    <div class="titulo">
+    <div class="titulo p-2">
       <!-- <div class="pesquisa">
         <input type="search" [(ngModel)]="termoPesquisa" (keyup.enter)="pesquisar()" placeholder="Procurar Promoções">
       </div> -->
 
-      <div class="bg-white scroll-container shadow-1 lg:hidden flex gap-2 border-round p-3">
-        @for (item of acessosPorCategoria; track $index) {
-          <a href="produtos-categoria/{{item.categoriaId}}" class="bg-gray-300 border-round whitespace-nowrap inline-flex min-w-max p-1">{{ item.nomeCategoria }}</a>
-        }
+      <div>
+
+        <div class="bg-white shadow-1 lg:hidden border-round-2xl p-3">
+          <p class="radar text-base mb-1 mt-0">Categorias mais acessadas</p>
+          <div class="flex scroll-container gap-2">
+            @for (item of acessosPorCategoria; track $index) {
+              <a href="produtos-categoria/{{item.categoriaId}}" class="bg-gray-300 border-round whitespace-nowrap inline-flex min-w-max p-1">{{ item.nomeCategoria }}</a>
+            }
+          </div>
+        </div>
       </div>
 
-      <div class="radar mb-2">
+      <div class="radar mb-1">
         <p>
           Radar de Ofertas
         </p>
       </div>
     </div>
 
-    <div class="grid p-2 mb-7">
+    <div class="grid p-2 mb-7 w-full">
       <ng-container *ngFor="let item of produtos; let i = index">
 
         <div *ngIf="i === 4 || (i > 4 && (i - 4) % 12 === 0)" class="card-convite">

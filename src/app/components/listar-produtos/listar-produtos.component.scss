@@ -443,8 +443,11 @@
 
     section {
       width: 100%;
-      display: block;
+      // display: block;
       margin-top: 60px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
     }
 
     .section {
@@ -574,7 +577,7 @@
 
     .radar p {
       color: #733309;
-      margin-left: 5px;
+      // margin-left: 5px;
     }
 
 
