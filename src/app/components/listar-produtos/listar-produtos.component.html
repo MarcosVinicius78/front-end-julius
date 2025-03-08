@@ -31,7 +31,7 @@
           <p class="radar text-base mb-1 mt-0">Categorias mais acessadas</p>
           <div class="flex scroll-container gap-2">
             @for (item of acessosPorCategoria; track $index) {
-              <a href="produtos-categoria/{{item.categoriaId}}" class="bg-gray-300 border-round whitespace-nowrap inline-flex min-w-max p-1">{{ item.nomeCategoria }}</a>
+              <a href="produtos-categoria/{{item.categoriaId}}" class="bg-gray-300 text-base capitalize border-round whitespace-nowrap inline-flex min-w-max p-1">{{ item.nomeCategoria }}</a>
             }
           </div>
         </div>

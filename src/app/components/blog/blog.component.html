@@ -6,25 +6,31 @@
   <div class="flex justify-content-between">
     <!-- a div abaixo serve para listar todos os posts -->
     <div *ngIf="id === null" class="w-full lg:w-9">
-      <div class="lg:mt-3 lg:mb-3" *ngFor="let post of posts">
+      <div class="p-2" *ngFor="let post of posts">
         <a class="no-underline text-black-alpha-90" href="/blog/{{post.id}}">
-          <div class="h-11rem lg:h-14rem bg-white shadow-2 border-round w-ful flex">
-            <div class="bg-black-alpha-50 w-9 lg:w-4">
-              <img class="h-full w-full" alt="Card" [src]="apiUrl+'/post/download/'+post.urlImagem" />
+          <div class="bg-white shadow-2 border-round w-full flex flex-column lg:flex-row">
+            
+            <!-- Imagem -->
+            <div class="w-full lg:w-4">
+              <img class="h-14rem w-full lg:h-full object-cover rounded-top-lg lg:rounded-lg" 
+                   alt="Card" 
+                   [src]="apiUrl+'/post/download/'+post.urlImagem" />
             </div>
-            <div class="p-3 w-full h-full flex flex-column justify-content-between">
+    
+            <!-- Texto -->
+            <div class="p-3 gap-3 w-full flex flex-column justify-content-between">
               <p class="font-bold text-sm lg:text-2xl capitalize">{{ post.titulo }}</p>
               <p class="text-justify text-sm capitalize h-4rem max-w-full overflow-hidden text-overflow-ellipsis">
                 {{ getTextWithoutTags(post.conteudo) }}
               </p>
-
               <p class="text-orange-500 font-bold text-right">Ler Mais</p>
             </div>
-
+    
           </div>
         </a>
       </div>
     </div>
+    
 
     <div class="w-9 post" *ngIf="id !== null">
       <div class="container">
