@@ -6,6 +6,7 @@ import { ScraperProduto } from 'src/app/dto/ScraperProduto';
 import { environment } from 'src/environments/environment';
 import { ImagemServiceService } from 'src/app/service/painel/imagem-service.service';
 import { MessageService } from 'primeng/api';
+import { MensagemService } from 'src/app/service/painel/mensagem.service';
 
 @Component({
   selector: 'app-configuracoes',
@@ -23,6 +24,7 @@ export class ConfiguracoesComponent implements OnInit{
   check!: boolean
   linkAtivado!: boolean
   linkSemDominioAtivado!: boolean
+  linkSemDominioAtivadoOmc!: boolean
   tempoDoRobo!: number
 
   constructor(
@@ -36,6 +38,7 @@ export class ConfiguracoesComponent implements OnInit{
     this.buscarTempoRobo()
     this.statusLinkCurto()
     this.statusLinkSemDominio()
+    this.statusLinkSemDominioOmc();
   }
 
   ativarLinkCurto(){
@@ -56,6 +59,19 @@ export class ConfiguracoesComponent implements OnInit{
     this.scraperService.statusLinkSemDominio().subscribe(res => {
       this.linkSemDominioAtivado = res;
     });
+  }
+  
+  ativarLinkSemDominioOmc(){
+    this.scraperService.ativarLinkSemDominioOmc(this.linkSemDominioAtivadoOmc).subscribe();
+  }
+
+  statusLinkSemDominioOmc(){
+    this.scraperService.statusLinkSemDominioOmc().subscribe({
+      next: (res) => this.linkSemDominioAtivadoOmc = res,
+      error: (error) => {
+        alert(error);
+      }
+    })
   }
 
   onFileChange(event: any) {

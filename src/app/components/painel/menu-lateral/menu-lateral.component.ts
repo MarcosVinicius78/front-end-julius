@@ -1,6 +1,7 @@
 import { isPlatformBrowser } from '@angular/common';
-import { Component, HostListener,ElementRef, Inject, PLATFORM_ID } from '@angular/core';
+import { Component, HostListener, ElementRef, Inject, PLATFORM_ID, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { MenuItem } from 'primeng/api';
 
 @Component({
   selector: 'app-menu-lateral',
@@ -20,11 +21,16 @@ export class MenuLateralComponent {
   ) { }
 
   ativarMenu() {
-    this.menuAtivado =! this.menuAtivado;
+    this.menuAtivado = !this.menuAtivado;
   }
 
-  ativarMenuCadastrar(){
-    this.menuCadastrar =! this.menuCadastrar;
+  isOpen = false;
+  toggleMenu() {
+    this.isOpen = !this.isOpen;
+  }
+
+  ativarMenuCadastrar() {
+    this.menuCadastrar = !this.menuCadastrar;
   }
 
   @HostListener('document:click', ['$event'])

@@ -45,4 +45,12 @@ export class ScraperService {
   statusLinkSemDominio(){
     return this.http.get<boolean>(`${this.apiUrl}/scraper/status-link-sem-dominio`)
   }
+  
+  ativarLinkSemDominioOmc(valor: boolean){
+    return this.http.get(`${this.apiUrl}/config-site/ativar-link-sem-dominio-omc?valor=${valor}`)
+  }
+
+  statusLinkSemDominioOmc(){
+    return this.http.get<boolean>(`${this.apiUrl}/config-site/status-link-sem-dominio-omc`)
+  }
 }

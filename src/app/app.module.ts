@@ -60,6 +60,8 @@ import { RouterModule } from '@angular/router';
 import { ImageDisplayComponent } from "./common/image-display/image-display.component";
 import { ProdutoCardComponent } from './common/produto-card/produto-card.component';
 
+import { PanelMenuModule } from 'primeng/panelmenu';
+
 @NgModule({ declarations: [
         AppComponent,
         HeaderComponent,
@@ -93,6 +95,7 @@ import { ProdutoCardComponent } from './common/produto-card/produto-card.compone
     ],
     bootstrap: [AppComponent], imports: [BrowserModule,
     AppRoutingModule,
+    PanelMenuModule,
     FormsModule,
     ReactiveFormsModule,
     BrowserAnimationsModule,

@@ -1,6 +1,3 @@
-import { Categoria } from "./categoria";
-import { Loja } from "./loja";
-
 export interface Produto {
   id?: number;
   titulo?: string;
