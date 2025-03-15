@@ -28,6 +28,7 @@
               Promoção Encerrada
             </div>
             <img [src]="imagemService.getImagemUrl(produto.imagem, 'produtos')" alt="">
+
             <div class="absolute bottom-0 right-0 mr-4">
               <img class="w-3rem border-round-3xl lg:hidden" *ngIf="produto.lojaResponseDto.urlImagem"
                 [src]="imagemService.getImagemUrl(produto.lojaResponseDto.urlImagem, 'lojas')"
@@ -35,14 +36,24 @@
             </div>
           </div>
 
+          @if (!produto.imagem) {
+          <div class="ml-2 mt-2 skeleton skeleton-image">
+          </div>
+          }
+
 
           <div class="informaçoes">
             <div>
+
+              @if (produto.titulo) {
               <h2 *ngIf="produto.promocaoEncerrada" [class.promo-encerrada-cor]="produto.promocaoEncerrada"
                 class="titulo">{{ produto.titulo + ' [ENCERRADA]' }}</h2>
               <h2 *ngIf="!produto.promocaoEncerrada" [class.promo-encerrada-cor]="produto.promocaoEncerrada"
                 class="titulo">{{ produto.titulo }}</h2>
               <p class="data-none">há {{calculateElapsedTime(produto.dataCriacao)}}</p>
+              } @else {
+              <h2 class="skeleton w-full h-3rem"></h2>
+              }
             </div>
             <p [class.promo-encerrada-cor]="produto.promocaoEncerrada" class="preco pt-2 pb-2">{{ produto.preco }}</p>
 
@@ -53,6 +64,7 @@
             </div> -->
 
             <div class="flex justify-content-between lg:flex-row flex-column">
+              @if (produto.nomeColaborador) {
               <div class="flex sm:w-full md:w-6 justify-content-start mb-2 align-items-center">
                 <i class="pi pi-verified text-sm mr-1 p-1 bg-green-500 border-round-3xl text-white"></i>
                 <div class="flex justify-content-between align-items-center w-full">
@@ -66,6 +78,10 @@
                   <p class=" w-full sm:hidden text-right">há {{calculateElapsedTime(produto.dataCriacao)}}</p>
                 </div>
               </div>
+              }@else {
+              <div class="skeleton w-3 h-2rem"></div>
+              }
+
 
               <div (click)="copiarParaAreaTransferencia()" *ngIf="produto.cupom && produto.cupom.length < 20"
                 class="bg-gray-200 flex justify-content-center w-full lg:w-4 lg:h-auto p-3 lg:p-1 border-round align-items-center">
@@ -74,14 +90,17 @@
               </div>
             </div>
 
-
             <div class="flex align-items-end h-6 flex-column">
+              @if (produto.linkSiteSe) {
               <a class="btn_principal w-full w-full mt-2 lg:w-4 p-3 text-base h-4 text-center capitalize border-round no-underline text-white"
                 (click)="registrarCliqueBotao()" href="{{ produto.linkSiteSe }}" target="_blank">Pegar Promoção</a>
               <a class="bg-blue-400 w-full lg:w-4 mt-2 p-3 text-base lg:p-3 text-center capitalize border-round no-underline text-white"
                 *ngIf="produto.linkAppSe?.includes('onelink') && verificarSePassaram24Horas(produto.dataCriacao)"
                 (click)="registrarCliqueBotao()" href="{{ produto.linkAppSe }}" target="_blank">Pegar Promoção no
                 app</a>
+              }@else{
+              <div class="skeleton w-5 h-3rem"></div>
+              }
             </div>
           </div>
         </div>
@@ -89,6 +108,7 @@
         <hr class="linha-estilizada">
 
         <div *ngIf="produto" class="flex justify-content-between p-2">
+
           <div class="flex justify-content-around w-full lg:w-4">
             <div (click)="abrirModal()"
               class="flex align-items-center justify-content-center bg-gray-300 lg:w-6 sm:w-5 p-2 border-round-2xl">
@@ -103,7 +123,9 @@
               <p class="text-base ml-2 text-white">Compartilhar</p>
             </div>
           </div>
+
           <div class="w-9 hidden lg:flex">
+            @if (produto.lojaResponseDto.urlImagem) {
             <img class="w-2rem h-2rem border-round-3xl ml-2 mr-2" *ngIf="produto.lojaResponseDto.urlImagem"
               [src]="imagemService.getImagemUrl(produto.lojaResponseDto.urlImagem, 'lojas')"
               alt="{{ produto.lojaResponseDto.nome_loja }}">
@@ -111,6 +133,9 @@
               <p class="text-xs">Promoção da loja:</p>
               <p class="text-xs">{{ produto.lojaResponseDto.nome_loja }}</p>
             </div>
+            }@else{
+            <div class="skeleton-text skeleton w-2 h-full m-0"></div>
+            }
           </div>
         </div>
       </div>

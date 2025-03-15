@@ -14,6 +14,31 @@ section {
   justify-content: center;
 }
 
+.skeleton-text {
+  width: 80%;
+  height: 15px;
+  margin: 10px 0;
+}
+
+.skeleton {
+  background: linear-gradient(90deg, #e0e0e0 25%, #f0f0f0 50%, #e0e0e0 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite linear;
+  border-radius: 8px;
+}
+
+.skeleton-image {
+  width: 400px;
+  height: 300px;
+  border-radius: 8px;
+}
+
+/* Animação de brilho */
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
 .container {
   display: flex;
   gap: 32px;
@@ -588,6 +613,12 @@ button img {
   .promocao-apagada {
     height: 400px;
     width: auto;
+  }
+
+  .skeleton-image{
+    width: 100%;
+    margin-left: 0 !important;
+    
   }
 
   section{
