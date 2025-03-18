@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { ImagemServiceService } from 'src/app/service/painel/imagem-service.service';
 import * as dateFns from 'date-fns';
 
@@ -7,11 +7,18 @@ import * as dateFns from 'date-fns';
   templateUrl: './produto-card.component.html',
   styleUrl: './produto-card.component.css'
 })
-export class ProdutoCardComponent {
+export class ProdutoCardComponent implements OnInit {
 
   @Input() item: any;
 
+  isLoading = true; // Começa carregando
+
   constructor(public imagemService: ImagemServiceService) {}
+  ngOnInit(): void {
+    setTimeout(() => {
+      this.isLoading = false;
+    }, 1000);
+  }
 
   calculateElapsedTime(createdDate: string): string {
       const currentDate = new Date();

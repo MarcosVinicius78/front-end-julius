@@ -32,9 +32,9 @@ export class AnaliseService {
     return this.http.get<any>(`${this.apiUrl}/eventos/porcentagem-cliques-nao-cliques`);
   }
 
-  listarProdutosComMaisCliques(termo?: string) {
+  listarProdutosComMaisCliques(termo?: string, data?: string) {
     const termoFinal = termo ?? "";
-    return this.http.get<any>(`${this.apiUrl}/eventos/listar-produtos-com-mais-cliques?termo=${encodeURIComponent(termoFinal)}`);
+    return this.http.get<any>(`${this.apiUrl}/eventos/listar-produtos-com-mais-cliques?termo=${encodeURIComponent(termoFinal)}&data=${encodeURIComponent(data!)}`);
   }
   
 
@@ -62,11 +62,11 @@ export class AnaliseService {
     return this.http.get<EventoQuantidadePorTipo>(`${this.apiUrl}/eventos/buscar-por-dia`, { params });
   }
 
-  totalDeAcessosPorLoja() {
-    return this.http.get<TotalDeAcessosPorLoja[]>(`${this.apiUrl}/eventos/total-de-acessos-por-loja`);
+  totalDeAcessosPorLoja(data: string) {
+    return this.http.get<TotalDeAcessosPorLoja[]>(`${this.apiUrl}/eventos/total-de-acessos-por-loja?data=${data}`);
   }
 
-  totalDeAcessosPorCategoria() {
-    return this.http.get<TotalDeAcessosPorCategoria[]>(`${this.apiUrl}/eventos/total-de-acessos-por-categoria`);
+  totalDeAcessosPorCategoria(data: string) {
+    return this.http.get<TotalDeAcessosPorCategoria[]>(`${this.apiUrl}/eventos/total-de-acessos-por-categoria?data=${data}`);
   }
 }

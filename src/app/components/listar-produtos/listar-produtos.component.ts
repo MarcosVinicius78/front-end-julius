@@ -43,6 +43,8 @@ export class ListarProdutosComponent implements OnInit {
   size = 12;
   slideIndex = 1;
 
+  dataHoje: string = "";
+
   responsiveOptions = [
     {
       breakpoint: '1024px',
@@ -60,6 +62,8 @@ export class ListarProdutosComponent implements OnInit {
       numScroll: 1
     }
   ];
+
+  isLoading: boolean = true;
 
   acessosPorCategoria: TotalDeAcessosPorCategoria[] = [];
 
@@ -79,6 +83,8 @@ export class ListarProdutosComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+
+    this.buscarDataAtual();
 
     this.route.url.subscribe(params => {
       this.path = params.map(segment => segment.path).join(("/"));
@@ -119,10 +125,21 @@ export class ListarProdutosComponent implements OnInit {
   }
 
   totalDeAcessosPorCategoria() {
-    this.analiseService.totalDeAcessosPorCategoria().subscribe({
+    this.analiseService.totalDeAcessosPorCategoria(this.dataHoje).subscribe({
       next: (res) => this.acessosPorCategoria = res,
       error: (error) => console.log(error)
     })
+  }
+
+  buscarDataAtual() {
+    const dataAtual = new Date();
+    const ano = dataAtual.getFullYear();
+    const mes = String(dataAtual.getMonth() + 1).padStart(2, '0');
+    const dia = String(dataAtual.getDate()).padStart(2, '0');
+
+    const dataFormatada = `${ano}-${mes}-${dia}`;
+
+    this.dataHoje = dataFormatada;
   }
 
   listarPorCategoria() {

@@ -66,6 +66,8 @@ export class RelatoriosComponent {
 
   termoPesquisa: string | null = null;
 
+  dataHoje: string = "";
+
   eventoQuantidadeLinkCurto: EventoQuantidadePorTipo = {}
   eventoQuantidadeAcessoAPagina: EventoQuantidadePorTipo = {}
   eventoQuantidadeCliquesNoBotao: EventoQuantidadePorTipo = {}
@@ -80,7 +82,9 @@ export class RelatoriosComponent {
   ) { }
 
   ngOnInit() {
-    
+
+    this.buscarDataAtual();
+
     this.buscarDadosGeral()
     this.buscarDadosDaPagina()
     this.buscarDadosDoBotao()
@@ -94,8 +98,19 @@ export class RelatoriosComponent {
 
   }
 
+  buscarDataAtual() {
+    const dataAtual = new Date();
+    const ano = dataAtual.getFullYear();
+    const mes = String(dataAtual.getMonth() + 1).padStart(2, '0');
+    const dia = String(dataAtual.getDate()).padStart(2, '0');
+
+    const dataFormatada = `${ano}-${mes}-${dia}`;
+
+    this.dataHoje = dataFormatada;
+  }
+
   pesquisar() {
-    this.analiseService.listarProdutosComMaisCliques(this.termoPesquisa!).subscribe({
+    this.analiseService.listarProdutosComMaisCliques(this.termoPesquisa!, this.dataHoje).subscribe({
       next: (res) => {
         this.produtos = res.content
       }
@@ -103,7 +118,7 @@ export class RelatoriosComponent {
   }
 
   listarProdutosComMaisCliques() {
-    this.analiseService.listarProdutosComMaisCliques(this.termoPesquisa!).subscribe({
+    this.analiseService.listarProdutosComMaisCliques(this.termoPesquisa!, this.dataHoje!).subscribe({
       next: (res) => {
         this.produtos = res.content
       }
@@ -111,14 +126,14 @@ export class RelatoriosComponent {
   }
 
   totalDeAcessosPorCategoria() {
-    this.analiseService.totalDeAcessosPorCategoria().subscribe({
+    this.analiseService.totalDeAcessosPorCategoria(this.dataHoje).subscribe({
       next: (res) => this.acessosPorCategoria = res,
       error: (error) => console.log(error)
     })
   }
 
   totalDeAcessosPorLoja() {
-    this.analiseService.totalDeAcessosPorLoja().subscribe({
+    this.analiseService.totalDeAcessosPorLoja(this.dataHoje).subscribe({
       next: (res) => this.acessosPorLoja = res,
       error: (error) => console.log(error)
     })
@@ -140,32 +155,20 @@ export class RelatoriosComponent {
   }
 
   buscarDadosDaPagina() {
-    const dataFormatada = this.date
-      ? this.date.toISOString().split('T')[0]
-      : this.formatarDataLocal(new Date());
-
-    this.analiseService.buscarEventosPorDia(dataFormatada!, "ACESSO_OFERTAS").subscribe({
+    this.analiseService.buscarEventosPorDia(this.dataHoje!, "ACESSO_OFERTAS").subscribe({
       next: (res) => this.eventoQuantidadeAcessoAPagina = res
     })
   }
 
   buscarDadosDoBotao() {
-    const dataFormatada = this.date
-      ? this.date.toISOString().split('T')[0]
-      : this.formatarDataLocal(new Date());
-
-    this.analiseService.buscarEventosPorDia(dataFormatada!, "CLIQUE_BOTAO").subscribe({
+    this.analiseService.buscarEventosPorDia(this.dataHoje!, "CLIQUE_BOTAO").subscribe({
       next: (res) => this.eventoQuantidadeCliquesNoBotao = res
     })
   }
 
   buscarDadosDoLinkCurto() {
-    const dataFormatada = this.date
-      ? this.date.toISOString().split('T')[0]
-      : this.formatarDataLocal(new Date());
-
-    this.analiseService.buscarEventosPorDia(dataFormatada!, "ACESSO_LINK_CURTO").subscribe({
-      next: (res) => this.eventoQuantidadeLinkCurto= res
+    this.analiseService.buscarEventosPorDia(this.dataHoje!, "ACESSO_LINK_CURTO").subscribe({
+      next: (res) => this.eventoQuantidadeLinkCurto = res
     })
   }
 
@@ -179,15 +182,31 @@ export class RelatoriosComponent {
     })
   }
 
-  buscarDadosPorDia() {
-    console.log(this.date)
-  }
-
   private formatarDataLocal(data: Date): string {
     const ano = data.getFullYear();
     const mes = String(data.getMonth() + 1).padStart(2, '0'); // Mês é zero-based
     const dia = String(data.getDate()).padStart(2, '0');
     return `${ano}-${mes}-${dia}`;
+  }
+
+  buscarDadosPorDia() {
+    const dataAtual = this.date!;
+    const ano = dataAtual.getFullYear();
+    const mes = String(dataAtual.getMonth() + 1).padStart(2, '0');
+    const dia = String(dataAtual.getDate()).padStart(2, '0');
+
+    const dataFormatada = `${ano}-${mes}-${dia}`;
+
+    this.dataHoje = dataFormatada;
+
+    this.totalDeAcessosPorLoja();
+    this.totalDeAcessosPorCategoria();
+
+    this.buscarDadosDoBotao();
+    this.buscarDadosDoLinkCurto();
+
+    this.buscarDadosDaPagina();
+    this.listarProdutosComMaisCliques();
   }
 
   buscarDadosPorData() {
