@@ -24,8 +24,11 @@
 
         <div *ngIf="produto" class="info">
           <div *ngIf="produto.imagem != undefined" class="imagem-produto">
-            <div *ngIf="produto.promocaoEncerrada" class="promo-encerrada">
+            <div *ngIf="produto.promocaoEncerrada && !produto.cupom" class="promo-encerrada">
               Promoção Encerrada
+            </div>
+            <div *ngIf="produto.promocaoEncerrada && produto.cupom" class="promo-encerrada">
+              Cupom Encerrado
             </div>
             <img [src]="imagemService.getImagemUrl(produto.imagem, 'produtos')" alt="">
 
