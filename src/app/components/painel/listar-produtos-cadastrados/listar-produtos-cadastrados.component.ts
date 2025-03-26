@@ -358,6 +358,7 @@ export class ListarProdutosCadastradosComponent implements OnInit {
     const montarTitulo = () => {
       if (produto.copy) {
         adicionarTexto(`*${produto.copy}*\n`);
+        adicionarTexto(`\u{1F4CC} ${produto.titulo?.substring(0, 60) ?? ''}...\n`);
       } else if (site === 2 || site === 1) {
         adicionarTexto(`\u{1F4CC} ${produto.titulo?.substring(0, 60) ?? ''}...\n`);
       } else {
